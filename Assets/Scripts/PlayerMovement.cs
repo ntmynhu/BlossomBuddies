@@ -4,48 +4,70 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
+    [SerializeField] private CharacterController controller;
 
-    public float speed = 12f;
-    public float gravity = -9.81f * 2;
-    public float jumpHeight = 3f;
+    [SerializeField] private float speed = 12f;
+    [SerializeField] private float gravity = -9.81f * 2;
+    [SerializeField] private float jumpHeight = 3f;
 
-    public Transform groundCheck;
-    public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
-    Vector3 velocity;
+    [SerializeField] private Transform cameraTransform;
 
-    bool isGrounded;
+    private float verticalVelocity;
+    private Vector3 inputDirection = Vector3.zero;
 
-    // Update is called once per frame
-    void Update()
+    private float currentVel;
+    private float smoothRotationTime = 0.12f;
+    private bool isGrounded;
+
+    private void FixedUpdate()
+    {
+        HandleMovement();
+    }
+
+    private void HandleMovement()
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if (isGrounded && velocity.y < 0)
-        {
-            velocity.y = -2f;
-        }
-
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        //right is the red Axis, foward is the blue axis
-        Vector3 move = transform.right * x + transform.forward * z;
+        inputDirection = new Vector3(x, 0, z).normalized;
 
-        controller.Move(move * speed * Time.deltaTime);
+        Debug.Log("Move Direction: " + inputDirection);
+
+        // Handle rotation
+        if (inputDirection.magnitude > 0.01f)
+        {
+            float rotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, rotation, ref currentVel, smoothRotationTime);
+        }
+
+        // Handle jump & gravity
+        if (isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = -2f;
+        }
 
         //check if the player is on the ground so he can jump
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             //the equation for jumping
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
-        velocity.y += gravity * Time.deltaTime;
+        verticalVelocity += gravity * Time.deltaTime;
 
-        controller.Move(velocity * Time.deltaTime);
+        Vector3 move = transform.forward;
+
+        move *= inputDirection.magnitude * speed;
+        move.y = verticalVelocity;
+
+        Debug.Log(move);
+        controller.Move(move * Time.deltaTime);
     }
 }
