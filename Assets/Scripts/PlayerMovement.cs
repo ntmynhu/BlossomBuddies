@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [SerializeField] private float speed = 12f;
+    [SerializeField] private float runSpeed = 12f;
     [SerializeField] private float acceleration = 10f;
     [SerializeField] private float deceleration = 10f;
 
@@ -47,8 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
         inputDirection = new Vector3(x, 0, z).normalized;
 
-        Debug.Log("Move Direction: " + inputDirection);
-
         // Handle rotation
         if (inputDirection.magnitude > 0.01f)
         {
@@ -80,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (isRunning)
         {
-            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed * 2, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
+            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, runSpeed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
         }
         else
         {
@@ -90,7 +89,6 @@ public class PlayerMovement : MonoBehaviour
         move *= currentSpeed;
         move.y = verticalVelocity;
 
-        Debug.Log(move);
         controller.Move(move * Time.deltaTime);
 
         animator.SetBool("IsJump", isJumping || !isGrounded);
