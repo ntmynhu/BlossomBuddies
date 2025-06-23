@@ -94,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsJump", isJumping || !isGrounded);
 
         if (!isJumping)
-            animator.SetFloat("Vert", controller.velocity.magnitude / speed);
+            animator.SetFloat("Velocity", controller.velocity.magnitude / speed);
 
         // Reset jump state after applying movement
         isJumping = false;
