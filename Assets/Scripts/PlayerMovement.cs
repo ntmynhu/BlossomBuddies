@@ -25,7 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     private float currentRotationVel;
     private float smoothRotationTime = 0.12f;
+
     private bool isGrounded;
+    private bool isRunning;
+    private bool isJumping;
 
     private float currentSpeed;
 
@@ -64,13 +67,25 @@ public class PlayerMovement : MonoBehaviour
         {
             //the equation for jumping
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            isJumping = true;
         }
 
         verticalVelocity += gravity * Time.deltaTime;
 
         Vector3 move = transform.forward;
 
-        currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
+        // Check run condition
+        isRunning = Input.GetKey(KeyCode.LeftShift) && inputDirection.magnitude > 0.01f;
+
+        if (isRunning)
+        {
+            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed * 2, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
+        }
+        else
+        {
+            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
+        }
 
         move *= currentSpeed;
         move.y = verticalVelocity;
@@ -78,6 +93,12 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(move);
         controller.Move(move * Time.deltaTime);
 
-        animator.SetFloat("Vert", controller.velocity.magnitude / speed);
+        animator.SetBool("IsJump", isJumping || !isGrounded);
+
+        if (!isJumping)
+            animator.SetFloat("Vert", controller.velocity.magnitude / speed);
+
+        // Reset jump state after applying movement
+        isJumping = false;
     }
 }
