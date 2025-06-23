@@ -179,7 +179,7 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -380, y: 750, z: 0}
-  m_EntryPosition: {x: -370, y: -50, z: 0}
+  m_EntryPosition: {x: -370, y: -40, z: 0}
   m_ExitPosition: {x: 310, y: 630, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 3914487254410032992}
@@ -657,7 +657,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DemoAnim
+  m_Name: PlayerAnim
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: animation
