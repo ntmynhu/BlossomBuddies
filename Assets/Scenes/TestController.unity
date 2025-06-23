@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -883,6 +884,26 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4329458cdb464796191393167d4f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensitivityX: 0.1
+  m_SensitivityY: 0.1
+  m_Zoom: 0.5
+  m_SensetivityZoom: 0.1
+  m_MinAngle: 0
+  m_MaxAngle: 50
+  m_Offset: 1.5
+  m_CameraSpeed: 90
 --- !u!4 &364471209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 440546, guid: 80f439e9efd1b4a4ea1e0075199c1edc,
@@ -964,11 +985,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -25535521549600216, guid: c8ef145d788d0804f9e31c8079352c06,
         type: 3}
-    - target: {fileID: 6930185701218107432, guid: 5736e576bae68ca4393c5441179cace9,
-        type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7140850919178425051, guid: 5736e576bae68ca4393c5441179cace9,
         type: 3}
       propertyPath: m_Mesh
@@ -3000,12 +3016,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d955fe241b34fb4d81db23f8d154aad, type: 3}
---- !u!95 &1426768056 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6930185701218107432, guid: 5736e576bae68ca4393c5441179cace9,
-    type: 3}
-  m_PrefabInstance: {fileID: 393887380}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1434144175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3991,7 +4001,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1832228724}
   - component: {fileID: 1832228723}
-  - component: {fileID: 1832228722}
+  - component: {fileID: 1832228726}
+  - component: {fileID: 1832228727}
   - component: {fileID: 1832228725}
   m_Layer: 0
   m_Name: Player
@@ -4000,29 +4011,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1832228722
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832228720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1b2bc319e65e743bd949d4608cb145, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 1832228723}
-  animator: {fileID: 1426768056}
-  speed: 5
-  gravity: -19.62
-  jumpHeight: 3
-  groundCheck: {fileID: 1027601887}
-  groundDistance: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  cameraTransform: {fileID: 330585546}
 --- !u!143 &1832228723
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4076,13 +4064,65 @@ MonoBehaviour:
   m_GameObject: {fileID: 1832228720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba84fc81e7827244bef0b38e48fb8b3, type: 3}
+  m_Script: {fileID: 11500000, guid: f75db5b538eef814b9775d744f05e3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 125
-  cameraDistance: 3.5
-  thirdPersonCam: {fileID: 330585545}
-  followTarget: {fileID: 390547130}
+  m_WalkSpeed: 1
+  m_RunSpeed: 4
+  m_RotateSpeed: 90
+  m_Space: 1
+  m_JumpHeight: 5
+  m_HorizontalID: Hor
+  m_VerticalID: Vert
+  m_StateID: State
+  m_JumpID: IsJump
+  m_LookWeight:
+    weight: 1
+    body: 0.3
+    head: 0.7
+    eyes: 1
+--- !u!95 &1832228726
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832228720}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1832228727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832228720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c67ce836140b4479603ebcf944cddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_JumpButton: Jump
+  m_RunKey: 304
+  m_Camera: {fileID: 330585548}
+  m_MouseX: Mouse X
+  m_MouseY: Mouse Y
+  m_MouseScroll: Mouse ScrollWheel
 --- !u!4 &1832633910 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 406524, guid: e56a3f19365c0db4582578c6a05c130b,

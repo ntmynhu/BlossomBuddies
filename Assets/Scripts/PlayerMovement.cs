@@ -5,8 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController controller;
+    [SerializeField] private Animator animator;
 
     [SerializeField] private float speed = 12f;
+    [SerializeField] private float acceleration = 10f;
+    [SerializeField] private float deceleration = 10f;
+
     [SerializeField] private float gravity = -9.81f * 2;
     [SerializeField] private float jumpHeight = 3f;
 
@@ -19,9 +23,11 @@ public class PlayerMovement : MonoBehaviour
     private float verticalVelocity;
     private Vector3 inputDirection = Vector3.zero;
 
-    private float currentVel;
+    private float currentRotationVel;
     private float smoothRotationTime = 0.12f;
     private bool isGrounded;
+
+    private float currentSpeed;
 
     private void FixedUpdate()
     {
@@ -44,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         if (inputDirection.magnitude > 0.01f)
         {
             float rotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
-            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, rotation, ref currentVel, smoothRotationTime);
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, rotation, ref currentRotationVel, smoothRotationTime);
         }
 
         // Handle jump & gravity
@@ -64,10 +70,14 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.forward;
 
-        move *= inputDirection.magnitude * speed;
+        currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
+
+        move *= currentSpeed;
         move.y = verticalVelocity;
 
         Debug.Log(move);
         controller.Move(move * Time.deltaTime);
+
+        animator.SetFloat("Vert", controller.velocity.magnitude / speed);
     }
 }

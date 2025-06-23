@@ -4,7 +4,6 @@ using UnityEngine;
 namespace Controller
 {
     [RequireComponent(typeof(CharacterController))]
-    [RequireComponent(typeof(Animator))]
     [DisallowMultipleComponent]
     public class CharacterMover : MonoBehaviour
     {
@@ -62,7 +61,7 @@ namespace Controller
         {
             m_Transform = transform;
             m_Controller = GetComponent<CharacterController>();
-            m_Animator = GetComponent<Animator>();
+            m_Animator = GetComponentInChildren<Animator>();
 
             m_Movement = new MovementHandler(m_Controller, m_Transform, m_WalkSpeed, m_RunSpeed, m_RotateSpeed, m_JumpHeight, m_Space);
             m_Animation = new AnimationHandler(m_Animator, m_HorizontalID,  m_VerticalID, m_StateID, m_JumpID);
