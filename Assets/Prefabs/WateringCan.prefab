@@ -86,7 +86,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 1e1d2d0fb39ccf04691b2a8af0e7c6b5,
         type: 3}
       propertyPath: m_Name
-      value: Prop_WateringCan_02
+      value: WateringCan
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -96,6 +96,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6386265452591984228}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 1e1d2d0fb39ccf04691b2a8af0e7c6b5,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4204650298645406962}
   m_SourcePrefab: {fileID: 100100000, guid: 1e1d2d0fb39ccf04691b2a8af0e7c6b5, type: 3}
 --- !u!1 &4702399135787448459 stripped
 GameObject:
@@ -125,3 +129,16 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -4338989598495525477, guid: 1e1d2d0fb39ccf04691b2a8af0e7c6b5, type: 3}
+--- !u!114 &4204650298645406962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702399135787448459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34358f4e095b38646ab06d48d745f9b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolInfo: {fileID: 0}

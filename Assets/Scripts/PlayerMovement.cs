@@ -108,7 +108,6 @@ public class PlayerMovement : MonoBehaviour
         if (!isJumping)
             animator.SetFloat("Velocity", controller.velocity.magnitude / speed);
 
-        Debug.Log(verticalVelocity / maxVertVel);
         animator.SetFloat("VerticalVel", verticalVelocity / maxVertVel);
 
         // Reset jump state after applying movement
