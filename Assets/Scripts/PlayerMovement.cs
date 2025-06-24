@@ -32,6 +32,22 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping;
 
     private float currentSpeed;
+    private float maxVertVel;
+
+    private void Start()
+    {
+        maxVertVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumping = true;
+        }
+
+        animator.SetBool("IsJump", isJumping || !isGrounded);
+    }
 
     private void FixedUpdate()
     {
@@ -62,12 +78,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //check if the player is on the ground so he can jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isJumping && isGrounded)
         {
             //the equation for jumping
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-            isJumping = true;
+            verticalVelocity = maxVertVel;
         }
 
         verticalVelocity += gravity * Time.deltaTime;
@@ -91,10 +105,11 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(move * Time.deltaTime);
 
-        animator.SetBool("IsJump", isJumping || !isGrounded);
-
         if (!isJumping)
             animator.SetFloat("Velocity", controller.velocity.magnitude / speed);
+
+        Debug.Log(verticalVelocity / maxVertVel);
+        animator.SetFloat("VerticalVel", verticalVelocity / maxVertVel);
 
         // Reset jump state after applying movement
         isJumping = false;
