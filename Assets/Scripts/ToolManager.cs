@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class ToolManager : MonoBehaviour
 
     private Tool currentTool;
     private List<Tool> toolList = new();
+
+    private Transform initialTransform;
 
     #region Singleton
     private static ToolManager instance;
@@ -24,38 +27,51 @@ public class ToolManager : MonoBehaviour
     }
     #endregion
 
-    public void InitializeTools(Transform parentTransform)
+    public IEnumerator InitializeTools(Transform spawnTransform)
     {
+        initialTransform = spawnTransform;
+
         foreach (var toolInfo in toolInfos)
         {
-            GameObject toolObject = Instantiate(toolInfo.toolPrefab, parentTransform);
-            toolObject.SetActive(false);
+            GameObject toolObject = Instantiate(toolInfo.toolPrefab, spawnTransform);
 
             Tool tool = toolObject.GetComponent<Tool>();
             tool.toolInfo = toolInfo;
 
             toolList.Add(tool);
 
-            Debug.Log($"Initialized tool: {toolInfo.toolName} , {tool}");
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    public void SetCurrentTool(Tool newTool)
+    public void SetCurrentTool(Tool newTool, Transform parent)
     {
         if (currentTool != null)
         {
-            currentTool.gameObject.SetActive(false);
+            currentTool.transform.SetParent(initialTransform);
+            currentTool.transform.localPosition = Vector3.zero;
+
+            Rigidbody oldRb = currentTool.GetComponent<Rigidbody>();
+            oldRb.useGravity = true;
+            oldRb.isKinematic = false;
         }
 
         currentTool = newTool;
         if (currentTool != null)
         {
-            currentTool.gameObject.SetActive(true);
+            Rigidbody rb = currentTool.GetComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
+
+            currentTool.transform.SetParent(parent);
+
+            currentTool.transform.localPosition = currentTool.initialPos;
+            currentTool.transform.localRotation = currentTool.initialRot;
         }
     }
 
-    public void TestTool(int index)
+    public void TestTool(int index, Transform parent)
     {
-        SetCurrentTool(toolList[index]);
+        SetCurrentTool(toolList[index], parent);
     }
 }

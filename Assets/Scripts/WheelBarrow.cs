@@ -5,9 +5,11 @@ public class WheelBarrow : MonoBehaviour
 {
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private float detectionRadius;
+    [SerializeField] private Transform spawnPos;
 
     private float distanceToPlayer;
     private GameObject player;
+    private ToolHandler toolHandler;
 
     private bool isPlayerInRange = false;
     private bool isAttachedToPlayer = false;
@@ -15,6 +17,8 @@ public class WheelBarrow : MonoBehaviour
     private void Start()
     {
         player = GameManager.Instance.Player;
+        toolHandler = player.GetComponent<ToolHandler>();
+        StartCoroutine(ToolManager.Instance.InitializeTools(spawnPos));
     }
 
     private void Update()
@@ -22,10 +26,30 @@ public class WheelBarrow : MonoBehaviour
         if (isPlayerInRange && !isAttachedToPlayer && Input.GetKeyDown(KeyCode.E))
         {
             AttachToPlayer();
-        }  
+        }
         else if (isAttachedToPlayer && Input.GetKeyDown(KeyCode.E))
         {
             DetachFromPlayer();
+        }
+
+        if (isPlayerInRange)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                ToolManager.Instance.TestTool(0, toolHandler.ParentTransform);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                ToolManager.Instance.TestTool(1, toolHandler.ParentTransform);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                ToolManager.Instance.TestTool(2, toolHandler.ParentTransform);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                ToolManager.Instance.SetCurrentTool(null, toolHandler.ParentTransform);
+            }
         }
     }
 
