@@ -1,17 +1,11 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class WheelBarrow : MonoBehaviour
+public class WheelBarrow : PlayerDetect
 {
-    [SerializeField] private LayerMask playerMask;
-    [SerializeField] private float detectionRadius;
     [SerializeField] private Transform spawnPos;
 
-    private float distanceToPlayer;
-    private GameObject player;
     private ToolHandler toolHandler;
-
-    private bool isPlayerInRange = false;
     private bool isAttachedToPlayer = false;
 
     private void Start()
@@ -50,22 +44,6 @@ public class WheelBarrow : MonoBehaviour
             {
                 ToolManager.Instance.SetCurrentTool(null, toolHandler.ParentTransform);
             }
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            isPlayerInRange = false;
         }
     }
 
