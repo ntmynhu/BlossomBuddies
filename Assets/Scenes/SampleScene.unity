@@ -14220,6 +14220,11 @@ PrefabInstance:
       propertyPath: thirdPersonCam
       value: 
       objectReference: {fileID: 330585545}
+    - target: {fileID: 2747034712474786400, guid: f1bfa143145d59d4eb1ace543079a84b,
+        type: 3}
+      propertyPath: mouseSensitivity
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 5549019586616305233, guid: f1bfa143145d59d4eb1ace543079a84b,
         type: 3}
       propertyPath: m_Name

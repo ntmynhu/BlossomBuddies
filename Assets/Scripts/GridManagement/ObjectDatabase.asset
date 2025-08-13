@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eea0ee37b0eac547a48f52041e2f6ef, type: 3}
+  m_Name: ObjectDatabase
+  m_EditorClassIdentifier: 
+  objectDatas:
+  - <Name>k__BackingField: Soil
+    <ID>k__BackingField: 0
+    <Size>k__BackingField: {x: 1, y: 1}
+    prefab: {fileID: 1967463717879569282, guid: 8e963fb95dc2e414494c0b8a13670cf3,
+      type: 3}
+  - <Name>k__BackingField: DarkSoil
+    <ID>k__BackingField: 1
+    <Size>k__BackingField: {x: 1, y: 1}
+    prefab: {fileID: 1967463717879569282, guid: f3e9984f53ce4214d8effe61b59f3f66,
+      type: 3}
+  - <Name>k__BackingField: Log
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 3, y: 1}
+    prefab: {fileID: 1967463717879569282, guid: 670e3f8c15850484cab9ba4b4da59747,
+      type: 3}
