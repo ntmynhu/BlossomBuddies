@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlacementSysyem : MonoBehaviour
@@ -10,6 +11,15 @@ public class PlacementSysyem : MonoBehaviour
     [SerializeField] private ObjectsDatabaseSO databaseSO;
 
     private int selectedIndex;
+
+    private GridData soilGridData, objectGridData;
+    private List<GameObject> placedObjects = new();
+
+    private void Start()
+    {
+        soilGridData = new GridData();
+        objectGridData = new GridData();
+    }
 
     private void Update()
     {
@@ -34,8 +44,21 @@ public class PlacementSysyem : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            GameObject newGameObject = Instantiate(databaseSO.objectDatas[selectedIndex].prefab);
-            newGameObject.transform.position = grid.CellToWorld(gridPosition);
+            GridData gridData = selectedIndex < 2 ? soilGridData : objectGridData;
+
+            if (gridData.CanPlaceAt(gridPosition, databaseSO.objectDatas[selectedIndex].Size))
+            {
+                GameObject newGameObject = Instantiate(databaseSO.objectDatas[selectedIndex].prefab);
+                newGameObject.transform.position = grid.CellToWorld(gridPosition);
+
+                placedObjects.Add(newGameObject);
+
+                gridData.AddObject(gridPosition, databaseSO.objectDatas[selectedIndex].Size, databaseSO.objectDatas[selectedIndex].ID, placedObjects.Count - 1);
+            }
+            else
+            {
+                Debug.Log("Cannot Place");
+            }
         }
     }
 }
