@@ -23,10 +23,13 @@ public class PlacementSysyem : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePosition = inputManager.GetSelectedMapPosition();
+        //Vector3 mousePosition = inputManager.GetSelectedMapPosition();
         //mouseIndicator.transform.position = mousePosition;
 
-        Vector3Int gridPosition = grid.WorldToCell(mousePosition);
+        Vector3 playerPosition = inputManager.GetPlayerSelectedMapPosition();
+        Debug.Log(playerPosition);
+
+        Vector3Int gridPosition = grid.WorldToCell(playerPosition);
         cellIndicator.transform.position = grid.CellToWorld(gridPosition);
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
