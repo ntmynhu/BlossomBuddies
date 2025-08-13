@@ -24,7 +24,7 @@ public class PlacementSysyem : MonoBehaviour
     private void Update()
     {
         Vector3 mousePosition = inputManager.GetSelectedMapPosition();
-        mouseIndicator.transform.position = mousePosition;
+        //mouseIndicator.transform.position = mousePosition;
 
         Vector3Int gridPosition = grid.WorldToCell(mousePosition);
         cellIndicator.transform.position = grid.CellToWorld(gridPosition);
