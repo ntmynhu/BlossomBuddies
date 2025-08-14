@@ -7,6 +7,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private ToolInfo[] toolInfos;
 
     private Tool currentTool;
+
     private List<Tool> toolList = new();
 
     private Transform initialTransform;
@@ -68,10 +69,17 @@ public class ToolManager : MonoBehaviour
             currentTool.transform.localPosition = currentTool.initialPos;
             currentTool.transform.localRotation = currentTool.initialRot;
         }
+
+        PlacementSystem.Instance.ShowIndicator(currentTool);
     }
 
     public void TestTool(int index, Transform parent)
     {
         SetCurrentTool(toolList[index], parent);
+    }
+
+    public Tool GetCurrentTool()
+    {
+        return currentTool;
     }
 }

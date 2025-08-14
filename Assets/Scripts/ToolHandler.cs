@@ -1,3 +1,4 @@
+using UnityEditor.Tilemaps;
 using UnityEngine;
 
 public class ToolHandler : MonoBehaviour
@@ -6,28 +7,25 @@ public class ToolHandler : MonoBehaviour
 
     public Transform ParentTransform => parentTransform;
 
-    private void Start()
-    {
-        //ToolManager.Instance.InitializeTools(parentTransform);
-    }
-
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Alpha1))
-        //{
-        //    ToolManager.Instance.TestTool(0);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha2))
-        //{
-        //    ToolManager.Instance.TestTool(1);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha3))
-        //{
-        //    ToolManager.Instance.TestTool(2);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.Alpha0))
-        //{
-        //    ToolManager.Instance.SetCurrentTool(null); // Deselect current tool
-        //}    
+        if (Input.GetMouseButtonDown(0))
+        {
+            Tool tool = ToolManager.Instance.GetCurrentTool();
+            if (tool != null)
+            {
+                tool.UseTool();
+            }
+        }
+    }
+
+    public void SelectTool(int toolIndex)
+    {
+        ToolManager.Instance.TestTool(toolIndex, parentTransform);
+    }
+
+    public void UnSelectTool()
+    {
+        ToolManager.Instance.SetCurrentTool(null, parentTransform);
     }
 }

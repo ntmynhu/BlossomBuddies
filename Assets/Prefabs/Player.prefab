@@ -109,9 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 732372342609450617}
   animator: {fileID: 5544809676572108601}
-  speed: 2
-  runSpeed: 4
-  acceleration: 5
+  speed: 3
+  runSpeed: 6
+  acceleration: 10
   deceleration: 20
   gravity: -19.62
   jumpHeight: 1.5

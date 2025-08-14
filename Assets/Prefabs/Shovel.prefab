@@ -111,15 +111,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 868d657cdf936f34baaaab9fc58ced9f,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8042703510248463895}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 868d657cdf936f34baaaab9fc58ced9f,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: -5593058715797650077}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 868d657cdf936f34baaaab9fc58ced9f,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4433176902577541861}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 868d657cdf936f34baaaab9fc58ced9f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6096868489873949470}
   m_SourcePrefab: {fileID: 100100000, guid: 868d657cdf936f34baaaab9fc58ced9f, type: 3}
 --- !u!1 &5038638941717291079 stripped
 GameObject:
@@ -127,21 +127,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5273080445138853142}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8042703510248463895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5038638941717291079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34358f4e095b38646ab06d48d745f9b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  toolInfo: {fileID: 0}
-  initialPos: {x: 0, y: 0, z: 0}
-  initialRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!54 &-5593058715797650077
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,3 +176,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -1194659740186600739, guid: e2f3e09cd90407742950c5a30ca55593, type: 3}
+--- !u!114 &6096868489873949470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5038638941717291079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b11b768f0cef2e440b6724fcba424c0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolInfo: {fileID: 11400000, guid: 4dc2503c8f7d6504c8d321e863790477, type: 2}
+  initialPos: {x: 0, y: 0, z: 0}
+  initialRot: {x: 0, y: 0, z: 0, w: 0}
+  spawnObject: {fileID: 11400000, guid: 515eca6fd4268d34faedea597ecf21eb, type: 2}

@@ -12,4 +12,6 @@ public class Tool : MonoBehaviour
         initialPos = transform.localPosition;
         initialRot = transform.localRotation;
     }
+
+    public virtual void UseTool() { }
 }

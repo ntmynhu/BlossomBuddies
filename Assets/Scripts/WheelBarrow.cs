@@ -30,19 +30,19 @@ public class WheelBarrow : PlayerDetect
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                ToolManager.Instance.TestTool(0, toolHandler.ParentTransform);
+                toolHandler.SelectTool(0);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                ToolManager.Instance.TestTool(1, toolHandler.ParentTransform);
+                toolHandler.SelectTool(1);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                ToolManager.Instance.TestTool(2, toolHandler.ParentTransform);
+                toolHandler.SelectTool(2);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha0))
             {
-                ToolManager.Instance.SetCurrentTool(null, toolHandler.ParentTransform);
+                toolHandler.UnSelectTool();
             }
         }
     }
