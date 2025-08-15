@@ -7,18 +7,19 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField] private GameObject cellIndicator;
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Grid grid;
-
+    [SerializeField] private List<GridType> gridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
 
     private int selectedIndex;
 
-    private GridData soilGridData, objectGridData;
     private List<GameObject> placedObjects = new();
 
     private bool showIndicator = false;
 
     private Vector3 playerPosition;
     private Vector3Int gridPosition;
+
+    private Dictionary<GridType, GridData> gridDataDictionary = new();
 
     #region Singleton
     private static PlacementSystem instance;
@@ -38,8 +39,11 @@ public class PlacementSystem : MonoBehaviour
 
     private void Start()
     {
-        soilGridData = new GridData();
-        objectGridData = new GridData();
+        for (int i = 0; i < gridTypeList.Count; i++)
+        {
+            GridData gridData = new GridData(gridTypeList[i]);
+            gridDataDictionary[gridTypeList[i]] = gridData;
+        }
 
         cellIndicator.SetActive(showIndicator);
     }
@@ -62,9 +66,8 @@ public class PlacementSystem : MonoBehaviour
 
     public void PlaceObject(int selectedIndex)
     {
-        GridData gridData = selectedIndex < 2 ? soilGridData : objectGridData;
-
         var objectData = SelectedObject(selectedIndex);
+        var gridData = gridDataDictionary[objectData.gridType];
 
         if (gridData.CanPlaceAt(gridPosition, objectData.Size))
         {

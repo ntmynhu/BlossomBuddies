@@ -16,6 +16,7 @@ MonoBehaviour:
   ID: 100
   Size: {x: 1, y: 1}
   prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
+  gridType: 1
   plantStates:
   - {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
   - {fileID: 8935979759752783158, guid: 44019ec0b68e1724390975561218d4b2, type: 3}

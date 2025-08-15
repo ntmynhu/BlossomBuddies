@@ -1,9 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GridData
 {
+    private GridType gridType;
     private Dictionary<Vector3Int, PlacementData> placedObjects = new();
+
+    public GridData(GridType gridType)
+    {
+        this.gridType = gridType;
+    }
 
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
     {
@@ -60,4 +67,10 @@ public class PlacementData
         ID = iD;
         PlacedObjectIndex = placedObjectIndex;
     }
+}
+
+public enum GridType
+{
+    SoilGrid,
+    PlantGrid
 }
