@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-public class Shovel : Tool
+public class SeedBag : Tool
 {
-    [SerializeField] private ObjectData spawnObject;
+    [SerializeField] private PlantData spawnObject;
 
     public override void UseTool(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {

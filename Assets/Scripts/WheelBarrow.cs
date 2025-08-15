@@ -40,6 +40,10 @@ public class WheelBarrow : PlayerDetect
             {
                 toolHandler.SelectTool(2);
             }
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                toolHandler.SelectTool(3);
+            }
             else if (Input.GetKeyDown(KeyCode.Alpha0))
             {
                 toolHandler.UnSelectTool();

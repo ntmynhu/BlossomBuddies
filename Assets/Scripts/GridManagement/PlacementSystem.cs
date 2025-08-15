@@ -64,19 +64,26 @@ public class PlacementSystem : MonoBehaviour
     {
         GridData gridData = selectedIndex < 2 ? soilGridData : objectGridData;
 
-        if (gridData.CanPlaceAt(gridPosition, databaseSO.objectDatas[selectedIndex].Size))
+        var objectData = SelectedObject(selectedIndex);
+
+        if (gridData.CanPlaceAt(gridPosition, objectData.Size))
         {
-            GameObject newGameObject = Instantiate(databaseSO.objectDatas[selectedIndex].prefab);
+            GameObject newGameObject = Instantiate(objectData.prefab);
             newGameObject.transform.position = grid.CellToWorld(gridPosition);
 
             placedObjects.Add(newGameObject);
 
-            gridData.AddObject(gridPosition, databaseSO.objectDatas[selectedIndex].Size, databaseSO.objectDatas[selectedIndex].ID, placedObjects.Count - 1);
+            gridData.AddObject(gridPosition, objectData.Size, objectData.ID, placedObjects.Count - 1);
         }
         else
         {
             Debug.Log("Cannot Place");
         }
+    }    
+
+    public ObjectData SelectedObject(int ID)
+    {
+        return databaseSO.objectDatas.Find(data => data.ID == ID);
     }    
 
     public void ShowIndicator(bool value)

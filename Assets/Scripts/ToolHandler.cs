@@ -4,6 +4,8 @@ using UnityEngine;
 public class ToolHandler : MonoBehaviour
 {
     [SerializeField] private Transform parentTransform;
+    [SerializeField] private PlayerAnimation playerAnim;
+    [SerializeField] private PlayerMovement playerMovement;
 
     public Transform ParentTransform => parentTransform;
 
@@ -14,7 +16,7 @@ public class ToolHandler : MonoBehaviour
             Tool tool = ToolManager.Instance.GetCurrentTool();
             if (tool != null)
             {
-                tool.UseTool();
+                tool.UseTool(playerAnim, playerMovement);
             }
         }
     }

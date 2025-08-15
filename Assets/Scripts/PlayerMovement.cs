@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private float maxVertVel;
 
+    private bool movementEnabled = true;
+
     private void Start()
     {
         maxVertVel = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -51,7 +53,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!movementEnabled)
+            return;
+
         HandleMovement();
+    }
+
+    public void SetMovementEnable(bool enable)
+    {
+        movementEnabled = enable;
     }
 
     private void HandleMovement()

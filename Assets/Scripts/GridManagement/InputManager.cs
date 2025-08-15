@@ -27,12 +27,10 @@ public class InputManager : MonoBehaviour
 
     public Vector3 GetPlayerSelectedMapPosition()
     {
-        Debug.Log(player.transform.forward);
-        Vector3 playerPos = player.transform.position /*+ player.transform.forward*/ + Vector3.up * 1f;
+        Vector3 playerPos = player.transform.position + player.transform.forward/2 + Vector3.up * 1f;
         if (Physics.Raycast(playerPos, Vector3.down, out RaycastHit hit, 100, placementLayermask))
         {
             lastPosition = hit.point;
-            Debug.Log("Hit");
         }
         return lastPosition;
     }
