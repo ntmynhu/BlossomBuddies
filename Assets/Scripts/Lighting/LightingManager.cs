@@ -18,7 +18,6 @@ public class LightingManager : MonoBehaviour
         timeOfDay = currentTime.Hour + currentTime.Minute / 60f + currentTime.Second / 3600f;
         UpdateLighting(timeOfDay / 24);
 
-        Debug.Log(timeOfDay);
         updateLightingTimer = 0f; // Reset the timer after updating
     }
 

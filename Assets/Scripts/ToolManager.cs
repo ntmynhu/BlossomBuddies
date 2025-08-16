@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolManager : MonoBehaviour
+public class ToolManager : Singleton<ToolManager>
 {
     [SerializeField] private ToolInfo[] toolInfos;
 
@@ -11,22 +11,6 @@ public class ToolManager : MonoBehaviour
     private List<Tool> toolList = new();
 
     private Transform initialTransform;
-
-    #region Singleton
-    private static ToolManager instance;
-    public static ToolManager Instance => instance;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
 
     public IEnumerator InitializeTools(Transform spawnTransform)
     {

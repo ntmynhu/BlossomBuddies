@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class PlacementSystem : MonoBehaviour
+public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 {
     [SerializeField] private GameObject mouseIndicator;
     [SerializeField] private GameObject cellIndicator;
@@ -20,22 +21,6 @@ public class PlacementSystem : MonoBehaviour
     private Vector3Int gridPosition;
 
     private Dictionary<GridType, GridData> gridDataDictionary = new();
-
-    #region Singleton
-    private static PlacementSystem instance;
-    public static PlacementSystem Instance => instance;
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
-    #endregion
 
     private void Start()
     {
@@ -93,5 +78,50 @@ public class PlacementSystem : MonoBehaviour
     {
         cellIndicator.SetActive(value);
         showIndicator = value;
+    }
+
+    public void LoadData(GameData data)
+    {
+        foreach (var gridType in gridTypeList)
+        {
+            GridData loadedGridData = data.gridDataList.FirstOrDefault(g => g.GetGridType() == gridType);
+
+            if (loadedGridData != null)
+            {
+                gridDataDictionary[gridType] = loadedGridData;
+                LoadExistingGrid(loadedGridData);
+
+            }
+            else
+            {
+                gridDataDictionary[gridType] = new GridData(gridType);
+            }
+        }
+    }
+
+    private void LoadExistingGrid(GridData gridData)
+    {
+        var placedObjects = gridData.GetPlacedObjects();
+
+        if (placedObjects.Count == 0)
+        {
+            return;
+        }
+
+        foreach (var placedObject in placedObjects)
+        {
+            var placementData = placedObject;
+            var objectData = SelectedObject(placementData.ID);
+
+            GameObject newGameObject = Instantiate(objectData.prefab);
+            newGameObject.transform.position = grid.CellToWorld(placedObject.mainPosition);
+
+            this.placedObjects.Add(newGameObject);
+        }
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.gridDataList = gridDataDictionary.Values.ToList();
     }
 }
