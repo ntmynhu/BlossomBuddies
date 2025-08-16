@@ -7,11 +7,12 @@ public class GridData
     [SerializeField] private GridType gridType;
     [SerializeField] private List<PlacementData> placedObjects;
 
-    public GridData(GridType gridType)
+    public GridData(GridType gridType, List<PlacementData> placementDatas = null)
     {
         this.gridType = gridType;
-        placedObjects = new List<PlacementData>();
+        placedObjects = placementDatas ?? new List<PlacementData>();
     }
+
 
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
     {
@@ -84,15 +85,15 @@ public class PlacementData
 {
     public Vector3Int mainPosition;
     public List<Vector3Int> occupiedPositions;
-    public int ID {  get; private set; }
-    public int PlacedObjectIndex { get; private set; }
+    public int placedObjectId;
+    public int placedObjectIndex;
 
     public PlacementData(Vector3Int mainPosition, List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)
     {
         this.mainPosition = mainPosition;
         this.occupiedPositions = occupiedPositions;
-        ID = iD;
-        PlacedObjectIndex = placedObjectIndex;
+        placedObjectId = iD;
+        this.placedObjectIndex = placedObjectIndex;
     }
 }
 

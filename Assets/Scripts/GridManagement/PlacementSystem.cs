@@ -24,12 +24,6 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     private void Start()
     {
-        for (int i = 0; i < gridTypeList.Count; i++)
-        {
-            GridData gridData = new GridData(gridTypeList[i]);
-            gridDataDictionary[gridTypeList[i]] = gridData;
-        }
-
         cellIndicator.SetActive(showIndicator);
     }
 
@@ -71,7 +65,15 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public ObjectData SelectedObject(int ID)
     {
-        return databaseSO.objectDatas.Find(data => data.ID == ID);
+        var ob = databaseSO.objectDatas.Find(data => data.ID == ID);
+
+        if (ob == null)
+        {
+            Debug.LogError($"Object with ID {ID} not found in database.");
+            return null;
+        }
+
+        return ob;
     }    
 
     public void ShowIndicator(bool value)
@@ -84,10 +86,12 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     {
         foreach (var gridType in gridTypeList)
         {
-            GridData loadedGridData = data.gridDataList.FirstOrDefault(g => g.GetGridType() == gridType);
+            GridData storedGridData = data.gridDataList.FirstOrDefault(g => g.GetGridType() == gridType);
 
-            if (loadedGridData != null)
+            if (storedGridData != null)
             {
+                GridData loadedGridData = new(storedGridData.GetGridType(), storedGridData.GetPlacedObjects());
+
                 gridDataDictionary[gridType] = loadedGridData;
                 LoadExistingGrid(loadedGridData);
 
@@ -111,7 +115,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         foreach (var placedObject in placedObjects)
         {
             var placementData = placedObject;
-            var objectData = SelectedObject(placementData.ID);
+            var objectData = SelectedObject(placementData.placedObjectId);
 
             GameObject newGameObject = Instantiate(objectData.prefab);
             newGameObject.transform.position = grid.CellToWorld(placedObject.mainPosition);
