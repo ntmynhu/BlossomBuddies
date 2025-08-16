@@ -17,8 +17,9 @@ MonoBehaviour:
   Size: {x: 1, y: 1}
   prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
   gridType: 1
+  plantName: Demo
   plantStates:
-  - {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
-  - {fileID: 8935979759752783158, guid: 44019ec0b68e1724390975561218d4b2, type: 3}
-  - {fileID: 8935979759752783158, guid: 80eacf5c57292404f8ff584d833f0bc4, type: 3}
-  - {fileID: 8935979759752783158, guid: 7dc4b1bdac42ce147aaafcc1d272c05b, type: 3}
+  - time: 5
+  - time: 10
+  - time: 10
+  - time: 10

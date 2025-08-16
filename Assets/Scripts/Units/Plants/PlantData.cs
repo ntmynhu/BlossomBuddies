@@ -4,5 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/PlantData")]
 public class PlantData : ObjectData
 {
-    public List<GameObject> plantStates;
+    [Header("Plant Data")]
+    public string plantName;
+    public List<PlantState> plantStates;
+}
+
+[System.Serializable]
+public class PlantState
+{
+    public float time;
 }
