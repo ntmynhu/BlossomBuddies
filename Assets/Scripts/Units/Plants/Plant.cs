@@ -7,12 +7,17 @@ public class Plant : MonoBehaviour
     [SerializeField] private PlantData plantData;
     [SerializeField] private List<GameObject> stateGameObjects;
 
+    private Vector3Int mainPosition;
     private float growthTime = 0;
     private int currentStateIndex = 0;
-
     private float currentStateTime = 0;
 
     private bool isDead = false;
+
+    public Vector3Int MainPosition { get => mainPosition; set => mainPosition = value; }
+    public PlantData PlantData => plantData;
+    public int CurrentStateIndex => currentStateIndex;
+    public float CurrentGrowthTime => growthTime;
 
     private void Start()
     {
@@ -46,7 +51,6 @@ public class Plant : MonoBehaviour
         {
             isDead = true;
             Debug.Log("Plant has died.");
-            return;
         }
     }
 
@@ -64,8 +68,20 @@ public class Plant : MonoBehaviour
         }
     }
 
-    public PlantData GetPlantData()
+    public void LoadExistingData(PlantProgressData data)
     {
-        return plantData;
+        mainPosition = data.mainPosition;
+
+        growthTime = data.currentGrowthTime;
+        currentStateIndex = data.currentStateIndex;
+        currentStateTime = plantData.plantStates[currentStateIndex].time;
+
+        UpdatePlantStateVisual();
+
+        if (currentStateIndex >= plantData.plantStates.Count - 1)
+        {
+            isDead = true;
+            Debug.Log("Plant has died.");
+        }
     }
 }
