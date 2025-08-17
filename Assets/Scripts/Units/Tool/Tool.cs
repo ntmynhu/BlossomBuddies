@@ -2,10 +2,16 @@ using UnityEngine;
 
 public class Tool : MonoBehaviour
 {
-    public ToolInfo toolInfo;
+    [SerializeField] private ToolInfo toolInfo;
+    [SerializeField] private Vector3 initialPos;
+    [SerializeField] private Quaternion initialRot;
 
-    public Vector3 initialPos;
-    public Quaternion initialRot;
+    public ToolInfo ToolInfo { get => toolInfo; set => toolInfo = value; }
+    public Vector3 InitialPos { get => initialPos; set => initialPos = value; }
+    public Quaternion InitialRot { get => initialRot; set => initialRot = value; }
+
+    protected PlayerAnimation playerAnim;
+    protected PlayerMovement playerMovement;
 
     private void Awake()
     {
@@ -13,5 +19,10 @@ public class Tool : MonoBehaviour
         initialRot = transform.localRotation;
     }
 
-    public virtual void UseTool(PlayerAnimation playerAnim, PlayerMovement playerMovement) { }
+    public virtual void UseTool() { }
+    public virtual void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    {
+        this.playerAnim = playerAnim;
+        this.playerMovement = playerMovement;
+    }
 }

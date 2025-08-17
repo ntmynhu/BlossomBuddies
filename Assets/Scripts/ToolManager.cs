@@ -21,7 +21,7 @@ public class ToolManager : Singleton<ToolManager>
             GameObject toolObject = Instantiate(toolInfo.toolPrefab, spawnTransform);
 
             Tool tool = toolObject.GetComponent<Tool>();
-            tool.toolInfo = toolInfo;
+            tool.ToolInfo = toolInfo;
 
             toolList.Add(tool);
 
@@ -50,16 +50,18 @@ public class ToolManager : Singleton<ToolManager>
 
             currentTool.transform.SetParent(parent);
 
-            currentTool.transform.localPosition = currentTool.initialPos;
-            currentTool.transform.localRotation = currentTool.initialRot;
+            currentTool.transform.localPosition = currentTool.InitialPos;
+            currentTool.transform.localRotation = currentTool.InitialRot;
         }
 
         PlacementSystem.Instance.ShowIndicator(currentTool);
     }
 
-    public void TestTool(int index, Transform parent)
+    public Tool TestTool(int index, Transform parent)
     {
         SetCurrentTool(toolList[index], parent);
+
+        return currentTool;
     }
 
     public Tool GetCurrentTool()

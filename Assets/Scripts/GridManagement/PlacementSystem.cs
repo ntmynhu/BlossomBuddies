@@ -11,7 +11,9 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     [SerializeField] private List<GridType> gridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
 
-    private int selectedIndex;
+    private int currentSelectedIndex;
+    private ObjectData currentSelectedObjectData;
+    private GridData currentSelectedGridData;
 
     private Dictionary<GridType, List<GameObject>> placedObjects = new();
 
@@ -19,6 +21,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     private Vector3 playerPosition;
     private Vector3Int gridPosition;
+    private Vector3 targetIndicatorPosition;
 
     private Dictionary<GridType, GridData> gridDataDictionary = new();
 
@@ -40,19 +43,28 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     private void HandleIndicator()
     {
         playerPosition = inputManager.GetPlayerSelectedMapPosition();
-
         gridPosition = grid.WorldToCell(playerPosition);
-        cellIndicator.transform.position = grid.CellToWorld(gridPosition);
+        targetIndicatorPosition = grid.CellToWorld(gridPosition);
+
+        targetIndicatorPosition.y = playerPosition.y;
+        cellIndicator.transform.position = targetIndicatorPosition;
+
+        cellIndicator.SetActive(currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size));
     }
 
-    public void PlaceObject(int selectedIndex)
+    public void SetCurrentSelectedIndex(int newIndex)
     {
-        var objectData = SelectedObject(selectedIndex);
-        var gridData = gridDataDictionary[objectData.gridType];
+        currentSelectedIndex = newIndex;
 
-        if (gridData.CanPlaceAt(gridPosition, objectData.Size))
+        currentSelectedObjectData = SelectedObject(currentSelectedIndex);
+        currentSelectedGridData = gridDataDictionary[currentSelectedObjectData.gridType];
+    }
+
+    public void PlaceObject()
+    {
+        if (currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size))
         {
-            GameObject newGameObject = Instantiate(objectData.prefab);
+            GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
             newGameObject.transform.position = grid.CellToWorld(gridPosition);
 
             Plant plant = newGameObject.GetComponent<Plant>();
@@ -61,9 +73,9 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 plant.MainPosition = gridPosition;
             }
 
-            placedObjects[objectData.gridType].Add(newGameObject);
+            placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
 
-            gridData.AddObject(gridPosition, objectData.Size, objectData.ID, placedObjects.Count - 1);
+            currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, placedObjects.Count - 1);
         }
         else
         {

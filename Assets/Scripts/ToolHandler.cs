@@ -16,14 +16,23 @@ public class ToolHandler : MonoBehaviour
             Tool tool = ToolManager.Instance.GetCurrentTool();
             if (tool != null)
             {
-                tool.UseTool(playerAnim, playerMovement);
+                tool.UseTool();
             }
         }
     }
 
     public void SelectTool(int toolIndex)
     {
-        ToolManager.Instance.TestTool(toolIndex, parentTransform);
+        Tool newTool = ToolManager.Instance.TestTool(toolIndex, parentTransform);
+
+        if (newTool != null)
+        {
+            newTool.OnToolSelected(playerAnim, playerMovement);
+        }
+        else
+        {
+            Debug.LogWarning("No tool found at index: " + toolIndex);
+        }
     }
 
     public void UnSelectTool()
