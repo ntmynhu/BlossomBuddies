@@ -21,7 +21,7 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
-        currentStateTime = plantData.plantStates[currentStateIndex].time;
+        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
     }
 
     private void Update()
@@ -44,7 +44,7 @@ public class Plant : MonoBehaviour
         growthTime = 0;
         currentStateIndex++;
 
-        currentStateTime = plantData.plantStates[currentStateIndex].time;
+        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
         UpdatePlantStateVisual();
 
         if (currentStateIndex >= plantData.plantStates.Count - 1)
@@ -74,7 +74,7 @@ public class Plant : MonoBehaviour
 
         growthTime = data.currentGrowthTime;
         currentStateIndex = data.currentStateIndex;
-        currentStateTime = plantData.plantStates[currentStateIndex].time;
+        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
 
         UpdatePlantStateVisual();
 
