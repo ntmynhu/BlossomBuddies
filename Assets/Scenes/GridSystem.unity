@@ -788,6 +788,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2747034712474786400, guid: f1bfa143145d59d4eb1ace543079a84b,
         type: 3}
+      propertyPath: rotationMax
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747034712474786400, guid: f1bfa143145d59d4eb1ace543079a84b,
+        type: 3}
+      propertyPath: rotationMin
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2747034712474786400, guid: f1bfa143145d59d4eb1ace543079a84b,
+        type: 3}
       propertyPath: cameraDistance
       value: 7
       objectReference: {fileID: 0}

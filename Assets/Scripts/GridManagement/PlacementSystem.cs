@@ -50,6 +50,14 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         cellIndicator.transform.position = targetIndicatorPosition;
 
         cellIndicator.SetActive(currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size));
+
+        if (currentSelectedGridData.GetGridType() == GridType.PlantGrid)
+        {
+            if (!CanPlantAt())
+            {
+                cellIndicator.SetActive(false);
+            }
+        }    
     }
 
     public void SetCurrentSelectedIndex(int newIndex)
@@ -62,25 +70,36 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void PlaceObject()
     {
-        if (currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size))
+        GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
+        newGameObject.transform.position = grid.CellToWorld(gridPosition);
+
+        Plant plant = newGameObject.GetComponent<Plant>();
+        if (plant != null)
         {
-            GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
-            newGameObject.transform.position = grid.CellToWorld(gridPosition);
-
-            Plant plant = newGameObject.GetComponent<Plant>();
-            if (plant != null)
-            {
-                plant.MainPosition = gridPosition;
-            }
-
-            placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
-
-            currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, placedObjects.Count - 1);
+            plant.MainPosition = gridPosition;
         }
-        else
-        {
-            Debug.Log("Cannot Place");
-        }
+
+        placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
+
+        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, placedObjects.Count - 1);
+    }    
+
+    public bool CanPlaceAt()
+    {
+        return currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size);
+    }
+
+    public void Plant() // Similiar to PlaceObject, but specifically for planting objects
+    {
+        PlaceObject();
+    }
+
+    public bool CanPlantAt()
+    {
+        GridData soildGrid = gridDataDictionary[GridType.SoilGrid];
+
+        // Means there is soil to plant on
+        return !soildGrid.CanPlaceAt(gridPosition, currentSelectedObjectData.Size);
     }    
 
     public ObjectData SelectedObject(int ID)

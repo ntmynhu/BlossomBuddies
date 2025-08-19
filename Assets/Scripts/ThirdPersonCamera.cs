@@ -6,14 +6,13 @@ public class ThirdPersonCamera : MonoBehaviour
 {
     [SerializeField] private float mouseSensitivity = 100f;
     [SerializeField] private float cameraDistance = 2f; // Distance from the player to the camera
+    [SerializeField] private float rotationMin = -40f;
+    [SerializeField] private float rotationMax = 90f;
     [SerializeField] private Camera thirdPersonCam;
     [SerializeField] private Transform followTarget;
 
     private float xRotation = 0f;
     private float YRotation = 0f;
-
-    private float rotationMin = -40f;
-    private float rotationMax = 90f;
     private float smoothTime = 0.12f;
 
     private Vector3 currentVel;

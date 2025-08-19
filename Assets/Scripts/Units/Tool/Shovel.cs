@@ -19,10 +19,18 @@ public class Shovel : Tool
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
+        if (!PlacementSystem.Instance.CanPlaceAt())
+        {
+            Debug.Log("Cannot place object at the current position.");
+            yield break;
+        }
+
         playerMovement.SetMovementEnable(false);
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
         yield return new WaitForSeconds(0.5f);
+
         PlacementSystem.Instance.PlaceObject();
+
         playerMovement.SetMovementEnable(true);
     }
 }
