@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SleepingState : BaseState
 {
-    private float energyRecoveryRate = 5f; // Energy recovered per second while sleeping
+    private float energyRecoveryRate = 5f;
+    private float happinessConsumptionRate = 1f;
 
     public override void EnterState(StateManager cat)
     {
@@ -12,6 +13,7 @@ public class SleepingState : BaseState
     public override void UpdateState(StateManager cat)
     {
         cat.Energy += energyRecoveryRate * Time.deltaTime;
+        cat.Happiness -= happinessConsumptionRate * Time.deltaTime;
 
         if (cat.Energy >= 100f)
         {
