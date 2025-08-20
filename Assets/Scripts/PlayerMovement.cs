@@ -64,6 +64,14 @@ public class PlayerMovement : MonoBehaviour
         movementEnabled = enable;
     }
 
+    public void SetPosition(Transform targetTransform)
+    {
+        controller.enabled = false;
+        transform.position = targetTransform.position;
+        controller.enabled = true;
+        controller.Move(Vector3.zero);
+    }
+
     private void HandleMovement()
     {
         //checking if we hit the ground to reset our falling velocity, otherwise we will fall faster the next time
