@@ -534,11 +534,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6397291155531275063, guid: c0d78683edadf774195f146129f5c3dd,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 996982146}
+      addedObject: {fileID: 996982147}
     - targetCorrespondingSourceObject: {fileID: 6397291155531275063, guid: c0d78683edadf774195f146129f5c3dd,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 996982147}
+      addedObject: {fileID: 996982148}
   m_SourcePrefab: {fileID: 100100000, guid: c0d78683edadf774195f146129f5c3dd, type: 3}
 --- !u!1001 &789495768
 PrefabInstance:
@@ -1069,20 +1069,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &996982146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 996982139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edcf95acd371dc04f9e21ccce8af68fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navMeshAgent: {fileID: 996982145}
-  animator: {fileID: 996982142}
 --- !u!136 &996982147
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1106,6 +1092,20 @@ CapsuleCollider:
   m_Height: 0.2
   m_Direction: 1
   m_Center: {x: 0, y: 0.14, z: 0}
+--- !u!114 &996982148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996982139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a43684b9c4819f46a9861562f673511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navMeshAgent: {fileID: 996982145}
+  animator: {fileID: 996982142}
 --- !u!1 &1057419525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2414,8 +2414,8 @@ Transform:
   m_GameObject: {fileID: 1938770318}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 1, z: 100}
+  m_LocalPosition: {x: 0, y: -0, z: 5.3474}
+  m_LocalScale: {x: 25, y: 1, z: 35.695}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
