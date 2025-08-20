@@ -13,6 +13,7 @@ public class PlantProgressData
 [System.Serializable]
 public class GameData
 {
+    public long lastLoginTime;
     public List<GridData> gridDataList;
     public List<PlantProgressData> plantProgressDataList;
 

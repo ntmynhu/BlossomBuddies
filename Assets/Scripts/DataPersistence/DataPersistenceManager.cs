@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,6 +11,9 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private PlayerPrefsDataHandler dataHandler;
+
+    private long lastLoginTime = DateTime.MinValue.Ticks;
+    public long LastLoginTime => lastLoginTime;
 
     public bool isLoadedDataDone = false;
 
@@ -55,6 +59,8 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
             NewGame();
         }
 
+        lastLoginTime = this.gameData.lastLoginTime;
+
         // push the loaded data to all other scripts that need it
         PushLoadedDataToObject();
     }
@@ -83,6 +89,8 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     {
         if (isLoadedDataDone /*&& !GameManager.Instance.IsFirstTimePlayer()*/)
         {
+            gameData.lastLoginTime = DateTime.Now.Ticks;
+
             UpdateAllDataPersistenceObjects();
 
             // save the data in all other scripts that need to save data

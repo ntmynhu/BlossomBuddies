@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,9 +73,19 @@ public class Plant : MonoBehaviour
     {
         mainPosition = data.mainPosition;
 
-        growthTime = data.currentGrowthTime;
+        long lastLoginTime = DataPersistenceManager.Instance.LastLoginTime;
+        long secondsFromNow = (DateTime.Now.Ticks - lastLoginTime) / TimeSpan.TicksPerSecond;
+
+        growthTime = data.currentGrowthTime + secondsFromNow;
         currentStateIndex = data.currentStateIndex;
         currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+
+        while (growthTime >= currentStateTime && currentStateIndex < plantData.plantStates.Count - 1)
+        {
+            growthTime -= currentStateTime;
+            currentStateIndex++;
+            currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+        }
 
         UpdatePlantStateVisual();
 
