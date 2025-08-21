@@ -10,7 +10,7 @@ public class WalkAroundState : BaseState
     private float waitingTime;
 
     private float movingRadius = 10f;
-    private float movingAroundPlayerRadius = 5f;
+    private float movingAroundPlayerRadius = 2f;
 
     private Vector3 targetPosition;
 
@@ -18,9 +18,14 @@ public class WalkAroundState : BaseState
     private float happinessConsumption = 5f;
     private float foodConsumption = 5f;
 
+    private float walkingSpeed = 1f;
+
     public override void EnterState(StateManager cat)
     {
+        cat.NavMeshAgent.speed = walkingSpeed;
         waitingTime = 0;
+
+        cat.Animator.SetFloat("State", 0);
     }
 
     public override void UpdateState(StateManager cat)
@@ -90,6 +95,16 @@ public class WalkAroundState : BaseState
         if (other.CompareTag("Food") && cat.Food <= 0f)
         {
             cat.RunCoroutine(WaitToChangeState(cat));
+        }
+
+        if (other.CompareTag("Player") && cat.Happiness <= 0f)
+        {
+            Debug.Log(ToolManager.Instance.GetCurrentTool());
+
+            if (ToolManager.Instance.GetCurrentTool() is CatToy)
+            {
+                cat.ChangeState(cat.chasingPlayerState);
+            }
         }
     }
 

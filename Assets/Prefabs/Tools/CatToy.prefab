@@ -186,7 +186,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CatToy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4071833452636940995, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7038689207944752541, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
     - {fileID: 3536149389328363568, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
@@ -200,8 +201,33 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 9131683072188968098}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5450805700351210753}
   m_SourcePrefab: {fileID: 100100000, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
+--- !u!1 &3267164534628851248 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5247468792340476221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5450805700351210753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3267164534628851248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720656aa792919d409311983af525a53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolInfo: {fileID: 0}
+  initialPos: {x: 0, y: 0, z: 0}
+  initialRot: {x: 0, y: 0, z: 0, w: 0}
 --- !u!4 &3679028308450915994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,

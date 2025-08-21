@@ -14,6 +14,7 @@ public class StateManager : MonoBehaviour
     public WalkAroundState walkAroundState = new WalkAroundState();
     public SleepingState sleepingState = new SleepingState();
     public EatingState eatingState = new EatingState();
+    public ChasingPlayer chasingPlayerState = new ChasingPlayer();
 
     private float energy = 100f;
     private float food = 100f;
