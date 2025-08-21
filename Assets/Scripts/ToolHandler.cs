@@ -31,6 +31,10 @@ public class ToolHandler : MonoBehaviour
         {
             SelectTool(3);
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SelectTool(4);
+        }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             UnSelectTool();

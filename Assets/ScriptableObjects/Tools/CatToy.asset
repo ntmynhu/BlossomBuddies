@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: CatToy
   toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 3815019079479698020, guid: 92f2b521622da0047af6a34ac8f84b02,
+  toolPrefab: {fileID: 3267164534628851248, guid: e7e9c36d1ab4673438bb5743c11c80d9,
     type: 3}
