@@ -39,20 +39,20 @@ public class ToolManager : Singleton<ToolManager>
     {
         if (currentTool != null)
         {
+            currentTool.OnToolDeselected();
+
             currentTool.transform.SetParent(initialTransform);
             currentTool.transform.localPosition = Vector3.zero;
 
-            Rigidbody oldRb = currentTool.GetComponent<Rigidbody>();
-            oldRb.useGravity = true;
-            oldRb.isKinematic = false;
+            currentTool.Rigidbody.useGravity = true;
+            currentTool.Rigidbody.isKinematic = false;
         }
 
         currentTool = newTool;
         if (currentTool != null)
         {
-            Rigidbody rb = currentTool.GetComponent<Rigidbody>();
-            rb.useGravity = false;
-            rb.isKinematic = true;
+            currentTool.Rigidbody.useGravity = false;
+            currentTool.Rigidbody.isKinematic = true;
 
             currentTool.transform.SetParent(parent);
 
