@@ -45,6 +45,7 @@ public class ChasingPlayer : BaseState
     {
         if (cat.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
+            cat.Animator.Play("ToyInteract");
             cat.Happiness += 10f;
 
             if (cat.Happiness > 70f)
