@@ -25,14 +25,4 @@ public class EatingState : BaseState
     {
         cat.Animator.SetBool("IsEating", false);
     }
-
-    public override void OnCollisionEnter(StateManager cat, Collision collision)
-    {
-        
-    }
-
-    public override void OnTriggerEnter(StateManager cat, Collider other)
-    {
-        
-    }
 }

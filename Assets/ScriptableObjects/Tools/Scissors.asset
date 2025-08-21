@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Scissors
   toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 8056141393014338966, guid: 63231a4f1541fa749a4c688cb27d7e0c,
+  toolPrefab: {fileID: 5324143058523400035, guid: ca97832f27d642f41b03d81ab183711b,
     type: 3}
