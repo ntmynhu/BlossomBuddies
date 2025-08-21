@@ -1805,6 +1805,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4dc2503c8f7d6504c8d321e863790477, type: 2}
   - {fileID: 11400000, guid: f8af8cd3e2171424590e950bac9b5c77, type: 2}
   - {fileID: 11400000, guid: 0bf765d97e30dc246a4d80c7dafd9a42, type: 2}
+  spawnTransform: {fileID: 1298442215}
 --- !u!4 &1197222855
 Transform:
   m_ObjectHideFlags: 0
@@ -1814,10 +1815,11 @@ Transform:
   m_GameObject: {fileID: 1197222853}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2722006, y: 1.7150809, z: 1.4033595}
+  m_LocalPosition: {x: -3.34, y: 1.7150809, z: 2.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1298442215}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1200864902
@@ -1958,6 +1960,37 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &1298442214
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1298442215}
+  m_Layer: 7
+  m_Name: Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1298442215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1298442214}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.45, y: 2.45, z: 2.45}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1197222855}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1304879154 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3859028244679818592, guid: f1bfa143145d59d4eb1ace543079a84b,
@@ -3355,6 +3388,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prop_Wheelbarrow
+      objectReference: {fileID: 0}
+    - target: {fileID: 1189198572637911586, guid: ebc93d980d321c7458edeb96960a5935,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2002748754189066392, guid: ebc93d980d321c7458edeb96960a5935,
         type: 3}

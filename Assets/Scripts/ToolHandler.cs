@@ -9,8 +9,33 @@ public class ToolHandler : MonoBehaviour
 
     public Transform ParentTransform => parentTransform;
 
+    private void Start()
+    {
+    }
+
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SelectTool(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectTool(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectTool(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SelectTool(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            UnSelectTool();
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             Tool tool = ToolManager.Instance.GetCurrentTool();

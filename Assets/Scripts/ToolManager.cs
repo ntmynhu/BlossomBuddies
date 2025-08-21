@@ -5,12 +5,18 @@ using UnityEngine;
 public class ToolManager : Singleton<ToolManager>
 {
     [SerializeField] private ToolInfo[] toolInfos;
+    [SerializeField] private Transform spawnTransform;
 
     private Tool currentTool;
 
     private List<Tool> toolList = new();
 
     private Transform initialTransform;
+
+    private void Start()
+    {
+        StartCoroutine(InitializeTools(spawnTransform));
+    }
 
     public IEnumerator InitializeTools(Transform spawnTransform)
     {

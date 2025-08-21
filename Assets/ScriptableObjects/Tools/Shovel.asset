@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: Shovel
   toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 5038638941717291079, guid: 81a269b7c0ddfce47bcfa89d9b3d4b1d,
+  toolPrefab: {fileID: 5324143058523400035, guid: 4b4d51102465f394d9cc1fbe89c0780b,
     type: 3}
