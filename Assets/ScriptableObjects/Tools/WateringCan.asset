@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toolName: WateringCan
   toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 4702399135787448459, guid: 89cd5e442bc0ba5478ca69119b0e0f4f,
+  toolPrefab: {fileID: 5324143058523400035, guid: da375d2eb0fba65448b5787cf0b0d4fe,
     type: 3}
