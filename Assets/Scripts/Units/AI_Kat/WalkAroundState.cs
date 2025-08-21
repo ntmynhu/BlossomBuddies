@@ -87,8 +87,6 @@ public class WalkAroundState : BaseState
 
     public override void OnTriggerEnter(StateManager cat, Collider other)
     {
-        Debug.Log("Trigger enter");
-
         if (other.CompareTag("Food") && cat.Food <= 0f)
         {
             cat.RunCoroutine(WaitToChangeState(cat));

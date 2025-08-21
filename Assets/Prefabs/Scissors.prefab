@@ -71,11 +71,37 @@ PrefabInstance:
     - target: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
         type: 3}
       propertyPath: m_Name
-      value: Scissors 1
+      value: Scissors
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4071833452636940995, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7038689207944752541, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9095247363000633794}
   m_SourcePrefab: {fileID: 100100000, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
+--- !u!1 &5324143058523400035 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
+    type: 3}
+  m_PrefabInstance: {fileID: 3199431651596585070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9095247363000633794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5324143058523400035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb8b3b03ad7fd4e43b09e13941ec44a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toolInfo: {fileID: 0}
+  initialPos: {x: 0, y: 0, z: 0}
+  initialRot: {x: 0, y: 0, z: 0, w: 0}

@@ -59,8 +59,6 @@ public class ToolManager : Singleton<ToolManager>
             currentTool.transform.localPosition = currentTool.InitialPos;
             currentTool.transform.localRotation = currentTool.InitialRot;
         }
-
-        PlacementSystem.Instance.ShowIndicator(currentTool);
     }
 
     public Tool TestTool(int index, Transform parent)

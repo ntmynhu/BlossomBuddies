@@ -1,10 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class SeedBag : Tool
+public class Scissors : Tool
 {
-    [SerializeField] private PlantData spawnObject;
-
     public override void UseTool()
     {
         StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement));
@@ -14,24 +12,18 @@ public class SeedBag : Tool
     {
         base.OnToolSelected(playerAnim, playerMovement);
 
-        PlacementSystem.Instance.ShowAddIndicator(true);
-        PlacementSystem.Instance.SetCurrentSelectedIndex(spawnObject.ID);
+        PlacementSystem.Instance.ShowRemoveIndicator(true);
+        PlacementSystem.Instance.SetCurrentSelectedGridData(GridType.PlantGrid);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
-        if (!PlacementSystem.Instance.CanPlantAt())
-        {
-            Debug.Log("Cannot plant at the current position.");
-            yield break;
-        }
-
         playerMovement.SetMovementEnable(false);
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
-
         yield return new WaitForSeconds(0.5f);
 
-        PlacementSystem.Instance.Plant();
+        PlacementSystem.Instance.RemoveObject();
+
         playerMovement.SetMovementEnable(true);
     }
 }

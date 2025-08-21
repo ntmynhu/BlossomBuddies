@@ -17,7 +17,8 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     private Dictionary<GridType, List<GameObject>> placedObjects = new();
 
-    private bool showIndicator = false;
+    private bool showAddIndicator = false;
+    private bool showRemoveIndicator = false;
 
     private Vector3 playerPosition;
     private Vector3Int gridPosition;
@@ -29,18 +30,34 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     private void Start()
     {
-        cellIndicator.SetActive(showIndicator);
+        cellIndicator.SetActive(showAddIndicator);
     }
 
     private void Update()
     {
-        if (showIndicator)
+        if (showAddIndicator)
         {
-            HandleIndicator();
+            HandleAddIndicator();
+        }
+        else if (showRemoveIndicator)
+        {
+            HandleRemoveIndicator();
         }
     }
 
-    private void HandleIndicator()
+    private void HandleRemoveIndicator()
+    {
+        playerPosition = inputManager.GetPlayerSelectedMapPosition();
+        gridPosition = grid.WorldToCell(playerPosition);
+        targetIndicatorPosition = grid.CellToWorld(gridPosition);
+
+        targetIndicatorPosition.y = playerPosition.y;
+        cellIndicator.transform.position = targetIndicatorPosition;
+
+        cellIndicator.SetActive(currentSelectedGridData.ContainsPosition(gridPosition));
+    }
+
+    private void HandleAddIndicator()
     {
         playerPosition = inputManager.GetPlayerSelectedMapPosition();
         gridPosition = grid.WorldToCell(playerPosition);
@@ -60,12 +77,36 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }    
     }
 
+    public void RemoveObject()
+    {
+        List<GameObject> placedObjectsList = placedObjects[currentSelectedGridData.GetGridType()];
+
+        GameObject objectToRemove = placedObjectsList.FirstOrDefault(obj => obj.transform.position == grid.CellToWorld(gridPosition));
+
+        if (objectToRemove != null)
+        {
+            placedObjectsList.Remove(objectToRemove);
+            Destroy(objectToRemove);
+
+            currentSelectedGridData.RemoveObject(gridPosition);
+        }
+        else
+        {
+            Debug.Log("No object found at the specified position to remove.");
+        }
+    }
+
     public void SetCurrentSelectedIndex(int newIndex)
     {
         currentSelectedIndex = newIndex;
 
         currentSelectedObjectData = SelectedObject(currentSelectedIndex);
         currentSelectedGridData = gridDataDictionary[currentSelectedObjectData.gridType];
+    }
+
+    public void SetCurrentSelectedGridData(GridType gridType)
+    {
+        currentSelectedGridData = gridDataDictionary[gridType];
     }
 
     public void PlaceObject()
@@ -115,10 +156,20 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         return ob;
     }    
 
-    public void ShowIndicator(bool value)
+    public void ShowAddIndicator(bool value)
     {
         cellIndicator.SetActive(value);
-        showIndicator = value;
+        showAddIndicator = value;
+
+        showRemoveIndicator = false;
+    }
+
+    public void ShowRemoveIndicator(bool value)
+    {
+        cellIndicator.SetActive(value);
+        showRemoveIndicator = value;
+
+        showAddIndicator = false;
     }
 
     public void LoadData(GameData data)

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ToolInfo", menuName = "Scriptable Objects/ToolInfo")]

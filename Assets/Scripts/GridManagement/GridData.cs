@@ -13,7 +13,6 @@ public class GridData
         placedObjects = placementDatas ?? new List<PlacementData>();
     }
 
-
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -28,6 +27,25 @@ public class GridData
         }
 
         placedObjects.Add(data);
+    }
+
+    public void RemoveObject(Vector3Int gridPosition)
+    {
+        PlacementData dataToRemove = null;
+
+        foreach (var placement in placedObjects)
+        {
+            if (placement.mainPosition == gridPosition || placement.occupiedPositions.Contains(gridPosition))
+            {
+                dataToRemove = placement;
+                break;
+            }
+        }
+
+        if (dataToRemove != null)
+        {
+            placedObjects.Remove(dataToRemove);
+        }
     }
 
     public List<Vector3Int> CalculatePositions(Vector3Int gridPosition, Vector2Int objectSize)
@@ -57,11 +75,11 @@ public class GridData
         return true;
     }
 
-    private bool ContainsPosition(Vector3Int position)
+    public bool ContainsPosition(Vector3Int position)
     {
         foreach (var placement in placedObjects)
         {
-            if (placement.mainPosition == position)
+            if (placement.mainPosition == position || placement.occupiedPositions.Contains(position))
             {
                 return true;
             }

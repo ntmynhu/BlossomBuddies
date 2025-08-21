@@ -13,7 +13,8 @@ public class Shovel : Tool
     public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
         base.OnToolSelected(playerAnim, playerMovement);
-        
+
+        PlacementSystem.Instance.ShowAddIndicator(true);
         PlacementSystem.Instance.SetCurrentSelectedIndex(spawnObject.ID);
     }
 
