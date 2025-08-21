@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,19 +13,64 @@ public class StateManager : MonoBehaviour
     private BaseState currentState;
     public WalkAroundState walkAroundState = new WalkAroundState();
     public SleepingState sleepingState = new SleepingState();
+    public EatingState eatingState = new EatingState();
 
-    public float Energy { get; set; }
-    public float Food { get; set; }
-    public float Cleaness { get; set; }
-    public float Happiness { get; set; }
+    private float energy = 100f;
+    private float food = 100f;
+    private float cleaness = 100f;
+    private float happiness = 100f;
+
+    public float Energy
+    {
+        get
+        {
+            return energy;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0f, 100f);
+            energy = value;
+        }
+    }
+    public float Food
+    {
+        get
+        {
+            return food;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0f, 100f);
+            food = value;
+        }
+    }
+    public float Cleaness
+    {
+        get
+        {
+            return cleaness;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0f, 100f);
+            cleaness = value;
+        }
+    }
+    public float Happiness
+    {
+        get
+        {
+            return happiness;
+        }
+        set
+        {
+            value = Mathf.Clamp(value, 0f, 100f);
+            happiness = value;
+        }
+    }
 
     private void Start()
     {
-        Energy = 100f;
-        Food = 100f;
-        Cleaness = 100f;
-        Happiness = 100f;
-
         currentState = walkAroundState;
         currentState.EnterState(this);
     }
@@ -41,8 +87,18 @@ public class StateManager : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    public void RunCoroutine(IEnumerator routine)
+    {
+        StartCoroutine(routine);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         currentState.OnCollisionEnter(this, collision);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        currentState.OnTriggerEnter(this, other);
     }
 }

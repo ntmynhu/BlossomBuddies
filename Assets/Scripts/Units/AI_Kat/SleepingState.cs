@@ -17,7 +17,6 @@ public class SleepingState : BaseState
 
         if (cat.Energy >= 100f)
         {
-            cat.Energy = 100f;
             cat.ChangeState(cat.walkAroundState);
         }
     }
@@ -30,5 +29,10 @@ public class SleepingState : BaseState
     public override void ExitState(StateManager cat)
     {
         cat.Animator.SetBool("IsSleeping", false);
+    }
+
+    public override void OnTriggerEnter(StateManager cat, Collider other)
+    {
+        
     }
 }

@@ -1,3 +1,5 @@
+using NUnit.Framework.Constraints;
+using System.Collections;
 using UnityEngine;
 
 public class WalkAroundState : BaseState
@@ -12,25 +14,19 @@ public class WalkAroundState : BaseState
 
     private Vector3 targetPosition;
 
-    private float energyConsumption = 10f;
+    private float energyConsumption = 1f;
     private float happinessConsumption = 5f;
+    private float foodConsumption = 5f;
 
     public override void EnterState(StateManager cat)
     {
-        waitingTime = Random.Range(waitingIntervalMin, waitingIntervalMax);
+        waitingTime = 0;
     }
 
     public override void UpdateState(StateManager cat)
     {
-        if (cat.Happiness > 0)
-        {
-            cat.Happiness -= happinessConsumption * Time.deltaTime;
-
-            if (cat.Happiness <= 0f)
-            {
-                cat.Happiness = 0f;
-            }
-        }
+        cat.Happiness -= happinessConsumption * Time.deltaTime;
+        cat.Food -= foodConsumption * Time.deltaTime;
 
         float currentSpeed = cat.NavMeshAgent.velocity.magnitude;
 
@@ -40,7 +36,12 @@ public class WalkAroundState : BaseState
 
             if (waitingTime <= 0)
             {
-                if (cat.Happiness <= 0f)
+                if (cat.Food <= 0f)
+                {
+                    var foodPos = PetManager.Instance.FoodPosition.position;
+                    targetPosition = foodPos;
+                }
+                else if (cat.Happiness <= 0f)
                 {
                     var playerPos = GameManager.Instance.Player.transform.position;
                     targetPosition = GetNextTargetPosition(playerPos, movingAroundPlayerRadius);
@@ -82,5 +83,22 @@ public class WalkAroundState : BaseState
     public override void ExitState(StateManager cat)
     {
         cat.NavMeshAgent.ResetPath();
+    }
+
+    public override void OnTriggerEnter(StateManager cat, Collider other)
+    {
+        Debug.Log("Trigger enter");
+
+        if (other.CompareTag("Food") && cat.Food <= 0f)
+        {
+            cat.RunCoroutine(WaitToChangeState(cat));
+        }
+    }
+
+    private IEnumerator WaitToChangeState(StateManager cat)
+    {
+        yield return new WaitUntil(() => Vector3.Distance(cat.transform.position, PetManager.Instance.FoodPosition.position) <= 0.5f);
+
+        cat.ChangeState(cat.eatingState);
     }
 }
