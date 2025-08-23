@@ -4,17 +4,23 @@ using UnityEngine.AI;
 
 public class StateManager : MonoBehaviour
 {
-    [SerializeField] private NavMeshAgent navMeshAgent;
-    [SerializeField] private Animator animator;
+    private NavMeshAgent navMeshAgent;
+    private Animator animator;
+    private Rigidbody rigidbody;
 
+    #region Properties
     public NavMeshAgent NavMeshAgent => navMeshAgent;
     public Animator Animator => animator;
+    public Rigidbody Rigidbody => rigidbody;
+    #endregion
 
     private BaseState currentState;
     public WalkAroundState walkAroundState = new WalkAroundState();
     public SleepingState sleepingState = new SleepingState();
     public EatingState eatingState = new EatingState();
     public ChasingPlayer chasingPlayerState = new ChasingPlayer();
+    public RunAwayFromPlayer runAwayFromPlayerState = new RunAwayFromPlayer();
+    public BeingPickUp beingPickUpState = new BeingPickUp();
 
     private float energy = 100f;
     private float food = 100f;
@@ -70,6 +76,13 @@ public class StateManager : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
     private void Start()
     {
         currentState = walkAroundState;
@@ -101,5 +114,18 @@ public class StateManager : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         currentState.OnTriggerEnter(this, other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ChangeState(beingPickUpState);
+            }
+        }
+
+        currentState.OnTriggerStay(this, other);
     }
 }

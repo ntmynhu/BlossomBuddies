@@ -4,10 +4,12 @@ using UnityEngine;
 public class ToolHandler : MonoBehaviour
 {
     [SerializeField] private Transform parentTransform;
+    [SerializeField] private Transform petTransform;
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private PlayerMovement playerMovement;
 
     public Transform ParentTransform => parentTransform;
+    public Transform PetTransform => petTransform;
 
     private void Start()
     {

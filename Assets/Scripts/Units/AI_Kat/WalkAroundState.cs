@@ -97,13 +97,18 @@ public class WalkAroundState : BaseState
             cat.RunCoroutine(WaitToChangeState(cat));
         }
 
-        if (other.CompareTag("Player") && cat.Happiness <= 0f)
+        if (other.CompareTag("Player"))
         {
-            Debug.Log(ToolManager.Instance.GetCurrentTool());
-
-            if (ToolManager.Instance.GetCurrentTool() is CatToy)
+            if (cat.Happiness <= 0f)
             {
-                cat.ChangeState(cat.chasingPlayerState);
+                if (ToolManager.Instance.GetCurrentTool() is CatToy)
+                {
+                    cat.ChangeState(cat.chasingPlayerState);
+                }
+            }
+            else if (cat.Happiness > 50)
+            {
+                cat.ChangeState(cat.runAwayFromPlayerState);
             }
         }
     }

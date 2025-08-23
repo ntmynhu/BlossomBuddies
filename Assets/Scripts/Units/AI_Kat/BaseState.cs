@@ -7,4 +7,5 @@ public abstract class BaseState
     public abstract void ExitState(StateManager cat);
     public virtual void OnCollisionEnter(StateManager cat, Collision collision) { }
     public virtual void OnTriggerEnter(StateManager cat, Collider other) { }
+    public virtual void OnTriggerStay(StateManager cat, Collider other) { }
 }
