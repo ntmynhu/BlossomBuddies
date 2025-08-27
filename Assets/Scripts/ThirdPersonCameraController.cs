@@ -6,51 +6,32 @@ public class ThirdPersonCameraController : MonoBehaviour
 {
     [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
     [SerializeField] private CinemachineInputAxisController inputAxisController;
-    [SerializeField] private float mouseSensitivity = 100f;
 
-    private float inputValueX;
-    private float inputValueY;
+    [Header("Mobile preset")]
+    [SerializeField] private float mobileSensitivityX = 600f;
+    [SerializeField] private float mobileSensitivityY = -500f;
+
+    [Header("PC preset")]
+    [SerializeField] private float pcSensitivityX = 300f;
+    [SerializeField] private float pcSensitivityY = -250f;
+
+    private bool isMobileController = false;
 
     private void Start()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-        inputAxisController.Controllers[0].Enabled = true;
-        inputAxisController.Controllers[1].Enabled = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-#else
-                inputAxisController.Controllers[0].Enabled = false;
-                inputAxisController.Controllers[1].Enabled = false;
-#endif
-
-        /*inputAxisController.Controllers[0].Enabled = false;
-        inputAxisController.Controllers[1].Enabled = false;*/
-
+        SetMobileController(false);
     }
 
     private void Update()
     {
-#if UNITY_EDITOR || UNITY_STANDALONE
-#else
-        if (EventSystem.current.IsPointerOverGameObject())
-            {
-                return; // Ignore input if the pointer is over a UI element
-            }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SetMobileController(!isMobileController);
+        }
 
-            if (Input.GetMouseButton(0))
-            {
-                inputAxisController.Controllers[0].Enabled = true;
-                inputAxisController.Controllers[1].Enabled = true;
-            }
+        if (!isMobileController) return;
 
-            if (Input.GetMouseButtonUp(0))
-            {
-                inputAxisController.Controllers[0].Enabled = false;
-                inputAxisController.Controllers[1].Enabled = false;
-            }
-#endif
-
-        /*if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             inputAxisController.Controllers[0].Enabled = true;
             inputAxisController.Controllers[1].Enabled = true;
@@ -60,6 +41,32 @@ public class ThirdPersonCameraController : MonoBehaviour
         {
             inputAxisController.Controllers[0].Enabled = false;
             inputAxisController.Controllers[1].Enabled = false;
-        }*/
+        }
+    }
+
+    public void SetMobileController(bool isMobile)
+    {
+        isMobileController = isMobile;
+
+        if (isMobileController)
+        {
+            inputAxisController.Controllers[0].Enabled = false;
+            inputAxisController.Controllers[1].Enabled = false;
+
+            inputAxisController.Controllers[0].Input.LegacyGain = mobileSensitivityX;
+            inputAxisController.Controllers[1].Input.LegacyGain = mobileSensitivityY;
+
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            inputAxisController.Controllers[0].Enabled = true;
+            inputAxisController.Controllers[1].Enabled = true;
+
+            inputAxisController.Controllers[0].Input.LegacyGain = pcSensitivityX;
+            inputAxisController.Controllers[1].Input.LegacyGain = pcSensitivityY;
+
+            Cursor.lockState = CursorLockMode.Locked;
+        }
     }
 }
