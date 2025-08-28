@@ -1,0 +1,22 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Editor/IconThumbnailEditor.uss?fileID=7433441132597879392&amp;guid=2ef4faa1527965e41ad3b500b5fe730e&amp;type=3#IconThumbnailEditor" />
+    <engine:VisualElement name="Container" style="flex-grow: 1; flex-direction: row; visibility: visible; display: flex; background-size: 100% 100%; background-color: rgb(63, 62, 62); height: 100%; width: 100%;">
+        <engine:ListView name="List" header-title="Elements" show-foldout-header="true" show-add-remove-footer="false" allow-add="false" allow-remove="false" show-bound-collection-size="false" show-border="true" reorderable="false" horizontal-scrolling="false" show-alternating-row-backgrounds="None" reorder-mode="Simple" tabindex="0" focusable="true" style="width: 30%; visibility: visible; opacity: 1; background-color: rgba(7, 6, 6, 0.3); background-size: 151px 100%; color: rgb(222, 219, 219); font-size: 12px; text-shadow: 0 0 0 rgba(3, 3, 3, 0.9); margin-top: 0; padding-top: 0; padding-left: 0; padding-right: 0; border-top-color: rgba(0, 0, 0, 0.08); border-top-width: 2.5px; border-left-width: 2.5px; border-bottom-width: 2.5px; border-right-width: 2.5px; -unity-font-style: normal; border-left-color: rgba(0, 0, 0, 0.08); border-right-color: rgba(0, 0, 0, 0.08); border-bottom-color: rgba(0, 0, 0, 0.08); border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; -unity-text-outline-color: rgba(0, 0, 0, 0); height: 100%; max-width: 270px; flex-basis: auto;" />
+        <engine:VisualElement name="Content" data-source-type="IconThumbnailEditor, Assembly-CSharp-Editor" style="flex-grow: 1; margin-top: 5px; padding-bottom: 5px; height: 100%; width: 70%; flex-direction: column; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; padding-top: 5px; padding-right: 5px; padding-left: 5px;">
+            <engine:Label text="Label" name="Header" style="left: auto; padding-left: 10px; font-size: 20px; color: rgb(224, 221, 184); -unity-font-style: bold;">
+                <Bindings>
+                    <engine:DataBinding property="text" data-source-path="m_selectedObject.Name" binding-mode="ToTarget" />
+                </Bindings>
+            </engine:Label>
+            <engine:VisualElement name="Output" style="flex-grow: 1; background-size: 256px 256px; flex-basis: auto; width: 256px; height: 256px; align-self: center; background-color: rgba(0, 0, 0, 0); align-items: stretch; justify-content: flex-start; align-content: flex-start;">
+                <Bindings>
+                    <engine:DataBinding property="style.backgroundImage" data-source-path="m_previewTexture" binding-mode="ToTarget" />
+                </Bindings>
+            </engine:VisualElement>
+            <engine:Vector3Field label="Camera Position" name="CameraPosition" style="height: auto;" />
+            <engine:Vector3Field label="Camera Rotation" name="CameraRotation" style="height: auto;" />
+            <engine:Vector3Field label="Object Rotation" name="ObjectRotation" style="height: auto;" />
+            <engine:Button text="Save" name="SaveButton" style="height: 35px;" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
