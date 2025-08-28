@@ -119,5 +119,7 @@ public class PlacementData
 public enum GridType
 {
     SoilGrid,
-    PlantGrid
+    PlantGrid,
+    FloorGrid,
+    Furniture,
 }

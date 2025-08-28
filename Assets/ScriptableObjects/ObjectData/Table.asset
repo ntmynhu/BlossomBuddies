@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
-  m_Name: Object 4
+  m_Name: Table
   m_EditorClassIdentifier: 
-  Name: Object
-  ID: 2
-  Size: {x: 1, y: 1}
-  prefab: {fileID: 919132149155446097, guid: e9227f05a63ed9246a1049fd2aa41233, type: 3}
-  gridType: 0
+  Name: Table
+  ID: 100
+  Size: {x: 2, y: 2}
+  prefab: {fileID: 1967463717879569282, guid: 83ec2d2ca3ea8c84c8098d72099c00cc, type: 3}
+  gridType: 3

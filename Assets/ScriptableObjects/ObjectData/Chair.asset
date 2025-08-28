@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
-  m_Name: Object 2
+  m_Name: Chair
   m_EditorClassIdentifier: 
-  Name: Object
-  ID: 2
+  Name: Chair
+  ID: 101
   Size: {x: 1, y: 1}
-  prefab: {fileID: 421205821511074294, guid: d66459240d7390a479a22c4ba2184420, type: 3}
-  gridType: 0
+  prefab: {fileID: 1967463717879569282, guid: 20d8fb4e1251447478dfa542b6dcbb4f, type: 3}
+  gridType: 3
