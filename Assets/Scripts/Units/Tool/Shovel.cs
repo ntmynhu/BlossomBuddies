@@ -13,14 +13,12 @@ public class Shovel : Tool
     public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
         base.OnToolSelected(playerAnim, playerMovement);
-
-        PlacementSystem.Instance.ShowAddIndicator(true);
-        PlacementSystem.Instance.SetCurrentSelectedIndex(spawnObject.ID);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.AddState, spawnObject);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
-        if (!PlacementSystem.Instance.CanPlaceAt())
+        if (!PlacementSystem.Instance.CanTriggerAction())
         {
             Debug.Log("Cannot place object at the current position.");
             yield break;
@@ -30,7 +28,7 @@ public class Shovel : Tool
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
         yield return new WaitForSeconds(0.5f);
 
-        PlacementSystem.Instance.PlaceObject();
+        PlacementSystem.Instance.TriggerAction();
 
         playerMovement.SetMovementEnable(true);
     }

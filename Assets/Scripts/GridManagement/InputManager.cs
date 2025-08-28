@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayermask;

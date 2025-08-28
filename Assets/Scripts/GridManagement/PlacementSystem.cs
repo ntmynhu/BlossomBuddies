@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 {
+    #region Fields
     [SerializeField] private GameObject mouseIndicator;
     [SerializeField] private GameObject cellIndicator;
-    [SerializeField] private InputManager inputManager;
     [SerializeField] private Grid grid;
     [SerializeField] private List<GridType> gridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
@@ -20,64 +20,86 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     private bool showAddIndicator = false;
     private bool showRemoveIndicator = false;
 
-    private Vector3 playerPosition;
-    private Vector3Int gridPosition;
-    private Vector3 targetIndicatorPosition;
-
     private Dictionary<GridType, GridData> gridDataDictionary = new();
 
     private List<PlantProgressData> plantProgressDatas = new();
 
+    private PlacementBaseState currentState;
+    #endregion
+
+    #region Properties
+    public PlacementNormalState NormalState = new PlacementNormalState();
+    public PlacementAddState AddState = new PlacementAddState();
+    public PlacementRemoveState RemoveState = new PlacementRemoveState();
+    public PlacementPlantState PlantState = new PlacementPlantState();
+
+    public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
+    public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
+
+    public GameObject CellIndicator => cellIndicator;
+    public Grid Grid => grid;
+
+    public int CurrentSelectedIndex => currentSelectedIndex;
+    public ObjectData CurrentSelectedObjectData => currentSelectedObjectData;
+    public GridData CurrentSelectedGridData => currentSelectedGridData;
+    #endregion
+
+    #region Methods
     private void Start()
     {
-        cellIndicator.SetActive(showAddIndicator);
+        currentState = NormalState;
+        currentState.EnterState(this);
     }
 
     private void Update()
     {
-        if (showAddIndicator)
-        {
-            HandleAddIndicator();
-        }
-        else if (showRemoveIndicator)
-        {
-            HandleRemoveIndicator();
-        }
+        currentState.UpdateState(this);
     }
 
-    private void HandleRemoveIndicator()
+    public void SwitchState(PlacementBaseState newState, ObjectData selectedObjectData)
     {
-        playerPosition = inputManager.GetPlayerSelectedMapPosition();
-        gridPosition = grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = grid.CellToWorld(gridPosition);
+        currentState.ExitState(this);
 
-        targetIndicatorPosition.y = playerPosition.y;
-        cellIndicator.transform.position = targetIndicatorPosition;
-
-        cellIndicator.SetActive(currentSelectedGridData.ContainsPosition(gridPosition));
-    }
-
-    private void HandleAddIndicator()
-    {
-        playerPosition = inputManager.GetPlayerSelectedMapPosition();
-        gridPosition = grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = grid.CellToWorld(gridPosition);
-
-        targetIndicatorPosition.y = playerPosition.y;
-        cellIndicator.transform.position = targetIndicatorPosition;
-
-        cellIndicator.SetActive(currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size));
-
-        if (currentSelectedGridData.GetGridType() == GridType.PlantGrid)
+        if (selectedObjectData != null)
         {
-            if (!CanPlantAt())
-            {
-                cellIndicator.SetActive(false);
-            }
-        }    
+            currentSelectedIndex = selectedObjectData.ID;
+            currentSelectedObjectData = selectedObjectData;
+            currentSelectedGridData = gridDataDictionary[selectedObjectData.gridType];
+        }
+
+        currentState = newState;
+        currentState.EnterState(this);
     }
 
-    public void RemoveObject()
+    public bool CanTriggerAction()
+    {
+        return currentState.CanTriggerAction(this);
+    }
+
+    public void TriggerAction()
+    {
+        currentState.TriggerAction(this);
+    }
+
+    public GameObject PlaceObject(Vector3Int gridPosition)
+    {
+        GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
+        newGameObject.transform.position = grid.CellToWorld(gridPosition);
+
+        Plant plant = newGameObject.GetComponent<Plant>();
+        if (plant != null)
+        {
+            plant.MainPosition = gridPosition;
+        }
+
+        placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
+
+        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, placedObjects.Count - 1);
+
+        return newGameObject;
+    }
+
+    public void RemoveObject(Vector3Int gridPosition)
     {
         List<GameObject> placedObjectsList = placedObjects[currentSelectedGridData.GetGridType()];
 
@@ -96,53 +118,6 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
     }
 
-    public void SetCurrentSelectedIndex(int newIndex)
-    {
-        currentSelectedIndex = newIndex;
-
-        currentSelectedObjectData = SelectedObject(currentSelectedIndex);
-        currentSelectedGridData = gridDataDictionary[currentSelectedObjectData.gridType];
-    }
-
-    public void SetCurrentSelectedGridData(GridType gridType)
-    {
-        currentSelectedGridData = gridDataDictionary[gridType];
-    }
-
-    public void PlaceObject()
-    {
-        GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
-        newGameObject.transform.position = grid.CellToWorld(gridPosition);
-
-        Plant plant = newGameObject.GetComponent<Plant>();
-        if (plant != null)
-        {
-            plant.MainPosition = gridPosition;
-        }
-
-        placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
-
-        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, placedObjects.Count - 1);
-    }    
-
-    public bool CanPlaceAt()
-    {
-        return currentSelectedGridData.CanPlaceAt(gridPosition, currentSelectedObjectData.Size);
-    }
-
-    public void Plant() // Similiar to PlaceObject, but specifically for planting objects
-    {
-        PlaceObject();
-    }
-
-    public bool CanPlantAt()
-    {
-        GridData soildGrid = gridDataDictionary[GridType.SoilGrid];
-
-        // Means there is soil to plant on
-        return !soildGrid.CanPlaceAt(gridPosition, currentSelectedObjectData.Size);
-    }    
-
     public ObjectData SelectedObject(int ID)
     {
         var ob = databaseSO.objectDatas.Find(data => data.ID == ID);
@@ -154,24 +129,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
 
         return ob;
-    }    
+    } 
+    #endregion
 
-    public void ShowAddIndicator(bool value)
-    {
-        cellIndicator.SetActive(value);
-        showAddIndicator = value;
-
-        showRemoveIndicator = false;
-    }
-
-    public void ShowRemoveIndicator(bool value)
-    {
-        cellIndicator.SetActive(value);
-        showRemoveIndicator = value;
-
-        showAddIndicator = false;
-    }
-
+    #region Save Load system
     public void LoadData(GameData data)
     {
         plantProgressDatas = data.plantProgressDataList;
@@ -258,4 +219,5 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
         #endregion
     }
+    #endregion
 }

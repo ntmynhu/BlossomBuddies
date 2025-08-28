@@ -14,13 +14,12 @@ public class SeedBag : Tool
     {
         base.OnToolSelected(playerAnim, playerMovement);
 
-        PlacementSystem.Instance.ShowAddIndicator(true);
-        PlacementSystem.Instance.SetCurrentSelectedIndex(spawnObject.ID);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.PlantState, spawnObject);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
-        if (!PlacementSystem.Instance.CanPlantAt())
+        if (!PlacementSystem.Instance.CanTriggerAction())
         {
             Debug.Log("Cannot plant at the current position.");
             yield break;
@@ -31,7 +30,7 @@ public class SeedBag : Tool
 
         yield return new WaitForSeconds(0.5f);
 
-        PlacementSystem.Instance.Plant();
+        PlacementSystem.Instance.TriggerAction();
         playerMovement.SetMovementEnable(true);
     }
 }

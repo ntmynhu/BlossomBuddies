@@ -15,6 +15,6 @@ public class InventorySlot : MonoBehaviour
 
     private void OnButtonClick()
     {
-        PlacementSystem.Instance.SelectedObject(objectData.ID);
+        
     }
 }

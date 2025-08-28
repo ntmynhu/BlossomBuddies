@@ -69,5 +69,6 @@ public class ToolHandler : MonoBehaviour
     public void UnSelectTool()
     {
         ToolManager.Instance.SetCurrentTool(null, parentTransform);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
     }
 }

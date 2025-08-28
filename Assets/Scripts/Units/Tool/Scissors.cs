@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Scissors : Tool
 {
+    [SerializeField] private PlantData plantData;
+
     public override void UseTool()
     {
         StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement));
@@ -11,9 +13,7 @@ public class Scissors : Tool
     public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
         base.OnToolSelected(playerAnim, playerMovement);
-
-        PlacementSystem.Instance.ShowRemoveIndicator(true);
-        PlacementSystem.Instance.SetCurrentSelectedGridData(GridType.PlantGrid);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.RemoveState, plantData);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
@@ -22,7 +22,7 @@ public class Scissors : Tool
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
         yield return new WaitForSeconds(0.5f);
 
-        PlacementSystem.Instance.RemoveObject();
+        PlacementSystem.Instance.TriggerAction();
 
         playerMovement.SetMovementEnable(true);
     }
