@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wardrobe
   ID: 103
-  Size: {x: 2, y: 1}
+  Size: {x: 1, y: 1}
   prefab: {fileID: 1967463717879569282, guid: a80c9a9852800864c807d06e98f78f48, type: 3}
   gridType: 3

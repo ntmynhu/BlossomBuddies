@@ -37,9 +37,4 @@ public class PlacementAddState : PlacementBaseState
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
         placementSystem.CellIndicator.SetActive(placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size));
     }
-
-    public void PlaceObject()
-    {
-        PlacementSystem.Instance.PlaceObject(gridPosition);
-    }
 }

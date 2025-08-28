@@ -15,7 +15,14 @@ public class GridData
 
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
     {
+        Debug.Log($"Adding object at {gridPosition} of size {objectSize}");
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
+
+        foreach (var position in positionToOccupy)
+        {
+            Debug.Log($"Position to occupy: {position}");
+        }
+
         PlacementData data = new(gridPosition, positionToOccupy, Id, placedObjectIndex);
 
         foreach (var position in positionToOccupy)
@@ -55,7 +62,7 @@ public class GridData
         {
             for (int y = 0; y < objectSize.y; y++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x, 0, y));
+                returnVal.Add(gridPosition + new Vector3Int(x, y, 0));
             }
         }
         return returnVal;

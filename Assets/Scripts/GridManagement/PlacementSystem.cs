@@ -32,6 +32,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementAddState AddState = new PlacementAddState();
     public PlacementRemoveState RemoveState = new PlacementRemoveState();
     public PlacementPlantState PlantState = new PlacementPlantState();
+    public PlacementFurnitureState FurnitureState = new PlacementFurnitureState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
@@ -60,15 +61,23 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     {
         currentState.ExitState(this);
 
-        if (selectedObjectData != null)
-        {
-            currentSelectedIndex = selectedObjectData.ID;
-            currentSelectedObjectData = selectedObjectData;
-            currentSelectedGridData = gridDataDictionary[selectedObjectData.gridType];
-        }
+        SetCurrentObjectData(selectedObjectData);
 
         currentState = newState;
         currentState.EnterState(this);
+    }
+
+    public void SetCurrentObjectData(ObjectData newObject)
+    {
+        if (newObject == null)
+        {
+            Debug.LogError("Selected object data is null.");
+            return;
+        }
+
+        currentSelectedIndex = newObject.ID;
+        currentSelectedObjectData = newObject;
+        currentSelectedGridData = gridDataDictionary[newObject.gridType];
     }
 
     public bool CanTriggerAction()

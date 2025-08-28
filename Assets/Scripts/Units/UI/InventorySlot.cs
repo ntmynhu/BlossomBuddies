@@ -5,6 +5,8 @@ public class InventorySlot : MonoBehaviour
 {
     [SerializeField] private ObjectData objectData;
 
+    public ObjectData ObjectData => objectData;
+
     private Button button;
 
     private void Start()
@@ -15,6 +17,6 @@ public class InventorySlot : MonoBehaviour
 
     private void OnButtonClick()
     {
-        
+        PlacementSystem.Instance.SetCurrentObjectData(objectData);
     }
 }
