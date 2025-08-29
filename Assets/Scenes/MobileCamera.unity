@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 68563721}
   - component: {fileID: 68563720}
   - component: {fileID: 68563719}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2100,6 +2100,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.46
       objectReference: {fileID: 0}
+    - target: {fileID: 2125979411627076491, guid: 4710f117a8bd07e43979a0feb547fc92,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4544309763968619301, guid: 4710f117a8bd07e43979a0feb547fc92,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -3171,7 +3176,7 @@ MonoBehaviour:
   sceneCamera: {fileID: 2024788128}
   placementLayermask:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 64
 --- !u!4 &1422044604
 Transform:
   m_ObjectHideFlags: 0
@@ -3827,7 +3832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1828992862}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PreviewObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3932,6 +3937,11 @@ PrefabInstance:
       propertyPath: cameraTransform
       value: 
       objectReference: {fileID: 2024788129}
+    - target: {fileID: 9036183160311119553, guid: f1bfa143145d59d4eb1ace543079a84b,
+        type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2747034712474786400, guid: f1bfa143145d59d4eb1ace543079a84b, type: 3}
     m_RemovedGameObjects: []
@@ -4609,7 +4619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103066588}
   - component: {fileID: 2103066589}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: PreviewIndicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4658,7 +4668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2123868310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: IndicatorParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}

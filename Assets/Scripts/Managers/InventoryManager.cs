@@ -14,6 +14,7 @@ public class InventoryManager : MonoBehaviour
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
             thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
+            GameManager.Instance.Player.SetActive(!inventoryPanel.activeSelf);
 
             if (inventoryPanel.activeSelf)
             {
