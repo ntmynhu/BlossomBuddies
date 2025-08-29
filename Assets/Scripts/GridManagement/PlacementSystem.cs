@@ -93,8 +93,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public GameObject PlaceObject(Vector3Int gridPosition)
     {
+        Vector3 targetPosition = grid.CellToWorld(gridPosition);
+        targetPosition.y = cellIndicator.transform.position.y;
+
         GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
-        newGameObject.transform.position = grid.CellToWorld(gridPosition);
+        newGameObject.transform.position = targetPosition;
 
         Plant plant = newGameObject.GetComponent<Plant>();
         if (plant != null)

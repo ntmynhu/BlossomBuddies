@@ -25,7 +25,7 @@ public class PlacementFurnitureState : PlacementBaseState
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
-        placementSystem.CellIndicator.gameObject.SetActive(CanTriggerAction(placementSystem));
+        placementSystem.CellIndicator.SetValid(CanTriggerAction(placementSystem));
     }
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)

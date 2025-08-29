@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -28,6 +29,9 @@ public class InventoryManager : MonoBehaviour
         {
             if (Input.GetMouseButtonUp(0))
             {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
                 PlacementSystem.Instance.TriggerAction();
             }
         }
