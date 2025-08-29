@@ -30,16 +30,15 @@ public class PlacementFurnitureState : PlacementBaseState
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
     {
-        Debug.Log($"Checking placement at {gridPosition}");
         return placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size);
     }
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
+        // Test
         if (!CanTriggerAction(placementSystem))
         {
-            Debug.Log("Cannot place object here.");
-            return;
+            placementSystem.RemoveObject(gridPosition);
         }
 
         placementSystem.PlaceObject(gridPosition);

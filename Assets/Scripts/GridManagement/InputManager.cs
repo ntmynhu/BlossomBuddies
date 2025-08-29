@@ -13,6 +13,11 @@ public class InputManager : Singleton<InputManager>
         player = GameManager.Instance.Player;
     }
 
+    private void Update()
+    {
+        
+    }
+
     public Vector3 GetSelectedMapPosition()
     {
         Vector3 mousePos = Input.mousePosition;

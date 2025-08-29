@@ -7,7 +7,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         get
         {
-            if (_instance == null)
+            /*if (_instance == null)
             {
                 _instance = FindAnyObjectByType<T>();
                 if (_instance == null)
@@ -16,7 +16,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
                     _instance = singletonObject.AddComponent<T>();
                     singletonObject.name = typeof(T).ToString();
                 }
-            }
+            }*/
             return _instance;
         }
     }

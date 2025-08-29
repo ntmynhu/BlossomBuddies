@@ -15,13 +15,7 @@ public class GridData
 
     public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
     {
-        Debug.Log($"Adding object at {gridPosition} of size {objectSize}");
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
-
-        foreach (var position in positionToOccupy)
-        {
-            Debug.Log($"Position to occupy: {position}");
-        }
 
         PlacementData data = new(gridPosition, positionToOccupy, Id, placedObjectIndex);
 
@@ -29,7 +23,8 @@ public class GridData
         {
             if (ContainsPosition(position))
             {
-                throw new System.Exception($"Dictionary already contains this position!");
+                Debug.Log("Already contains");
+                return;
             }
         }
 

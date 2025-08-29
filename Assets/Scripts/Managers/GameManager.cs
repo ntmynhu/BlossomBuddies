@@ -10,7 +10,6 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        //Cursor.lockState = CursorLockMode.Locked;
         playerMovement = player.GetComponent<PlayerMovement>();
     }
 }
