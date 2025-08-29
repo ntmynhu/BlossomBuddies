@@ -6,7 +6,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 {
     #region Fields
     [SerializeField] private GameObject mouseIndicator;
-    [SerializeField] private GameObject cellIndicator;
+    [SerializeField] private PreviewIndicator cellIndicator;
     [SerializeField] private Grid grid;
     [SerializeField] private List<GridType> gridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
@@ -37,7 +37,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
 
-    public GameObject CellIndicator => cellIndicator;
+    public PreviewIndicator CellIndicator => cellIndicator;
     public Grid Grid => grid;
 
     public int CurrentSelectedIndex => currentSelectedIndex;
@@ -71,9 +71,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     {
         if (newObject == null)
         {
-            Debug.LogError("Selected object data is null.");
             return;
         }
+
+        cellIndicator.UpdateIndicator(newObject.prefab, newObject.Size);
 
         currentSelectedIndex = newObject.ID;
         currentSelectedObjectData = newObject;

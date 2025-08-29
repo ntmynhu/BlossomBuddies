@@ -4,12 +4,12 @@ public class PlacementAddState : PlacementBaseState
 {
     public override void EnterState(PlacementSystem placementSystem)
     {
-        placementSystem.CellIndicator.SetActive(true);
+        placementSystem.CellIndicator.gameObject.SetActive(true);
     }
 
     public override void ExitState(PlacementSystem placementSystem)
     {
-        placementSystem.CellIndicator.SetActive(false);
+        placementSystem.CellIndicator.gameObject.SetActive(false);
     }
 
     public override void UpdateState(PlacementSystem placementSystem)
@@ -35,6 +35,6 @@ public class PlacementAddState : PlacementBaseState
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
-        placementSystem.CellIndicator.SetActive(placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size));
+        placementSystem.CellIndicator.gameObject.SetActive(placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size));
     }
 }

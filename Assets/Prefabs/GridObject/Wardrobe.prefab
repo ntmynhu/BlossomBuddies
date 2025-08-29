@@ -10,6 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 3eaf63541056cab458eec951bd763c4f,
         type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.69
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3eaf63541056cab458eec951bd763c4f,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.498
       objectReference: {fileID: 0}
@@ -85,7 +90,7 @@ PrefabInstance:
     - target: {fileID: 2636746316691952012, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}
       propertyPath: m_Name
-      value: Bed 1
+      value: Wardrobe
       objectReference: {fileID: 0}
     - target: {fileID: 2636746316691952012, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}

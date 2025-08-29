@@ -4,7 +4,7 @@ public class PlacementNormalState : PlacementBaseState
 {
     public override void EnterState(PlacementSystem placementSystem)
     {
-        placementSystem.CellIndicator.SetActive(false);
+        placementSystem.CellIndicator.gameObject.SetActive(false);
     }
 
     public override void ExitState(PlacementSystem placementSystem)

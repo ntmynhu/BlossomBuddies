@@ -5,12 +5,12 @@ public class PlacementRemoveState : PlacementBaseState
 {
     public override void EnterState(PlacementSystem placementSystem)
     {
-        placementSystem.CellIndicator.SetActive(true);
+        placementSystem.CellIndicator.gameObject.SetActive(true);
     }
 
     public override void ExitState(PlacementSystem placementSystem)
     {
-        placementSystem.CellIndicator.SetActive(false);
+        placementSystem.CellIndicator.gameObject.SetActive(false);
     }
 
     public override void UpdateState(PlacementSystem placementSystem)
@@ -26,7 +26,7 @@ public class PlacementRemoveState : PlacementBaseState
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
-        placementSystem.CellIndicator.SetActive(placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition));
+        placementSystem.CellIndicator.gameObject.SetActive(placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition));
     }
 
     public override void TriggerAction(PlacementSystem placementSystem)
