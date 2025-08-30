@@ -20,8 +20,8 @@ public class PlacementFurnitureState : PlacementBaseState
     private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetSelectedMapPosition();
-        gridPosition = placementSystem.Grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = placementSystem.Grid.CellToWorld(gridPosition);
+        gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
+        targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
@@ -41,6 +41,6 @@ public class PlacementFurnitureState : PlacementBaseState
             placementSystem.RemoveObject(gridPosition);
         }
 
-        placementSystem.PlaceObject(gridPosition);
+        placementSystem.PlaceAndAddObject(gridPosition);
     }
 }

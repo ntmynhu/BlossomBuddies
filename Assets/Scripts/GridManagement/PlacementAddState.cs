@@ -19,7 +19,7 @@ public class PlacementAddState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
-        placementSystem.PlaceObject(gridPosition);
+        placementSystem.PlaceAndAddObject(gridPosition);
     }
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
@@ -30,8 +30,8 @@ public class PlacementAddState : PlacementBaseState
     private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
-        gridPosition = placementSystem.Grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = placementSystem.Grid.CellToWorld(gridPosition);
+        gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
+        targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;

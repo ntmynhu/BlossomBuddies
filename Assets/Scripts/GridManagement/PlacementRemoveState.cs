@@ -21,8 +21,8 @@ public class PlacementRemoveState : PlacementBaseState
     private void HandleRemoveIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
-        gridPosition = placementSystem.Grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = placementSystem.Grid.CellToWorld(gridPosition);
+        gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
+        targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;

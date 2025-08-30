@@ -20,8 +20,8 @@ public class PlacementPlantState : PlacementBaseState
     private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
-        gridPosition = placementSystem.Grid.WorldToCell(playerPosition);
-        targetIndicatorPosition = placementSystem.Grid.CellToWorld(gridPosition);
+        gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
+        targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
@@ -30,7 +30,8 @@ public class PlacementPlantState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
-        GameObject newGameObject = PlacementSystem.Instance.PlaceObject(gridPosition);
+        GameObject newGameObject = PlacementSystem.Instance.PlaceAndAddObject(gridPosition);
+
         Plant plant = newGameObject.GetComponent<Plant>();
         if (plant != null)
         {

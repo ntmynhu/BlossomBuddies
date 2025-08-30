@@ -154,15 +154,15 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 495987242}
-  - {fileID: 736703487}
   - {fileID: 128750025}
+  - {fileID: 736703487}
   - {fileID: 131818832}
   m_Father: {fileID: 454912372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 375, y: 200}
+  m_SizeDelta: {x: 550, y: 200}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &42665346
 MonoBehaviour:
@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &128750025
 RectTransform:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 450, y: -100}
+  m_AnchoredPosition: {x: 275, y: -100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &128750026
@@ -465,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectData: {fileID: 11400000, guid: 12e511f88cd186c4aa6f0d757cc279c4, type: 2}
+  objectData: {fileID: 11400000, guid: 2f5142f808d8e2c4fab1a6c2e6f99aff, type: 2}
 --- !u!114 &128750029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1108,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -100}
+  m_AnchoredPosition: {x: 450, y: -100}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &736703488
@@ -1237,8 +1237,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseIndicator: {fileID: 967507150}
   cellIndicator: {fileID: 2103066589}
-  grid: {fileID: 893958370}
-  gridTypeList: 00000000010000000200000003000000
+  mainGrid: {fileID: 893958370}
+  dualGrid: {fileID: 1335536744}
+  mainGridTypeList: 00000000010000000200000003000000
+  dualGridTypeList: 00000000
   databaseSO: {fileID: 11400000, guid: 191996dc09c10f741958e6d7f2b0a3f3, type: 2}
 --- !u!4 &856796665
 Transform:
@@ -1493,15 +1495,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6620245, g: 0.89433956, b: 0.65978634, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -199046904, guid: 2f29cf663e5913648b99416adcbf1736, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf,
+    type: 3}
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2583,7 +2586,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 03f87985dee9f7f43a176465df3b8693, type: 2}
+  - {fileID: 2100000, guid: 24b3575094e0ad141b399c7811db2aa0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

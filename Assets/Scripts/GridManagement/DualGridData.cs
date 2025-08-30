@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GridData
+public class DualGridData : MonoBehaviour
 {
     [SerializeField] private GridType gridType;
     [SerializeField] private List<PlacementData> placedObjects;
 
-    public GridData(GridType gridType, List<PlacementData> placementDatas = null)
+    public DualGridData(GridType gridType, List<PlacementData> placementDatas = null)
     {
         this.gridType = gridType;
         placedObjects = placementDatas ?? new List<PlacementData>();
@@ -48,11 +48,6 @@ public class GridData
         {
             placedObjects.Remove(dataToRemove);
         }
-    }
-
-    public PlacementData GetPlacementData(Vector3Int gridPosition)
-    {
-        return placedObjects.Find(placement => placement.mainPosition == gridPosition || placement.occupiedPositions.Contains(gridPosition));
     }
 
     public List<Vector3Int> CalculatePositions(Vector3Int gridPosition, Vector2Int objectSize)
@@ -103,30 +98,4 @@ public class GridData
     {
         return placedObjects;
     }
-}
-
-[System.Serializable]
-public class PlacementData
-{
-    public Vector3Int mainPosition;
-    public List<Vector3Int> occupiedPositions;
-    public int placedObjectId;
-    public int placedObjectIndex;
-
-    public PlacementData(Vector3Int mainPosition, List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)
-    {
-        this.mainPosition = mainPosition;
-        this.occupiedPositions = occupiedPositions;
-        placedObjectId = iD;
-        this.placedObjectIndex = placedObjectIndex;
-    }
-}
-
-[System.Serializable]
-public enum GridType
-{
-    SoilGrid,
-    PlantGrid,
-    FloorGrid,
-    Furniture,
 }

@@ -18,7 +18,7 @@ public class InventoryManager : MonoBehaviour
 
             if (inventoryPanel.activeSelf)
             {
-                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, inventorySlots[0].ObjectData);
+                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.DualGridState, inventorySlots[0].ObjectData);
             }
             else
             {
