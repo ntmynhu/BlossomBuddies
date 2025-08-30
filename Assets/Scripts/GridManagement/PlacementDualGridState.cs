@@ -34,7 +34,12 @@ public class PlacementDualGridState : PlacementBaseState
 
         foreach (var pos in dualPositionsToProcess)
         {
-            Tile tile = placementSystem.PlaceObject(pos, dualGrid).GetComponent<Tile>();
+            if (!placementSystem.DualGridData.CanPlaceAt(pos, placementSystem.CurrentSelectedObjectData.Size))
+            {
+                placementSystem.RemoveObjectInDualGrid(pos);
+            }
+
+            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos).GetComponent<Tile>();
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual

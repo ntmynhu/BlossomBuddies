@@ -50,7 +50,15 @@ public class Tile : MonoBehaviour
                 else
                 {
                     chosenVisualTile = tileData.tile_half;
-                    yRotation = oneHalfRotation + (-90 * firstIndex);
+                    
+                    if (firstIndex == 0 && lastIndex == 3)
+                    {
+                        yRotation = oneHalfRotation + (-90 * lastIndex);
+                    }
+                    else
+                    {
+                        yRotation = oneHalfRotation + (-90 * firstIndex);
+                    }
                 }
 
                 break;

@@ -18,15 +18,12 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     private GridData currentSelectedGridData;
 
     private Dictionary<GridType, List<GameObject>> placedObjects = new();
-
-    private bool showAddIndicator = false;
-    private bool showRemoveIndicator = false;
-
     private Dictionary<GridType, GridData> gridDataDictionary = new();
+
     private GridData dualGridData = new GridData(GridType.SoilGrid);
+    private List<GameObject> dualGridPlacedObjects = new();
 
     private List<PlantProgressData> plantProgressDatas = new();
-
     private PlacementBaseState currentState;
     #endregion
 
@@ -39,8 +36,9 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementDualGridState DualGridState = new PlacementDualGridState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
-    public GridData DualGridData => dualGridData;
     public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
+
+    public GridData DualGridData => dualGridData;
 
     public PreviewIndicator CellIndicator => cellIndicator;
     public Grid MainGrid => mainGrid;
@@ -118,6 +116,16 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         return newGameObject;
     }
 
+    public GameObject PlaceAndAddObjectInDualGrid(Vector3Int gridPosition)
+    {
+        var newGameObject = PlaceObject(gridPosition, dualGrid);
+
+        dualGridPlacedObjects.Add(newGameObject);
+        AddObjectToDualGrid(gridPosition);
+
+        return newGameObject;
+    }
+
     public GameObject PlaceAndAddObject(Vector3Int gridPosition)
     {
         var newGameObject = PlaceObject(gridPosition, mainGrid);
@@ -126,6 +134,23 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         AddObjectToGridData(gridPosition);
 
         return newGameObject;
+    }
+
+    public void RemoveObjectInDualGrid(Vector3Int gridPosition)
+    {
+        GameObject objectToRemove = dualGridPlacedObjects.FirstOrDefault(obj => obj.transform.position == dualGrid.CellToWorld(gridPosition));
+
+        if (objectToRemove != null)
+        {
+            dualGridPlacedObjects.Remove(objectToRemove);
+            Destroy(objectToRemove);
+
+            dualGridData.RemoveObject(gridPosition);
+        }
+        else
+        {
+            Debug.Log("No object found at the specified position to remove in dual grid.");
+        }
     }
 
     public void RemoveObject(Vector3Int gridPosition)
