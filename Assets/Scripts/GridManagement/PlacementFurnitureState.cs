@@ -35,12 +35,6 @@ public class PlacementFurnitureState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
-        // Test
-        if (!CanTriggerAction(placementSystem))
-        {
-            placementSystem.RemoveObject(gridPosition);
-        }
-
         placementSystem.PlaceAndAddObject(gridPosition);
     }
 }

@@ -34,6 +34,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementPlantState PlantState = new PlacementPlantState();
     public PlacementFurnitureState FurnitureState = new PlacementFurnitureState();
     public PlacementDualGridState DualGridState = new PlacementDualGridState();
+    public PlacementReplaceState ReplaceState = new PlacementReplaceState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
@@ -71,6 +72,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         currentState.EnterState(this);
     }
 
+    public void HideIndicatorObject(bool value)
+    {
+        cellIndicator.HidePreviewObject(value);
+    }
+
     public void SetCurrentObjectData(ObjectData newObject)
     {
         if (newObject == null)
@@ -105,10 +111,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         dualGridData.AddObject(gridPosition, Vector2Int.one, currentSelectedObjectData.ID, placedObjects.Count - 1);
     }
 
-    public GameObject PlaceObject(Vector3Int gridPosition, Grid grid)
+    public GameObject PlaceObject(Vector3Int gridPosition, Grid grid, bool keepIndicatorHeight = true)
     {
         Vector3 targetPosition = grid.CellToWorld(gridPosition);
-        targetPosition.y = cellIndicator.transform.position.y;
+        if (keepIndicatorHeight) targetPosition.y = cellIndicator.transform.position.y;
 
         GameObject newGameObject = Instantiate(currentSelectedObjectData.prefab);
         newGameObject.transform.position = targetPosition;
@@ -126,9 +132,9 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         return newGameObject;
     }
 
-    public GameObject PlaceAndAddObject(Vector3Int gridPosition)
+    public GameObject PlaceAndAddObject(Vector3Int gridPosition, bool keepIndicatorHeight = true)
     {
-        var newGameObject = PlaceObject(gridPosition, mainGrid);
+        var newGameObject = PlaceObject(gridPosition, mainGrid, keepIndicatorHeight);
 
         placedObjects[currentSelectedObjectData.gridType].Add(newGameObject);
         AddObjectToGridData(gridPosition);

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Shovel : Tool
+public class WateringCan : Tool
 {
     [SerializeField] private ObjectData spawnObject;
 
@@ -18,12 +18,6 @@ public class Shovel : Tool
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
-        if (!PlacementSystem.Instance.CanTriggerAction())
-        {
-            Debug.Log("Cannot place object at the current position.");
-            yield break;
-        }
-
         playerMovement.SetMovementEnable(false);
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
         yield return new WaitForSeconds(0.5f);

@@ -13,12 +13,12 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            //thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
-            //GameManager.Instance.Player.SetActive(!inventoryPanel.activeSelf);
+            thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
+            GameManager.Instance.Player.SetActive(!inventoryPanel.activeSelf);
 
             if (inventoryPanel.activeSelf)
             {
-                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.DualGridState, inventorySlots[0].ObjectData);
+                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, inventorySlots[0].ObjectData);
             }
             else
             {

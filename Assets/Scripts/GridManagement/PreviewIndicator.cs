@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PreviewIndicator : MonoBehaviour
@@ -23,15 +24,23 @@ public class PreviewIndicator : MonoBehaviour
         {
             Destroy(spawnObject);
         }
-        
-        spawnObject = Instantiate(prefab, previewPrefab.transform);
-        
+
+        if (prefab != null)
+        {
+            spawnObject = Instantiate(prefab, previewPrefab.transform);
+        }
+
         float scaleY = cellIndicator.transform.localScale.y;
         cellIndicator.transform.localScale = new Vector3(size.x, scaleY, size.y);
 
         cellIndicator.transform.localPosition = new Vector3(size.x / 2f, 0, size.y / 2f);
 
         Debug.Log($"Updated indicator to size {size} at position {cellIndicator.transform.localPosition}");
+    }
+
+    public void HidePreviewObject(bool value)
+    {
+        previewPrefab.SetActive(!value);
     }
 
     public void SetValid(bool isValid)
