@@ -79,7 +79,7 @@ public class PlacementDualGridState : PlacementBaseState
         Debug.Log(gridPosition);
     }
 
-    private List<Vector3Int> GetPositionsToProcess(Vector3Int gridPosition)
+    public List<Vector3Int> GetPositionsToProcess(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();
         positions.Add(new Vector3Int(gridPosition.x + 1, gridPosition.y + 1, gridPosition.z));
@@ -90,7 +90,7 @@ public class PlacementDualGridState : PlacementBaseState
         return positions;
     }
 
-    private List<Vector3Int> GetPositionsToProcessTile(Vector3Int gridPosition)
+    public List<Vector3Int> GetPositionsToProcessTile(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();
         positions.Add(new Vector3Int(gridPosition.x, gridPosition.y, gridPosition.z));

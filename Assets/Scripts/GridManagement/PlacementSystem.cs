@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 {
@@ -20,7 +21,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     private Dictionary<GridType, List<GameObject>> placedObjects = new();
     private Dictionary<GridType, GridData> gridDataDictionary = new();
 
-    private GridData dualGridData = new GridData(GridType.SoilGrid);
+    private GridData dualGridData;
     private List<GameObject> dualGridPlacedObjects = new();
 
     private List<PlantProgressData> plantProgressDatas = new();
@@ -206,14 +207,33 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 GridData loadedGridData = new(storedGridData.GetGridType(), storedGridData.GetPlacedObjects());
 
                 gridDataDictionary[gridType] = loadedGridData;
-                LoadExistingGrid(loadedGridData);
 
+                if (!(data.dualGridData != null && gridType == data.dualGridData.GetGridType()))
+                {
+                    LoadExistingGrid(loadedGridData);
+                }
             }
             else
             {
                 gridDataDictionary[gridType] = new GridData(gridType);
                 placedObjects[gridType] = new List<GameObject>();
             }
+        }
+
+        // Initialize dual grid data
+        if (data.dualGridData != null)
+        {
+            Debug.Log("Loading dual grid data");
+
+            GridData storedDualGrid = data.dualGridData;
+            dualGridData = new(storedDualGrid.GetGridType(), storedDualGrid.GetPlacedObjects());
+
+            LoadExistingDualGrid(dualGridData);
+        }
+        else
+        {
+            dualGridData = new GridData(GridType.SoilGrid);
+            dualGridPlacedObjects = new List<GameObject>();
         }
     }
 
@@ -231,8 +251,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         foreach (var placedObject in gridPlacedObjects)
         {
-            var placementData = placedObject;
-            var objectData = SelectedObject(placementData.placedObjectId);
+            var objectData = SelectedObject(placedObject.placedObjectId);
 
             GameObject newGameObject = Instantiate(objectData.prefab);
             newGameObject.transform.position = mainGrid.CellToWorld(placedObject.mainPosition);
@@ -252,9 +271,90 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
     }
 
+    private void LoadExistingDualGrid(GridData dualGridData)
+    {
+        dualGridPlacedObjects = new List<GameObject>();
+        var gridPlacedObjects = dualGridData.GetPlacedObjects();
+
+        if (gridPlacedObjects.Count == 0)
+        {
+            return;
+        }
+
+        var mainGridData = gridDataDictionary[dualGridData.GetGridType()];
+
+        foreach (var placedObject in gridPlacedObjects)
+        {
+            var objectData = SelectedObject(placedObject.placedObjectId);
+
+            GameObject newGameObject = Instantiate(objectData.prefab);
+            newGameObject.transform.position = dualGrid.CellToWorld(placedObject.mainPosition);
+
+            Tile tile = newGameObject.GetComponent<Tile>();
+            if (tile != null)
+            {
+                // For each dual pos, get 4 main position to calculate tile's visual
+                List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetPositionsToProcessTile(placedObject.mainPosition);
+
+                List<int> objectIdsToUpdateVisual = new List<int>();
+                foreach (var position in mainPositionsToProcessTile)
+                {
+                    PlacementData placementData = mainGridData.GetPlacementData(position);
+                    int objectId = (placementData != null) ? placementData.placedObjectId : -1;
+                    objectIdsToUpdateVisual.Add(objectId);
+                }
+
+                tile.CalculateTileVisual(objectIdsToUpdateVisual);
+            }
+
+            dualGridPlacedObjects.Add(newGameObject);
+        }
+
+        /*GridData mainGridData = gridDataDictionary[dualGridData.GetGridType()];
+
+        foreach (var obj in mainGridData.GetPlacedObjects())
+        {
+            // Get 4 dural grid's positions from 1 cell in main grid
+            List<Vector3Int> dualPositionsToProcess = DualGridState.GetPositionsToProcess(obj.mainPosition);
+
+            foreach (var pos in dualPositionsToProcess)
+            {
+                ObjectData objectData = SelectedObject(obj.placedObjectId);
+
+                if (!DualGridData.CanPlaceAt(pos, objectData.Size))
+                {
+                    RemoveObjectInDualGrid(pos);
+                }
+
+                GameObject newGameObject = Instantiate(objectData.prefab);
+                newGameObject.transform.position = dualGrid.CellToWorld(pos);
+
+                Tile tile = newGameObject.GetComponent<Tile>();
+
+                if (tile != null)
+                {
+                    // For each dual pos, get 4 main position to calculate tile's visual
+                    List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetPositionsToProcessTile(pos);
+
+                    List<int> objectIdsToUpdateVisual = new List<int>();
+                    foreach (var position in mainPositionsToProcessTile)
+                    {
+                        PlacementData placementData = mainGridData.GetPlacementData(position);
+                        int objectId = (placementData != null) ? placementData.placedObjectId : -1;
+                        objectIdsToUpdateVisual.Add(objectId);
+                    }
+
+                    Debug.Log("Updating tile visual at position: " + pos);
+                    tile.CalculateTileVisual(objectIdsToUpdateVisual);
+                }
+            }
+        }*/
+    }
+
     public void SaveData(ref GameData data)
     {
         data.gridDataList = gridDataDictionary.Values.ToList();
+        data.dualGridData = dualGridData;
 
         #region Plant Progress Data
         data.plantProgressDataList = new List<PlantProgressData>();

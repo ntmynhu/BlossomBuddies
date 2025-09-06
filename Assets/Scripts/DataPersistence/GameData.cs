@@ -15,11 +15,13 @@ public class GameData
 {
     public long lastLoginTime;
     public List<GridData> gridDataList;
+    public GridData dualGridData;
     public List<PlantProgressData> plantProgressDataList;
 
     public GameData()
     {
         gridDataList = new List<GridData>();
+        dualGridData = new GridData(GridType.SoilGrid);
         plantProgressDataList = new List<PlantProgressData>();
     }
 }
