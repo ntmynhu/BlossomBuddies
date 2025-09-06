@@ -7,11 +7,13 @@ public class PlacementDualGridState : PlacementBaseState
     public override void EnterState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(true);
+        placementSystem.HideIndicatorObject(true);
     }
 
     public override void ExitState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(false);
+        placementSystem.HideIndicatorObject(false);
     }
 
     public override void UpdateState(PlacementSystem placementSystem)
@@ -21,6 +23,22 @@ public class PlacementDualGridState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
+        if (!placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size))
+        {
+            var placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(gridPosition);
+            if (placementData != null)
+            {
+                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.ID)
+                {
+                    Debug.Log("Same Object Existing! Do Nothing");
+                    return;
+                }
+            }
+
+            Debug.Log("Other Object Existing! Replace it");
+            placementSystem.RemoveObject(gridPosition);
+        }
+
         placementSystem.AddObjectToGridData(gridPosition);
         ProcessDualGridVisual(placementSystem);
     }
@@ -85,12 +103,12 @@ public class PlacementDualGridState : PlacementBaseState
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
     {
-        return placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size);
+        return true;
     }
 
     private void HandleIndicator(PlacementSystem placementSystem)
     {
-        playerPosition = InputManager.Instance.GetSelectedMapPosition();
+        playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
         gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
         targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
 

@@ -124,7 +124,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public GameObject PlaceAndAddObjectInDualGrid(Vector3Int gridPosition)
     {
-        var newGameObject = PlaceObject(gridPosition, dualGrid);
+        var newGameObject = PlaceObject(gridPosition, dualGrid, false);
 
         dualGridPlacedObjects.Add(newGameObject);
         AddObjectToDualGrid(gridPosition);
