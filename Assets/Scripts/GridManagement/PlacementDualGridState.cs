@@ -30,7 +30,8 @@ public class PlacementDualGridState : PlacementBaseState
             {
                 if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.ID)
                 {
-                    Debug.Log("Same Object Existing! Do Nothing");
+                    placementSystem.CurrentSelectedGridData.RemoveObject(gridPosition);
+                    ProcessDualGridVisual(placementSystem);
                     return;
                 }
             }
@@ -79,6 +80,11 @@ public class PlacementDualGridState : PlacementBaseState
         Debug.Log(gridPosition);
     }
 
+    /// <summary>
+    /// Get dual grid positions from main grid position
+    /// </summary>
+    /// <param name="gridPosition"></param>
+    /// <returns></returns>
     public List<Vector3Int> GetPositionsToProcess(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();
@@ -90,6 +96,12 @@ public class PlacementDualGridState : PlacementBaseState
         return positions;
     }
 
+
+    /// <summary>
+    /// Get main grid positions from dual grid position
+    /// </summary>
+    /// <param name="gridPosition"></param>
+    /// <returns></returns>
     public List<Vector3Int> GetPositionsToProcessTile(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();

@@ -28,7 +28,8 @@ public class Tile : MonoBehaviour
         {
             case 0:
             {
-                chosenVisualTile = tileData.other_tile_full;
+                Vector3Int gridPosition = PlacementSystem.Instance.DualGrid.WorldToCell(transform.position);
+                PlacementSystem.Instance.RemoveObjectInDualGrid(gridPosition);
                 break;
             }
             case 1:
