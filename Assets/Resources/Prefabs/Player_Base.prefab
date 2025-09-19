@@ -73,11 +73,11 @@ GameObject:
   - component: {fileID: 7525289404981130380}
   - component: {fileID: 732372342609450617}
   - component: {fileID: 9036183160311119553}
-  - component: {fileID: 2747034712474786400}
   - component: {fileID: 8418334165385889279}
   - component: {fileID: 2304820531929890510}
+  - component: {fileID: 6586575659532884943}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Player_Base
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -144,34 +144,16 @@ MonoBehaviour:
   animator: {fileID: 5544809676572108601}
   speed: 3
   runSpeed: 6
-  acceleration: 10
-  deceleration: 20
+  acceleration: 100
+  deceleration: 10
   gravity: -19.62
   jumpHeight: 1.5
   groundCheck: {fileID: 1175319272135611754}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 65
   cameraTransform: {fileID: 0}
---- !u!114 &2747034712474786400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5549019586616305233}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ba84fc81e7827244bef0b38e48fb8b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mouseSensitivity: 400
-  cameraDistance: 7
-  rotationMin: 0
-  rotationMax: 90
-  thirdPersonCam: {fileID: 0}
-  followTarget: {fileID: 3859028244679818592}
 --- !u!114 &8418334165385889279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +183,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 5544809676572108601}
+--- !u!114 &6586575659532884943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549019586616305233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 079b57a2f5a22c046bc06981ca29e741, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitalFollow: {fileID: 0}
+  inputAxisController: {fileID: 0}
+  mobileSensitivityX: 600
+  mobileSensitivityY: -500
+  pcSensitivityX: 300
+  pcSensitivityY: -250
 --- !u!1 &7351141056259483461
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,7 +813,7 @@ Animator:
   m_GameObject: {fileID: 182618789736114851}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fade8819ba9712b46aba89f61d342599, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7b94b3814cb4c9b47b0837b3ef64c15f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
