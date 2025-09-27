@@ -19,6 +19,7 @@ MonoBehaviour:
   gridType: 1
   plantName: Demo
   plantStates:
+  - time: 6
   - time: 12
   - time: 24
   - time: 48
