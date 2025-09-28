@@ -1152,10 +1152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef13180fa88e2ba4bbf1b09511bb2cfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolInfo: {fileID: 0}
+  toolInfo: {fileID: 11400000, guid: f8af8cd3e2171424590e950bac9b5c77, type: 2}
   initialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0, w: 0}
-  spawnObject: {fileID: 11400000, guid: 2f5142f808d8e2c4fab1a6c2e6f99aff, type: 2}
+  spawnObject: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
 --- !u!4 &6321615662707511241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,

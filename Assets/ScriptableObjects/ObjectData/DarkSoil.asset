@@ -15,4 +15,5 @@ MonoBehaviour:
   Name: DarkSoil
   ID: 1
   Size: {x: 1, y: 1}
-  prefab: {fileID: 1967463717879569282, guid: f3e9984f53ce4214d8effe61b59f3f66, type: 3}
+  prefab: {fileID: 1967463717879569282, guid: 2543e85ef9358cd4699ebc99d5af5cf3, type: 3}
+  gridType: 0
