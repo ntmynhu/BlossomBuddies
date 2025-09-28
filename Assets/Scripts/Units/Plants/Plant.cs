@@ -73,6 +73,10 @@ public class Plant : MonoBehaviour
     {
         mainPosition = data.mainPosition;
 
+        var targetPosition = transform.position;
+        targetPosition.y = data.yPosition;
+        transform.position = targetPosition;
+
         long lastLoginTime = DataPersistenceManager.Instance.LastLoginTime;
         long secondsFromNow = (DateTime.Now.Ticks - lastLoginTime) / TimeSpan.TicksPerSecond;
 

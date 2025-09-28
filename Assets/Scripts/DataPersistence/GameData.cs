@@ -8,6 +8,7 @@ public class PlantProgressData
     public Vector3Int mainPosition;
     public int currentStateIndex;
     public float currentGrowthTime;
+    public float yPosition;
 }
 
 [System.Serializable]

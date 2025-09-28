@@ -371,7 +371,8 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                     plantDataId = plant.PlantData.ID,
                     mainPosition = plant.MainPosition,
                     currentStateIndex = plant.CurrentStateIndex,
-                    currentGrowthTime = plant.CurrentGrowthTime
+                    currentGrowthTime = plant.CurrentGrowthTime,
+                    yPosition = plant.gameObject.transform.position.y
                 };
 
                 data.plantProgressDataList.Add(plantData);

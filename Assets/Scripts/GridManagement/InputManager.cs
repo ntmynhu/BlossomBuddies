@@ -4,6 +4,7 @@ public class InputManager : Singleton<InputManager>
 {
     [SerializeField] private Camera sceneCamera;
     [SerializeField] private LayerMask placementLayermask;
+    [SerializeField] private float forwardOffset = 2f;
 
     private Vector3 lastPosition;
     private GameObject player;
@@ -32,7 +33,7 @@ public class InputManager : Singleton<InputManager>
 
     public Vector3 GetPlayerSelectedMapPosition()
     {
-        Vector3 playerPos = player.transform.position + player.transform.forward/2 + Vector3.up * 1f;
+        Vector3 playerPos = player.transform.position + player.transform.forward * forwardOffset + Vector3.up * 1f;
         if (Physics.Raycast(playerPos, Vector3.down, out RaycastHit hit, 100, placementLayermask))
         {
             lastPosition = hit.point;
