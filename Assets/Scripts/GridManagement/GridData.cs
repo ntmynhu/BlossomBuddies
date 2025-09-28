@@ -7,6 +7,9 @@ public class GridData
     [SerializeField] private GridType gridType;
     [SerializeField] private List<PlacementData> placedObjects;
 
+    public GridType GridType => gridType;
+    public List<PlacementData> PlacedObjects => placedObjects;
+
     public GridData(GridType gridType, List<PlacementData> placementDatas = null)
     {
         this.gridType = gridType;
@@ -94,14 +97,9 @@ public class GridData
         return false;
     }
 
-    public GridType GetGridType()
+    internal IEnumerable<object> GetPlacedObjects()
     {
-        return gridType;
-    }
-
-    public List<PlacementData> GetPlacedObjects()
-    {
-        return placedObjects;
+        throw new System.NotImplementedException();
     }
 }
 

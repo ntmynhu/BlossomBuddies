@@ -18,11 +18,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     private ObjectData currentSelectedObjectData;
     private GridData currentSelectedGridData;
 
-    private Dictionary<GridType, List<GameObject>> placedObjects = new();
     private Dictionary<GridType, GridData> gridDataDictionary = new();
+    private Dictionary<GridType, List<GameObject>> placedObjects = new();
 
-    private GridData dualGridData;
-    private List<GameObject> dualGridPlacedObjects = new();
+    private Dictionary<GridType, GridData> dualGridDataDictionary = new();
+    private Dictionary<GridType, List<GameObject>> dualGridPlacedObjects = new();
 
     private List<PlantProgressData> plantProgressDatas = new();
     private PlacementBaseState currentState;
@@ -38,9 +38,8 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementReplaceState ReplaceState = new PlacementReplaceState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
-    public Dictionary<GridType, List<GameObject>> PlacedObjects => placedObjects;
 
-    public GridData DualGridData => dualGridData;
+    public Dictionary<GridType, GridData> DualGridDataDictionary => dualGridDataDictionary;
 
     public PreviewIndicator CellIndicator => cellIndicator;
     public Grid MainGrid => mainGrid;
@@ -109,7 +108,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void AddObjectToDualGrid(Vector3Int gridPosition)
     {
-        dualGridData.AddObject(gridPosition, Vector2Int.one, currentSelectedObjectData.ID, placedObjects.Count - 1);
+        dualGridDataDictionary[currentSelectedGridData.GridType].AddObject(gridPosition, Vector2Int.one, currentSelectedObjectData.ID, placedObjects.Count - 1);
     }
 
     public GameObject PlaceObject(Vector3Int gridPosition, Grid grid, bool keepIndicatorHeight = true)
@@ -127,7 +126,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     {
         var newGameObject = PlaceObject(gridPosition, dualGrid, false);
 
-        dualGridPlacedObjects.Add(newGameObject);
+        dualGridPlacedObjects[currentSelectedGridData.GridType].Add(newGameObject);
         AddObjectToDualGrid(gridPosition);
 
         return newGameObject;
@@ -145,14 +144,16 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void RemoveObjectInDualGrid(Vector3Int gridPosition)
     {
-        GameObject objectToRemove = dualGridPlacedObjects.FirstOrDefault(obj => obj.transform.position == dualGrid.CellToWorld(gridPosition));
+        List<GameObject> targetList = dualGridPlacedObjects[currentSelectedGridData.GridType];
+
+        GameObject objectToRemove = targetList.FirstOrDefault(obj => obj.transform.position == dualGrid.CellToWorld(gridPosition));
 
         if (objectToRemove != null)
         {
-            dualGridPlacedObjects.Remove(objectToRemove);
+            targetList.Remove(objectToRemove);
             Destroy(objectToRemove);
 
-            dualGridData.RemoveObject(gridPosition);
+            dualGridDataDictionary[currentSelectedGridData.GridType].RemoveObject(gridPosition);
         }
         else
         {
@@ -162,7 +163,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void RemoveObject(Vector3Int gridPosition)
     {
-        List<GameObject> placedObjectsList = placedObjects[currentSelectedGridData.GetGridType()];
+        List<GameObject> placedObjectsList = placedObjects[currentSelectedGridData.GridType];
 
         GameObject objectToRemove = placedObjectsList.FirstOrDefault(obj => obj.transform.position == mainGrid.CellToWorld(gridPosition));
 
@@ -200,15 +201,15 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         foreach (var gridType in mainGridTypeList)
         {
-            GridData storedGridData = data.gridDataList.FirstOrDefault(g => g.GetGridType() == gridType);
+            GridData storedGridData = data.gridDataList.FirstOrDefault(g => g.GridType == gridType);
 
             if (storedGridData != null)
             {
-                GridData loadedGridData = new(storedGridData.GetGridType(), storedGridData.GetPlacedObjects());
+                GridData loadedGridData = new(storedGridData.GridType, storedGridData.PlacedObjects);
 
                 gridDataDictionary[gridType] = loadedGridData;
 
-                if (!(data.dualGridData != null && gridType == data.dualGridData.GetGridType()))
+                if (!(data.dualGridDataList != null && data.dualGridDataList.FirstOrDefault(g => g.GridType == gridType) != null))
                 {
                     LoadExistingGrid(loadedGridData);
                 }
@@ -221,33 +222,40 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
 
         // Initialize dual grid data
-        if (data.dualGridData != null)
+        foreach (var gridData in data.dualGridDataList)
         {
-            Debug.Log("Loading dual grid data");
+            if (gridData != null)
+            {
+                Debug.Log("Loading dual grid data");
 
-            GridData storedDualGrid = data.dualGridData;
-            dualGridData = new(storedDualGrid.GetGridType(), storedDualGrid.GetPlacedObjects());
+                GridData storedDualGrid = gridData;
+                dualGridDataDictionary[storedDualGrid.GridType] = new(storedDualGrid.GridType, storedDualGrid.PlacedObjects);
 
-            LoadExistingDualGrid(dualGridData);
+                LoadExistingDualGrid(dualGridDataDictionary[storedDualGrid.GridType]);
+            }
         }
-        else
+
+        foreach (var gridType in dualGridTypeList)
         {
-            dualGridData = new GridData(GridType.SoilGrid);
-            dualGridPlacedObjects = new List<GameObject>();
+            if (!dualGridDataDictionary.ContainsKey(gridType))
+            {
+                dualGridDataDictionary[gridType] = new GridData(gridType);
+                dualGridPlacedObjects[gridType] = new List<GameObject>();
+            }
         }
     }
 
     private void LoadExistingGrid(GridData gridData)
     {
-        placedObjects[gridData.GetGridType()] = new List<GameObject>();
-        var gridPlacedObjects = gridData.GetPlacedObjects();
+        placedObjects[gridData.GridType] = new List<GameObject>();
+        var gridPlacedObjects = gridData.PlacedObjects;
 
         if (gridPlacedObjects.Count == 0)
         {
             return;
         }
 
-        bool isPlantGrid = gridData.GetGridType() == GridType.PlantGrid;
+        bool isPlantGrid = gridData.GridType == GridType.PlantGrid;
 
         foreach (var placedObject in gridPlacedObjects)
         {
@@ -267,21 +275,21 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 }
             }
 
-            placedObjects[gridData.GetGridType()].Add(newGameObject);
+            placedObjects[gridData.GridType].Add(newGameObject);
         }
     }
 
     private void LoadExistingDualGrid(GridData dualGridData)
     {
-        dualGridPlacedObjects = new List<GameObject>();
-        var gridPlacedObjects = dualGridData.GetPlacedObjects();
+        dualGridPlacedObjects[dualGridData.GridType] = new List<GameObject>();
+        var gridPlacedObjects = dualGridData.PlacedObjects;
 
         if (gridPlacedObjects.Count == 0)
         {
             return;
         }
 
-        var mainGridData = gridDataDictionary[dualGridData.GetGridType()];
+        var mainGridData = gridDataDictionary[dualGridData.GridType];
 
         foreach (var placedObject in gridPlacedObjects)
         {
@@ -307,7 +315,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 tile.CalculateTileVisual(objectIdsToUpdateVisual);
             }
 
-            dualGridPlacedObjects.Add(newGameObject);
+            dualGridPlacedObjects[dualGridData.GridType].Add(newGameObject);
         }
 
         /*GridData mainGridData = gridDataDictionary[dualGridData.GetGridType()];
@@ -354,7 +362,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public void SaveData(ref GameData data)
     {
         data.gridDataList = gridDataDictionary.Values.ToList();
-        data.dualGridData = dualGridData;
+        data.dualGridDataList = dualGridDataDictionary.Values.ToList();
 
         #region Plant Progress Data
         data.plantProgressDataList = new List<PlantProgressData>();

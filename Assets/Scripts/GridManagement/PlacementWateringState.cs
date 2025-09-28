@@ -52,7 +52,7 @@ public class PlacementWateringState : PlacementBaseState
 
         foreach (var pos in dualPositionsToProcess)
         {
-            if (!placementSystem.DualGridData.CanPlaceAt(pos, placementSystem.CurrentSelectedObjectData.Size))
+            if (!placementSystem.DualGridDataDictionary[placementSystem.CurrentSelectedGridData.GridType].CanPlaceAt(pos, placementSystem.CurrentSelectedObjectData.Size))
             {
                 placementSystem.RemoveObjectInDualGrid(pos);
             }
