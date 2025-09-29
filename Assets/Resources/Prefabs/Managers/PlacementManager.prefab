@@ -163,6 +163,7 @@ MonoBehaviour:
   placementLayermask:
     serializedVersion: 2
     m_Bits: 64
+  forwardOffset: 0
 --- !u!1 &4691917535531954530
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,7 +264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5763508960384987264}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -290,8 +291,8 @@ MonoBehaviour:
   cellIndicator: {fileID: 8408260957046366167}
   mainGrid: {fileID: 5169419596826108020}
   dualGrid: {fileID: 5897219963556564214}
-  mainGridTypeList: 00000000010000000200000003000000
-  dualGridTypeList: 00000000
+  mainGridTypeList: 000000000100000002000000030000000100000005000000
+  dualGridTypeList: 000000000100000005000000
   databaseSO: {fileID: 11400000, guid: 191996dc09c10f741958e6d7f2b0a3f3, type: 2}
 --- !u!1 &6253821122406428034
 GameObject:

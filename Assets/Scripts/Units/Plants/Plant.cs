@@ -8,6 +8,9 @@ public class Plant : MonoBehaviour
     [SerializeField] private PlantData plantData;
     [SerializeField] private List<GameObject> stateGameObjects;
 
+    [SerializeField] private ObjectData wateredSoilData;
+    [SerializeField] private ObjectData wateredFadeOutSoilData;
+
     private Vector3Int mainPosition;
     private float growthTime = 0;
     private int currentStateIndex = 0;
@@ -15,14 +18,11 @@ public class Plant : MonoBehaviour
 
     private bool isDead = false;
 
-    private List<WateredSoil> wateredSoils = new List<WateredSoil>();
-
     #region Handle Watering
-    private float waterExistingTime = 5f;
+    private float waterExistingTime = 10f;
     private float waterTimer = 0f;
     private int waterState = 0;
     private int totalWaterLevels = 2;
-    private ObjectData wateredSoilData;
     #endregion
 
     #region Properties
@@ -31,6 +31,7 @@ public class Plant : MonoBehaviour
     public int CurrentStateIndex => currentStateIndex;
     public float CurrentGrowthTime => growthTime;
     public ObjectData WateredSoilData => wateredSoilData;
+    public ObjectData WateredFadeOutSoilData => wateredFadeOutSoilData;
     #endregion
 
     private void Start()
@@ -118,10 +119,11 @@ public class Plant : MonoBehaviour
         }
     }
 
-    public void StartWater(ObjectData waterSoilData)
+    public void StartWater()
     {
         waterTimer = waterExistingTime / totalWaterLevels;
-        wateredSoilData = waterSoilData;
+
+        waterState = 0;
     }
 
     private void HandleWaterLevel()
@@ -137,11 +139,16 @@ public class Plant : MonoBehaviour
                 waterTimer = 0;
                 waterState = 0;
 
-                PlacementSystem.Instance.GridDataDictionary[GridType.WateringGrid].RemoveObject(mainPosition);
-                PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, mainPosition);
+                PlacementSystem.Instance.GridDataDictionary[GridType.WateringGrid_Mid].RemoveObject(mainPosition);
+                PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, GridType.WateringGrid_Mid, wateredFadeOutSoilData, mainPosition);
             }
             else
             {
+                PlacementSystem.Instance.GridDataDictionary[GridType.WateringGrid].RemoveObject(mainPosition);
+                PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, GridType.WateringGrid, WateredSoilData, mainPosition);
+
+                PlacementSystem.Instance.AddObjectToGridData(wateredFadeOutSoilData, GridType.WateringGrid_Mid, mainPosition);
+                PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, GridType.WateringGrid_Mid, wateredFadeOutSoilData, mainPosition);
                 waterTimer = waterExistingTime / totalWaterLevels;
             }
         }

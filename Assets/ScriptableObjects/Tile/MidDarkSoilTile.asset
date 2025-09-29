@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f393461fef3a22a4d94e320457ea36e2, type: 3}
   m_Name: MidDarkSoilTile
   m_EditorClassIdentifier: 
-  mainObject: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
-  tile_full: {fileID: 919132149155446097, guid: 5adc45f13c792064fb20b5850a47c381,
+  mainObject: {fileID: 11400000, guid: 5d92958d3f22c834abad7c605a2bfcc6, type: 2}
+  tile_full: {fileID: 919132149155446097, guid: 67579686af2376448871aae827948de3,
     type: 3}
-  tile_quarter_1: {fileID: 919132149155446097, guid: dee43ebc4c7af9a4bba5d2680326f3e2,
+  tile_quarter_1: {fileID: 919132149155446097, guid: 9faefe56ace49b34aaeed5c26dc7ad00,
     type: 3}
-  tile_quarter_1_3: {fileID: 919132149155446097, guid: b767a46335a9da64483116dc88c9839f,
+  tile_quarter_1_3: {fileID: 919132149155446097, guid: 5a04b8465ed375540a3c286245c70cee,
     type: 3}
-  tile_quarter_1_2_3: {fileID: 919132149155446097, guid: 87a11c7f4f406d84cb3625c7a55742c6,
+  tile_quarter_1_2_3: {fileID: 919132149155446097, guid: f3f0f47a85b26cf4f9d7124aac1b565e,
     type: 3}
-  tile_half: {fileID: 919132149155446097, guid: f0d50f772eec2db46b40109560d94541,
+  tile_half: {fileID: 919132149155446097, guid: 982dfc2c0f2ddb34cb58c93dddb676fb,
     type: 3}
   other_tile_full: {fileID: 919132149155446097, guid: 1c61750c1839c45458c9904d6a6bf9a9,
     type: 3}

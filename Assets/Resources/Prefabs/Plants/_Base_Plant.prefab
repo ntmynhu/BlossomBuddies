@@ -154,6 +154,9 @@ MonoBehaviour:
   - {fileID: 8848938810615043257}
   - {fileID: 8639284131811352636}
   - {fileID: 106044640249570842}
+  wateredSoilData: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
+  wateredFadeOutSoilData: {fileID: 11400000, guid: 5d92958d3f22c834abad7c605a2bfcc6,
+    type: 2}
 --- !u!1 &8639284131811352636
 GameObject:
   m_ObjectHideFlags: 0

@@ -2269,36 +2269,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacementManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
-        type: 3}
-      propertyPath: dualGridTypeList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
-        type: 3}
-      propertyPath: mainGridTypeList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
-        type: 3}
-      propertyPath: 'dualGridTypeList.Array.data[1]'
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
-        type: 3}
-      propertyPath: 'mainGridTypeList.Array.data[4]'
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7189002232048532523, guid: 600523f8b07c67245baf51b65e468250,
         type: 3}
       propertyPath: sceneCamera
       value: 
       objectReference: {fileID: 2024788128}
-    - target: {fileID: 7189002232048532523, guid: 600523f8b07c67245baf51b65e468250,
-        type: 3}
-      propertyPath: forwardOffset
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3286,10 +3261,10 @@ MonoBehaviour:
       Height: 5
     Center:
       Radius: 4
-      Height: 1
+      Height: 1.2
     Bottom:
       Radius: 0.7
-      Height: -1
+      Height: -0.5
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
@@ -3373,8 +3348,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1469542340}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27769563, y: -0.00000001943011, z: 0.0000000056165614, w: 0.9606691}
-  m_LocalPosition: {x: -3.2483137, y: 3.7262733, z: -3.4818225}
+  m_LocalRotation: {x: 0.287498, y: 0.000000028544108, z: -0.000000008568108, w: 0.95778126}
+  m_LocalPosition: {x: -3.2483137, y: 3.8371532, z: -3.4818225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3394,7 +3369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollideAgainst:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 383
   IgnoreTag: Player
   TransparentLayers:
     serializedVersion: 2
@@ -4003,8 +3978,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024788126}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.27769563, y: -0.00000001943011, z: 0.000000005616561, w: 0.96066916}
-  m_LocalPosition: {x: -3.2483137, y: 3.7262733, z: -3.4818225}
+  m_LocalRotation: {x: 0.28749803, y: 0.00000002854411, z: -0.00000000856811, w: 0.95778126}
+  m_LocalPosition: {x: -3.2483137, y: 3.8371532, z: -3.4818225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4211,9 +4186,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2024788129}
-  - {fileID: 1469542346}
   - {fileID: 1442971694}
   - {fileID: 1840600202}
+  - {fileID: 1469542346}
   - {fileID: 2133088711}
   - {fileID: 739308273}
   - {fileID: 1263072279}

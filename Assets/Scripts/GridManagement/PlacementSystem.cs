@@ -109,6 +109,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, mainGridPlacedObjects.Count - 1);
     }
 
+    public void AddObjectToGridData(ObjectData objectData, GridType gridType, Vector3Int gridPosition)
+    {
+        GridDataDictionary[gridType].AddObject(gridPosition, objectData.Size, objectData.ID, mainGridPlacedObjects.Count - 1);
+    }
+
     public void AddObjectToDualGrid(Vector3Int gridPosition, GridType gridType, ObjectData objectData)
     {
         dualGridDataDictionary[gridType].AddObject(gridPosition, Vector2Int.one, objectData.ID, mainGridPlacedObjects.Count - 1);
