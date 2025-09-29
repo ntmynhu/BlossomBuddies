@@ -36,6 +36,8 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementFurnitureState FurnitureState = new PlacementFurnitureState();
     public PlacementDualGridState DualGridState = new PlacementDualGridState();
     public PlacementReplaceState ReplaceState = new PlacementReplaceState();
+    public PlacementWateringState WateringState = new PlacementWateringState();
+    public PlacementShovelState ShovelState = new PlacementShovelState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
 
@@ -122,9 +124,9 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         return newGameObject;
     }
 
-    public GameObject PlaceAndAddObjectInDualGrid(Vector3Int gridPosition)
+    public GameObject PlaceAndAddObjectInDualGrid(Vector3Int gridPosition, bool keepIndicatorHeight = true)
     {
-        var newGameObject = PlaceObject(gridPosition, dualGrid, false);
+        var newGameObject = PlaceObject(gridPosition, dualGrid, keepIndicatorHeight);
 
         dualGridPlacedObjects[currentSelectedGridData.GridType].Add(newGameObject);
         AddObjectToDualGrid(gridPosition);

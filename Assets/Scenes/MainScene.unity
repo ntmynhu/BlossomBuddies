@@ -2269,6 +2269,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlacementManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: dualGridTypeList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: mainGridTypeList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: 'dualGridTypeList.Array.data[1]'
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: 'mainGridTypeList.Array.data[4]'
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7189002232048532523, guid: 600523f8b07c67245baf51b65e468250,
         type: 3}
       propertyPath: sceneCamera
@@ -4169,7 +4189,12 @@ PrefabInstance:
     - target: {fileID: 9036183160311119553, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: acceleration
-      value: 500
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9036183160311119553, guid: fa304f39e7c292b45bf14b92e8ff6998,
+        type: 3}
+      propertyPath: deceleration
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 9036183160311119553, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}

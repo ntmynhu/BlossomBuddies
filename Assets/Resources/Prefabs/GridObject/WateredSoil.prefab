@@ -97,7 +97,7 @@ PrefabInstance:
     - target: {fileID: 2636746316691952012, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}
       propertyPath: m_Name
-      value: DarkSoil
+      value: WateredSoil
       objectReference: {fileID: 0}
     - target: {fileID: 2636746316691952012, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}
@@ -166,6 +166,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5016386043684600624, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5016386043684600624, guid: d759b5ce37369f34aac47d0c7c4eadd7,
+        type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
@@ -187,6 +192,11 @@ PrefabInstance:
     - target: {fileID: 5016386043684600624, guid: d759b5ce37369f34aac47d0c7c4eadd7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5016386043684600624, guid: d759b5ce37369f34aac47d0c7c4eadd7,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6295485254221362439, guid: d759b5ce37369f34aac47d0c7c4eadd7,
@@ -212,6 +222,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8738833014700370484}
+    - targetCorrespondingSourceObject: {fileID: 2636746316691952012, guid: d759b5ce37369f34aac47d0c7c4eadd7,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6519766072372912495}
   m_SourcePrefab: {fileID: 100100000, guid: d759b5ce37369f34aac47d0c7c4eadd7, type: 3}
 --- !u!1 &1967463717879569282 stripped
 GameObject:
@@ -234,6 +248,23 @@ MonoBehaviour:
   mesh: {fileID: 655863523277817497}
   meshRenderer: {fileID: 3386406957858206291}
   tileData: {fileID: 11400000, guid: ec4cb6b3f560f664cbdeb4a3f2c97985, type: 2}
+--- !u!114 &6519766072372912495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967463717879569282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddc23f815593dd147a66c6eaf24365f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterdMaterials:
+  - {fileID: 2100000, guid: ba71157ac5c37ff44b2f87f2dd20c78a, type: 2}
+  - {fileID: 2100000, guid: 8e78df8b2d44d404584d12b8d86b28dc, type: 2}
+  - {fileID: 2100000, guid: 46723106b02ae844da07550370744ca0, type: 2}
+  mesh: {fileID: 3386406957858206291}
 --- !u!4 &8811160293676429630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5016386043684600624, guid: d759b5ce37369f34aac47d0c7c4eadd7,

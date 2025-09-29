@@ -16,4 +16,4 @@ MonoBehaviour:
   ID: 1
   Size: {x: 1, y: 1}
   prefab: {fileID: 1967463717879569282, guid: 2543e85ef9358cd4699ebc99d5af5cf3, type: 3}
-  gridType: 0
+  gridType: 1

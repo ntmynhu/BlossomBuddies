@@ -13,7 +13,7 @@ public class Shovel : Tool
     public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
         base.OnToolSelected(playerAnim, playerMovement);
-        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.DualGridState, spawnObject);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.ShovelState, spawnObject);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlacementWateringState : PlacementBaseState
+public class PlacementShovelState : PlacementBaseState
 {
     public override void EnterState(PlacementSystem placementSystem)
     {
@@ -22,8 +22,6 @@ public class PlacementWateringState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
-        if (!CanTriggerAction(placementSystem)) return;
-
         if (!placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size))
         {
             var placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(gridPosition);
@@ -45,7 +43,7 @@ public class PlacementWateringState : PlacementBaseState
         ProcessDualGridVisual(placementSystem);
     }
 
-    protected void ProcessDualGridVisual(PlacementSystem placementSystem)
+    private void ProcessDualGridVisual(PlacementSystem placementSystem)
     {
         Grid dualGrid = placementSystem.DualGrid;
 
@@ -116,11 +114,12 @@ public class PlacementWateringState : PlacementBaseState
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
     {
-        return placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition) && 
-                !placementSystem.GridDataDictionary[placementSystem.CurrentSelectedGridData.GridType].ContainsPosition(gridPosition);
+        return !placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition) ||
+            (placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition) &&
+            !placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition));
     }
 
-    protected void HandleIndicator(PlacementSystem placementSystem)
+    private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
         gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);

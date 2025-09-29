@@ -58,7 +58,7 @@ public class PlacementDualGridState : PlacementBaseState
                 placementSystem.RemoveObjectInDualGrid(pos);
             }
 
-            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos).GetComponent<Tile>();
+            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, false).GetComponent<Tile>();
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual
