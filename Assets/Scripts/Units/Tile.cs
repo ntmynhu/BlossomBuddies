@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private MeshFilter mesh;
-    [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private TileData tileData;
+    [SerializeField] protected MeshFilter mesh;
+    [SerializeField] protected MeshRenderer meshRenderer;
+    [SerializeField] protected TileData tileData;
 
     private int yRotation = 0;
     private int oneQuarterRotation = 0;
@@ -16,6 +16,8 @@ public class Tile : MonoBehaviour
 
     public void CalculateTileVisual(List<int> objectIds)
     {
+        Debug.Log(gameObject.name);
+
         foreach (var id in objectIds)
         {
             Debug.Log("Object ID in tile: " + id);
@@ -29,7 +31,7 @@ public class Tile : MonoBehaviour
             case 0:
             {
                 Vector3Int gridPosition = PlacementSystem.Instance.DualGrid.WorldToCell(transform.position);
-                PlacementSystem.Instance.RemoveObjectInDualGrid(gridPosition);
+                PlacementSystem.Instance.RemoveObjectInDualGrid(gridPosition, tileData.mainObject.gridType);
                 break;
             }
             case 1:

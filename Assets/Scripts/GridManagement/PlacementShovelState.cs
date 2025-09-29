@@ -54,10 +54,10 @@ public class PlacementShovelState : PlacementBaseState
         {
             if (!placementSystem.DualGridDataDictionary[placementSystem.CurrentSelectedGridData.GridType].CanPlaceAt(pos, placementSystem.CurrentSelectedObjectData.Size))
             {
-                placementSystem.RemoveObjectInDualGrid(pos);
+                placementSystem.RemoveObjectInDualGrid(pos, placementSystem.CurrentSelectedGridData.GridType);
             }
 
-            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, false).GetComponent<Tile>();
+            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, GridType.SoilGrid, placementSystem.CurrentSelectedObjectData, false).GetComponent<Tile>();
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual

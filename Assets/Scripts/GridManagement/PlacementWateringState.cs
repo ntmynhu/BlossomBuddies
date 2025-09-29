@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlacementWateringState : PlacementBaseState
 {
+    private Plant targetPlant;
+
     public override void EnterState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(true);
@@ -24,42 +26,37 @@ public class PlacementWateringState : PlacementBaseState
     {
         if (!CanTriggerAction(placementSystem)) return;
 
-        if (!placementSystem.CurrentSelectedGridData.CanPlaceAt(gridPosition, placementSystem.CurrentSelectedObjectData.Size))
-        {
-            var placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(gridPosition);
-            if (placementData != null)
-            {
-                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.ID)
-                {
-                    placementSystem.CurrentSelectedGridData.RemoveObject(gridPosition);
-                    ProcessDualGridVisual(placementSystem);
-                    return;
-                }
-            }
+        // Find target plant
+        List<GameObject> plantList = placementSystem.MainGridPlacedObjects[GridType.PlantGrid];
+        GameObject foundObject = plantList.Find(obj => obj != null && placementSystem.MainGrid.WorldToCell(obj.transform.position) == gridPosition);
 
-            Debug.Log("Other Object Existing! Replace it");
-            placementSystem.RemoveObject(gridPosition);
+        if (foundObject != null)
+        {
+            targetPlant = foundObject.GetComponent<Plant>();
+            if (targetPlant != null)
+            {
+                Debug.Log("Watering plant at position: " + gridPosition);
+                targetPlant.StartWater(placementSystem.CurrentSelectedObjectData);
+            }
         }
 
         placementSystem.AddObjectToGridData(gridPosition);
-        ProcessDualGridVisual(placementSystem);
+        ProcessDualGridVisual(placementSystem, gridPosition);
     }
 
-    protected void ProcessDualGridVisual(PlacementSystem placementSystem)
+    public void ProcessDualGridVisual(PlacementSystem placementSystem, Vector3Int gridPosition)
     {
-        Grid dualGrid = placementSystem.DualGrid;
-
         // Get 4 dural grid's positions from 1 cell in main grid
         List<Vector3Int> dualPositionsToProcess = GetPositionsToProcess(gridPosition);
 
         foreach (var pos in dualPositionsToProcess)
         {
-            if (!placementSystem.DualGridDataDictionary[placementSystem.CurrentSelectedGridData.GridType].CanPlaceAt(pos, placementSystem.CurrentSelectedObjectData.Size))
+            if (!placementSystem.DualGridDataDictionary[GridType.WateringGrid].CanPlaceAt(pos, targetPlant.WateredSoilData.Size))
             {
-                placementSystem.RemoveObjectInDualGrid(pos);
+                placementSystem.RemoveObjectInDualGrid(pos, GridType.WateringGrid);
             }
 
-            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, false).GetComponent<Tile>();
+            Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, GridType.WateringGrid, targetPlant.WateredSoilData, false).GetComponent<Tile>();
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual
@@ -68,7 +65,7 @@ public class PlacementWateringState : PlacementBaseState
                 List<int> objectIdsToUpdateVisual = new List<int>();
                 foreach (var position in mainPositionsToProcessTile)
                 {
-                    PlacementData placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(position);
+                    PlacementData placementData = placementSystem.GridDataDictionary[GridType.WateringGrid].GetPlacementData(position);
                     int objectId = (placementData != null) ? placementData.placedObjectId : -1;
                     objectIdsToUpdateVisual.Add(objectId);
                 }

@@ -15,10 +15,23 @@ public class Plant : MonoBehaviour
 
     private bool isDead = false;
 
+    private List<WateredSoil> wateredSoils = new List<WateredSoil>();
+
+    #region Handle Watering
+    private float waterExistingTime = 5f;
+    private float waterTimer = 0f;
+    private int waterState = 0;
+    private int totalWaterLevels = 2;
+    private ObjectData wateredSoilData;
+    #endregion
+
+    #region Properties
     public Vector3Int MainPosition { get => mainPosition; set => mainPosition = value; }
     public PlantData PlantData => plantData;
     public int CurrentStateIndex => currentStateIndex;
     public float CurrentGrowthTime => growthTime;
+    public ObjectData WateredSoilData => wateredSoilData;
+    #endregion
 
     private void Start()
     {
@@ -37,6 +50,11 @@ public class Plant : MonoBehaviour
         if (growthTime >= currentStateTime)
         {
             AdvanceToNextState();
+        }
+
+        if (waterTimer > 0)
+        {
+            HandleWaterLevel();
         }
     }
 
@@ -97,6 +115,35 @@ public class Plant : MonoBehaviour
         {
             isDead = true;
             Debug.Log("Plant has died.");
+        }
+    }
+
+    public void StartWater(ObjectData waterSoilData)
+    {
+        waterTimer = waterExistingTime / totalWaterLevels;
+        wateredSoilData = waterSoilData;
+    }
+
+    private void HandleWaterLevel()
+    {
+        waterTimer -= Time.deltaTime;
+
+        if (waterTimer < 0)
+        {
+            waterState++;
+
+            if (waterState >= totalWaterLevels)
+            {
+                waterTimer = 0;
+                waterState = 0;
+
+                PlacementSystem.Instance.GridDataDictionary[GridType.WateringGrid].RemoveObject(mainPosition);
+                PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, mainPosition);
+            }
+            else
+            {
+                waterTimer = waterExistingTime / totalWaterLevels;
+            }
         }
     }
 }
