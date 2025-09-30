@@ -2680,8 +2680,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cd17950a0274a54c8b90fe17cc4a00c, type: 2}
   - {fileID: 11400000, guid: 4dc2503c8f7d6504c8d321e863790477, type: 2}
   - {fileID: 11400000, guid: f8af8cd3e2171424590e950bac9b5c77, type: 2}
-  - {fileID: 11400000, guid: 0bf765d97e30dc246a4d80c7dafd9a42, type: 2}
   - {fileID: 11400000, guid: 3fb1ea73a3b35da46a2a3e545da1ad68, type: 2}
+  - {fileID: 11400000, guid: f98fae0159aa57645bbd91d11a6d02d2, type: 2}
+  - {fileID: 11400000, guid: af806acea2a38414b8d11266f5abd6f2, type: 2}
+  - {fileID: 11400000, guid: 6b96f501083f3c74b8197a2c34c34a3b, type: 2}
+  - {fileID: 11400000, guid: 17d85d0e62be9bb4bbd1e9342b66762a, type: 2}
   spawnTransform: {fileID: 1298442215}
 --- !u!4 &1197222855
 Transform:

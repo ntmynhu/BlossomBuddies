@@ -92,6 +92,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5656063523884371776, guid: 9c09e4b7f0c404e478e32b830a38d6bb,
+        type: 3}
+      propertyPath: plantData
+      value: 
+      objectReference: {fileID: 11400000, guid: f7a6a008fa1ac10448a323f35a1e2756,
+        type: 2}
     - target: {fileID: 5687109637494619804, guid: 9c09e4b7f0c404e478e32b830a38d6bb,
         type: 3}
       propertyPath: m_Name

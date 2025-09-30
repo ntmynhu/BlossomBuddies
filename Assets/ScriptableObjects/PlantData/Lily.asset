@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f73ca054027bfc4b844c6825c0b7792, type: 3}
-  m_Name: Sunflower
+  m_Name: Lily
   m_EditorClassIdentifier: 
   Name: Plant
-  ID: 1002
+  ID: 1004
   Size: {x: 1, y: 1}
-  prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
+  prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
   gridType: 2
   plantName: Demo
   plantStates:
