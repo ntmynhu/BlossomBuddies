@@ -9,6 +9,9 @@ public class PlantProgressData
     public int currentStateIndex;
     public float currentGrowthTime;
     public float yPosition;
+    public float waterTimer;
+    public int waterState;
+    public bool isWatered;
 }
 
 [System.Serializable]

@@ -325,46 +325,6 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
             dualGridPlacedObjects[dualGridData.GridType].Add(newGameObject);
         }
-
-        /*GridData mainGridData = gridDataDictionary[dualGridData.GetGridType()];
-
-        foreach (var obj in mainGridData.GetPlacedObjects())
-        {
-            // Get 4 dural grid's positions from 1 cell in main grid
-            List<Vector3Int> dualPositionsToProcess = DualGridState.GetPositionsToProcess(obj.mainPosition);
-
-            foreach (var pos in dualPositionsToProcess)
-            {
-                ObjectData objectData = SelectedObject(obj.placedObjectId);
-
-                if (!DualGridData.CanPlaceAt(pos, objectData.Size))
-                {
-                    RemoveObjectInDualGrid(pos);
-                }
-
-                GameObject newGameObject = Instantiate(objectData.prefab);
-                newGameObject.transform.position = dualGrid.CellToWorld(pos);
-
-                Tile tile = newGameObject.GetComponent<Tile>();
-
-                if (tile != null)
-                {
-                    // For each dual pos, get 4 main position to calculate tile's visual
-                    List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetPositionsToProcessTile(pos);
-
-                    List<int> objectIdsToUpdateVisual = new List<int>();
-                    foreach (var position in mainPositionsToProcessTile)
-                    {
-                        PlacementData placementData = mainGridData.GetPlacementData(position);
-                        int objectId = (placementData != null) ? placementData.placedObjectId : -1;
-                        objectIdsToUpdateVisual.Add(objectId);
-                    }
-
-                    Debug.Log("Updating tile visual at position: " + pos);
-                    tile.CalculateTileVisual(objectIdsToUpdateVisual);
-                }
-            }
-        }*/
     }
 
     public void SaveData(ref GameData data)
@@ -382,15 +342,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
             if (plant != null)
             {
-                PlantProgressData plantData = new PlantProgressData
-                {
-                    plantDataId = plant.PlantData.ID,
-                    mainPosition = plant.MainPosition,
-                    currentStateIndex = plant.CurrentStateIndex,
-                    currentGrowthTime = plant.CurrentGrowthTime,
-                    yPosition = plant.gameObject.transform.position.y
-                };
-
+                PlantProgressData plantData = plant.SavePlantData();
                 data.plantProgressDataList.Add(plantData);
             }
         }

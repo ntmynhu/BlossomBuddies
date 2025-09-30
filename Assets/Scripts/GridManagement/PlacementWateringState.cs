@@ -35,7 +35,6 @@ public class PlacementWateringState : PlacementBaseState
             targetPlant = foundObject.GetComponent<Plant>();
             if (targetPlant != null)
             {
-                Debug.Log("Watering plant at position: " + gridPosition);
                 targetPlant.StartWater();
             }
         }
