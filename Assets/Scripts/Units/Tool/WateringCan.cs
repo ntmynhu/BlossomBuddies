@@ -4,6 +4,8 @@ using UnityEngine;
 public class WateringCan : Tool
 {
     [SerializeField] private ObjectData spawnObject;
+    [SerializeField] private ParticleSystem waterFX;
+    [SerializeField] private float waterTime;
 
     public override void UseTool()
     {
@@ -18,12 +20,33 @@ public class WateringCan : Tool
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
+        waterFX.Play();
         playerMovement.SetMovementEnable(false);
-        playerAnim.PlayAnimation(playerAnim.USE_TOOL);
-        yield return new WaitForSeconds(0.5f);
+        playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
 
-        PlacementSystem.Instance.TriggerAction();
+        // Wait for the player to release the mouse button or for the water time to be up
+        float waterTimer = waterTime;
+
+        while (!Input.GetMouseButtonUp(0))
+        {
+            waterTimer -= Time.deltaTime;
+
+            if (waterTimer <= 0f)
+            {
+                PlacementSystem.Instance.TriggerAction();
+
+                playerMovement.SetMovementEnable(true);
+                playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+                waterFX.Stop();
+
+                yield break;
+            }
+
+            yield return null;
+        }
 
         playerMovement.SetMovementEnable(true);
+        playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+        waterFX.Stop();
     }
 }
