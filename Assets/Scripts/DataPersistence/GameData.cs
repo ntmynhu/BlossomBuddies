@@ -12,6 +12,14 @@ public class PlantProgressData
     public float waterTimer;
     public int waterState;
     public bool isWatered;
+    public List<GrassData> grassDataList;
+}
+
+[System.Serializable]
+public class GrassData
+{
+    public bool isActive;
+    public Vector3 localScale;
 }
 
 [System.Serializable]

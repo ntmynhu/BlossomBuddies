@@ -10,11 +10,13 @@ public class PlacementScissorsState : PlacementBaseState
     public override void EnterState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(true);
+        placementSystem.HideIndicatorObject(true);
     }
 
     public override void ExitState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(false);
+        placementSystem.HideIndicatorObject(false);
     }
 
     public override void UpdateState(PlacementSystem placementSystem)

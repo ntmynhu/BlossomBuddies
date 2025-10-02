@@ -316,6 +316,20 @@ public class Plant : MonoBehaviour
         targetPosition.y = data.yPosition;
         transform.position = targetPosition;
 
+        // Load Grass
+        if (data.grassDataList != null && data.grassDataList.Count == grassList.Count)
+        {
+            for (int i = 0; i < grassList.Count; i++)
+            {
+                grassList[i].SetActive(data.grassDataList[i].isActive);
+                grassList[i].transform.localScale = data.grassDataList[i].localScale;
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Grass data list is null or does not match the number of grass objects.");
+        }
+
         long lastLoginTime = DataPersistenceManager.Instance.LastLoginTime;
         long secondsFromNow = (DateTime.Now.Ticks - lastLoginTime) / TimeSpan.TicksPerSecond;
 
@@ -338,6 +352,7 @@ public class Plant : MonoBehaviour
             Debug.Log("Plant has died.");
         }
 
+        // Load Watered Soil Visual
         waterTimer = data.waterTimer - secondsFromNow;
         waterState = data.waterState;
         isWatered = data.isWatered;
@@ -369,6 +384,17 @@ public class Plant : MonoBehaviour
 
     public PlantProgressData SavePlantData()
     {
+        List<GrassData> grassDataList = new List<GrassData>();
+        foreach (var grass in grassList)
+        {
+            GrassData grassData = new GrassData
+            {
+                isActive = grass.activeInHierarchy,
+                localScale = grass.transform.localScale
+            };
+            grassDataList.Add(grassData);
+        }
+
         PlantProgressData data = new PlantProgressData
         {
             plantDataId = plantData.ID,
@@ -378,7 +404,8 @@ public class Plant : MonoBehaviour
             yPosition = transform.position.y,
             waterTimer = waterTimer,
             waterState = waterState,
-            isWatered = isWatered
+            isWatered = isWatered,
+            grassDataList = grassDataList
         };
 
         return data;
