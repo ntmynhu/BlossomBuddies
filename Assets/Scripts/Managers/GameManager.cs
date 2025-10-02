@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField] private int timeScale = 1;
     [SerializeField] private GameObject player;
     public GameObject Player => player;
 
@@ -11,5 +12,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         playerMovement = player.GetComponent<PlayerMovement>();
+        Time.timeScale = timeScale;
+        Debug.Log("GameManager started with timeScale: " + timeScale);
     }
 }

@@ -173,7 +173,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     {
         List<GameObject> placedObjectsList = mainGridPlacedObjects[currentSelectedGridData.GridType];
 
-        GameObject objectToRemove = placedObjectsList.FirstOrDefault(obj => obj.transform.position == mainGrid.CellToWorld(gridPosition));
+        GameObject objectToRemove = placedObjectsList.FirstOrDefault(obj => mainGrid.WorldToCell(obj.transform.position) == gridPosition);
+
+        Debug.Log(currentSelectedGridData.GridType);
+        Debug.Log(mainGrid.CellToWorld(gridPosition));
 
         if (objectToRemove != null)
         {

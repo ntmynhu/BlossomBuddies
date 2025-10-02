@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DemoPlant
   m_EditorClassIdentifier: 
   Name: Plant
-  ID: 1000
+  ID: 100
   Size: {x: 1, y: 1}
   prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
   gridType: 2

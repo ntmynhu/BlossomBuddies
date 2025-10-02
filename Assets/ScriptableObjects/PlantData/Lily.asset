@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Lily
   m_EditorClassIdentifier: 
   Name: Plant
-  ID: 1004
+  ID: 104
   Size: {x: 1, y: 1}
   prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
   gridType: 2
   plantName: Demo
   plantStates:
-  - time: 0.005
-  - time: 0.01
-  - time: 0.01
-  - time: 0.01
-  - time: 0.1
+  - time: 6
+  - time: 12
+  - time: 24
+  - time: 12
+  - time: 72
   - time: 0

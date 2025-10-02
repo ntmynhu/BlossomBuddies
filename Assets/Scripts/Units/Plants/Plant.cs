@@ -7,10 +7,13 @@ using UnityEngine;
 public class Plant : MonoBehaviour
 {
     [SerializeField] private PlantData plantData;
+    [SerializeField] private PlantStats plantStats;
     [SerializeField] private List<GameObject> stateGameObjects;
 
     [SerializeField] private ObjectData wateredSoilData;
     [SerializeField] private ObjectData wateredFadeOutSoilData;
+
+    [SerializeField] private List<GameObject> grassList;
 
     private Vector3Int mainPosition;
     private float growthTime = 0;
@@ -19,12 +22,14 @@ public class Plant : MonoBehaviour
 
     private bool isDead = false;
 
-    #region Handle Watering
-    private float waterExistingTime = 20f;
+    #region Watering Variables
     private float waterTimer;
     private int waterState;
-    private int totalWaterLevels = 2;
     private bool isWatered = false;
+    #endregion
+
+    #region Grass Variables
+    private float tickTimer = 0;
     #endregion
 
     #region Properties
@@ -36,6 +41,7 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
+        tickTimer = plantStats.WEED_TICK_TIME;
         currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
     }
 
@@ -51,14 +57,47 @@ public class Plant : MonoBehaviour
             return;
         }
 
+        // Handle Plant Growth
         growthTime += Time.deltaTime;
+
+        // Apply Water Bonus
+        if (isWatered)
+        {
+            growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * Time.deltaTime;
+        }
+
+        // Apply Weed Penalty
+        float totalPenalty = 0;
+        int multiplier = isWatered ? plantStats.WATER_MULTIPLIER : 1;
+        foreach (var grass in grassList)
+        {
+            if (grass.activeInHierarchy)
+            {
+                totalPenalty += plantStats.WEED_PENALTY_SPEED * Time.deltaTime * grass.transform.localScale.x * multiplier;
+            }
+        }
+
+        growthTime -= totalPenalty;
 
         if (growthTime >= currentStateTime)
         {
             AdvanceToNextState();
         }
+        //
+
+        // Handle Grass Spawn
+        tickTimer -= Time.deltaTime;
+        if (tickTimer < 0)
+        {
+            tickTimer = plantStats.WEED_TICK_TIME;
+            CheckGrassSpawn();
+        }
+
+        HandleGrassGrowth();
+        //
     }
 
+    #region Handle Flower State
     private void AdvanceToNextState()
     {
         growthTime = 0;
@@ -87,83 +126,62 @@ public class Plant : MonoBehaviour
             stateGameObjects[i].SetActive(i == currentStateIndex);
         }
     }
+    #endregion
 
-    public void LoadExistingData(PlantProgressData data)
+    #region Handle Grass
+    private bool CheckGrassSpawn()
     {
-        mainPosition = data.mainPosition;
-
-        var targetPosition = transform.position;
-        targetPosition.y = data.yPosition;
-        transform.position = targetPosition;
-
-        long lastLoginTime = DataPersistenceManager.Instance.LastLoginTime;
-        long secondsFromNow = (DateTime.Now.Ticks - lastLoginTime) / TimeSpan.TicksPerSecond;
-
-        growthTime = data.currentGrowthTime + secondsFromNow;
-        currentStateIndex = data.currentStateIndex;
-        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
-
-        while (growthTime >= currentStateTime && currentStateIndex < plantData.plantStates.Count - 1)
+        int currentWeedCount = grassList.FindAll(g => g.activeInHierarchy).Count;
+        if (currentWeedCount >= plantStats.MAX_WEED)
         {
-            growthTime -= currentStateTime;
-            currentStateIndex++;
-            currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+            return false;
         }
 
-        UpdatePlantStateVisual();
-
-        if (currentStateIndex >= plantData.plantStates.Count - 1)
+        int multiplier = isWatered ? plantStats.WATER_MULTIPLIER : 1;
+        if (UnityEngine.Random.value < plantStats.WEED_SPAWN_CHANCE * multiplier)
         {
-            isDead = true;
-            Debug.Log("Plant has died.");
+            int tryCount = 0;
+            
+            do
+            {
+                int index = UnityEngine.Random.Range(0, grassList.Count);
+                if (!grassList[index].activeInHierarchy)
+                {
+                    grassList[index].transform.localScale = Vector3.one * 0.1f; // Start small with scale 0.1
+                    grassList[index].SetActive(true);
+                    return true;
+                }
+                else
+                {
+                    tryCount++;
+                }
+            }
+            while (tryCount < 100);
         }
 
-        waterTimer = data.waterTimer - secondsFromNow;
-        waterState = data.waterState;
-        isWatered = data.isWatered;
-
-        int loadedWaterState = waterState;
-
-        if (isWatered)
-        {
-            while (waterTimer < 0 && waterState < totalWaterLevels)
-            {
-                waterTimer += waterExistingTime / totalWaterLevels;
-                waterState++;
-            }
-
-            // Done watering
-            if (waterState >= totalWaterLevels)
-            {
-                isWatered = false;
-            }
-            else
-            {
-                isWatered = true;
-            }
-        }
-
-        Debug.Log($"IsWatered: {isWatered}; WaterTimer: {waterTimer}; WaterState: {waterState}");
-        StartCoroutine(ProcessWaterVisual(loadedWaterState, waterState));
+        return false;
     }
 
-    public PlantProgressData SavePlantData()
+    private void HandleGrassGrowth()
     {
-        PlantProgressData data = new PlantProgressData
+        foreach (var grass in grassList)
         {
-            plantDataId = plantData.ID,
-            mainPosition = mainPosition,
-            currentStateIndex = currentStateIndex,
-            currentGrowthTime = growthTime,
-            yPosition = transform.position.y,
-            waterTimer = waterTimer,
-            waterState = waterState,
-            isWatered = isWatered
-        };
+            if (grass.activeInHierarchy)
+            {
+                // If the plant is Watered, grow faster
+                int mutiplier = isWatered ? plantStats.WATER_MULTIPLIER : 1;
+                grass.transform.localScale += grass.transform.localScale * plantStats.WEED_GROWTH_SPEED * mutiplier * Time.deltaTime;
 
-        return data;
+                if (grass.transform.localScale.x >= 1f)
+                {
+                    grass.transform.localScale = Vector3.one;
+                }
+            }
+        }
     }
+    #endregion
 
+    #region Handle Watering
     private IEnumerator ProcessWaterVisual(int loadedWaterState, int waterState)
     {
         yield return new WaitUntil(() => DataPersistenceManager.Instance.isLoadedDataDone);
@@ -209,7 +227,7 @@ public class Plant : MonoBehaviour
 
     public void StartWater()
     {
-        waterTimer = waterExistingTime / totalWaterLevels;
+        waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
         waterState = 0;
 
         isWatered = true;
@@ -223,7 +241,7 @@ public class Plant : MonoBehaviour
         {
             waterState++;
 
-            if (waterState >= totalWaterLevels)
+            if (waterState >= plantStats.TOTAL_WATER_LEVELS)
             {
                 isWatered = false;
 
@@ -237,7 +255,7 @@ public class Plant : MonoBehaviour
                 RemoveWateredVisual(wateredSoilData);
                 AddWateredVisual(wateredFadeOutSoilData);
 
-                waterTimer = waterExistingTime / totalWaterLevels;
+                waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
             }
         }
     }
@@ -253,4 +271,83 @@ public class Plant : MonoBehaviour
         PlacementSystem.Instance.AddObjectToGridData(objectData, objectData.gridType, mainPosition);
         PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, objectData.gridType, objectData, mainPosition);
     }
+    #endregion
+
+    #region Save Load Plant Data
+    public void LoadExistingData(PlantProgressData data)
+    {
+        mainPosition = data.mainPosition;
+
+        var targetPosition = transform.position;
+        targetPosition.y = data.yPosition;
+        transform.position = targetPosition;
+
+        long lastLoginTime = DataPersistenceManager.Instance.LastLoginTime;
+        long secondsFromNow = (DateTime.Now.Ticks - lastLoginTime) / TimeSpan.TicksPerSecond;
+
+        growthTime = data.currentGrowthTime + secondsFromNow;
+        currentStateIndex = data.currentStateIndex;
+        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+
+        while (growthTime >= currentStateTime && currentStateIndex < plantData.plantStates.Count - 1)
+        {
+            growthTime -= currentStateTime;
+            currentStateIndex++;
+            currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+        }
+
+        UpdatePlantStateVisual();
+
+        if (currentStateIndex >= plantData.plantStates.Count - 1)
+        {
+            isDead = true;
+            Debug.Log("Plant has died.");
+        }
+
+        waterTimer = data.waterTimer - secondsFromNow;
+        waterState = data.waterState;
+        isWatered = data.isWatered;
+
+        int loadedWaterState = waterState;
+
+        if (isWatered)
+        {
+            while (waterTimer < 0 && waterState < plantStats.TOTAL_WATER_LEVELS)
+            {
+                waterTimer += plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
+                waterState++;
+            }
+
+            // Done watering
+            if (waterState >= plantStats.TOTAL_WATER_LEVELS)
+            {
+                isWatered = false;
+            }
+            else
+            {
+                isWatered = true;
+            }
+        }
+
+        Debug.Log($"IsWatered: {isWatered}; WaterTimer: {waterTimer}; WaterState: {waterState}");
+        StartCoroutine(ProcessWaterVisual(loadedWaterState, waterState));
+    }
+
+    public PlantProgressData SavePlantData()
+    {
+        PlantProgressData data = new PlantProgressData
+        {
+            plantDataId = plantData.ID,
+            mainPosition = mainPosition,
+            currentStateIndex = currentStateIndex,
+            currentGrowthTime = growthTime,
+            yPosition = transform.position.y,
+            waterTimer = waterTimer,
+            waterState = waterState,
+            isWatered = isWatered
+        };
+
+        return data;
+    }
+    #endregion
 }

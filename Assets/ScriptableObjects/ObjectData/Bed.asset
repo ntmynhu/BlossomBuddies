@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bed
   m_EditorClassIdentifier: 
   Name: Bed
-  ID: 102
+  ID: 1002
   Size: {x: 2, y: 3}
   prefab: {fileID: 1967463717879569282, guid: c5f4ba5f0b36541489c9fda6494dce5c, type: 3}
   gridType: 3

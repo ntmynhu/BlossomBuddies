@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Tulip
   m_EditorClassIdentifier: 
   Name: Plant
-  ID: 1001
+  ID: 101
   Size: {x: 1, y: 1}
   prefab: {fileID: 8935979759752783158, guid: 53f2212e8d3fbfd4d92baf596d86d473, type: 3}
   gridType: 2
   plantName: Demo
   plantStates:
-  - time: 0.005
-  - time: 0.01
-  - time: 0.01
-  - time: 0.01
-  - time: 0.1
+  - time: 6
+  - time: 12
+  - time: 24
+  - time: 12
+  - time: 72
   - time: 0

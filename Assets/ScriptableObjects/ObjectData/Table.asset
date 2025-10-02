@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Table
   m_EditorClassIdentifier: 
   Name: Table
-  ID: 100
+  ID: 1000
   Size: {x: 2, y: 2}
   prefab: {fileID: 1967463717879569282, guid: 83ec2d2ca3ea8c84c8098d72099c00cc, type: 3}
   gridType: 3
