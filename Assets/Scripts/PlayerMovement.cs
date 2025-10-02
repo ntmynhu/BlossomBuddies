@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        inputDirection = new Vector3(x, 0, z).normalized;
+        inputDirection = new Vector3(x, 0, z);
 
         // Handle rotation
         if (inputDirection.magnitude > 0.01f)

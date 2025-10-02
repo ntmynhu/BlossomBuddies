@@ -37,6 +37,8 @@ public class Plant : MonoBehaviour
     public ObjectData WateredSoilData => wateredSoilData;
     public ObjectData WateredFadeOutSoilData => wateredFadeOutSoilData;
     public bool IsDead => isDead;
+    public bool IsFullyGrown => currentStateIndex == plantData.plantStates.Count - 2; // Last index is dead state
+    public bool IsWeeded => grassList.Exists(g => g.activeInHierarchy);
     #endregion
 
     private void Start()
@@ -179,6 +181,18 @@ public class Plant : MonoBehaviour
             }
         }
     }
+
+    public void CutWeed()
+    {
+        foreach (var grass in grassList)
+        {
+            if (grass.activeInHierarchy)
+            {
+                grass.SetActive(false);
+                grass.transform.localScale = Vector3.zero;
+            }
+        }
+    }
     #endregion
 
     #region Handle Watering
@@ -271,7 +285,27 @@ public class Plant : MonoBehaviour
         PlacementSystem.Instance.AddObjectToGridData(objectData, objectData.gridType, mainPosition);
         PlacementSystem.Instance.WateringState.ProcessDualGridVisual(PlacementSystem.Instance, objectData.gridType, objectData, mainPosition);
     }
+
+    public void ClearWateredSoil()
+    {
+        if (isWatered)
+        {
+            if (waterState == 0)
+            {
+                RemoveWateredVisual(wateredSoilData);
+            }
+            else if (waterState == 1)
+            {
+                RemoveWateredVisual(wateredFadeOutSoilData);
+            }
+        }
+    }
     #endregion
+
+    public void HarvestPlant()
+    {
+
+    }
 
     #region Save Load Plant Data
     public void LoadExistingData(PlantProgressData data)

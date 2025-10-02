@@ -38,6 +38,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementReplaceState ReplaceState = new PlacementReplaceState();
     public PlacementWateringState WateringState = new PlacementWateringState();
     public PlacementShovelState ShovelState = new PlacementShovelState();
+    public PlacementScissorsState ScissorsState = new PlacementScissorsState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> MainGridPlacedObjects => mainGridPlacedObjects;
@@ -203,6 +204,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         return ob;
     } 
+
+    public GameObject GetMainGridPlacedObject(GridType gridType, Vector3Int gridPosition)
+    {
+        return mainGridPlacedObjects[gridType].FirstOrDefault(obj => mainGrid.WorldToCell(obj.transform.position) == gridPosition);
+    }
     #endregion
 
     #region Save Load system

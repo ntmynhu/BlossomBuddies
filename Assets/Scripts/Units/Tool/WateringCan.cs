@@ -20,10 +20,10 @@ public class WateringCan : Tool
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
-        //if (!PlacementSystem.Instance.CanTriggerAction())
-        //{
-        //    yield break;
-        //}
+        if (!PlacementSystem.Instance.CanTriggerAction())
+        {
+            yield break;
+        }
 
         waterFX.Play();
         playerMovement.SetMovementEnable(false);

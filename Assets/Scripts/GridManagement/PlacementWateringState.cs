@@ -27,8 +27,7 @@ public class PlacementWateringState : PlacementBaseState
         if (!CanTriggerAction(placementSystem)) return;
 
         // Find target plant
-        List<GameObject> plantList = placementSystem.MainGridPlacedObjects[GridType.PlantGrid];
-        GameObject foundObject = plantList.Find(obj => obj != null && placementSystem.MainGrid.WorldToCell(obj.transform.position) == gridPosition);
+        GameObject foundObject = placementSystem.GetMainGridPlacedObject(GridType.PlantGrid, gridPosition);
 
         if (foundObject != null)
         {

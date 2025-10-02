@@ -13,7 +13,7 @@ public class Scissors : Tool
     public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
     {
         base.OnToolSelected(playerAnim, playerMovement);
-        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.RemoveState, plantData);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.ScissorsState, plantData);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)

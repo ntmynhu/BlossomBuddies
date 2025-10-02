@@ -18,6 +18,6 @@ MonoBehaviour:
   weedPenaltySpeed: 0.25
   waterMultiplier: 3
   maxWeed: 6
-  waterExistingTime: 20
+  waterExistingTime: 10800
   waterBonusGrowthSpeed: 2
   totalWaterLevels: 2
