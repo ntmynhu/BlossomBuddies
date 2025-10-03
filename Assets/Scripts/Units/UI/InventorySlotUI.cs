@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlotUI : MonoBehaviour
 {
     [SerializeField] private ObjectData objectData;
 

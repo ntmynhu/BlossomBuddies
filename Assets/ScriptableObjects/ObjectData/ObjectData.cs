@@ -8,4 +8,5 @@ public class ObjectData : ScriptableObject
     public Vector2Int Size = Vector2Int.one;
     public GameObject prefab;
     public GridType gridType;
+    public bool isInventoryItem = true;
 }
