@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private GameObject furnitureInventoryPanel;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventorySlotUI[] furnitureSlots;
     [SerializeField] private InventorySlotUI uiSlotPrefab;

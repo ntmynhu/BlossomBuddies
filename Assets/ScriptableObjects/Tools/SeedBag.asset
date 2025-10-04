@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
   m_Name: SeedBag
   m_EditorClassIdentifier: 
-  toolName: SeedBag
-  toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 3267164534628851248, guid: 0ee4006340ef3414da95c6b0b9a1b249,
-    type: 3}
+  Name: Seed Bag
+  icon: {fileID: 21300000, guid: 2f8353ee06bafc8429bf9e4e19f1168e, type: 3}
+  prefab: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
+  ID: 

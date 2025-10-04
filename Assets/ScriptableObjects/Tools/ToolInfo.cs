@@ -1,10 +1,7 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ToolInfo", menuName = "Scriptable Objects/ToolInfo")]
-public class ToolInfo : ScriptableObject
+public class ToolInfo : PreviewData
 {
-    public string toolName;
-    public Sprite toolIcon;
-    public GameObject toolPrefab;
+    public string ID;
 }

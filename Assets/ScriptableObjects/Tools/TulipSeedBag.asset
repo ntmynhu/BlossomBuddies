@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
   m_Name: TulipSeedBag
   m_EditorClassIdentifier: 
-  toolName: SeedBag
-  toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 3267164534628851248, guid: 3285ae2269b58ef41bb89c47982c0503,
-    type: 3}
+  Name: Tulip Seed Bag
+  icon: {fileID: 21300000, guid: 79e0b6ecfe5071d41af8362b24f162bd, type: 3}
+  prefab: {fileID: 3267164534628851248, guid: 3285ae2269b58ef41bb89c47982c0503, type: 3}
+  ID: 

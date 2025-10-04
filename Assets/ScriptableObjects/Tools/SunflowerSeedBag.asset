@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
   m_Name: SunflowerSeedBag
   m_EditorClassIdentifier: 
-  toolName: SeedBag
-  toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 3267164534628851248, guid: dccb58d970dc20f419580805c1071931,
-    type: 3}
+  Name: Sunflower Seed Bag
+  icon: {fileID: 21300000, guid: 2f8353ee06bafc8429bf9e4e19f1168e, type: 3}
+  prefab: {fileID: 3267164534628851248, guid: dccb58d970dc20f419580805c1071931, type: 3}
+  ID: 

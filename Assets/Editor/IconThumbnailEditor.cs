@@ -20,10 +20,10 @@ public class IconThumbnailEditor : EditorWindow
     }
 
     private ListView m_list;
-    private List<ObjectData> m_objects;
+    private List<PreviewData> m_objects;
 
     [SerializeField]
-    private ObjectData m_selectedObject;
+    private PreviewData m_selectedObject;
 
     [SerializeField]
     private Texture2D m_previewTexture;
@@ -51,13 +51,13 @@ public class IconThumbnailEditor : EditorWindow
         root.Add(labelFromUXML);
 
         m_list = rootVisualElement.Q<ListView>("List");
-        m_objects = new List<ObjectData>();
+        m_objects = new List<PreviewData>();
 
-        string[] guids = AssetDatabase.FindAssets("t:ObjectData");
+        string[] guids = AssetDatabase.FindAssets("t:PreviewData");
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            ObjectData obj = AssetDatabase.LoadAssetAtPath<ObjectData>(path);
+            PreviewData obj = AssetDatabase.LoadAssetAtPath<PreviewData>(path);
             m_objects.Add(obj);
         }
 
@@ -146,7 +146,7 @@ public class IconThumbnailEditor : EditorWindow
         if (m_cameraObject == null)
         {
             m_cameraObject = new GameObject("Camera");
-            m_cameraObject.transform.position = new Vector3(0, 0, -10);
+            m_cameraObject.transform.position = new Vector3(0, 0, -1);
             m_cameraObject.transform.eulerAngles = Vector3.zero;
 
             m_sceneCamera = m_cameraObject.AddComponent<Camera>();

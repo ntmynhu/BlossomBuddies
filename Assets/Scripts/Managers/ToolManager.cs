@@ -24,7 +24,7 @@ public class ToolManager : Singleton<ToolManager>
 
         foreach (var toolInfo in toolInfos)
         {
-            GameObject toolObject = Instantiate(toolInfo.toolPrefab, spawnTransform);
+            GameObject toolObject = Instantiate(toolInfo.prefab, spawnTransform);
 
             Tool tool = toolObject.GetComponent<Tool>();
             tool.ToolInfo = toolInfo;

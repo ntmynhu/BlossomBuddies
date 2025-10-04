@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
   m_Name: Shovel
   m_EditorClassIdentifier: 
-  toolName: Shovel
-  toolIcon: {fileID: 0}
-  toolPrefab: {fileID: 5324143058523400035, guid: 4b4d51102465f394d9cc1fbe89c0780b,
-    type: 3}
+  Name: Shovel
+  icon: {fileID: 21300000, guid: eebe69bd492455742aa4f2eba65dce33, type: 3}
+  prefab: {fileID: 5324143058523400035, guid: 4b4d51102465f394d9cc1fbe89c0780b, type: 3}
+  ID: 
