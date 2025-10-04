@@ -20,6 +20,8 @@ public class ToolManager : Singleton<ToolManager>
 
     public IEnumerator InitializeTools(Transform spawnTransform)
     {
+        yield return new WaitUntil(() => InventoryManager.Instance != null && InventoryManager.Instance.IsInitialized);
+
         initialTransform = spawnTransform;
 
         foreach (var toolInfo in toolInfos)
@@ -30,6 +32,7 @@ public class ToolManager : Singleton<ToolManager>
             tool.ToolInfo = toolInfo;
 
             toolList.Add(tool);
+            InventoryManager.Instance.AddToInventory(toolInfo);
 
             yield return new WaitForSeconds(0.1f);
         }

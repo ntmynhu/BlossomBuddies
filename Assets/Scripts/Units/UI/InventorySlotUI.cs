@@ -3,20 +3,37 @@ using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour
 {
-    [SerializeField] private ObjectData objectData;
+    [SerializeField] private Image image;
 
-    public ObjectData ObjectData => objectData;
+    private ScriptableObject data;
+    public ScriptableObject Data { get { return data; } set { data = value; } }
 
     private Button button;
+
+    public void SetData(ScriptableObject newData)
+    {
+        data = newData;
+
+        PreviewData previewData = data as PreviewData;
+        if (previewData != null && previewData.icon != null)
+        {
+            if (image != null)
+            {
+                image.sprite = previewData.icon;
+            }
+        }
+    }
 
     private void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(OnButtonClick);
+        button.onClick.AddListener(OnClick);
+
+        image = GetComponent<Image>();
     }
 
-    private void OnButtonClick()
+    private void OnClick()
     {
-        PlacementSystem.Instance.SetCurrentObjectData(objectData);
+        InventoryManager.Instance.OnItemSelected(data);
     }
 }
