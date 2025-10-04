@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a939e8f3764c8ed419521d4afae65a59, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 2717a1f570f99cb43ba1c78c1a277d2c, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1840600201}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: b17ab5090508b1b46a3635f280daf8b2,
+  m_LightingDataAsset: {fileID: 112000000, guid: ae3d1d250d6305242afebdcb63544f5e,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 66c1f9148ce6bd64c8e3ae148c391a10,
     type: 2}
@@ -433,7 +433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectData: {fileID: 11400000, guid: 12e511f88cd186c4aa6f0d757cc279c4, type: 2}
+  objectData: {fileID: 0}
 --- !u!114 &128750029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,7 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectData: {fileID: 11400000, guid: e170d7c48a37aa64aabaeb6e38e0e951, type: 2}
+  objectData: {fileID: 0}
 --- !u!114 &131818836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1008,7 +1008,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectData: {fileID: 11400000, guid: 85c771186d0820740ab45de06370847f, type: 2}
+  objectData: {fileID: 0}
 --- !u!114 &495987246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectData: {fileID: 11400000, guid: 6e318882b97e78e4f8f9d13ad5769918, type: 2}
+  objectData: {fileID: 0}
 --- !u!114 &736703491
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,6 +2057,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 3876432275148160920, guid: 4710f117a8bd07e43979a0feb547fc92,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a65829475f109d41a498f69f5780cc6, type: 2}
     - target: {fileID: 4544309763968619301, guid: 4710f117a8bd07e43979a0feb547fc92,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -2142,6 +2147,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6417973854265086658, guid: 4710f117a8bd07e43979a0feb547fc92,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7a65829475f109d41a498f69f5780cc6, type: 2}
     - target: {fileID: 7123184303435239116, guid: 4710f117a8bd07e43979a0feb547fc92,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -3081,12 +3091,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 42665344}
-  inventorySlots:
-  - {fileID: 495987245}
-  - {fileID: 736703490}
-  - {fileID: 128750028}
-  - {fileID: 131818835}
+  furnitureSlots: []
+  uiSlotPrefab: {fileID: 0}
   thirdPersonCameraController: {fileID: 843797480}
+  objectDatabase: []
 --- !u!1 &1315654034 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 577997362372027836, guid: 4710f117a8bd07e43979a0feb547fc92,

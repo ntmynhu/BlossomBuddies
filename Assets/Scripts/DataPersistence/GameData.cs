@@ -12,6 +12,7 @@ public class PlantProgressData
     public float waterTimer;
     public int waterState;
     public bool isWatered;
+    public float tickTimer;
     public List<GrassData> grassDataList;
 }
 

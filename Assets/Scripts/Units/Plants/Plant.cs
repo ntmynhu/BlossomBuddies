@@ -43,7 +43,6 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
-        tickTimer = plantStats.WEED_TICK_TIME;
         currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
     }
 
@@ -344,7 +343,9 @@ public class Plant : MonoBehaviour
         currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
         waterTimer = data.waterTimer;
         waterState = data.waterState;
+        tickTimer = data.tickTimer;
         isWatered = data.isWatered;
+
         float totalSeconds = secondsFromNow;
 
         // While totalSeconds Greater than 0
@@ -403,9 +404,11 @@ public class Plant : MonoBehaviour
             }
 
             // Check Grass Spawn
-            if (timeToProcess == plantStats.WEED_TICK_TIME)
+            tickTimer -= timeToProcess;
+            if (tickTimer < 0)
             {
                 CheckGrassSpawn();
+                tickTimer += plantStats.WEED_TICK_TIME; // Add the negative tickTimer to reset
             }
             
             while (growthTime >= currentStateTime && currentStateIndex < plantData.plantStates.Count - 1)
@@ -421,7 +424,6 @@ public class Plant : MonoBehaviour
                 Debug.Log("Plant has died.");
             }
 
-            tickTimer = timeToProcess;
             totalSeconds -= timeToProcess;
         }
 
@@ -481,7 +483,8 @@ public class Plant : MonoBehaviour
             waterTimer = waterTimer,
             waterState = waterState,
             isWatered = isWatered,
-            grassDataList = grassDataList
+            grassDataList = grassDataList,
+            tickTimer = tickTimer
         };
 
         return data;
