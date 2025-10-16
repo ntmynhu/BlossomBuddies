@@ -16,12 +16,12 @@ public class Tile : MonoBehaviour
 
     public void CalculateTileVisual(List<int> objectIds)
     {
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
 
-        foreach (var id in objectIds)
-        {
-            Debug.Log("Object ID in tile: " + id);
-        }
+        //foreach (var id in objectIds)
+        //{
+        //    Debug.Log("Object ID in tile: " + id);
+        //}
 
         int mainObjectCount = objectIds.FindAll(id => id == tileData.mainObject.ID).Count;
 
@@ -94,7 +94,6 @@ public class Tile : MonoBehaviour
 
     private void UpdateTileVisual(GameObject visualTile)
     {
-        Debug.Log(transform.position);
         mesh.mesh = visualTile.GetComponent<MeshFilter>().sharedMesh;
         meshRenderer.materials = visualTile.GetComponent<MeshRenderer>().sharedMaterials;
         Debug.Log(yRotation);

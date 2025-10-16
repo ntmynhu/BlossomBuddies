@@ -79,7 +79,7 @@ public class StateManager : MonoBehaviour
     private void Awake()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         rigidbody = GetComponent<Rigidbody>();
     }
 
