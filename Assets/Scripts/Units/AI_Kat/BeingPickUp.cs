@@ -25,7 +25,8 @@ public class BeingPickUp : BaseState
     {
         if (delayTime < 0)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            Debug.Log("Waiting for input");
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 cat.ChangeState(cat.walkAroundState);
             }

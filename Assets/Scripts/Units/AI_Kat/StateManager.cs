@@ -120,7 +120,7 @@ public class StateManager : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 ChangeState(beingPickUpState);
             }
