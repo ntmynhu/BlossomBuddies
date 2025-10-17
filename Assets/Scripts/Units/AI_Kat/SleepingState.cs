@@ -1,19 +1,16 @@
 using UnityEngine;
 
-public class SleepingState : BaseState
+public class SleepingState : PetBaseState
 {
-    private float energyRecoveryRate = 5f;
-    private float happinessConsumptionRate = 1f;
-
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         cat.Animator.SetBool("IsSleeping", true);
+        StatsRate = cat.PetRateDict[PetStateType.Sleep];
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
-        cat.Energy += energyRecoveryRate * Time.deltaTime;
-        cat.Happiness -= happinessConsumptionRate * Time.deltaTime;
+        base.UpdateState(cat);
 
         if (cat.Energy >= 100f)
         {
@@ -21,17 +18,17 @@ public class SleepingState : BaseState
         }
     }
 
-    public override void OnCollisionEnter(StateManager cat, Collision collision)
+    public override void OnCollisionEnter(PetStateManager cat, Collision collision)
     {
 
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         cat.Animator.SetBool("IsSleeping", false);
     }
 
-    public override void OnTriggerEnter(StateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateManager cat, Collider other)
     {
         
     }

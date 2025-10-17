@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RunAwayFromPlayer : BaseState
+public class RunAwayFromPlayer : PetBaseState
 {
     private Transform player;
     private float chaseSpeed = 3.5f;
@@ -11,9 +11,9 @@ public class RunAwayFromPlayer : BaseState
     private float timeToChangeState = 5f;
     private float countTime = 0;
 
-    private StateManager cat;
+    private PetStateManager cat;
 
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         this.cat = cat;
         countTime = 0;
@@ -24,15 +24,18 @@ public class RunAwayFromPlayer : BaseState
         cat.NavMeshAgent.SetDestination(GetPositionAwayFromPlayer());
 
         cat.Animator.SetFloat("State", 1);
+        StatsRate = cat.PetRateDict[PetStateType.AvoidPlayer];
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         cat.NavMeshAgent.ResetPath();
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
+        base.UpdateState(cat);
+
         if (cat.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
             countTime += Time.deltaTime;
@@ -51,7 +54,7 @@ public class RunAwayFromPlayer : BaseState
         cat.Animator.SetFloat("Vert", cat.NavMeshAgent.velocity.magnitude / cat.NavMeshAgent.speed);
     }
 
-    public override void OnTriggerStay(StateManager cat, Collider other)
+    public override void OnTriggerStay(PetStateManager cat, Collider other)
     {
         if (other.CompareTag("Player"))
         {

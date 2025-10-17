@@ -1,18 +1,18 @@
 using UnityEngine;
 
-public class EatingState : BaseState
+public class EatingState : PetBaseState
 {
-    private float foodRecoveryRate = 5f;
-
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         cat.transform.LookAt(PetManager.Instance.FoodPosition.position);
         cat.Animator.SetBool("IsEating", true);
+
+        StatsRate = cat.PetRateDict[PetStateType.Eat];
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
-        cat.Food += foodRecoveryRate * Time.deltaTime;
+        base.UpdateState(cat);
 
         if (cat.Food >= 100f)
         {
@@ -20,7 +20,7 @@ public class EatingState : BaseState
         }
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         cat.Animator.SetBool("IsEating", false);
     }

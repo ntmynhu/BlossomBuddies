@@ -2,7 +2,7 @@ using NUnit.Framework.Constraints;
 using System.Collections;
 using UnityEngine;
 
-public class WalkAroundState : BaseState
+public class WalkAroundState : PetBaseState
 {
     private float waitingIntervalMin = 1f;
     private float waitingIntervalMax = 5f;
@@ -13,25 +13,21 @@ public class WalkAroundState : BaseState
     private float movingAroundPlayerRadius = 2f;
 
     private Vector3 targetPosition;
-
-    private float energyConsumption = 1f;
-    private float happinessConsumption = 5f;
-    private float foodConsumption = 5f;
-
     private float walkingSpeed = 1f;
 
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         cat.NavMeshAgent.speed = walkingSpeed;
         waitingTime = 0;
 
         cat.Animator.SetFloat("State", 0);
+
+        StatsRate = cat.PetRateDict[PetStateType.WalkAround];
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
-        cat.Happiness -= happinessConsumption * Time.deltaTime;
-        cat.Food -= foodConsumption * Time.deltaTime;
+        base.UpdateState(cat);
 
         float currentSpeed = cat.NavMeshAgent.velocity.magnitude;
 
@@ -61,15 +57,11 @@ public class WalkAroundState : BaseState
                 waitingTime = Random.Range(waitingIntervalMin, waitingIntervalMax);
             }
         }
-        else
-        {
-            cat.Energy -= energyConsumption * Time.deltaTime;
 
-            if (cat.Energy <= 0f)
-            {
-                cat.Energy = 0f;
-                cat.ChangeState(cat.sleepingState);
-            }
+        if (cat.Energy <= 0f)
+        {
+            cat.Energy = 0f;
+            cat.ChangeState(cat.sleepingState);
         }
 
         cat.Animator.SetFloat("Vert", cat.NavMeshAgent.velocity.magnitude / cat.NavMeshAgent.speed);
@@ -80,17 +72,17 @@ public class WalkAroundState : BaseState
         return centerPosition + Random.insideUnitSphere * radius;
     }
 
-    public override void OnCollisionEnter(StateManager cat, Collision collision)
+    public override void OnCollisionEnter(PetStateManager cat, Collision collision)
     {
         
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         cat.NavMeshAgent.ResetPath();
     }
 
-    public override void OnTriggerEnter(StateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateManager cat, Collider other)
     {
         if (other.CompareTag("Food") && cat.Food <= 0f)
         {
@@ -113,7 +105,7 @@ public class WalkAroundState : BaseState
         }
     }
 
-    private IEnumerator WaitToChangeState(StateManager cat)
+    private IEnumerator WaitToChangeState(PetStateManager cat)
     {
         yield return new WaitUntil(() => Vector3.Distance(cat.transform.position, PetManager.Instance.FoodPosition.position) <= 0.5f);
 

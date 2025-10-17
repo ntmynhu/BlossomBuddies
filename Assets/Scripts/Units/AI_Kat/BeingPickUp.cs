@@ -2,12 +2,12 @@ using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using UnityEngine.AI;
 
-public class BeingPickUp : BaseState
+public class BeingPickUp : PetBaseState
 {
     float maxDelayTime = 0.5f;
     float delayTime;
 
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         ToolHandler toolHandler = GameManager.Instance.Player.GetComponent<ToolHandler>();
 
@@ -19,13 +19,15 @@ public class BeingPickUp : BaseState
         cat.transform.localRotation = Quaternion.identity;
 
         delayTime = maxDelayTime;
+        StatsRate = cat.PetRateDict[PetStateType.BeingPickup];
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
+        base.UpdateState(cat);
+
         if (delayTime < 0)
         {
-            Debug.Log("Waiting for input");
             if (Input.GetKeyDown(KeyCode.F))
             {
                 cat.ChangeState(cat.walkAroundState);
@@ -37,7 +39,7 @@ public class BeingPickUp : BaseState
         }
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         var player = GameManager.Instance.Player;
         Vector3 targetPos = player.transform.position + player.transform.forward;

@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class ChasingPlayer : BaseState
+public class ChasingPlayer : PetBaseState
 {
     private Transform player;
     private float chaseSpeed = 3.5f;
 
-    private StateManager cat;
+    private PetStateManager cat;
 
-    public override void EnterState(StateManager cat)
+    public override void EnterState(PetStateManager cat)
     {
         this.cat = cat;
 
@@ -15,19 +15,22 @@ public class ChasingPlayer : BaseState
         player = GameManager.Instance.Player.transform;
 
         cat.Animator.SetFloat("State", 1);
+        StatsRate = cat.PetRateDict[PetStateType.FindPlayer];
 
         GameEventManager.Instance.OnToyInteract += OnToyInteract;
     }
 
-    public override void ExitState(StateManager cat)
+    public override void ExitState(PetStateManager cat)
     {
         cat.NavMeshAgent.ResetPath();
 
         GameEventManager.Instance.OnToyInteract -= OnToyInteract;
     }
 
-    public override void UpdateState(StateManager cat)
+    public override void UpdateState(PetStateManager cat)
     {
+        base.UpdateState(cat);
+
         if (cat.NavMeshAgent.velocity.magnitude <= 0.1f)
         {
             Vector3 targetPosition = player.position + (player.forward);
@@ -55,7 +58,7 @@ public class ChasingPlayer : BaseState
         }
     }
 
-    public override void OnTriggerEnter(StateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateManager cat, Collider other)
     {
         if (other.CompareTag("Player"))
         {

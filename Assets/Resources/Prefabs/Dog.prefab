@@ -134,6 +134,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[1].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 9fbb6329cf0356244994167517b34ecf,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[3].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 70193af3b28973b439501776dc9ee0ed,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[4].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 2734ae07b6804bf4db020af1c617a5a4,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[5].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 032e2aca122ef64448ce4b670376d5e0,
+        type: 2}
     - target: {fileID: 6020308598444310925, guid: fda05439847e9964981d19d387a82183,
         type: 3}
       propertyPath: m_LocalPosition.x
