@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90e644cba1bc91c4d946a8e2a54117d2, type: 3}
   m_Name: CatWalkAround
   m_EditorClassIdentifier: 
-  EnergyRate: -0.017
-  FoodRate: -0.0017
-  HappinessRate: 0.017
-  CleanlinessRate: -0.0017
+  EnergyRate: -0.004
+  FoodRate: -0.0008
+  HappinessRate: -0.0035
+  CleanlinessRate: -0.0004

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlantStats
   m_EditorClassIdentifier: 
   weedTickTime: 3600
-  weedSpawnChance: 0.05
+  weedSpawnChance: 0.005
   weedGrowthSpeed: 0.0005
   weedPenaltySpeed: 0.25
   waterMultiplier: 3
