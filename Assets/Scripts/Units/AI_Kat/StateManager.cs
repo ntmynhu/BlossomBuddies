@@ -6,12 +6,12 @@ public class StateManager : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
     private Animator animator;
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
     #region Properties
     public NavMeshAgent NavMeshAgent => navMeshAgent;
     public Animator Animator => animator;
-    public Rigidbody Rigidbody => rigidbody;
+    public Rigidbody Rigidbody => rb;
     #endregion
 
     private BaseState currentState;
@@ -80,7 +80,7 @@ public class StateManager : MonoBehaviour
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void Start()

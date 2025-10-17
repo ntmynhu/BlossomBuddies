@@ -6,12 +6,12 @@ public class Tool : MonoBehaviour
     [SerializeField] private Vector3 initialPos;
     [SerializeField] private Quaternion initialRot;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
     public ToolInfo ToolInfo { get => toolInfo; set => toolInfo = value; }
     public Vector3 InitialPos { get => initialPos; set => initialPos = value; }
     public Quaternion InitialRot { get => initialRot; set => initialRot = value; }
-    public Rigidbody Rigidbody => rigidbody;
+    public Rigidbody Rigidbody => rb;
 
     protected PlayerAnimation playerAnim;
     protected PlayerMovement playerMovement;
@@ -21,7 +21,7 @@ public class Tool : MonoBehaviour
     {
         initialPos = transform.localPosition;
         initialRot = transform.localRotation;
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
     }
 
     public virtual void UseTool() { }
