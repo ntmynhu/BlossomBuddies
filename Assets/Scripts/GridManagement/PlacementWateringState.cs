@@ -51,7 +51,7 @@ public class PlacementWateringState : PlacementBaseState
     public void ProcessDualGridVisual(PlacementSystem placementSystem, GridType gridType, ObjectData objectData, Vector3Int gridPosition)
     {
         // Get 4 dural grid's positions from 1 cell in main grid
-        List<Vector3Int> dualPositionsToProcess = GetPositionsToProcess(gridPosition);
+        List<Vector3Int> dualPositionsToProcess = GetDualGridFromMainGrid(gridPosition);
 
         foreach (var pos in dualPositionsToProcess)
         {
@@ -64,7 +64,7 @@ public class PlacementWateringState : PlacementBaseState
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual
-                List<Vector3Int> mainPositionsToProcessTile = GetPositionsToProcessTile(pos);
+                List<Vector3Int> mainPositionsToProcessTile = GetMainGridFromDualGrid(pos);
 
                 List<int> objectIdsToUpdateVisual = new List<int>();
                 foreach (var position in mainPositionsToProcessTile)
@@ -87,7 +87,7 @@ public class PlacementWateringState : PlacementBaseState
     /// </summary>
     /// <param name="gridPosition"></param>
     /// <returns></returns>
-    public List<Vector3Int> GetPositionsToProcess(Vector3Int gridPosition)
+    public List<Vector3Int> GetDualGridFromMainGrid(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();
         positions.Add(new Vector3Int(gridPosition.x + 1, gridPosition.y + 1, gridPosition.z));
@@ -104,7 +104,7 @@ public class PlacementWateringState : PlacementBaseState
     /// </summary>
     /// <param name="gridPosition"></param>
     /// <returns></returns>
-    public List<Vector3Int> GetPositionsToProcessTile(Vector3Int gridPosition)
+    public List<Vector3Int> GetMainGridFromDualGrid(Vector3Int gridPosition)
     {
         List<Vector3Int> positions = new();
         positions.Add(new Vector3Int(gridPosition.x, gridPosition.y, gridPosition.z));

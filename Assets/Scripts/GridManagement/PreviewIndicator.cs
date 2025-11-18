@@ -10,7 +10,6 @@ public class PreviewIndicator : MonoBehaviour
     [SerializeField] private Color invalidColor = Color.red;
 
     private GameObject spawnObject;
-
     private Renderer cellRenderer;
 
     private void Start()

@@ -16,6 +16,8 @@ public class PlayerDetect : MonoBehaviour
                 player = other.gameObject;
             }
         }
+
+        Debug.Log("PlayerDetect");
     }
 
     private void OnTriggerExit(Collider other)
@@ -24,5 +26,7 @@ public class PlayerDetect : MonoBehaviour
         {
             isPlayerInRange = false;
         }
+
+        Debug.Log("PlayerDetect Exit");
     }
 }

@@ -42,7 +42,6 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> MainGridPlacedObjects => mainGridPlacedObjects;
-
     public Dictionary<GridType, GridData> DualGridDataDictionary => dualGridDataDictionary;
 
     public PreviewIndicator CellIndicator => cellIndicator;
@@ -319,7 +318,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
             if (tile != null)
             {
                 // For each dual pos, get 4 main position to calculate tile's visual
-                List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetPositionsToProcessTile(placedObject.mainPosition);
+                List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetMainPosFromDualPos(placedObject.mainPosition);
 
                 List<int> objectIdsToUpdateVisual = new List<int>();
                 foreach (var position in mainPositionsToProcessTile)

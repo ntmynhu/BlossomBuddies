@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Internal;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Fields
     [SerializeField] private CharacterController controller;
     [SerializeField] private Animator animator;
 
@@ -35,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     private float maxVertVel;
 
     private bool movementEnabled = true;
+    #endregion
 
     private void Start()
     {
@@ -109,14 +112,9 @@ public class PlayerMovement : MonoBehaviour
         // Check run condition
         isRunning = Input.GetKey(KeyCode.LeftShift) && inputDirection.magnitude > 0.01f;
 
-        if (isRunning)
-        {
-            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, runSpeed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
-        }
-        else
-        {
-            currentSpeed = inputDirection.magnitude > 0.01f ? Mathf.MoveTowards(currentSpeed, speed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
-        }
+        float targetSpeed = isRunning ? runSpeed : speed;
+        currentSpeed = inputDirection.magnitude > 0.01f ?
+            Mathf.MoveTowards(currentSpeed, targetSpeed, acceleration * Time.deltaTime) : Mathf.MoveTowards(currentSpeed, 0, deceleration * Time.deltaTime);
 
         move *= currentSpeed;
         move.y = verticalVelocity;

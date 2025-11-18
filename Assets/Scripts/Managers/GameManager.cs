@@ -4,9 +4,9 @@ public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int timeScale = 1;
     [SerializeField] private GameObject player;
-    public GameObject Player => player;
 
     private PlayerMovement playerMovement;
+    public GameObject Player => player;
     public PlayerMovement PlayerMovement => playerMovement;
 
     private void Start()

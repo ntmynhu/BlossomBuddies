@@ -25,7 +25,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     public void InitAndLoadGame() //void Start
     {
         this.dataHandler = new PlayerPrefsDataHandler(dataKey, useEncryption);
-        //lúc này ?ang ? loading -> ch?a có scene -> ko call dc
+        //is loading -> has not have scene -> cannot call
         //this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
     }

@@ -45,8 +45,6 @@ public class PlacementShovelState : PlacementBaseState
 
     private void ProcessDualGridVisual(PlacementSystem placementSystem)
     {
-        Grid dualGrid = placementSystem.DualGrid;
-
         // Get 4 dural grid's positions from 1 cell in main grid
         List<Vector3Int> dualPositionsToProcess = GetPositionsToProcess(gridPosition);
 
