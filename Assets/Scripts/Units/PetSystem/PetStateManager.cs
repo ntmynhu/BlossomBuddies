@@ -7,6 +7,8 @@ public class PetStateManager : MonoBehaviour
 {
     #region Fields
     [SerializeField] private List<PetStateRateEntry> petStateRates;
+    [SerializeField] private GameObject[] bubbles;
+    [SerializeField] private Renderer petRenderer;
 
     private NavMeshAgent navMeshAgent;
     private Animator animator;
@@ -14,10 +16,10 @@ public class PetStateManager : MonoBehaviour
 
     private PetBaseState currentState;
 
-    private float energy = 100f;
-    private float food = 100f;
-    private float cleaness = 100f;
-    private float happiness = 100f;
+    private float energy = Global.MAX_STAT_VALUE;
+    private float food = Global.MAX_STAT_VALUE;
+    private float cleaness = Global.MAX_STAT_VALUE;
+    private float happiness = Global.MAX_STAT_VALUE;
 
     private Dictionary<PetStateType, PetStatsRate> petRateDict;
     #endregion
@@ -34,7 +36,7 @@ public class PetStateManager : MonoBehaviour
         }
         set
         {
-            value = Mathf.Clamp(value, 0f, 100f);
+            value = Mathf.Clamp(value, 0f, Global.MAX_STAT_VALUE);
             energy = value;
         }
     }
@@ -46,7 +48,7 @@ public class PetStateManager : MonoBehaviour
         }
         set
         {
-            value = Mathf.Clamp(value, 0f, 100f);
+            value = Mathf.Clamp(value, 0f, Global.MAX_STAT_VALUE);
             food = value;
         }
     }
@@ -58,8 +60,9 @@ public class PetStateManager : MonoBehaviour
         }
         set
         {
-            value = Mathf.Clamp(value, 0f, 100f);
+            value = Mathf.Clamp(value, 0f, Global.MAX_STAT_VALUE);
             cleaness = value;
+            OnCleanlinessChanged();
         }
     }
     public float Happiness
@@ -70,7 +73,7 @@ public class PetStateManager : MonoBehaviour
         }
         set
         {
-            value = Mathf.Clamp(value, 0f, 100f);
+            value = Mathf.Clamp(value, 0f, Global.MAX_STAT_VALUE);
             happiness = value;
         }
     }
@@ -120,6 +123,11 @@ public class PetStateManager : MonoBehaviour
     public void RunCoroutine(IEnumerator routine)
     {
         StartCoroutine(routine);
+    }
+
+    private void OnCleanlinessChanged()
+    {
+        petRenderer.materials[0].SetFloat("_Dirt", 1f - (cleaness / Global.MAX_STAT_VALUE));
     }
 
     private void OnCollisionEnter(Collision collision)

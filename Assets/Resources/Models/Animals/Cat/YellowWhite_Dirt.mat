@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Dirt
+  m_Name: YellowWhite_Dirt
   m_Shader: {fileID: -6465566751694194690, guid: cc9713762bf90604cb2592b478c1f322,
     type: 3}
   m_Parent: {fileID: 0}
@@ -60,7 +60,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dirt: 1
+    - _Dirt: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors: []
