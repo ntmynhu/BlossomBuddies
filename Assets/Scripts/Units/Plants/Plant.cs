@@ -418,7 +418,7 @@ public class Plant : MonoBehaviour
                 currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
             }
 
-            if (currentStateIndex >= plantData.plantStates.Count - 1)
+            if (currentStateIndex >= plantData.plantStates.Count - 1 || growthTime < 0)
             {
                 isDead = true;
                 Debug.Log("Plant has died.");

@@ -15,4 +15,5 @@ public abstract class PetBaseState
     public virtual void OnCollisionEnter(PetStateManager cat, Collision collision) { }
     public virtual void OnTriggerEnter(PetStateManager cat, Collider other) { }
     public virtual void OnTriggerStay(PetStateManager cat, Collider other) { }
+    public virtual void OnInteract(PetStateManager cat) { }
 }

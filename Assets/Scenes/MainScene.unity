@@ -1074,6 +1074,43 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2133088711}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &641512232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5891829915387399784, guid: d7fb2eb0dd85079488d68e0766743d4f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5716124812129996460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &641512233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641512232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 43f08e3d52fdb714c8d9a70aa789b19f,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &677046250 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6566004415747587805, guid: 4710f117a8bd07e43979a0feb547fc92,
@@ -2762,6 +2799,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse X
         LegacyGain: 300
         CancelDeltaTime: 0
@@ -2773,6 +2812,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse Y
         LegacyGain: -200
         CancelDeltaTime: 0
@@ -2784,6 +2825,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse ScrollWheel
         LegacyGain: -100
         CancelDeltaTime: 0
@@ -2791,6 +2834,8 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
+  PlayerIndex: -1
+  AutoEnableInputs: 1
 --- !u!114 &1469542342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4424,7 +4469,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5891829915387399784, guid: d7fb2eb0dd85079488d68e0766743d4f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 641512233}
   m_SourcePrefab: {fileID: 100100000, guid: d7fb2eb0dd85079488d68e0766743d4f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

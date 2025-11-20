@@ -28,14 +28,21 @@ public class BeingPickUp : PetBaseState
 
         if (delayTime < 0)
         {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                cat.ChangeState(cat.walkAroundState);
-            }
+            delayTime = -1;
         }
         else
         {
             delayTime -= Time.deltaTime;
+        }
+    }
+
+    public override void OnInteract(PetStateManager cat)
+    {
+        base.OnInteract(cat);
+
+        if (delayTime < 0)
+        {
+            cat.ChangeState(cat.walkAroundState);
         }
     }
 

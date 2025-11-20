@@ -5,7 +5,7 @@ public class PlayerDetect : MonoBehaviour
     protected GameObject player;
     protected bool isPlayerInRange = false;
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -20,7 +20,7 @@ public class PlayerDetect : MonoBehaviour
         Debug.Log("PlayerDetect");
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {

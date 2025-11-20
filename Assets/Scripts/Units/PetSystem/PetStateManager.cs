@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PetStateManager : MonoBehaviour
+public class PetStateManager : PlayerDetect
 {
     #region Fields
     [SerializeField] private List<PetStateRateEntry> petStateRates;
@@ -135,23 +135,27 @@ public class PetStateManager : MonoBehaviour
         currentState.OnCollisionEnter(this, collision);
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected override void OnTriggerEnter(Collider other)
     {
+        base.OnTriggerEnter(other);
         currentState.OnTriggerEnter(this, other);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                ChangeState(beingPickUpState);
-            }
-        }
-
         currentState.OnTriggerStay(this, other);
     }
+
+    private void OnInteract()
+    {
+        if (isPlayerInRange)
+        {
+            ChangeState(beingPickUpState);
+        }
+
+        currentState.OnInteract(this);
+    }
+
     #endregion
 }
 
