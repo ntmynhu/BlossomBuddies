@@ -8,8 +8,10 @@ public class ToolHandler : MonoBehaviour
     [SerializeField] private PlayerAnimation playerAnim;
     [SerializeField] private PlayerMovement playerMovement;
 
+    private PetStateManager currentPet = null;
+
     public Transform ParentTransform => parentTransform;
-    public Transform PetTransform => petTransform;
+    public PetStateManager CurrentPet => currentPet;
 
     private void Start()
     {
@@ -62,6 +64,31 @@ public class ToolHandler : MonoBehaviour
                 tool.UseTool();
             }
         }
+    }
+
+    public void OnPickupPet(PetStateManager pet)
+    {
+        pet.NavMeshAgent.enabled = false;
+        pet.Rigidbody.isKinematic = true;
+        pet.transform.SetParent(petTransform);
+
+        pet.transform.localPosition = Vector3.zero;
+        pet.transform.localRotation = Quaternion.identity;
+
+        currentPet = pet;
+    }
+
+    public void OnPutDownPet(PetStateManager pet)
+    {
+        Vector3 targetPos = parentTransform.position + parentTransform.forward;
+
+        pet.transform.position = targetPos;
+        pet.transform.SetParent(null);
+
+        pet.NavMeshAgent.enabled = true;
+        pet.Rigidbody.isKinematic = false;
+
+        currentPet = null;
     }
 
     public void SelectTool(int toolIndex)

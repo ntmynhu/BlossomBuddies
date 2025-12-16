@@ -6,6 +6,7 @@ public class ThirdPersonCameraController : MonoBehaviour
 {
     [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
     [SerializeField] private CinemachineInputAxisController inputAxisController;
+    [SerializeField] private CinemachineCamera cinemachineCamera;
 
     [Header("Mobile preset")]
     [SerializeField] private float mobileSensitivityX = 600f;
@@ -14,6 +15,11 @@ public class ThirdPersonCameraController : MonoBehaviour
     [Header("PC preset")]
     [SerializeField] private float pcSensitivityX = 300f;
     [SerializeField] private float pcSensitivityY = -250f;
+
+    [Header("Zoom settings")]
+    [SerializeField] private float zoomSpeed = 5f;
+    [SerializeField] private float minZoomDistance = 2f;
+    [SerializeField] private float maxZoomDistance = 12f;
 
     private bool isMobileController = false;
 
@@ -30,6 +36,17 @@ public class ThirdPersonCameraController : MonoBehaviour
         }
 
         if (!isMobileController) return;
+
+        // Zoom logic for PC only
+        if (!isMobileController && orbitalFollow != null)
+        {
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (Mathf.Abs(scroll) > 0.01f)
+            {
+                //orbitalFollow.CameraDistance -= scroll * zoomSpeed;
+                //orbitalFollow.CameraDistance = Mathf.Clamp(orbitalFollow.CameraDistance, minZoomDistance, maxZoomDistance);
+            }
+        }
 
         if (Input.GetMouseButton(0))
         {
