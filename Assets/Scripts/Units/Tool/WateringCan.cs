@@ -9,49 +9,57 @@ public class WateringCan : Tool
 
     public override void UseTool()
     {
-        StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement));
+        StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement, toolHandler));
     }
 
-    public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    public override void OnToolSelected(GameObject player)
     {
-        base.OnToolSelected(playerAnim, playerMovement);
+        base.OnToolSelected(player);
         PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.WateringState, spawnObject);
     }
 
-    private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement, ToolHandler toolHandler)
     {
-        if (!PlacementSystem.Instance.CanTriggerAction())
+        if (PlacementSystem.Instance.CanTriggerAction())
         {
-            yield break;
-        }
+            waterFX.Play();
+            playerMovement.SetMovementEnable(false);
+            playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
 
-        waterFX.Play();
-        playerMovement.SetMovementEnable(false);
-        playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
+            // Wait for the player to release the mouse button or for the water time to be up
+            float waterTimer = waterTime;
 
-        // Wait for the player to release the mouse button or for the water time to be up
-        float waterTimer = waterTime;
-
-        while (!Input.GetMouseButtonUp(0))
-        {
-            waterTimer -= Time.deltaTime;
-
-            if (waterTimer <= 0f)
+            while (!Input.GetMouseButtonUp(0))
             {
-                PlacementSystem.Instance.TriggerAction();
+                waterTimer -= Time.deltaTime;
 
-                playerMovement.SetMovementEnable(true);
-                playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
-                waterFX.Stop();
+                if (waterTimer <= 0f)
+                {
+                    PlacementSystem.Instance.TriggerAction();
 
-                yield break;
+                    playerMovement.SetMovementEnable(true);
+                    playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+                    waterFX.Stop();
+
+                    yield break;
+                }
+
+                yield return null;
             }
 
-            yield return null;
+            playerMovement.SetMovementEnable(true);
+            playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+            waterFX.Stop();
         }
 
-        playerMovement.SetMovementEnable(true);
-        playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
-        waterFX.Stop();
+        if (toolHandler.CurrentInteraction != null && toolHandler.CurrentInteraction.CompareTag("BathTub"))
+        {
+            BathTub bathTub = toolHandler.CurrentInteraction.GetComponent<BathTub>();
+
+            if (bathTub.CurrentPet != null)
+            {
+                bathTub.CurrentPet.SendMessage("OnInteract", SendMessageOptions.DontRequireReceiver);
+            }
+        }
     }
 }

@@ -10,9 +10,9 @@ public class Scissors : Tool
         StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement));
     }
 
-    public override void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    public override void OnToolSelected(GameObject player)
     {
-        base.OnToolSelected(playerAnim, playerMovement);
+        base.OnToolSelected(player);
         PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.ScissorsState, plantData);
     }
 

@@ -5,6 +5,9 @@ public class BathTub : PlayerDetect
 {
     [SerializeField] private Transform petHolder;
 
+    private PetStateManager currentPet;
+    public PetStateManager CurrentPet => currentPet;
+
     private void OnBathTubInteract()
     {
         if (isPlayerInRange)
@@ -15,6 +18,7 @@ public class BathTub : PlayerDetect
             if (currentPet != null)
             {
                 toolHandler.OnPutDownPet(currentPet);
+                currentPet.ChangeState(currentPet.bathingState);
 
                 currentPet.NavMeshAgent.enabled = false;
                 currentPet.Rigidbody.isKinematic = true;
@@ -22,7 +26,14 @@ public class BathTub : PlayerDetect
 
                 currentPet.transform.localPosition = Vector3.zero;
                 currentPet.transform.localRotation = Quaternion.identity;
+
+                this.currentPet = currentPet;
             }
         }
+    }
+
+    public void OnPetExitBathTub()
+    {
+        currentPet = null;
     }
 }

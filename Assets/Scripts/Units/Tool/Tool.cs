@@ -13,9 +13,10 @@ public class Tool : MonoBehaviour
     public Quaternion InitialRot { get => initialRot; set => initialRot = value; }
     public Rigidbody Rigidbody => rb;
 
+    protected GameObject player;
     protected PlayerAnimation playerAnim;
     protected PlayerMovement playerMovement;
-
+    protected ToolHandler toolHandler;
 
     private void Awake()
     {
@@ -25,10 +26,12 @@ public class Tool : MonoBehaviour
     }
 
     public virtual void UseTool() { }
-    public virtual void OnToolSelected(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    public virtual void OnToolSelected(GameObject player)
     {
-        this.playerAnim = playerAnim;
-        this.playerMovement = playerMovement;
+        this.player = player;
+        playerAnim = player.GetComponent<PlayerAnimation>();
+        playerMovement = player.GetComponent<PlayerMovement>();
+        toolHandler = player.GetComponent<ToolHandler>();
     }
     public virtual void OnToolDeselected() { }
 }

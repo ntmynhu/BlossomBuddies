@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class PetStateManager : PlayerDetect
 {
     #region Fields
-    [SerializeField] private List<PetStateRateEntry> petStateRates;
+    [SerializeField] private List<PetStateRate> petStateRates;
     [SerializeField] private GameObject[] bubbles;
     [SerializeField] private Renderer petRenderer;
 
@@ -28,6 +28,7 @@ public class PetStateManager : PlayerDetect
     public NavMeshAgent NavMeshAgent => navMeshAgent;
     public Animator Animator => animator;
     public Rigidbody Rigidbody => rb;
+    public PetBaseState CurrentState => currentState;
     public float Energy
     {
         get
@@ -84,8 +85,10 @@ public class PetStateManager : PlayerDetect
     public ChasingPlayer chasingPlayerState = new ChasingPlayer();
     public RunAwayFromPlayer runAwayFromPlayerState = new RunAwayFromPlayer();
     public BeingPickUp beingPickUpState = new BeingPickUp();
+    public BathingState bathingState = new BathingState();
 
     public Dictionary<PetStateType, PetStatsRate> PetRateDict => petRateDict;
+    public GameObject[] Bubbles => bubbles;
     #endregion
 
     #region Methods
@@ -148,7 +151,7 @@ public class PetStateManager : PlayerDetect
 
     private void OnInteract()
     {
-        if (isPlayerInRange)
+        if (isPlayerInRange && currentState != bathingState)
         {
             ChangeState(beingPickUpState);
         }
@@ -160,7 +163,7 @@ public class PetStateManager : PlayerDetect
 }
 
 [System.Serializable]
-public class PetStateRateEntry
+public class PetStateRate
 {
     public PetStateType state;
     public PetStatsRate rate;
@@ -175,5 +178,6 @@ public enum PetStateType
     Play,
     FindPlayer,
     AvoidPlayer,
-    BeingPickup
+    BeingPickup,
+    Bathing,
 }

@@ -5,13 +5,14 @@ public class ToolHandler : MonoBehaviour
 {
     [SerializeField] private Transform parentTransform;
     [SerializeField] private Transform petTransform;
-    [SerializeField] private PlayerAnimation playerAnim;
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private GameObject player;
 
     private PetStateManager currentPet = null;
+    private GameObject currentInteraction;
 
     public Transform ParentTransform => parentTransform;
     public PetStateManager CurrentPet => currentPet;
+    public GameObject CurrentInteraction => currentInteraction;
 
     private void Start()
     {
@@ -50,6 +51,10 @@ public class ToolHandler : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             SelectTool(7);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SelectTool(8);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha0))
         {
@@ -97,7 +102,7 @@ public class ToolHandler : MonoBehaviour
 
         if (newTool != null)
         {
-            newTool.OnToolSelected(playerAnim, playerMovement);
+            newTool.OnToolSelected(player);
         }
         else
         {
@@ -109,5 +114,10 @@ public class ToolHandler : MonoBehaviour
     {
         ToolManager.Instance.SetCurrentTool(null, parentTransform);
         PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+    }
+
+    public void SetCurrentInteraction(GameObject interaction)
+    {
+        currentInteraction = interaction;
     }
 }

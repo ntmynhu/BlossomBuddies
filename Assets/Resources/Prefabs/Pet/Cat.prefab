@@ -5374,6 +5374,22 @@ PrefabInstance:
       propertyPath: 'bubbles.Array.data[58]'
       value: 
       objectReference: {fileID: 1345688433562682756}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[8].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 199802a465d4bda4d9d63a496e8e740a,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[8].state
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6020308598444310925, guid: fda05439847e9964981d19d387a82183,
         type: 3}
       propertyPath: m_LocalPosition.x
