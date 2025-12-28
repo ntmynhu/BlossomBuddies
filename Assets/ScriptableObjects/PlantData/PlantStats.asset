@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356d00531d38f974ab0f021801ff2f8e, type: 3}
   m_Name: PlantStats
   m_EditorClassIdentifier: 
-  weedTickTime: 3600
+  weedTickTime: 1
   weedSpawnChance: 0.005
   weedGrowthSpeed: 0.0005
   weedPenaltySpeed: 0.25
   waterMultiplier: 3
   maxWeed: 6
-  waterExistingTime: 10800
+  waterExistingTime: 3
   waterBonusGrowthSpeed: 1
   totalWaterLevels: 2
