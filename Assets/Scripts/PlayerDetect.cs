@@ -32,8 +32,6 @@ public class PlayerDetect : MonoBehaviour
             }
             
         }
-
-        Debug.Log("PlayerDetect");
     }
 
     protected virtual void OnTriggerExit(Collider other)
@@ -47,7 +45,5 @@ public class PlayerDetect : MonoBehaviour
                 toolHandler.SetCurrentInteraction(null);
             }
         }
-
-        Debug.Log("PlayerDetect Exit");
     }
 }

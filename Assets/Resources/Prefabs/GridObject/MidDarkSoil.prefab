@@ -121,6 +121,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 0.098762244, z: 1.0000001}
   m_Center: {x: 0, y: -0.00061888434, z: 0}
+--- !u!23 &1476601151533616222 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: fe4acfc313ac3a44eb6659bf77cd7f11,
+    type: 3}
+  m_PrefabInstance: {fileID: 269201460644450522}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &3718011374266808468 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: fe4acfc313ac3a44eb6659bf77cd7f11,
+    type: 3}
+  m_PrefabInstance: {fileID: 269201460644450522}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4601076959002233358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,8 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1307d38a9fc42b74cb6810812d751db7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mesh: {fileID: 0}
-  meshRenderer: {fileID: 0}
+  mesh: {fileID: 3718011374266808468}
+  meshRenderer: {fileID: 1476601151533616222}
   tileData: {fileID: 11400000, guid: b1e7c37fbb554a44b9e3af55388fcb8c, type: 2}
 --- !u!4 &8811160293676429630 stripped
 Transform:
