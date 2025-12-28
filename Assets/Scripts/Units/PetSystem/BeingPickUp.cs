@@ -36,7 +36,19 @@ public class BeingPickUp : PetBaseState
 
         if (delayTime < 0)
         {
-            cat.ChangeState(cat.walkAroundState);
+            if (cat.ToolHandler.CurrentInteraction != null && cat.ToolHandler.CurrentInteraction.CompareTag("BathTub"))
+            {
+                BathTub bathTub = cat.ToolHandler.CurrentInteraction.GetComponent<BathTub>();
+                if (bathTub.CurrentPet == null)
+                {
+                    bathTub.OnPetEnter(cat);
+                    return;
+                }
+            }
+            else
+            {
+                cat.ChangeState(cat.walkAroundState);
+            }
         }
     }
 

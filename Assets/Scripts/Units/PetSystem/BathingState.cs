@@ -14,6 +14,9 @@ public class BathingState : PetBaseState
     private bool isShowAllBubbles = false;
     private bool isHidingAllBubbles = false;
 
+    public bool IsShowAllBubbles => isShowAllBubbles;
+    public bool IsHidingAllBubbles => isHidingAllBubbles;
+
     public override void EnterState(PetStateManager cat)
     {
         StatsRate = cat.PetRateDict[PetStateType.WalkAround];
@@ -36,18 +39,9 @@ public class BathingState : PetBaseState
 
     public override void OnInteract(PetStateManager cat)
     {
-        isSoaping = true;
-
-        StatsRate = cat.PetRateDict[PetStateType.Bath];
-        base.UpdateState(cat);
-
-        if (!isShowAllBubbles)
+        if (!isSoaping)
         {
-            HandleShowingBubbles(cat);
-        }
-        else
-        {
-
+            cat.ChangeState(cat.beingPickUpState);
         }
     }
 
@@ -126,6 +120,11 @@ public class BathingState : PetBaseState
                     isHidingAllBubbles = false;
                     break;
                 }
+            }
+
+            if (isHidingAllBubbles)
+            {
+                isSoaping = false;
             }
 
             timer = timeBetweenBubbles;

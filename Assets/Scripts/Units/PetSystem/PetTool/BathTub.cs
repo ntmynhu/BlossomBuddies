@@ -8,7 +8,7 @@ public class BathTub : PlayerDetect
     private PetStateManager currentPet;
     public PetStateManager CurrentPet => currentPet;
 
-    private void OnBathTubInteract()
+    public void OnBathTubInteract()
     {
         if (isPlayerInRange)
         {
@@ -30,6 +30,21 @@ public class BathTub : PlayerDetect
                 this.currentPet = currentPet;
             }
         }
+    }
+
+    public void OnPetEnter(PetStateManager pet)
+    {
+        toolHandler.OnPutDownPet(pet);
+        pet.ChangeState(pet.bathingState);
+
+        pet.NavMeshAgent.enabled = false;
+        pet.Rigidbody.isKinematic = true;
+        pet.transform.SetParent(petHolder);
+
+        pet.transform.localPosition = Vector3.zero;
+        pet.transform.localRotation = Quaternion.identity;
+
+        this.currentPet = pet;
     }
 
     public void OnPetExitBathTub()

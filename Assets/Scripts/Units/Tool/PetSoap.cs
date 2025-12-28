@@ -63,13 +63,13 @@ public class PetSoap : Tool
             soapTimer -= Time.deltaTime;
             bathingState.OnSoapInteract(targetPet);
 
-            if (soapTimer <= 0f)
-            {
-                playerMovement.SetMovementEnable(true);
-                playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+            //if (bathingState.IsShowAllBubbles)
+            //{
+            //    playerMovement.SetMovementEnable(true);
+            //    playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
 
-                yield break;
-            }
+            //    yield break;
+            //}
 
             yield return null;
         }

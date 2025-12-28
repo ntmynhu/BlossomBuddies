@@ -58,7 +58,38 @@ public class WateringCan : Tool
 
             if (bathTub.CurrentPet != null)
             {
-                bathTub.CurrentPet.SendMessage("OnInteract", SendMessageOptions.DontRequireReceiver);
+                BathingState bathingState = bathTub.CurrentPet.bathingState as BathingState;
+
+                if (bathingState != null)
+                {
+                    waterFX.Play();
+                    playerMovement.SetMovementEnable(false);
+                    playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
+
+                    // Wait for the player to release the mouse button or for the water time to be up
+                    float waterTimer = waterTime;
+
+                    while (!Input.GetMouseButtonUp(0))
+                    {
+                        waterTimer -= Time.deltaTime;
+                        bathingState.OnShowerInteract(bathTub.CurrentPet);
+
+                        //if (bathingState.IsHidingAllBubbles)
+                        //{
+                        //    playerMovement.SetMovementEnable(true);
+                        //    playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+                        //    waterFX.Stop();
+
+                        //    yield break;
+                        //}
+
+                        yield return null;
+                    }
+
+                    playerMovement.SetMovementEnable(true);
+                    playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
+                    waterFX.Stop();
+                }
             }
         }
     }

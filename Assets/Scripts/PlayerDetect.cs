@@ -8,6 +8,8 @@ public class PlayerDetect : MonoBehaviour
     protected ToolHandler toolHandler;
     protected bool isPlayerInRange = false;
 
+    public ToolHandler ToolHandler => toolHandler;
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
