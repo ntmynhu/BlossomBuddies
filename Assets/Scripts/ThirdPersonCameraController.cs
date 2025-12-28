@@ -18,35 +18,35 @@ public class ThirdPersonCameraController : MonoBehaviour
 
     [Header("Zoom settings")]
     [SerializeField] private float zoomSpeed = 5f;
-    [SerializeField] private float minZoomDistance = 2f;
-    [SerializeField] private float maxZoomDistance = 12f;
+    [SerializeField] private float minZoomLens = 40f;
+    [SerializeField] private float maxZoomLens = 90f;
+    [SerializeField] private float zoomSmoothTime = 0.08f;
+
+    private float targetFov;
+    private float fovVelocity;
 
     private bool isMobileController = false;
 
     private void Start()
     {
+        targetFov = cinemachineCamera.Lens.FieldOfView;
         SetMobileController(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SetMobileController(!isMobileController);
-        }
-
-        if (!isMobileController) return;
+        //if (Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    SetMobileController(!isMobileController);
+        //}
 
         // Zoom logic for PC only
         if (!isMobileController && orbitalFollow != null)
         {
-            float scroll = Input.GetAxis("Mouse ScrollWheel");
-            if (Mathf.Abs(scroll) > 0.01f)
-            {
-                //orbitalFollow.CameraDistance -= scroll * zoomSpeed;
-                //orbitalFollow.CameraDistance = Mathf.Clamp(orbitalFollow.CameraDistance, minZoomDistance, maxZoomDistance);
-            }
+            HandlePCZoom();
         }
+
+        if (!isMobileController) return;
 
         if (Input.GetMouseButton(0))
         {
@@ -59,6 +59,20 @@ public class ThirdPersonCameraController : MonoBehaviour
             inputAxisController.Controllers[0].Enabled = false;
             inputAxisController.Controllers[1].Enabled = false;
         }
+    }
+
+    private void HandlePCZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.001f)
+        {
+            targetFov -= scroll * zoomSpeed;
+            targetFov = Mathf.Clamp(targetFov, minZoomLens, maxZoomLens);
+        }
+
+        float current = cinemachineCamera.Lens.FieldOfView;
+        float smooth = Mathf.SmoothDamp(current, targetFov, ref fovVelocity, zoomSmoothTime);
+        cinemachineCamera.Lens.FieldOfView = smooth;
     }
 
     public void SetMobileController(bool isMobile)
