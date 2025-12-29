@@ -97,6 +97,7 @@ public class BathingState : PetBaseState
                 {
                     bubble.SetActive(true);
                     isShowAllBubbles = false;
+                    isHidingAllBubbles = false;
                     break;
                 }
             }
@@ -118,6 +119,7 @@ public class BathingState : PetBaseState
                 {
                     bubble.SetActive(false);
                     isHidingAllBubbles = false;
+                    isShowAllBubbles = false;
                     break;
                 }
             }
