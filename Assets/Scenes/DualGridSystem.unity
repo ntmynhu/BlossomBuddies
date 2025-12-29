@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6dc285aa2deff44b7b8f5014f18009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 1
   player: {fileID: 367357060}
 --- !u!4 &1117660775
 Transform:
@@ -1428,13 +1429,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd7f8bdd9fabad46885bbddd4a82556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  furnitureInventoryPanel: {fileID: 0}
   inventoryPanel: {fileID: 42665344}
-  inventorySlots:
-  - {fileID: 495987245}
-  - {fileID: 736703490}
-  - {fileID: 128750028}
-  - {fileID: 131818835}
+  uiSlotPrefab: {fileID: 0}
   thirdPersonCameraController: {fileID: 0}
+  objectDatabase: []
 --- !u!1 &1330879509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1578,6 +1577,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse X
         LegacyGain: 300
         CancelDeltaTime: 0
@@ -1589,6 +1590,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse Y
         LegacyGain: -200
         CancelDeltaTime: 0
@@ -1600,6 +1603,8 @@ MonoBehaviour:
       Owner: {fileID: 1469542344}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse ScrollWheel
         LegacyGain: -100
         CancelDeltaTime: 0
@@ -1607,6 +1612,8 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
+  PlayerIndex: -1
+  AutoEnableInputs: 1
 --- !u!114 &1469542342
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5377,8 +5377,38 @@ PrefabInstance:
     - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
         type: 3}
       propertyPath: petStateRates.Array.size
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[1].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 025869954510aca4aa069a7bb18cfa19,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[2].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 199802a465d4bda4d9d63a496e8e740a,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[3].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 1c2f35fb5f1673b4d802765d19420cc4,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[4].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: bddab9d5619f7da4ca41369c3346300f,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
+      propertyPath: petStateRates.Array.data[5].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 78a6cb706d2f4d84ea9847e90d6520fb,
+        type: 2}
     - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
         type: 3}
       propertyPath: petStateRates.Array.data[8].rate

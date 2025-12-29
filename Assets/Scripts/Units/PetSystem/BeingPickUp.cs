@@ -7,7 +7,7 @@ public class BeingPickUp : PetBaseState
     float maxDelayTime = 0.5f;
     float delayTime;
 
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         ToolHandler toolHandler = GameManager.Instance.Player.GetComponent<ToolHandler>();
         toolHandler.OnPickupPet(cat);
@@ -16,7 +16,7 @@ public class BeingPickUp : PetBaseState
         StatsRate = cat.PetRateDict[PetStateType.BeingPickup];
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -30,7 +30,7 @@ public class BeingPickUp : PetBaseState
         }
     }
 
-    public override void OnInteract(PetStateManager cat)
+    public override void OnInteract(PetStateHandler cat)
     {
         base.OnInteract(cat);
 
@@ -52,7 +52,7 @@ public class BeingPickUp : PetBaseState
         }
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         ToolHandler toolHandler = GameManager.Instance.Player.GetComponent<ToolHandler>();
         toolHandler.OnPutDownPet(cat);

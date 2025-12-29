@@ -9,6 +9,8 @@ public class PlayerDetect : MonoBehaviour
     protected bool isPlayerInRange = false;
 
     public ToolHandler ToolHandler => toolHandler;
+    public bool IsPlayerInRange => isPlayerInRange;
+    public GameObject Player => player;
 
     protected virtual void OnTriggerEnter(Collider other)
     {

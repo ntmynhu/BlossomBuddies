@@ -17,7 +17,7 @@ public class PetSoap : Tool
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement, ToolHandler toolHandler)
     {
-        PetStateManager targetPet = null;
+        PetStateHandler targetPet = null;
         BathingState bathingState = null;
 
         if (toolHandler.CurrentInteraction == null)

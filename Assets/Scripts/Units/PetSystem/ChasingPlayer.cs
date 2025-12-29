@@ -5,9 +5,9 @@ public class ChasingPlayer : PetBaseState
     private Transform player;
     private float chaseSpeed = 3.5f;
 
-    private PetStateManager cat;
+    private PetStateHandler cat;
 
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         this.cat = cat;
 
@@ -20,14 +20,14 @@ public class ChasingPlayer : PetBaseState
         GameEventManager.Instance.OnToyInteract += OnToyInteract;
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         cat.NavMeshAgent.ResetPath();
 
         GameEventManager.Instance.OnToyInteract -= OnToyInteract;
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -58,7 +58,7 @@ public class ChasingPlayer : PetBaseState
         }
     }
 
-    public override void OnTriggerEnter(PetStateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateHandler cat, Collider other)
     {
         if (other.CompareTag("Player"))
         {

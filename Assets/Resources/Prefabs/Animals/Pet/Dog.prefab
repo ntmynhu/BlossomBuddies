@@ -4935,6 +4935,12 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
         type: 3}
+      propertyPath: petStateRates.Array.data[2].rate
+      value: 
+      objectReference: {fileID: 11400000, guid: 6330390b74aa0104f98d372da9207852,
+        type: 2}
+    - target: {fileID: 2441303410717258876, guid: fda05439847e9964981d19d387a82183,
+        type: 3}
       propertyPath: petStateRates.Array.data[3].rate
       value: 
       objectReference: {fileID: 11400000, guid: 70193af3b28973b439501776dc9ee0ed,

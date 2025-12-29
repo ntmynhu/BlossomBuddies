@@ -7,7 +7,6 @@ public class BathingState : PetBaseState
 {
     private List<GameObject> bubbles = new List<GameObject>();
     private float timeBetweenBubbles = 0.1f;
-    private float bubbleScaleRate = 0.2f;
 
     private float timer;
     private bool isSoaping = false;
@@ -17,7 +16,7 @@ public class BathingState : PetBaseState
     public bool IsShowAllBubbles => isShowAllBubbles;
     public bool IsHidingAllBubbles => isHidingAllBubbles;
 
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         StatsRate = cat.PetRateDict[PetStateType.WalkAround];
         bubbles = cat.Bubbles.ToList();
@@ -28,7 +27,7 @@ public class BathingState : PetBaseState
         cat.Animator.SetFloat("Vert", 0);
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         if (isSoaping)
             return;
@@ -37,7 +36,7 @@ public class BathingState : PetBaseState
         base.UpdateState(cat);
     }
 
-    public override void OnInteract(PetStateManager cat)
+    public override void OnInteract(PetStateHandler cat)
     {
         if (!isSoaping)
         {
@@ -45,12 +44,12 @@ public class BathingState : PetBaseState
         }
     }
 
-    public void OnShowerInteract(PetStateManager cat)
+    public void OnShowerInteract(PetStateHandler cat)
     {
         if (!isSoaping)
             return;
 
-        StatsRate = cat.PetRateDict[PetStateType.Bath];
+        StatsRate = cat.PetRateDict[PetStateType.Bathing];
         base.UpdateState(cat);
 
         if (!isHidingAllBubbles)
@@ -60,11 +59,11 @@ public class BathingState : PetBaseState
     }
 
 
-    public void OnSoapInteract(PetStateManager cat)
+    public void OnSoapInteract(PetStateHandler cat)
     {
         isSoaping = true;
 
-        StatsRate = cat.PetRateDict[PetStateType.Bath];
+        StatsRate = cat.PetRateDict[PetStateType.Bathing];
         base.UpdateState(cat);
 
         if (!isShowAllBubbles)
@@ -73,7 +72,7 @@ public class BathingState : PetBaseState
         }
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         ToolHandler toolHandler = GameManager.Instance.Player.GetComponent<ToolHandler>();
         BathTub bathTub = toolHandler.CurrentInteraction.GetComponent<BathTub>();
@@ -84,7 +83,7 @@ public class BathingState : PetBaseState
         }
     }
 
-    private void HandleShowingBubbles(PetStateManager cat)
+    private void HandleShowingBubbles(PetStateHandler cat)
     {
         timer -= Time.deltaTime;
 
@@ -106,7 +105,7 @@ public class BathingState : PetBaseState
         }
     }
 
-    private void HandleHidingBubbles(PetStateManager cat)
+    private void HandleHidingBubbles(PetStateHandler cat)
     {
         timer -= Time.deltaTime;
 

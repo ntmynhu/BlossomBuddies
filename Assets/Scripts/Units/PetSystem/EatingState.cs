@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EatingState : PetBaseState
 {
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         cat.transform.LookAt(PetManager.Instance.FoodPosition.position);
         cat.Animator.SetBool("IsEating", true);
@@ -10,7 +10,7 @@ public class EatingState : PetBaseState
         StatsRate = cat.PetRateDict[PetStateType.Eat];
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -20,7 +20,7 @@ public class EatingState : PetBaseState
         }
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         cat.Animator.SetBool("IsEating", false);
     }

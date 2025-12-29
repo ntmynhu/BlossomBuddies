@@ -5,7 +5,6 @@ public class WheelBarrow : PlayerDetect
 {
     [SerializeField] private Transform spawnPos;
 
-    private ToolHandler toolHandler;
     private bool isAttachedToPlayer = false;
 
     private void Start()

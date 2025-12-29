@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class SleepingState : PetBaseState
 {
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         cat.Animator.SetBool("IsSleeping", true);
         StatsRate = cat.PetRateDict[PetStateType.Sleep];
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -18,17 +18,17 @@ public class SleepingState : PetBaseState
         }
     }
 
-    public override void OnCollisionEnter(PetStateManager cat, Collision collision)
+    public override void OnCollisionEnter(PetStateHandler cat, Collision collision)
     {
 
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         cat.Animator.SetBool("IsSleeping", false);
     }
 
-    public override void OnTriggerEnter(PetStateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateHandler cat, Collider other)
     {
         
     }

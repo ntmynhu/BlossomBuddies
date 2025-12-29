@@ -11,9 +11,9 @@ public class RunAwayFromPlayer : PetBaseState
     private float timeToChangeState = 5f;
     private float countTime = 0;
 
-    private PetStateManager cat;
+    private PetStateHandler cat;
 
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         this.cat = cat;
         countTime = 0;
@@ -27,12 +27,12 @@ public class RunAwayFromPlayer : PetBaseState
         StatsRate = cat.PetRateDict[PetStateType.AvoidPlayer];
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         cat.NavMeshAgent.ResetPath();
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -54,7 +54,7 @@ public class RunAwayFromPlayer : PetBaseState
         cat.Animator.SetFloat("Vert", cat.NavMeshAgent.velocity.magnitude / cat.NavMeshAgent.speed);
     }
 
-    public override void OnTriggerStay(PetStateManager cat, Collider other)
+    public override void OnTriggerStay(PetStateHandler cat, Collider other)
     {
         if (other.CompareTag("Player"))
         {

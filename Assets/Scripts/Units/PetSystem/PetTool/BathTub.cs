@@ -5,15 +5,15 @@ public class BathTub : PlayerDetect
 {
     [SerializeField] private Transform petHolder;
 
-    private PetStateManager currentPet;
-    public PetStateManager CurrentPet => currentPet;
+    private PetStateHandler currentPet;
+    public PetStateHandler CurrentPet => currentPet;
 
     public void OnBathTubInteract()
     {
         if (isPlayerInRange)
         {
             ToolHandler toolHandler = GameManager.Instance.Player.GetComponent<ToolHandler>();
-            PetStateManager currentPet = toolHandler.CurrentPet;
+            PetStateHandler currentPet = toolHandler.CurrentPet;
 
             if (currentPet != null)
             {
@@ -32,7 +32,7 @@ public class BathTub : PlayerDetect
         }
     }
 
-    public void OnPetEnter(PetStateManager pet)
+    public void OnPetEnter(PetStateHandler pet)
     {
         toolHandler.OnPutDownPet(pet);
         pet.ChangeState(pet.bathingState);

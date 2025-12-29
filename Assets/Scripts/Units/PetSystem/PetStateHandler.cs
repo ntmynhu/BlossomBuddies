@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PetStateManager : PlayerDetect
+public class PetStateHandler : PlayerDetect
 {
     #region Fields
     [SerializeField] private List<PetStateRate> petStateRates;
@@ -173,11 +173,10 @@ public enum PetStateType
 {
     Sleep,
     Eat,
-    Bath,
+    Bathing,
     WalkAround,
     Play,
     FindPlayer,
     AvoidPlayer,
     BeingPickup,
-    Bathing,
 }

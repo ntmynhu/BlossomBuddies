@@ -124,22 +124,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 6397291155531275063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b69e94706dc47f4db935d1ff6d6c790, type: 3}
+  m_Script: {fileID: 11500000, guid: 301a46947399f194e807ee81addb6f2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteractionActive: 0
   petStateRates:
   - state: 0
     rate: {fileID: 11400000, guid: cf3774bdaa40ffa459e5884cbd2eb5d0, type: 2}
   - state: 1
-    rate: {fileID: 11400000, guid: 025869954510aca4aa069a7bb18cfa19, type: 2}
+    rate: {fileID: 0}
   - state: 2
-    rate: {fileID: 11400000, guid: 199802a465d4bda4d9d63a496e8e740a, type: 2}
+    rate: {fileID: 0}
   - state: 3
-    rate: {fileID: 11400000, guid: 1c2f35fb5f1673b4d802765d19420cc4, type: 2}
+    rate: {fileID: 0}
   - state: 4
-    rate: {fileID: 11400000, guid: bddab9d5619f7da4ca41369c3346300f, type: 2}
+    rate: {fileID: 0}
   - state: 5
-    rate: {fileID: 11400000, guid: 78a6cb706d2f4d84ea9847e90d6520fb, type: 2}
+    rate: {fileID: 0}
   - state: 6
     rate: {fileID: 11400000, guid: 8d168bc14a9376b468419112cc4acc63, type: 2}
   - state: 7

@@ -7,11 +7,11 @@ public class ToolHandler : MonoBehaviour
     [SerializeField] private Transform petTransform;
     [SerializeField] private GameObject player;
 
-    private PetStateManager currentPet = null;
+    private PetStateHandler currentPet = null;
     private GameObject currentInteraction;
 
     public Transform ParentTransform => parentTransform;
-    public PetStateManager CurrentPet => currentPet;
+    public PetStateHandler CurrentPet => currentPet;
     public GameObject CurrentInteraction => currentInteraction;
 
     private void Start()
@@ -71,7 +71,7 @@ public class ToolHandler : MonoBehaviour
         }
     }
 
-    public void OnPickupPet(PetStateManager pet)
+    public void OnPickupPet(PetStateHandler pet)
     {
         pet.NavMeshAgent.enabled = false;
         pet.Rigidbody.isKinematic = true;
@@ -83,7 +83,7 @@ public class ToolHandler : MonoBehaviour
         currentPet = pet;
     }
 
-    public void OnPutDownPet(PetStateManager pet)
+    public void OnPutDownPet(PetStateHandler pet)
     {
         Vector3 targetPos = parentTransform.position + parentTransform.forward;
 

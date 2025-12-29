@@ -17,7 +17,7 @@ public class WalkAroundState : PetBaseState
     private float walkingSpeed = 1f;
     #endregion
 
-    public override void EnterState(PetStateManager cat)
+    public override void EnterState(PetStateHandler cat)
     {
         cat.NavMeshAgent.speed = walkingSpeed;
         waitingTime = 0;
@@ -27,7 +27,7 @@ public class WalkAroundState : PetBaseState
         StatsRate = cat.PetRateDict[PetStateType.WalkAround];
     }
 
-    public override void UpdateState(PetStateManager cat)
+    public override void UpdateState(PetStateHandler cat)
     {
         base.UpdateState(cat);
 
@@ -74,17 +74,17 @@ public class WalkAroundState : PetBaseState
         return centerPosition + Random.insideUnitSphere * radius;
     }
 
-    public override void OnCollisionEnter(PetStateManager cat, Collision collision)
+    public override void OnCollisionEnter(PetStateHandler cat, Collision collision)
     {
         
     }
 
-    public override void ExitState(PetStateManager cat)
+    public override void ExitState(PetStateHandler cat)
     {
         cat.NavMeshAgent.ResetPath();
     }
 
-    public override void OnTriggerEnter(PetStateManager cat, Collider other)
+    public override void OnTriggerEnter(PetStateHandler cat, Collider other)
     {
         if (other.CompareTag("Food") && cat.Food <= 0f)
         {
@@ -107,7 +107,7 @@ public class WalkAroundState : PetBaseState
         }
     }
 
-    private IEnumerator WaitToChangeState(PetStateManager cat)
+    private IEnumerator WaitToChangeState(PetStateHandler cat)
     {
         yield return new WaitUntil(() => Vector3.Distance(cat.transform.position, PetManager.Instance.FoodPosition.position) <= 0.5f);
 
