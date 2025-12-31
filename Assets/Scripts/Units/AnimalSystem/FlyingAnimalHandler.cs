@@ -1,14 +1,16 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FlyingAnimalHandler : PlayerDetect
 {
-    [SerializeField] private float minHeight = 1.0f;
-    [SerializeField] private float maxHeight = 5.0f;
-    [SerializeField] private float flyingSpeed = 1.0f;
-     
+    [SerializeField] private float flyingSpeed = 1f;
+    [SerializeField] private float rotationSpeed = 5f;
+
+    [Header("Parabolic Flight")]
+    [SerializeField] private float arcHeight = 2f;   // càng lớn → bay càng vồng
+
     private Animator animator;
     private Rigidbody rb;
 
@@ -22,8 +24,8 @@ public class FlyingAnimalHandler : PlayerDetect
     public FlyingAroundState flyingAroundState = new FlyingAroundState();
 
     public float FlyingSpeed => flyingSpeed;
-    public float MinHeight => minHeight;
-    public float MaxHeight => maxHeight;
+    public float RotationSpeed => rotationSpeed;
+    public float ArcHeight => arcHeight;
     #endregion
 
     #region Methods
