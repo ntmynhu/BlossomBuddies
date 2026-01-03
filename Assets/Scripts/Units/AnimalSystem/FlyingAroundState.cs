@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿using NUnit.Framework;
+using UnityEngine;
 
 public class FlyingAroundState : FlyingAnimalBaseState
 {
     private Vector3 startPosition;
     private float flightTimer;
-    private float flightDuration; private Vector3 targetPosition;
+    private float flightDuration;
+    private Vector3 targetPosition;
+    private Vector3 targetRotation;
 
     public override void EnterState(FlyingAnimalHandler handler)
     {
@@ -51,19 +54,36 @@ public class FlyingAroundState : FlyingAnimalBaseState
         // === Kết thúc ===
         if (t >= 1f)
         {
+            if (handler.FollowNormal)
+            {
+                handler.transform.rotation = Quaternion.LookRotation(-targetRotation);
+            }
+            else
+            {
+                // Giữ nguyên hướng hiện tại
+                handler.transform.rotation = Quaternion.Euler(0f, handler.transform.rotation.eulerAngles.y, 0f);
+            }
+
             handler.ChangeState(handler.idleState);
         }
     }
 
     private void PickNewTarget(FlyingAnimalHandler handler)
     {
-        Debug.Log(LandableRegistry.Instance.Landables.Count);
-        LandableAutoRegister chosenLand = LandableRegistry.Instance.Landables[Random.Range(0, LandableRegistry.Instance.Landables.Count)];
+        var landableList = LandableRegistry.Instance.Landables[handler.LandableType];
+        if (landableList.Count == 0)
+        {
+            // Nếu không có điểm đáp nào, thì bay lên cao một chút
+            targetPosition = handler.transform.position + Vector3.up * 2f;
+            return;
+        }
+
+        LandableAutoRegister chosenLand = landableList[Random.Range(0, landableList.Count)];
 
         if (LandablePointer.TryGetRandomPointOnCollider(
             chosenLand,
             castHeight: 10f,
-            maxAttempts: 20,
+            maxAttempts: 50,
             obstacleMask: LayerMask.GetMask("Default"),
             clearanceRadius: 0.5f,
             out Vector3 point,
@@ -75,6 +95,8 @@ public class FlyingAroundState : FlyingAnimalBaseState
                 point.y,
                 point.z
             );
+
+            targetRotation = normal;
         }
         else
         {

@@ -1,18 +1,38 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class LandableRegistry : Singleton<LandableRegistry>
 {
-    private readonly List<LandableAutoRegister> landables = new();
-    public List<LandableAutoRegister> Landables => landables;
+    private readonly Dictionary<LandableType, List<LandableAutoRegister>> landables = new();
+    public Dictionary<LandableType, List<LandableAutoRegister>> Landables => landables;
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        foreach (LandableType type in Enum.GetValues(typeof(LandableType)))
+        {
+            landables[type] = new List<LandableAutoRegister>();
+        }
+    }
 
     public void Register(LandableAutoRegister plane)
     {
-        if (plane != null && !landables.Contains(plane)) landables.Add(plane);
+        landables[plane.LandableType].Add(plane);
+
+        Debug.Log($"Registered landable of type {plane.LandableType}. Total count: {landables[plane.LandableType].Count}");
     }
 
     public void Unregister(LandableAutoRegister plane)
     {
-        if (plane != null) landables.Remove(plane);
+        landables[plane.LandableType].Remove(plane);
     }
+}
+
+[Serializable]
+public enum LandableType
+{
+    Bird,
+    Insect,
 }

@@ -7,9 +7,12 @@ public class FlyingAnimalHandler : PlayerDetect
 {
     [SerializeField] private float flyingSpeed = 1f;
     [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private bool followNormal;
 
     [Header("Parabolic Flight")]
     [SerializeField] private float arcHeight = 2f;   // càng lớn → bay càng vồng
+
+    [SerializeField] private LandableType landableType;
 
     private Animator animator;
     private Rigidbody rb;
@@ -19,13 +22,16 @@ public class FlyingAnimalHandler : PlayerDetect
     #region Properties
     public Animator Animator => animator;
     public Rigidbody Rigidbody => rb;
+
     public FlyingAnimalBaseState CurrentState => currentState;
     public FlyingAnimalIdleState idleState = new FlyingAnimalIdleState();
     public FlyingAroundState flyingAroundState = new FlyingAroundState();
 
     public float FlyingSpeed => flyingSpeed;
     public float RotationSpeed => rotationSpeed;
+    public bool FollowNormal => followNormal;
     public float ArcHeight => arcHeight;
+    public LandableType LandableType => landableType;
     #endregion
 
     #region Methods
