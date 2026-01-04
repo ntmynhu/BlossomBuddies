@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public static class LandablePointer
 {
@@ -25,8 +26,7 @@ public static class LandablePointer
                 Vector3 p = hit.point;
 
                 // === Obstacle clearance check ===
-                if (clearanceRadius > 0f &&
-                    Physics.CheckSphere(p, clearanceRadius, obstacleMask))
+                if (clearanceRadius > 0f && Physics.CheckSphere(p, clearanceRadius, obstacleMask))
                 {
                     continue; // blocked → try another point
                 }
@@ -45,6 +45,26 @@ public static class LandablePointer
 
         point = default;
         normal = default;
+        return false;
+    }
+
+    public static bool TryGetRandomTargetInSphere(float radius, int maxAttempts, float clearanceRadius, out Vector3 point)
+    {
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            Vector3 randomOffset = Random.insideUnitSphere * radius;
+            point = randomOffset;
+
+            // === Obstacle clearance check ===
+            if (clearanceRadius > 0f && Physics.CheckSphere(point, clearanceRadius))
+            {
+                continue; // blocked → try another point
+            }
+
+            return true;
+        }
+
+        point = default;
         return false;
     }
 }

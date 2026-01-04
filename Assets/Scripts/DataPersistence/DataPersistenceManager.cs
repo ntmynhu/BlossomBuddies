@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,9 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
     public long LastLoginTime => lastLoginTime;
 
     public bool isLoadedDataDone = false;
+
+    //Test
+    public float hoursSinceLastLogin = 0f;
 
     private void OnEnable()
     {
@@ -57,6 +61,11 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         {
             Debug.Log("No data was found. Initializing data to defaults.");
             NewGame();
+        }
+
+        if (hoursSinceLastLogin > 0)
+        {
+            this.gameData.lastLoginTime -= (long)(hoursSinceLastLogin * 3600f * 10000000f);
         }
 
         lastLoginTime = this.gameData.lastLoginTime;

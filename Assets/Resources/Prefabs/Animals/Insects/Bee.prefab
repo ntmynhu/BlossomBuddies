@@ -51,8 +51,11 @@ MonoBehaviour:
   flyingSpeed: 2
   rotationSpeed: 5
   followNormal: 1
+  idleDurationMin: 2
+  idleDurationMax: 5
   arcHeight: 0
   landableType: 1
+  obstacleClearanceRadius: 0
 --- !u!54 &3743490830462754970
 Rigidbody:
   m_ObjectHideFlags: 0

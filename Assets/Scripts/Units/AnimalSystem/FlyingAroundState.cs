@@ -70,6 +70,26 @@ public class FlyingAroundState : FlyingAnimalBaseState
 
     private void PickNewTarget(FlyingAnimalHandler handler)
     {
+        if (handler.IsFreelyLanded)
+        {
+            if (LandablePointer.TryGetRandomTargetInSphere(
+                handler.FreelyLandingRadius,
+                maxAttempts: 50,
+                clearanceRadius: handler.ObstacleClearanceRadius,
+                out Vector3 randompPoint
+            ))
+            {
+                targetPosition = randompPoint;
+            }
+            else
+            {
+                // Nếu không tìm được điểm trong sphere, thì bay lên cao một chút
+                targetPosition = handler.transform.position + Vector3.up * 2f;
+            }
+
+            return;
+        }
+
         var landableList = LandableRegistry.Instance.Landables[handler.LandableType];
         if (landableList.Count == 0)
         {
@@ -85,7 +105,7 @@ public class FlyingAroundState : FlyingAnimalBaseState
             castHeight: 10f,
             maxAttempts: 50,
             obstacleMask: LayerMask.GetMask("Default"),
-            clearanceRadius: 0.5f,
+            clearanceRadius: handler.ObstacleClearanceRadius,
             out Vector3 point,
             out Vector3 normal
         ))
