@@ -36,6 +36,9 @@ public class PlacementFurnitureState : PlacementBaseState
 
     public override void TriggerAction(PlacementSystem placementSystem)
     {
+        if (!CanTriggerAction(placementSystem))
+            return;
+
         placementSystem.PlaceAndAddObject(gridPosition);
     }
 }
