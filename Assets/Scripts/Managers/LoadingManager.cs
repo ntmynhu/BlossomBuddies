@@ -89,6 +89,7 @@ public class LoadingManager : Singleton<LoadingManager>
         while (!op.isDone) yield return null;
 
         yield return Fade(0f, 1f, fadeInTime);
+        yield return new WaitForSeconds(0.5f);
 
         InitAllScene();
         loadingCanvas.SetActive(false);

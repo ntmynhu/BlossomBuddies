@@ -179,6 +179,8 @@ public class Plant : MonoBehaviour
             {
                 grass.SetActive(false);
                 grass.transform.localScale = Vector3.zero;
+
+                GameManager.Instance.AddHeart(1);
             }
         }
     }
@@ -249,6 +251,8 @@ public class Plant : MonoBehaviour
         waterState = 0;
 
         isWatered = true;
+
+        GameManager.Instance.AddHeart(1);
     }
 
     private void HandleWaterLevel()

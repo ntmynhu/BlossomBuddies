@@ -12,6 +12,7 @@ public class BathingState : PetBaseState
     private bool isSoaping = false;
     private bool isShowAllBubbles = false;
     private bool isHidingAllBubbles = false;
+    private bool isFirstTime = true;
 
     public bool IsShowAllBubbles => isShowAllBubbles;
     public bool IsHidingAllBubbles => isHidingAllBubbles;
@@ -23,6 +24,7 @@ public class BathingState : PetBaseState
         CreateRandomList(bubbles);
         
         timer = timeBetweenBubbles;
+        isFirstTime = true;
 
         cat.Animator.SetFloat("Vert", 0);
     }
@@ -99,6 +101,12 @@ public class BathingState : PetBaseState
                     isHidingAllBubbles = false;
                     break;
                 }
+            }
+
+            if (isShowAllBubbles && isFirstTime)
+            {
+                GameManager.Instance.AddHeart(1);
+                isFirstTime = false;
             }
 
             timer = timeBetweenBubbles;

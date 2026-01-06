@@ -51,6 +51,8 @@ public class ChasingPlayer : PetBaseState
             cat.Animator.Play("ToyInteract");
             cat.Happiness += 10f;
 
+            GameManager.Instance.AddHeart(1);
+
             if (cat.Happiness > 70f)
             {
                 cat.ChangeState(cat.walkAroundState);

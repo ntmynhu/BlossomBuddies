@@ -26,6 +26,7 @@ public class GrassData
 [System.Serializable]
 public class GameData
 {
+    public int currentHeart;
     public long lastLoginTime;
     public List<GridData> gridDataList;
     public List<GridData> dualGridDataList;
@@ -33,6 +34,7 @@ public class GameData
 
     public GameData()
     {
+        currentHeart = 0;
         gridDataList = new List<GridData>();
         dualGridDataList = new List<GridData>();
         plantProgressDataList = new List<PlantProgressData>();
