@@ -97,6 +97,9 @@ public class BathingState : PetBaseState
                 if (!bubble.activeInHierarchy)
                 {
                     bubble.SetActive(true);
+
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.soapingSoundClip);
+
                     isShowAllBubbles = false;
                     isHidingAllBubbles = false;
                     break;

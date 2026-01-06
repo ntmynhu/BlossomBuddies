@@ -29,6 +29,7 @@ public class Shovel : Tool
         yield return new WaitForSeconds(0.5f);
 
         PlacementSystem.Instance.TriggerAction();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.shovelSoundClip);
 
         playerMovement.SetMovementEnable(true);
     }

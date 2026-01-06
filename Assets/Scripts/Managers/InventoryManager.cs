@@ -87,6 +87,20 @@ public class InventoryManager : Singleton<InventoryManager>
             thirdPersonCameraController.SetCameraFrozen(inventoryPanel.activeSelf);
             GameManager.Instance.PlayerMovement.SetMovementEnable(!inventoryPanel.activeSelf);
         }
+
+        if (inventoryPanel.activeSelf)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                inventoryPanel.SetActive(false);
+                thirdPersonCameraController.SetMobileController(false);
+                thirdPersonCameraController.SetCameraFrozen(false);
+                GameManager.Instance.PlayerMovement.SetMovementEnable(true);
+            }
+        }
     }
 
     private void HandleFurnitureInventory()

@@ -34,6 +34,8 @@ public class ToolManager : Singleton<ToolManager>
             toolList.Add(tool);
             InventoryManager.Instance.AddToInventory(toolInfo);
 
+            toolObject.SetActive(false);
+
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -49,6 +51,8 @@ public class ToolManager : Singleton<ToolManager>
 
             currentTool.Rigidbody.useGravity = true;
             currentTool.Rigidbody.isKinematic = false;
+
+            currentTool.gameObject.SetActive(false);
         }
 
         currentTool = newTool;
@@ -61,6 +65,8 @@ public class ToolManager : Singleton<ToolManager>
 
             currentTool.transform.localPosition = currentTool.InitialPos;
             currentTool.transform.localRotation = currentTool.InitialRot;
+
+            currentTool.gameObject.SetActive(true);
         }
     }
 

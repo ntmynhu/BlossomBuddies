@@ -37,6 +37,8 @@ public class LoadingManager : Singleton<LoadingManager>
 
     private IEnumerator Start()
     {
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.loadingMusicClip);
+
         if (!hasShownInitialLoading)
         {
             yield return InitialLoadWithSlider(initialSceneName);

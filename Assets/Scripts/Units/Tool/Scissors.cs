@@ -23,6 +23,7 @@ public class Scissors : Tool
         yield return new WaitForSeconds(0.5f);
 
         PlacementSystem.Instance.TriggerAction();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.scissorsSoundClip);
 
         playerMovement.SetMovementEnable(true);
     }

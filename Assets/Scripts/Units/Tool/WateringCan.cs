@@ -23,6 +23,9 @@ public class WateringCan : Tool
         if (PlacementSystem.Instance.CanTriggerAction())
         {
             waterFX.Play();
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.wateringCanSoundClip);
+
             playerMovement.SetMovementEnable(false);
             playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
 
@@ -41,6 +44,9 @@ public class WateringCan : Tool
                     playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
                     waterFX.Stop();
 
+                    yield return new WaitForSeconds(1f);
+                    AudioManager.Instance.StopSFX();
+
                     yield break;
                 }
 
@@ -50,6 +56,7 @@ public class WateringCan : Tool
             playerMovement.SetMovementEnable(true);
             playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
             waterFX.Stop();
+            AudioManager.Instance.StopSFX();
         }
 
         if (toolHandler != null && toolHandler.CurrentInteraction != null && toolHandler.CurrentInteraction.CompareTag("BathTub"))
@@ -63,6 +70,9 @@ public class WateringCan : Tool
                 if (bathingState != null)
                 {
                     waterFX.Play();
+
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.wateringCanSoundClip);
+
                     playerMovement.SetMovementEnable(false);
                     playerAnim.PlayAnimation(playerAnim.INTERACT_LOOP);
 
@@ -89,6 +99,8 @@ public class WateringCan : Tool
                     playerMovement.SetMovementEnable(true);
                     playerAnim.PlayAnimation(playerAnim.INTERACT_BACK);
                     waterFX.Stop();
+
+                    AudioManager.Instance.StopSFX();
                 }
             }
         }

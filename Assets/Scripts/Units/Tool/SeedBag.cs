@@ -31,6 +31,7 @@ public class SeedBag : Tool
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
 
         yield return new WaitForSeconds(0.5f);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.scissorsSoundClip);
 
         PlacementSystem.Instance.TriggerAction();
         playerMovement.SetMovementEnable(true);

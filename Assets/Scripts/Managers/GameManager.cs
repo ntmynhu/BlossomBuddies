@@ -27,6 +27,8 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
 
     private void Start()
     {
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMusicClip);
+
         playerMovement = player.GetComponent<PlayerMovement>();
         toolHandler = player.GetComponent<ToolHandler>();
         Time.timeScale = timeScale;
@@ -38,6 +40,8 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
 
         heartAnim.transform.LookAt(Camera.main.transform);
         heartAnim.Play("Heart");
+
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.heartSoundClip);
     }
 
     public void LoadData(GameData data)

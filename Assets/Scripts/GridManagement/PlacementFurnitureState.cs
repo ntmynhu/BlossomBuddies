@@ -40,5 +40,6 @@ public class PlacementFurnitureState : PlacementBaseState
             return;
 
         placementSystem.PlaceAndAddObject(gridPosition);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.placementSoundClip);
     }
 }
