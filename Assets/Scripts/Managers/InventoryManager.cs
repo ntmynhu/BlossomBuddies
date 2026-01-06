@@ -11,6 +11,7 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
     [SerializeField] private List<ScriptableObject> objectDatabase;
+    [SerializeField] private List<ScriptableObject> furnitureDatabase;
 
     private Dictionary<ScriptableObject, int> inventoryDictionary;
 
@@ -23,7 +24,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void Update()
     {
-        //HandleFurnitureInventory();
+        HandleFurnitureInventory();
     }
 
     private void InitIventory()
@@ -73,7 +74,7 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    //private void HandleFurnitureInventory()
+    //private void HandleGardenToolInventory()
     //{
     //    if (Input.GetKeyDown(KeyCode.I))
     //    {
@@ -84,7 +85,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     //        if (inventoryPanel.activeSelf)
     //        {
-    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureSlots[0].ObjectData);
+    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, null);
     //        }
     //        else
     //        {
@@ -103,6 +104,37 @@ public class InventoryManager : Singleton<InventoryManager>
     //        }
     //    }
     //}
+
+    private void HandleFurnitureInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("Inventory opened");
+            furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
+            thirdPersonCameraController.SetMobileController(furnitureInventoryPanel.activeSelf);
+            GameManager.Instance.Player.SetActive(!furnitureInventoryPanel.activeSelf);
+
+            if (furnitureInventoryPanel.activeSelf)
+            {   
+                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureDatabase[0] as ObjectData);
+            }
+            else
+            {
+                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+            }
+        }
+
+        if (furnitureInventoryPanel.activeSelf)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                if (EventSystem.current.IsPointerOverGameObject())
+                    return;
+
+                PlacementSystem.Instance.TriggerAction();
+            }
+        }
+    }
 }
 
 [Serializable]
