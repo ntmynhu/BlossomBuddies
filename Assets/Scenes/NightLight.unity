@@ -1843,6 +1843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoadedDataDone: 0
+  hoursSinceLastLogin: 0
 --- !u!4 &374955145
 Transform:
   m_ObjectHideFlags: 0

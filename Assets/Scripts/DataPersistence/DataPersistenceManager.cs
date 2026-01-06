@@ -76,7 +76,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     public void PushLoadedDataToObject()
     {
-        //this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         UpdateAllDataPersistenceObjects();
 
         foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
@@ -84,8 +83,6 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
             Debug.Log("Load: " + dataPersistenceObj);
             dataPersistenceObj.LoadData(gameData);
         }
-
-        SetLoadedDataDone();
     }
 
     public void SetLoadedDataDone()

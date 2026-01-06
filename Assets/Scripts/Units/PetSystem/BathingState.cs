@@ -6,7 +6,7 @@ using UnityEngine;
 public class BathingState : PetBaseState
 {
     private List<GameObject> bubbles = new List<GameObject>();
-    private float timeBetweenBubbles = 0.1f;
+    private float timeBetweenBubbles = 0.05f;
 
     private float timer;
     private bool isSoaping = false;

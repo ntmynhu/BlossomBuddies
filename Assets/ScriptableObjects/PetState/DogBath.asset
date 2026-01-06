@@ -15,4 +15,4 @@ MonoBehaviour:
   EnergyRate: -0.033
   FoodRate: 0
   HappinessRate: -0.05
-  CleanlinessRate: 0.25
+  CleanlinessRate: 15

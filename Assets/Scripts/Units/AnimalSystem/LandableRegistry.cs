@@ -20,8 +20,6 @@ public class LandableRegistry : Singleton<LandableRegistry>
     public void Register(LandableAutoRegister plane)
     {
         landables[plane.LandableType].Add(plane);
-
-        Debug.Log($"Registered landable of type {plane.LandableType}. Total count: {landables[plane.LandableType].Count}");
     }
 
     public void Unregister(LandableAutoRegister plane)

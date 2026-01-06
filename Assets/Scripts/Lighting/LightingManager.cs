@@ -23,17 +23,19 @@ public class LightingManager : MonoBehaviour
 
     private void Update()
     {
-        updateLightingTimer += Time.deltaTime;
+        //updateLightingTimer += Time.deltaTime;
 
-        if (updateLightingTimer >= updateLightingInterval)
-        {
-            currentTime = DateTime.Now;
-            timeOfDay = currentTime.Hour + currentTime.Minute / 60f + currentTime.Second / 3600f;
-            UpdateLighting(timeOfDay / 24);
+        //if (updateLightingTimer >= updateLightingInterval)
+        //{
+        //    currentTime = DateTime.Now;
+        //    timeOfDay = currentTime.Hour + currentTime.Minute / 60f + currentTime.Second / 3600f;
+        //    UpdateLighting(timeOfDay / 24);
 
-            Debug.Log(timeOfDay);
-            updateLightingTimer = 0f; // Reset the timer after updating
-        }
+        //    Debug.Log(timeOfDay);
+        //    updateLightingTimer = 0f; // Reset the timer after updating
+        //}
+
+        UpdateLighting(timeOfDay / 24);
     }
 
     private void UpdateLighting(float timePercent)
