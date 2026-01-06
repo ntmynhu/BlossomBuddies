@@ -5,12 +5,12 @@ public class InventorySlotUI : MonoBehaviour
 {
     [SerializeField] private Image image;
 
-    private ScriptableObject data;
-    public ScriptableObject Data { get { return data; } set { data = value; } }
+    private ToolInfo data;
+    public ToolInfo Data { get { return data; } set { data = value; } }
 
     private Button button;
 
-    public void SetData(ScriptableObject newData)
+    public void SetData(ToolInfo newData)
     {
         data = newData;
 

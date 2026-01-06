@@ -27,26 +27,26 @@ public class WheelBarrow : PlayerDetect
 
         if (isPlayerInRange)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                toolHandler.SelectTool(0);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                toolHandler.SelectTool(1);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                toolHandler.SelectTool(2);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                toolHandler.SelectTool(3);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                toolHandler.UnSelectTool();
-            }
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //{
+            //    toolHandler.SelectTool(0);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha2))
+            //{
+            //    toolHandler.SelectTool(1);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha3))
+            //{
+            //    toolHandler.SelectTool(2);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha4))
+            //{
+            //    toolHandler.SelectTool(3);
+            //}
+            //else if (Input.GetKeyDown(KeyCode.Alpha0))
+            //{
+            //    toolHandler.UnSelectTool();
+            //}
         }
     }
 

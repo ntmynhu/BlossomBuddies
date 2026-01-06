@@ -20,7 +20,7 @@ public class PetSoap : Tool
         PetStateHandler targetPet = null;
         BathingState bathingState = null;
 
-        if (toolHandler.CurrentInteraction == null)
+        if (toolHandler != null && toolHandler.CurrentInteraction == null)
         {
             yield break;
         }

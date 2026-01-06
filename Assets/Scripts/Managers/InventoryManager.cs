@@ -10,12 +10,13 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private InventorySlotUI uiSlotPrefab;
     [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
-    [SerializeField] private List<ScriptableObject> objectDatabase;
+    [SerializeField] private List<ToolInfo> gardenToolDatabase;
     [SerializeField] private List<ScriptableObject> furnitureDatabase;
 
-    private Dictionary<ScriptableObject, int> inventoryDictionary;
+    private Dictionary<ToolInfo, int> inventoryDictionary;
 
     public bool IsInitialized => inventoryDictionary != null;
+    public bool IsInventoryOpen => inventoryPanel.activeSelf;
 
     private void Start()
     {
@@ -25,13 +26,14 @@ public class InventoryManager : Singleton<InventoryManager>
     private void Update()
     {
         HandleFurnitureInventory();
+        HandleGardenToolInventory();
     }
 
     private void InitIventory()
     {
-        inventoryDictionary = new Dictionary<ScriptableObject, int>();
+        inventoryDictionary = new Dictionary<ToolInfo, int>();
 
-        foreach (var obj in objectDatabase)
+        foreach (var obj in gardenToolDatabase)
         {
             inventoryDictionary[obj] = 0;
         }
@@ -54,12 +56,13 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    public void OnItemSelected(ScriptableObject item)
+    public void OnItemSelected(ToolInfo item)
     {
         Debug.Log($"Item selected: {item.name}");
+        GameManager.Instance.ToolHandler.SelectTool(item);
     }
 
-    public void AddToInventory(ScriptableObject objectData)
+    public void AddToInventory(ToolInfo objectData)
     {
         if (inventoryDictionary.ContainsKey(objectData))
         {
@@ -74,40 +77,21 @@ public class InventoryManager : Singleton<InventoryManager>
         }
     }
 
-    //private void HandleGardenToolInventory()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.I))
-    //    {
-    //        Debug.Log("Inventory opened");
-    //        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-    //        thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
-    //        GameManager.Instance.Player.SetActive(!inventoryPanel.activeSelf);
-
-    //        if (inventoryPanel.activeSelf)
-    //        {
-    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, null);
-    //        }
-    //        else
-    //        {
-    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
-    //        }
-    //    }
-
-    //    if (inventoryPanel.activeSelf)
-    //    {
-    //        if (Input.GetMouseButtonUp(0))
-    //        {
-    //            if (EventSystem.current.IsPointerOverGameObject())
-    //                return;
-
-    //            PlacementSystem.Instance.TriggerAction();
-    //        }
-    //    }
-    //}
+    private void HandleGardenToolInventory()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Debug.Log("Inventory opened");
+            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+            thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
+            thirdPersonCameraController.SetCameraFrozen(inventoryPanel.activeSelf);
+            GameManager.Instance.PlayerMovement.SetMovementEnable(!inventoryPanel.activeSelf);
+        }
+    }
 
     private void HandleFurnitureInventory()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             Debug.Log("Inventory opened");
             furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
@@ -120,7 +104,14 @@ public class InventoryManager : Singleton<InventoryManager>
             }
             else
             {
-                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+                if (ToolManager.Instance.GetCurrentTool() == null)
+                {
+                    PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+                }
+                else
+                {
+                    GameManager.Instance.ToolHandler.SelectTool(ToolManager.Instance.GetCurrentTool().ToolInfo);
+                }
             }
         }
 

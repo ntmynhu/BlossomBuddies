@@ -52,7 +52,7 @@ public class WateringCan : Tool
             waterFX.Stop();
         }
 
-        if (toolHandler.CurrentInteraction != null && toolHandler.CurrentInteraction.CompareTag("BathTub"))
+        if (toolHandler != null && toolHandler.CurrentInteraction != null && toolHandler.CurrentInteraction.CompareTag("BathTub"))
         {
             BathTub bathTub = toolHandler.CurrentInteraction.GetComponent<BathTub>();
 

@@ -25,6 +25,8 @@ public class SeedBag : Tool
             yield break;
         }
 
+        Debug.Log(playerMovement);
+
         playerMovement.SetMovementEnable(false);
         playerAnim.PlayAnimation(playerAnim.USE_TOOL);
 

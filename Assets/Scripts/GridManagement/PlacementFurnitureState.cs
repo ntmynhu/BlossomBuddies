@@ -10,6 +10,7 @@ public class PlacementFurnitureState : PlacementBaseState
     public override void ExitState(PlacementSystem placementSystem)
     {
         placementSystem.CellIndicator.gameObject.SetActive(false);
+        placementSystem.CellIndicator.SetValid(true);
     }
 
     public override void UpdateState(PlacementSystem placementSystem)

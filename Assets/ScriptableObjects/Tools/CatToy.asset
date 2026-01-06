@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CatToy
   m_EditorClassIdentifier: 
   Name: CatToy
-  icon: {fileID: 21300000, guid: 77bf0a44b2bae184a9988f58b3874f6e, type: 3}
+  icon: {fileID: 21300000, guid: 55074ab3fbb47af46bdcb926027621d2, type: 3}
   prefab: {fileID: 3267164534628851248, guid: e7e9c36d1ab4673438bb5743c11c80d9, type: 3}
   ID: 

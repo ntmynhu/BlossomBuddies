@@ -100,4 +100,9 @@ public class ThirdPersonCameraController : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
     }
+
+    public void SetCameraFrozen(bool value)
+    {
+        cinemachineCamera.gameObject.SetActive(!value);
+    }
 }

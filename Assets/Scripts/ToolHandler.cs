@@ -20,51 +20,51 @@ public class ToolHandler : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SelectTool(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SelectTool(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SelectTool(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SelectTool(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            SelectTool(4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            SelectTool(5);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            SelectTool(6);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            SelectTool(7);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            SelectTool(8);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            UnSelectTool();
-        }
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    SelectTool(0);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha2))
+        //{
+        //    SelectTool(1);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha3))
+        //{
+        //    SelectTool(2);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha4))
+        //{
+        //    SelectTool(3);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha5))
+        //{
+        //    SelectTool(4);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha6))
+        //{
+        //    SelectTool(5);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha7))
+        //{
+        //    SelectTool(6);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha8))
+        //{
+        //    SelectTool(7);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha9))
+        //{
+        //    SelectTool(8);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.Alpha0))
+        //{
+        //    UnSelectTool();
+        //}
 
         if (Input.GetMouseButtonDown(0))
         {
             Tool tool = ToolManager.Instance.GetCurrentTool();
-            if (tool != null)
+            if (tool != null && !InventoryManager.Instance.IsInventoryOpen)
             {
                 tool.UseTool();
             }
@@ -96,9 +96,9 @@ public class ToolHandler : MonoBehaviour
         currentPet = null;
     }
 
-    public void SelectTool(int toolIndex)
+    public void SelectTool(ToolInfo toolInfo)
     {
-        Tool newTool = ToolManager.Instance.TestTool(toolIndex, parentTransform);
+        Tool newTool = ToolManager.Instance.TestTool(toolInfo, parentTransform);
 
         if (newTool != null)
         {
@@ -106,7 +106,7 @@ public class ToolHandler : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("No tool found at index: " + toolIndex);
+            Debug.LogWarning("No tool found at index: " + toolInfo.name);
         }
     }
 

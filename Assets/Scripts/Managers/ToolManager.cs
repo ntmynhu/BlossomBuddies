@@ -64,9 +64,10 @@ public class ToolManager : Singleton<ToolManager>
         }
     }
 
-    public Tool TestTool(int index, Transform parent)
+    public Tool TestTool(ToolInfo toolInfo, Transform parent)
     {
-        SetCurrentTool(toolList[index], parent);
+        Tool tool = GetToolByInfo(toolInfo);
+        SetCurrentTool(tool, parent);
 
         return currentTool;
     }
@@ -74,5 +75,10 @@ public class ToolManager : Singleton<ToolManager>
     public Tool GetCurrentTool()
     {
         return currentTool;
+    }
+
+    public Tool GetToolByInfo(ToolInfo toolInfo)
+    {
+        return toolList.Find(tool => tool.ToolInfo == toolInfo);
     }
 }

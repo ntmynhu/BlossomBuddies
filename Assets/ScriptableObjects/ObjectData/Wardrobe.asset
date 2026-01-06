@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Wardrobe
   m_EditorClassIdentifier: 
   Name: Wardrobe
+  icon: {fileID: -424978415, guid: 4db82ee7395439f49907ac851dd48cbc, type: 3}
+  prefab: {fileID: 1967463717879569282, guid: a80c9a9852800864c807d06e98f78f48, type: 3}
   ID: 1003
   Size: {x: 1, y: 1}
-  prefab: {fileID: 1967463717879569282, guid: a80c9a9852800864c807d06e98f78f48, type: 3}
   gridType: 3
+  isInventoryItem: 1

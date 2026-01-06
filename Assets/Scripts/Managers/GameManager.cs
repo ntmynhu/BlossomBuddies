@@ -7,11 +7,13 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
     [SerializeField] private Animator heartAnim;
 
     private PlayerMovement playerMovement;
+    private ToolHandler toolHandler;
     private int currentHeart;
 
     #region Properties
     public GameObject Player => player;
     public PlayerMovement PlayerMovement => playerMovement;
+    public ToolHandler ToolHandler => toolHandler;
     public int CurrentHeart
     {
         get => currentHeart;
@@ -26,6 +28,7 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
     private void Start()
     {
         playerMovement = player.GetComponent<PlayerMovement>();
+        toolHandler = player.GetComponent<ToolHandler>();
         Time.timeScale = timeScale;
     }
 

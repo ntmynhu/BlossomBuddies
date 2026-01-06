@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 5206280658804520147}
   - component: {fileID: 4778788721934959956}
   - component: {fileID: 5223520834885531766}
-  - component: {fileID: 899129159597092558}
   - component: {fileID: 6154349633026834737}
+  - component: {fileID: 7872334012499430149}
   m_Layer: 5
-  m_Name: InventorySlotUI
+  m_Name: FurnitureSlotUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,19 +79,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &899129159597092558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1234210811206589741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d62679fadee690342bc91dd3cdc04822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 2659164857670533678}
 --- !u!114 &6154349633026834737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +123,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7872334012499430149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234210811206589741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconImage: {fileID: 2659164857670533678}
+  objectData: {fileID: 0}
 --- !u!1 &3377990653007830424
 GameObject:
   m_ObjectHideFlags: 0

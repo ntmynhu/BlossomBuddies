@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Object
   m_EditorClassIdentifier: 
   Name: Object
+  icon: {fileID: -1157046627, guid: 9f2e4492d7b8f254ba80acd262c68b76, type: 3}
+  prefab: {fileID: 1967463717879569282, guid: 670e3f8c15850484cab9ba4b4da59747, type: 3}
   ID: 3
   Size: {x: 1, y: 1}
-  prefab: {fileID: 1967463717879569282, guid: 670e3f8c15850484cab9ba4b4da59747, type: 3}
   gridType: 0
+  isInventoryItem: 1
