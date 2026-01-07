@@ -74,12 +74,9 @@ public class PlacementWateringState : PlacementBaseState
                     objectIdsToUpdateVisual.Add(objectId);
                 }
 
-                Debug.Log("Updating tile visual at position: " + pos);
                 tile.CalculateTileVisual(objectIdsToUpdateVisual);
             }
         }
-
-        Debug.Log(gridPosition);
     }
 
     /// <summary>

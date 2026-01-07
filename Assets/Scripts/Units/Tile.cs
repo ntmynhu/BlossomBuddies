@@ -96,7 +96,6 @@ public class Tile : MonoBehaviour
     {
         mesh.mesh = visualTile.GetComponent<MeshFilter>().sharedMesh;
         meshRenderer.materials = visualTile.GetComponent<MeshRenderer>().sharedMaterials;
-        Debug.Log(yRotation);
         mesh.gameObject.transform.localEulerAngles = new Vector3(0, yRotation, 0);
     }
 }

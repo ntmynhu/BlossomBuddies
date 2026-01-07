@@ -577,8 +577,16 @@ MonoBehaviour:
   isInteractionActive: 0
   flyingSpeed: 7
   rotationSpeed: 5
+  followNormal: 0
+  idleDurationMin: 2
+  idleDurationMax: 5
   arcHeight: 2
-  landableObject: {fileID: 0}
+  obstacleClearanceRadius: 0.5
+  landableType: 0
+  isFreelyLanded: 0
+  freelyLandingRadius: 25
+  freelyLandingMin: {x: -15, y: 5, z: -15}
+  freelyLandingMax: {x: 15, y: 15, z: 15}
 --- !u!135 &7335478551752125604
 SphereCollider:
   m_ObjectHideFlags: 0

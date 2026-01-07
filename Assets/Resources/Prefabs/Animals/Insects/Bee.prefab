@@ -54,8 +54,12 @@ MonoBehaviour:
   idleDurationMin: 2
   idleDurationMax: 5
   arcHeight: 0
+  obstacleClearanceRadius: 0.1
   landableType: 1
-  obstacleClearanceRadius: 0
+  isFreelyLanded: 0
+  freelyLandingRadius: 25
+  freelyLandingMin: {x: -10, y: 0.5, z: -10}
+  freelyLandingMax: {x: 10, y: 5, z: 10}
 --- !u!54 &3743490830462754970
 Rigidbody:
   m_ObjectHideFlags: 0

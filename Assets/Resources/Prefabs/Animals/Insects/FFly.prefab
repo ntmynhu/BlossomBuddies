@@ -143,7 +143,9 @@ MonoBehaviour:
   obstacleClearanceRadius: 0.1
   landableType: 1
   isFreelyLanded: 1
-  freelyLandingRadius: 5
+  freelyLandingRadius: 25
+  freelyLandingMin: {x: -15, y: 0.25, z: -15}
+  freelyLandingMax: {x: 15, y: 10, z: 15}
 --- !u!54 &3743490830462754970
 Rigidbody:
   m_ObjectHideFlags: 0

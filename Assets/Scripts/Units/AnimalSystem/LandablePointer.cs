@@ -67,4 +67,27 @@ public static class LandablePointer
         point = default;
         return false;
     }
+
+    public static bool TryGetRandomTargetInBox(Vector3 min, Vector3 max, int maxAttempts, float clearanceRadius, out Vector3 point)
+    {
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            point = new Vector3(
+                Random.Range(min.x, max.x),
+                Random.Range(min.y, max.y),
+                Random.Range(min.z, max.z)
+            );
+
+            if (clearanceRadius > 0f && Physics.CheckSphere(point, clearanceRadius))
+            {
+                continue;
+            }
+
+            return true;
+        }
+
+        point = default;
+        return false;
+    }
+
 }

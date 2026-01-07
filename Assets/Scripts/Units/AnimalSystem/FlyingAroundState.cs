@@ -72,29 +72,14 @@ public class FlyingAroundState : FlyingAnimalBaseState
     {
         if (handler.IsFreelyLanded)
         {
-            if (LandablePointer.TryGetRandomTargetInSphere(
-                handler.FreelyLandingRadius,
-                maxAttempts: 50,
-                clearanceRadius: handler.ObstacleClearanceRadius,
-                out Vector3 randompPoint
-            ))
-            {
-                targetPosition = randompPoint;
-            }
-            else
-            {
-                // Nếu không tìm được điểm trong sphere, thì bay lên cao một chút
-                targetPosition = handler.transform.position + Vector3.up * 2f;
-            }
-
+            PickRandomTargetInBox(handler);
             return;
         }
 
         var landableList = LandableRegistry.Instance.Landables[handler.LandableType];
         if (landableList.Count == 0)
         {
-            // Nếu không có điểm đáp nào, thì bay lên cao một chút
-            targetPosition = handler.transform.position + Vector3.up * 2f;
+            PickRandomTargetInBox(handler);
             return;
         }
 
@@ -120,7 +105,48 @@ public class FlyingAroundState : FlyingAnimalBaseState
         }
         else
         {
-            // Nếu không tìm được điểm trên collider, thì bay lên cao một chút
+            PickRandomTargetInBox(handler);
+        }
+    }
+
+    private void PickRandomTargetInBox(FlyingAnimalHandler handler)
+    {
+        Vector3 min = handler.FreelyLandingMin;
+        Vector3 max = handler.FreelyLandingMax;
+
+        if (LandablePointer.TryGetRandomTargetInBox(
+                min,
+                max,
+                maxAttempts: 50,
+                clearanceRadius: handler.ObstacleClearanceRadius,
+                out Vector3 randomPoint
+            ))
+        {
+            targetPosition = randomPoint;
+            return;
+        }
+        else
+        {
+            // Nếu không tìm được điểm trong box, thì bay lên cao một chút
+            targetPosition = handler.transform.position + Vector3.up * 2f;
+            return;
+        }
+    }
+
+    private void PickRandomTargetInSphere(FlyingAnimalHandler handler)
+    {
+        if (LandablePointer.TryGetRandomTargetInSphere(
+                handler.FreelyLandingRadius,
+                maxAttempts: 50,
+                clearanceRadius: handler.ObstacleClearanceRadius,
+                out Vector3 randompPoint
+            ))
+        {
+            targetPosition = randompPoint;
+        }
+        else
+        {
+            // Nếu không tìm được điểm trong sphere, thì bay lên cao một chút
             targetPosition = handler.transform.position + Vector3.up * 2f;
         }
     }

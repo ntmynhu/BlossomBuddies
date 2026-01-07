@@ -5,6 +5,7 @@ public class GameEventManager : Singleton<GameEventManager>
 {
     public event Action OnToyInteract;
     public event Action OnHeartNumberChange;
+    public event Action<TimeOfDay> OnTimeOfDayChange;
 
     public void TriggerToyInteract()
     {
@@ -14,5 +15,10 @@ public class GameEventManager : Singleton<GameEventManager>
     public void TriggerHeartNumberChange()
     {
         OnHeartNumberChange?.Invoke();
+    }
+
+    public void OnTimeOfDayChanged(TimeOfDay timeOfDay)
+    {
+        OnTimeOfDayChange?.Invoke(timeOfDay);
     }
 }

@@ -20,6 +20,8 @@ public class FlyingAnimalHandler : PlayerDetect
 
     [SerializeField] private bool isFreelyLanded;
     [SerializeField] private float freelyLandingRadius = 5f;
+    [SerializeField] private Vector3 freelyLandingMin = Vector3.zero;
+    [SerializeField] private Vector3 freelyLandingMax = Vector3.one;
 
     private Animator animator;
     private Rigidbody rb;
@@ -44,6 +46,8 @@ public class FlyingAnimalHandler : PlayerDetect
     public float ObstacleClearanceRadius => obstacleClearanceRadius;
     public bool IsFreelyLanded => isFreelyLanded;
     public float FreelyLandingRadius => freelyLandingRadius;
+    public Vector3 FreelyLandingMin => freelyLandingMin;
+    public Vector3 FreelyLandingMax => freelyLandingMax;
     #endregion
 
     #region Methods
@@ -55,7 +59,7 @@ public class FlyingAnimalHandler : PlayerDetect
 
     private void Start()
     {
-        currentState = idleState;
+        currentState = flyingAroundState;
         currentState.EnterState(this);
     }
 
