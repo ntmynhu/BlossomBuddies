@@ -289,6 +289,7 @@ MonoBehaviour:
   directionalLight: {fileID: 1840600201}
   lightingPreset: {fileID: 11400000, guid: 0d631609a1bfa144c893eb96d3e0bd01, type: 2}
   timeOfDay: 0
+  timeSettings: []
 --- !u!1 &128750024
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 0}
 --- !u!114 &128750029
 MonoBehaviour:
@@ -514,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 0}
 --- !u!114 &131818836
 MonoBehaviour:
@@ -787,6 +790,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoadedDataDone: 0
+  hoursSinceLastLogin: 0
 --- !u!4 &374955145
 Transform:
   m_ObjectHideFlags: 0
@@ -1023,6 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 0}
 --- !u!114 &495987246
 MonoBehaviour:
@@ -1255,6 +1260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 0}
 --- !u!114 &736703491
 MonoBehaviour:
@@ -2231,6 +2237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeScale: 1
   player: {fileID: 843797479}
+  heartAnim: {fileID: 0}
 --- !u!4 &1117660775
 Transform:
   m_ObjectHideFlags: 0
@@ -2563,20 +2570,8 @@ MonoBehaviour:
   uiSlotPrefab: {fileID: 899129159597092558, guid: 9f9e96c8d04255848ab8eace009e6972,
     type: 3}
   thirdPersonCameraController: {fileID: 843797480}
-  objectDatabase:
-  - {fileID: 11400000, guid: 85c771186d0820740ab45de06370847f, type: 2}
-  - {fileID: 11400000, guid: 12e511f88cd186c4aa6f0d757cc279c4, type: 2}
-  - {fileID: 11400000, guid: 6e318882b97e78e4f8f9d13ad5769918, type: 2}
-  - {fileID: 11400000, guid: e170d7c48a37aa64aabaeb6e38e0e951, type: 2}
-  - {fileID: 11400000, guid: 3fb1ea73a3b35da46a2a3e545da1ad68, type: 2}
-  - {fileID: 11400000, guid: 17d85d0e62be9bb4bbd1e9342b66762a, type: 2}
-  - {fileID: 11400000, guid: 6b96f501083f3c74b8197a2c34c34a3b, type: 2}
-  - {fileID: 11400000, guid: 1cd17950a0274a54c8b90fe17cc4a00c, type: 2}
-  - {fileID: 11400000, guid: 0bf765d97e30dc246a4d80c7dafd9a42, type: 2}
-  - {fileID: 11400000, guid: 4dc2503c8f7d6504c8d321e863790477, type: 2}
-  - {fileID: 11400000, guid: f98fae0159aa57645bbd91d11a6d02d2, type: 2}
-  - {fileID: 11400000, guid: af806acea2a38414b8d11266f5abd6f2, type: 2}
-  - {fileID: 11400000, guid: f8af8cd3e2171424590e950bac9b5c77, type: 2}
+  gardenToolDatabase: []
+  furnitureDatabase: []
 --- !u!1 &1315654034 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 577997362372027836, guid: 4710f117a8bd07e43979a0feb547fc92,

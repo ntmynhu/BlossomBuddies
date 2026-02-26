@@ -289,6 +289,7 @@ MonoBehaviour:
   directionalLight: {fileID: 1840600201}
   lightingPreset: {fileID: 11400000, guid: 0d631609a1bfa144c893eb96d3e0bd01, type: 2}
   timeOfDay: 0
+  timeSettings: []
 --- !u!1 &128750024
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 11400000, guid: 2f5142f808d8e2c4fab1a6c2e6f99aff, type: 2}
 --- !u!114 &128750029
 MonoBehaviour:
@@ -514,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 11400000, guid: e170d7c48a37aa64aabaeb6e38e0e951, type: 2}
 --- !u!114 &131818836
 MonoBehaviour:
@@ -733,6 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLoadedDataDone: 0
+  hoursSinceLastLogin: 0
 --- !u!4 &374955145
 Transform:
   m_ObjectHideFlags: 0
@@ -940,6 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 11400000, guid: 515eca6fd4268d34faedea597ecf21eb, type: 2}
 --- !u!114 &495987246
 MonoBehaviour:
@@ -1075,6 +1080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce59b4f54b5a6cd49afd10c1ecc8cf9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iconImage: {fileID: 0}
   objectData: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
 --- !u!114 &736703491
 MonoBehaviour:
@@ -1334,6 +1340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeScale: 1
   player: {fileID: 367357060}
+  heartAnim: {fileID: 0}
 --- !u!4 &1117660775
 Transform:
   m_ObjectHideFlags: 0
@@ -1433,7 +1440,8 @@ MonoBehaviour:
   inventoryPanel: {fileID: 42665344}
   uiSlotPrefab: {fileID: 0}
   thirdPersonCameraController: {fileID: 0}
-  objectDatabase: []
+  gardenToolDatabase: []
+  furnitureDatabase: []
 --- !u!1 &1330879509
 GameObject:
   m_ObjectHideFlags: 0
