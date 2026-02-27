@@ -43,7 +43,8 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
-        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+        // Calculate the current state time 
+        currentStateTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].time) * 3600;
     }
 
     private void Update()
@@ -94,7 +95,7 @@ public class Plant : MonoBehaviour
         growthTime = 0;
         currentStateIndex++;
 
-        currentStateTime = plantData.plantStates[currentStateIndex].time * 3600;
+        currentStateTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].time) * 3600;
         UpdatePlantStateVisual();
 
         if (currentStateIndex >= plantData.plantStates.Count - 1)

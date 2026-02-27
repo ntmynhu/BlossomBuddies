@@ -12,5 +12,6 @@ public class PlantData : ObjectData
 [System.Serializable]
 public class PlantState
 {
-    public float time;
+    [Tooltip("Time in hours (In Game) when the plant changes to the next state")]
+    public float time; // Hour in game 
 }
