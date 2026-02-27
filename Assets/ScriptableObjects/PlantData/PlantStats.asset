@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356d00531d38f974ab0f021801ff2f8e, type: 3}
   m_Name: PlantStats
   m_EditorClassIdentifier: 
+  minMainStatValue: 0
+  maxMainStatValue: 100
   weedTickTime: 1
   weedSpawnChance: 0.005
   weedGrowthSpeed: 0.0005

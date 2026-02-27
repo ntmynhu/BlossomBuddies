@@ -3,6 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlantStats", menuName = "Scriptable Objects/PlantStats")]
 public class PlantStats : ScriptableObject
 {
+    [SerializeField] private float minMainStatValue; // Minimum value for main stats (light, water, nutrient)
+    [SerializeField] private float maxMainStatValue;
+
     [Header("Weed Stats")]
     [SerializeField] private float weedTickTime; // Checking weed in HOUR
     [SerializeField] private float weedSpawnChance; // 0.5% chance being Spawn every tick
@@ -17,6 +20,9 @@ public class PlantStats : ScriptableObject
     [SerializeField] private int totalWaterLevels;
 
     #region Properties
+    public float MIN_MAIN_STAT_VALUE => minMainStatValue;
+    public float MAX_MAIN_STAT_VALUE => maxMainStatValue;
+
     public float WEED_TICK_TIME
     {
         get
