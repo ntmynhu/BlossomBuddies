@@ -234,6 +234,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "6d0183b9cde548ac8641ec1b8a01de8b"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "c44b1d0ada9e4d9cb16df65e0c079954"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "6d2d48333d9246e0921b2efef6ce4b75"
                 },
                 "m_SlotId": 0
@@ -369,20 +383,6 @@
                     "m_Id": "6afec65f7c6949ff9e0cce1271cf20a1"
                 },
                 "m_SlotId": 1
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "e74b3c61b24942069786b7322bcdd51a"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "c44b1d0ada9e4d9cb16df65e0c079954"
-                },
-                "m_SlotId": 0
             }
         }
     ],
@@ -522,12 +522,15 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
+    "m_PerRendererData": false,
+    "m_customAttributes": [],
     "m_Value": {
         "m_SerializedTexture": "",
         "m_Guid": ""
     },
     "isMainTexture": false,
     "useTilingAndOffset": false,
+    "useTexelSize": true,
     "m_Modifiable": true,
     "m_DefaultType": 0
 }
@@ -737,7 +740,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "GetMainLight",
+    "m_Name": "Get Main Light",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -1411,10 +1414,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2660.80029296875,
-            "y": -656.0001220703125,
+            "x": -2599.199951171875,
+            "y": -656.0,
             "width": 208.0,
-            "height": 301.6000671386719
+            "height": 301.5999450683594
         }
     },
     "m_Slots": [
@@ -2562,6 +2565,8 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
+    "m_PerRendererData": false,
+    "m_customAttributes": [],
     "m_Value": {
         "r": 1.0,
         "g": 1.0,

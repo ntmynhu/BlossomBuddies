@@ -254,6 +254,7 @@
     "m_SourceType": 0,
     "m_FunctionName": "GetLight",
     "m_FunctionSource": "a3faf8b0e02c2614baeeab8c8064afb2",
+    "m_FunctionSourceUsePragmas": true,
     "m_FunctionBody": "Enter function body here..."
 }
 

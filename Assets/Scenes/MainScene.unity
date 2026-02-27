@@ -585,6 +585,7 @@ MonoBehaviour:
     timePercent: 0.75
   - timeOfDay: 4
     timePercent: 0.8333333
+  useRealTime: 1
 --- !u!4 &124459922 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3813435223432559493, guid: 123f63e9f6dd89b449a876269109f09c,
@@ -1451,6 +1452,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1472,6 +1475,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -7388,7 +7392,7 @@ Transform:
   m_GameObject: {fileID: 1469542340}
   serializedVersion: 2
   m_LocalRotation: {x: 0.287498, y: -0.000000029422589, z: 0.000000008831803, w: 0.95778126}
-  m_LocalPosition: {x: -3.2483137, y: 3.8371532, z: -15.760237}
+  m_LocalPosition: {x: -3.245867, y: 3.8371532, z: -15.798164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8460,6 +8464,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -8481,6 +8487,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -8840,17 +8847,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!4 &1842819303 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3813435223432559493, guid: 2c1e8abad9554c4409432ac15261c87a,
@@ -9176,6 +9189,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: -50
@@ -9609,6 +9623,7 @@ MonoBehaviour:
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -9913,7 +9928,7 @@ Transform:
   m_GameObject: {fileID: 2024788126}
   serializedVersion: 2
   m_LocalRotation: {x: 0.28749803, y: -0.00000002942259, z: 0.000000008831804, w: 0.95778126}
-  m_LocalPosition: {x: -3.2483137, y: 3.8371532, z: -15.760237}
+  m_LocalPosition: {x: -3.245867, y: 3.8371532, z: -15.798164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9955,7 +9970,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -9963,6 +9977,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!114 &2024788131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11207,37 +11222,37 @@ PrefabInstance:
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.2483137
+      value: -3.245867
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8
+      value: 0.79999995
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.93
+      value: -11.967928
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.06440164
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.9979241
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
@@ -11247,7 +11262,7 @@ PrefabInstance:
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -187.385
       objectReference: {fileID: 0}
     - target: {fileID: 7525289404981130380, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}

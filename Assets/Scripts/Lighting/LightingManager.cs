@@ -8,6 +8,7 @@ public class LightingManager : MonoBehaviour
     [SerializeField] private LightingPreset lightingPreset;
     [SerializeField, Range(0, 24)] private float timeOfDay;
     [SerializeField] private List<TimeSetting> timeSettings;
+    [SerializeField] private bool useRealTime = true; // Toggle to use real time or manual time of day
 
     private float updateLightingInterval = 30f; // Update every 60 seconds
     private float updateLightingTimer = 0f;
