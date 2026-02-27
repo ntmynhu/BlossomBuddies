@@ -578,7 +578,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   directionalLight: {fileID: 1840600201}
   lightingPreset: {fileID: 11400000, guid: 0d631609a1bfa144c893eb96d3e0bd01, type: 2}
-  timeOfDay: 0
   timeSettings:
   - timeOfDay: 4
     timePercent: 0
@@ -590,7 +589,8 @@ MonoBehaviour:
     timePercent: 0.75
   - timeOfDay: 4
     timePercent: 0.8333333
-  useRealTime: 1
+  timeSmoothSpeed: 1
+  rotationSmoothSpeed: 1
 --- !u!4 &124459922 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3813435223432559493, guid: 123f63e9f6dd89b449a876269109f09c,
