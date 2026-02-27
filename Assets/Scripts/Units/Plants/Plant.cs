@@ -57,7 +57,7 @@ public class Plant : MonoBehaviour
         tickTimer -= Time.deltaTime;
         if (tickTimer < 0)
         {
-            tickTimer = plantStats.WEED_TICK_TIME;
+            tickTimer = plantStats.WEED_TICK_TIME * 3600;
             CheckGrassSpawn();
         }
 

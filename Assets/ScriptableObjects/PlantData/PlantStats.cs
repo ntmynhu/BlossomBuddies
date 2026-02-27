@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlantStats : ScriptableObject
 {
     [Header("Weed Stats")]
-    [SerializeField] private float weedTickTime; // Checking every hour
+    [SerializeField] private float weedTickTime; // Checking weed in HOUR
     [SerializeField] private float weedSpawnChance; // 0.5% chance being Spawn every tick
     [SerializeField] private float weedGrowthSpeed; // Grow 0.003f scale every second
     [SerializeField] private float weedPenaltySpeed; // Decrease 50% growth speed per weed
@@ -12,12 +12,18 @@ public class PlantStats : ScriptableObject
     [SerializeField] private int maxWeed;
 
     [Header("Water Stats")]
-    [SerializeField] private float waterExistingTime;
+    [SerializeField] private float waterExistingTime; // In HOUR
     [SerializeField] private float waterBonusGrowthSpeed; // xn growth speed
     [SerializeField] private int totalWaterLevels;
 
     #region Properties
-    public float WEED_TICK_TIME => weedTickTime;
+    public float WEED_TICK_TIME
+    {
+        get
+        {
+            return (WorldTimeManager.Instance.WorldTimeConfig.timeOfDay / WorldTimeManager.Instance.WorldTimeConfig.hoursInDay) * weedTickTime;
+        }
+    }
     public float WEED_SPAWN_CHANCE => weedSpawnChance;
     public float WEED_GROWTH_SPEED => weedGrowthSpeed;
 

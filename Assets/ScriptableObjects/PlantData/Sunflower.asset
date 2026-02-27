@@ -21,7 +21,7 @@ MonoBehaviour:
   isInventoryItem: 1
   plantName: Demo
   plantStates:
-  - time: 6.000001
+  - time: 6
   - time: 12
   - time: 24
   - time: 12
