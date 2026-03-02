@@ -36,13 +36,7 @@ public class PlantStats : ScriptableObject
     public float MIN_MAIN_STAT_VALUE => minMainStatValue;
     public float MAX_MAIN_STAT_VALUE => maxMainStatValue;
 
-    public float WEED_TICK_TIME
-    {
-        get
-        {
-            return (WorldTimeManager.Instance.WorldTimeConfig.timeOfDay / WorldTimeManager.Instance.WorldTimeConfig.hoursInDay) * weedTickTime;
-        }
-    }
+    public float WEED_TICK_TIME => weedTickTime;
     public float WEED_SPAWN_CHANCE => weedSpawnChance;
     public float WEED_GROWTH_SPEED => weedGrowthSpeed;
     public float WEED_PENALTY_SPEED => weedPenaltySpeed;

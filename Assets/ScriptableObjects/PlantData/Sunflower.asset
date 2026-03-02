@@ -28,7 +28,7 @@ MonoBehaviour:
   - type: 2
     value: 0
   plantStates:
-  - growthTime: 0.016666668
+  - growthTime: 0.03333334
     deadTime: 1.0000001
     conditions:
     - type: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  - growthTime: 0.016666668
+  - growthTime: 0.05000001
     deadTime: 1
     conditions:
     - type: 0

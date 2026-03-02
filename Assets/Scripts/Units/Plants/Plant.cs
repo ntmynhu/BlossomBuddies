@@ -50,8 +50,8 @@ public class Plant : MonoBehaviour
     private void Start()
     {
         // Calculate the current state time 
-        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
-        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
+        currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
+        currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
 
         foreach (PlantMainStatsType mainStat in PlantMainStatsType.GetValues(typeof(PlantMainStatsType)))
         {
@@ -77,7 +77,7 @@ public class Plant : MonoBehaviour
         tickTimer -= Time.deltaTime;
         if (tickTimer < 0)
         {
-            tickTimer = plantStats.WEED_TICK_TIME * 3600;
+            tickTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME);
             CheckGrassSpawn();
         }
 
@@ -104,38 +104,29 @@ public class Plant : MonoBehaviour
     {
         bool isGrowing = false;
 
-        if (plantData.plantStates[currentStateIndex].conditions.Count == 0)
+        foreach (var condition in plantData.plantStates[currentStateIndex].conditions)
         {
-            isGrowing = true;
-        }
-        else
-        {
-            isGrowing = false;
+            float mainStatValue = currentMainStats[condition.type];
+            float percentage = mainStatValue / plantStats.MAX_MAIN_STAT_VALUE;
 
-            foreach (var condition in plantData.plantStates[currentStateIndex].conditions)
+            Color gradientColor = condition.conditionRange.Evaluate(percentage);
+            Debug.Log($"Main Stat: {condition.type}, Value: {mainStatValue}, Percentage: {percentage}, Gradient Color: {gradientColor}");
+
+            if (gradientColor == Color.green)
             {
-                float mainStatValue = currentMainStats[condition.type];
-                float percentage = mainStatValue / plantStats.MAX_MAIN_STAT_VALUE;
-
-                Color gradientColor = condition.conditionRange.Evaluate(percentage);
-                Debug.Log($"Main Stat: {condition.type}, Value: {mainStatValue}, Percentage: {percentage}, Gradient Color: {gradientColor}");
-
-                if (gradientColor == Color.green)
-                {
-                    // Valid condition, should increase growth time
-                    isGrowing = true;
-                }
-                else if (gradientColor == Color.blue)
-                {
-                    // Optimal condition, should increase growth time increase scale effect
-                    isGrowing = true;
-                }
-                else if (gradientColor == Color.red)
-                {
-                    // Dead zone
-                    isGrowing = false;
-                    break;
-                }
+                // Valid condition, should increase growth time
+                isGrowing = true;
+            }
+            else if (gradientColor == Color.blue)
+            {
+                // Optimal condition, should increase growth time increase scale effect
+                isGrowing = true;
+            }
+            else if (gradientColor == Color.red)
+            {
+                // Dead zone
+                isGrowing = false;
+                break;
             }
         }
 
@@ -170,8 +161,8 @@ public class Plant : MonoBehaviour
         growthTime = 0;
         currentStateIndex++;
 
-        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
-        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
+        currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
+        currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
         UpdatePlantStateVisual();
 
         if (currentStateIndex >= plantData.plantStates.Count - 1)
@@ -324,7 +315,7 @@ public class Plant : MonoBehaviour
 
     public void StartWater()
     {
-        waterTimer = WorldTimeManager.Instance.IG_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
+        waterTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
         waterState = 0;
 
         isWatered = true;
@@ -354,7 +345,7 @@ public class Plant : MonoBehaviour
                 RemoveWateredVisual(wateredSoilData);
                 AddWateredVisual(wateredFadeOutSoilData);
 
-                waterTimer = WorldTimeManager.Instance.IG_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
+                waterTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
             }
         }
     }
@@ -421,7 +412,7 @@ public class Plant : MonoBehaviour
         // Load Plant State
         growthTime = data.currentGrowthTime;
         currentStateIndex = data.currentStateIndex;
-        currentStateGrowthTime = plantData.plantStates[currentStateIndex].growthTime * 3600;
+        currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
         waterTimer = data.waterTimer;
         waterState = data.waterState;
         tickTimer = data.tickTimer;
@@ -432,7 +423,7 @@ public class Plant : MonoBehaviour
         // While totalSeconds Greater than 0
         while (totalSeconds > 0)
         {
-            float timeToProcess = Mathf.Min(totalSeconds, plantStats.WEED_TICK_TIME);
+            float timeToProcess = Mathf.Min(totalSeconds, WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME));
 
             growthTime += timeToProcess;
 
@@ -454,7 +445,7 @@ public class Plant : MonoBehaviour
                     if (waterState < plantStats.TOTAL_WATER_LEVELS)
                     {
                         // If still watered, apply growth for the remaining tick time
-                        waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS - remainingTickTime;
+                        waterTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS - remainingTickTime;
 
                         //// Calculate Growth for the remaining tick time if still watered
                         //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * remainingTickTime;
@@ -489,14 +480,14 @@ public class Plant : MonoBehaviour
             if (tickTimer < 0)
             {
                 CheckGrassSpawn();
-                tickTimer += plantStats.WEED_TICK_TIME; // Add the negative tickTimer to reset
+                tickTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME); // Add the negative tickTimer to reset
             }
             
             while (growthTime >= currentStateGrowthTime && currentStateIndex < plantData.plantStates.Count - 1)
             {
                 growthTime -= currentStateGrowthTime;
                 currentStateIndex++;
-                currentStateGrowthTime = plantData.plantStates[currentStateIndex].growthTime * 3600;
+                currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
             }
 
             if (currentStateIndex >= plantData.plantStates.Count - 1 || growthTime < 0)
@@ -521,7 +512,7 @@ public class Plant : MonoBehaviour
         {
             while (waterTimer < 0 && waterState < plantStats.TOTAL_WATER_LEVELS)
             {
-                waterTimer += plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
+                waterTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
                 waterState++;
             }
 

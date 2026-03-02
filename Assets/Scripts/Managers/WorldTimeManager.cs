@@ -6,12 +6,12 @@ public class WorldTimeManager : Singleton<WorldTimeManager>
 
     public WorldTimeConfig WorldTimeConfig => timeConfig;
 
-    public float IG_to_RT_Hour(float inGameHours)
+    public float IG_Hour_to_RT_Hour(float inGameHours)
     {
         return ((inGameHours * timeConfig.timeOfDay) / 24);
     }
 
-    public float IG_to_RT_Second(float inGameHours)
+    public float IG_Hour_to_RT_Second(float inGameHours)
     {
         return ((inGameHours * timeConfig.timeOfDay) / 24) * 3600;
     }
