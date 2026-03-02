@@ -10,4 +10,9 @@ public class WorldTimeManager : Singleton<WorldTimeManager>
     {
         return ((inGameHours * timeConfig.timeOfDay) / 24);
     }
+
+    public float IG_to_RT_Second(float inGameHours)
+    {
+        return ((inGameHours * timeConfig.timeOfDay) / 24) * 3600;
+    }
 }

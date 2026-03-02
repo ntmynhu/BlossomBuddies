@@ -50,8 +50,8 @@ public class Plant : MonoBehaviour
     private void Start()
     {
         // Calculate the current state time 
-        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].growthTime) * 3600;
-        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].deadTime) * 3600;
+        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
+        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
 
         foreach (PlantMainStatsType mainStat in PlantMainStatsType.GetValues(typeof(PlantMainStatsType)))
         {
@@ -91,15 +91,6 @@ public class Plant : MonoBehaviour
 
         // Handle Plant Growth
         CalculateGrowthTime();
-
-        // Apply Water Bonus
-        if (isWatered)
-        {
-            growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * Time.deltaTime;
-        }
-
-        // Apply Weed Penalty
-        growthTime -= CalculateWeedPenalty(Time.deltaTime);
 
         if (growthTime >= currentStateGrowthTime)
         {
@@ -152,6 +143,15 @@ public class Plant : MonoBehaviour
         {
             growthTime += Time.deltaTime;
             deadTime = 0;
+
+            //// Apply Water Bonus
+            //if (isWatered)
+            //{
+            //    growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * Time.deltaTime;
+            //}
+
+            // Apply Weed Penalty
+            growthTime -= CalculateWeedPenalty(Time.deltaTime);
         }
         else
         {
@@ -170,8 +170,8 @@ public class Plant : MonoBehaviour
         growthTime = 0;
         currentStateIndex++;
 
-        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].growthTime) * 3600;
-        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Hour(plantData.plantStates[currentStateIndex].deadTime) * 3600;
+        currentStateGrowthTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
+        currentStateDeadTime = WorldTimeManager.Instance.IG_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
         UpdatePlantStateVisual();
 
         if (currentStateIndex >= plantData.plantStates.Count - 1)
@@ -324,7 +324,7 @@ public class Plant : MonoBehaviour
 
     public void StartWater()
     {
-        waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
+        waterTimer = WorldTimeManager.Instance.IG_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
         waterState = 0;
 
         isWatered = true;
@@ -354,7 +354,7 @@ public class Plant : MonoBehaviour
                 RemoveWateredVisual(wateredSoilData);
                 AddWateredVisual(wateredFadeOutSoilData);
 
-                waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS;
+                waterTimer = WorldTimeManager.Instance.IG_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
             }
         }
     }
@@ -442,8 +442,8 @@ public class Plant : MonoBehaviour
                 // If the waterTimer is less than WEED_TICK_TIME, means it will run out of water (1 state) in this tick
                 if (waterTimer < timeToProcess)
                 {
-                    // Calculate Growth for the remaining water time
-                    growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * waterTimer;
+                    //// Calculate Growth for the remaining water time
+                    //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * waterTimer;
                     growthTime -= CalculateWeedPenalty(waterTimer);
                     HandleGrassGrowth(waterTimer);
 
@@ -456,8 +456,8 @@ public class Plant : MonoBehaviour
                         // If still watered, apply growth for the remaining tick time
                         waterTimer = plantStats.WATER_EXISTING_TIME / plantStats.TOTAL_WATER_LEVELS - remainingTickTime;
 
-                        // Calculate Growth for the remaining tick time if still watered
-                        growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * remainingTickTime;
+                        //// Calculate Growth for the remaining tick time if still watered
+                        //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * remainingTickTime;
                         growthTime -= CalculateWeedPenalty(remainingTickTime);
                         HandleGrassGrowth(remainingTickTime);
                     }
@@ -473,7 +473,7 @@ public class Plant : MonoBehaviour
                 else
                 {
                     // Still has water for this tick
-                    growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * timeToProcess;
+                    //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * timeToProcess;
                     growthTime -= CalculateWeedPenalty(timeToProcess);
                     HandleGrassGrowth(timeToProcess);
                 }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMainStatValue: 0
   maxMainStatValue: 100
-  weedTickTime: 1
-  weedSpawnChance: 0.005
-  weedGrowthSpeed: 0.0005
+  weedTickTime: 0.1
+  weedSpawnChance: 0.05
+  weedGrowthSpeed: 0.005
   weedPenaltySpeed: 0.25
   waterMultiplier: 3
   maxWeed: 6
