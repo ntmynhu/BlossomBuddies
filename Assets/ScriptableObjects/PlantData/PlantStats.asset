@@ -35,3 +35,5 @@ MonoBehaviour:
     waterValue: -0.1
   - timeOfDay: 4
     waterValue: -0.1
+  fertilizeAddedValue: 25
+  fertilizeDecreaseValue: -0.5

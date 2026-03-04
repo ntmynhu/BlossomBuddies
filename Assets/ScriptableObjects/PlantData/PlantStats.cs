@@ -43,6 +43,10 @@ public class PlantStats : ScriptableObject
 
     [SerializeField] private List<TimeWaterValue> timeWaterDecreaseValues;
 
+    [Header("Fertilize Stats")]
+    [SerializeField] private float fertilizeAddedValue; // The value added to the fertilize stat when fertilized.
+    [SerializeField] private float fertilizeDecreaseValue; // The value decreased from the fertilize stat every tick.
+
     #region Properties
     public float MIN_MAIN_STAT_VALUE => minMainStatValue;
     public float MAX_MAIN_STAT_VALUE => maxMainStatValue;
@@ -65,5 +69,8 @@ public class PlantStats : ScriptableObject
     public float DARK_WATER_VALUE => darkWaterValue;
     public float LIGHT_WATER_VALUE => lightWaterValue;
     public List<TimeWaterValue> TIME_WATER_DECREASE_VALUES => timeWaterDecreaseValues;
+
+    public float FERTILIZE_ADDED_VALUE => fertilizeAddedValue;
+    public float FERTILIZE_DECREASE_VALUE => fertilizeDecreaseValue;
     #endregion
 }

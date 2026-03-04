@@ -187,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
         type: 3}
       propertyPath: m_Name
-      value: SunflowerSeedBag
+      value: Fertilizer
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4071833452636940995, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
@@ -208,7 +208,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4140969617473953212}
+      addedObject: {fileID: 3898490832796928521}
   m_SourcePrefab: {fileID: 100100000, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
 --- !u!1 &3267164534628851248 stripped
 GameObject:
@@ -216,7 +216,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5247468792340476221}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4140969617473953212
+--- !u!114 &3898490832796928521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,13 +225,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3267164534628851248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 79d53feba86c2f742bbfdf5b4cf20d99, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bf05da3efe99cf428bace3eb656da3f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  toolInfo: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::FertilizerBag
+  toolInfo: {fileID: 11400000, guid: 6e530a71b13c45a4fb38fc8ff7ac046e, type: 2}
   initialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0, w: 0}
-  spawnObject: {fileID: 11400000, guid: cdae899ff5696f24daabc0f0e90b8a36, type: 2}
+  spawnObject: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
+  waterFX: {fileID: 0}
+  fertilizingTime: 0.5
 --- !u!4 &3679028308450915994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,
@@ -326,7 +328,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 6a51edea8212b8440a0b4229cfbf1260, type: 2}
+      objectReference: {fileID: 2100000, guid: f5e1440a5087448488a1b54294e6ba69, type: 2}
     - target: {fileID: -3977847283100388706, guid: a3604ff6129e06140a52836a036830d2,
         type: 3}
       propertyPath: m_IsActive

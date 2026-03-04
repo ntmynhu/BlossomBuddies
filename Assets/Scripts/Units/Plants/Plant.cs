@@ -109,6 +109,7 @@ public class Plant : MonoBehaviour
         {
             // Handle Light stat
             currentMainStats[PlantMainStatsType.Light] += LightingManager.Instance.CurrentLightValue;
+            currentMainStats[PlantMainStatsType.Light] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Light], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
             // Handle Water stat
             if (isWatered)
@@ -142,8 +143,11 @@ public class Plant : MonoBehaviour
                         break;
                 }
             }
+            currentMainStats[PlantMainStatsType.Water] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Water], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
             // Handle Nutrient stat
+            currentMainStats[PlantMainStatsType.Nutrient] += plantStats.FERTILIZE_DECREASE_VALUE;
+            currentMainStats[PlantMainStatsType.Nutrient] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Nutrient], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
             DebugMainStats();
 
@@ -380,6 +384,14 @@ public class Plant : MonoBehaviour
         isWatered = true;
 
         GameManager.Instance.AddHeart(1);
+    }
+
+    public void StartFertilizer()
+    {
+        currentMainStats[PlantMainStatsType.Nutrient] += plantStats.FERTILIZE_ADDED_VALUE;
+        currentMainStats[PlantMainStatsType.Nutrient] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Nutrient], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
+
+        DebugMainStats();
     }
 
     private void HandleWaterLevel()
