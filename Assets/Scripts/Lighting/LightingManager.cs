@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightingManager : MonoBehaviour
+public class LightingManager : Singleton<LightingManager>
 {
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset lightingPreset;
     [SerializeField] private List<TimeSetting> timeSettings;
+    [SerializeField] private List<TimeLightValue> timeLightValues;
 
     [Header("Smoothing")]
     [Tooltip("How quickly the lighting catches up to the target time (higher = faster).")]
@@ -23,12 +24,17 @@ public class LightingManager : MonoBehaviour
     private WorldTimeConfig timeConfig;
     private TimeOfDay currentTimeOfDay = TimeOfDay.None;
 
+    private float currentLightValue = 0f;
+
+    public float CurrentLightValue => currentLightValue;
+    public TimeOfDay CurrentTimeOfDay => currentTimeOfDay;
+
     private void Start()
     {
         timeConfig = WorldTimeManager.Instance.WorldTimeConfig;
 
-        currentTimePercentage = timeSettings[1].timePercent; // Start at morning by default
-        targetTimePercentage = currentTimePercentage;
+        currentTimePercentage = WorldTimeManager.Instance.CalculateInGameTimeFromRealTime(DateTime.Now) / WorldTimeManager.Instance.WorldTimeConfig.hoursInDay;
+        targetTimePercentage = Mathf.Repeat(currentTimePercentage, 1f);
 
         ApplyLighting(currentTimePercentage, instantRotation: true);
         updateLightingTimer = 0f;
@@ -83,15 +89,19 @@ public class LightingManager : MonoBehaviour
             {
                 case TimeOfDay.Morning:
                     Debug.Log("Good Morning!");
+                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Morning).lightValue;
                     break;
                 case TimeOfDay.Afternoon:
                     Debug.Log("Good Afternoon!");
+                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Afternoon).lightValue;
                     break;
                 case TimeOfDay.Evening:
                     Debug.Log("Good Evening!");
+                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Evening).lightValue;
                     break;
                 case TimeOfDay.Night:
                     Debug.Log("Good Night!");
+                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Night).lightValue;
                     break;
             }
 
@@ -133,6 +143,20 @@ public class TimeSetting
 {
     public TimeOfDay timeOfDay;
     public float timePercent;
+}
+
+[Serializable]
+public class TimeLightValue
+{
+    public TimeOfDay timeOfDay;
+    public float lightValue;
+}
+
+[Serializable]
+public class TimeWaterValue
+{
+    public TimeOfDay timeOfDay;
+    public float waterValue;
 }
 
 [Serializable]

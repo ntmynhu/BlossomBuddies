@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlantStats", menuName = "Scriptable Objects/PlantStats")]
@@ -6,6 +8,9 @@ public class PlantStats : ScriptableObject
     [Tooltip("Minimum and maximum values for the main stats of the plant, such as light, water, and nutrient levels.")]
     [SerializeField] private float minMainStatValue;
     [SerializeField] private float maxMainStatValue;
+
+    [Tooltip("The time interval, in hours (IN GAME), for checking the main stats of the plant.")]
+    [SerializeField] private float mainStatTick;
 
     [Header("Weed Stats")]
     [Tooltip("The time interval, in hours (IN GAME), checking for weed growth.")]
@@ -32,9 +37,17 @@ public class PlantStats : ScriptableObject
     [SerializeField] private float waterBonusGrowthSpeed; // xn growth speed
     [SerializeField] private int totalWaterLevels;
 
+    [Tooltip("The value of the water stat (Every TICK) when the plant is watered with dark water and light water, respectively.")]
+    [SerializeField] private float darkWaterValue;
+    [SerializeField] private float lightWaterValue;
+
+    [SerializeField] private List<TimeWaterValue> timeWaterDecreaseValues;
+
     #region Properties
     public float MIN_MAIN_STAT_VALUE => minMainStatValue;
     public float MAX_MAIN_STAT_VALUE => maxMainStatValue;
+
+    public float MAIN_STAT_TICK => mainStatTick;
 
     public float WEED_TICK_TIME => weedTickTime;
     public float WEED_SPAWN_CHANCE => weedSpawnChance;
@@ -49,5 +62,8 @@ public class PlantStats : ScriptableObject
     ///// </summary>
     //public float WATER_BONUS_GROWTH_SPEED => waterBonusGrowthSpeed;
     public int TOTAL_WATER_LEVELS => totalWaterLevels;
+    public float DARK_WATER_VALUE => darkWaterValue;
+    public float LIGHT_WATER_VALUE => lightWaterValue;
+    public List<TimeWaterValue> TIME_WATER_DECREASE_VALUES => timeWaterDecreaseValues;
     #endregion
 }

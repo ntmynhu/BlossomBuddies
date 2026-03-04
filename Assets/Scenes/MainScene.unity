@@ -571,7 +571,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 118166892}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44509769153db3449beeb520dd2dad03, type: 3}
   m_Name: 
@@ -587,8 +587,15 @@ MonoBehaviour:
     timePercent: 0.5
   - timeOfDay: 3
     timePercent: 0.75
+  timeLightValues:
+  - timeOfDay: 1
+    lightValue: 2
+  - timeOfDay: 2
+    lightValue: 1
+  - timeOfDay: 3
+    lightValue: -0.5
   - timeOfDay: 4
-    timePercent: 0.8333333
+    lightValue: -1
   timeSmoothSpeed: 1
   rotationSmoothSpeed: 1
 --- !u!4 &124459922 stripped

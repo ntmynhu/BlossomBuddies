@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minMainStatValue: 0
   maxMainStatValue: 100
+  mainStatTick: 0.1
   weedTickTime: 0.1
   weedSpawnChance: 0.05
   weedGrowthSpeed: 0.005
@@ -23,3 +24,14 @@ MonoBehaviour:
   waterExistingTime: 3
   waterBonusGrowthSpeed: 1
   totalWaterLevels: 2
+  darkWaterValue: 2
+  lightWaterValue: 1
+  timeWaterDecreaseValues:
+  - timeOfDay: 1
+    waterValue: -0.2
+  - timeOfDay: 2
+    waterValue: -0.2
+  - timeOfDay: 3
+    waterValue: -0.1
+  - timeOfDay: 4
+    waterValue: -0.1

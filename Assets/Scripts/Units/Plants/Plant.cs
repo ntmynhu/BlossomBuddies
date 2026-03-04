@@ -27,6 +27,7 @@ public class Plant : MonoBehaviour
     private bool isDead = false;
 
     private Dictionary<PlantMainStatsType, float> currentMainStats = new Dictionary<PlantMainStatsType, float>();
+    private float mainTickTimer = 0;
 
     #region Watering Variables
     private float waterTimer;
@@ -35,7 +36,7 @@ public class Plant : MonoBehaviour
     #endregion
 
     #region Grass Variables
-    private float tickTimer = 0;
+    private float weedTickTimer = 0;
     #endregion
 
     #region Properties
@@ -74,15 +75,16 @@ public class Plant : MonoBehaviour
         }
 
         // Handle Grass Spawn
-        tickTimer -= Time.deltaTime;
-        if (tickTimer < 0)
+        weedTickTimer -= Time.deltaTime;
+        if (weedTickTimer < 0)
         {
-            tickTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME);
+            weedTickTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME);
             CheckGrassSpawn();
         }
-
-        HandleGrassGrowth(Time.deltaTime);
         //
+
+        HandleMainStats();
+        HandleGrassGrowth(Time.deltaTime);
 
         if (isDead)
         {
@@ -99,6 +101,64 @@ public class Plant : MonoBehaviour
         //
     }
 
+    private void HandleMainStats()
+    {
+        mainTickTimer -= Time.deltaTime;
+        
+        if (mainTickTimer < 0)
+        {
+            // Handle Light stat
+            currentMainStats[PlantMainStatsType.Light] += LightingManager.Instance.CurrentLightValue;
+
+            // Handle Water stat
+            if (isWatered)
+            {
+                if (waterState == 0)
+                {
+                    currentMainStats[PlantMainStatsType.Water] += plantStats.DARK_WATER_VALUE;
+                }
+                else if (waterState == 1)
+                {
+                    currentMainStats[PlantMainStatsType.Water] += plantStats.LIGHT_WATER_VALUE;
+                }
+            }
+            else
+            {
+                switch (LightingManager.Instance.CurrentTimeOfDay)
+                {
+                    case TimeOfDay.Morning:
+                        currentMainStats[PlantMainStatsType.Water] += plantStats.TIME_WATER_DECREASE_VALUES.Find(v => v.timeOfDay == TimeOfDay.Morning).waterValue;
+                        break;
+                    case TimeOfDay.Afternoon:
+                        currentMainStats[PlantMainStatsType.Water] += plantStats.TIME_WATER_DECREASE_VALUES.Find(v => v.timeOfDay == TimeOfDay.Afternoon).waterValue;
+                        break;
+                    case TimeOfDay.Evening:
+                        currentMainStats[PlantMainStatsType.Water] += plantStats.TIME_WATER_DECREASE_VALUES.Find(v => v.timeOfDay == TimeOfDay.Evening).waterValue;
+                        break;
+                    case TimeOfDay.Night:
+                        currentMainStats[PlantMainStatsType.Water] += plantStats.TIME_WATER_DECREASE_VALUES.Find(v => v.timeOfDay == TimeOfDay.Night).waterValue;
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // Handle Nutrient stat
+
+            DebugMainStats();
+
+            mainTickTimer = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.MAIN_STAT_TICK);
+        }
+    }
+
+    private void DebugMainStats()
+    {
+        foreach (var kvp in currentMainStats)
+        {
+            Debug.Log($"Main Stat: {kvp.Key}, Value: {kvp.Value}");
+        }
+    }
+
     #region Handle Flower State
     private void CalculateGrowthTime()
     {
@@ -110,7 +170,6 @@ public class Plant : MonoBehaviour
             float percentage = mainStatValue / plantStats.MAX_MAIN_STAT_VALUE;
 
             Color gradientColor = condition.conditionRange.Evaluate(percentage);
-            Debug.Log($"Main Stat: {condition.type}, Value: {mainStatValue}, Percentage: {percentage}, Gradient Color: {gradientColor}");
 
             if (gradientColor == Color.green)
             {
@@ -415,7 +474,7 @@ public class Plant : MonoBehaviour
         currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
         waterTimer = data.waterTimer;
         waterState = data.waterState;
-        tickTimer = data.tickTimer;
+        weedTickTimer = data.tickTimer;
         isWatered = data.isWatered;
 
         float totalSeconds = secondsFromNow;
@@ -476,11 +535,11 @@ public class Plant : MonoBehaviour
             }
 
             // Check Grass Spawn
-            tickTimer -= timeToProcess;
-            if (tickTimer < 0)
+            weedTickTimer -= timeToProcess;
+            if (weedTickTimer < 0)
             {
                 CheckGrassSpawn();
-                tickTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME); // Add the negative tickTimer to reset
+                weedTickTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WEED_TICK_TIME); // Add the negative tickTimer to reset
             }
             
             while (growthTime >= currentStateGrowthTime && currentStateIndex < plantData.plantStates.Count - 1)
@@ -556,7 +615,7 @@ public class Plant : MonoBehaviour
             waterState = waterState,
             isWatered = isWatered,
             grassDataList = grassDataList,
-            tickTimer = tickTimer
+            tickTimer = weedTickTimer
         };
 
         return data;
