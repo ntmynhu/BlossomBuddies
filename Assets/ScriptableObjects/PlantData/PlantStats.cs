@@ -13,9 +13,6 @@ public class PlantStats : ScriptableObject
     [SerializeField] private float mainStatTick;
 
     [Header("Weed Stats")]
-    [Tooltip("The time interval, in hours (IN GAME), checking for weed growth.")]
-    [SerializeField] private float weedTickTime;
-
     [Tooltip("The chance for a weed to spawn every tick, expressed as a percentage (e.g., 0.5 for 0.5% chance).")]
     [SerializeField] private float weedSpawnChance;
 
@@ -53,7 +50,6 @@ public class PlantStats : ScriptableObject
 
     public float MAIN_STAT_TICK => mainStatTick;
 
-    public float WEED_TICK_TIME => weedTickTime;
     public float WEED_SPAWN_CHANCE => weedSpawnChance;
     public float WEED_GROWTH_SPEED => weedGrowthSpeed;
     public float WEED_PENALTY_SPEED => weedPenaltySpeed;

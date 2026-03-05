@@ -8,12 +8,15 @@ public class PlantProgressData
     public Vector3Int mainPosition;
     public int currentStateIndex;
     public float currentGrowthTime;
+    public float currentDeadTime;
     public float yPosition;
     public float waterTimer;
     public int waterState;
     public bool isWatered;
-    public float tickTimer;
+    public float weedTickTimer;
     public List<GrassData> grassDataList;
+    public float mainTickTimer;
+    public List<PlantMainStat> plantMainStatList;
 }
 
 [System.Serializable]

@@ -84,26 +84,7 @@ public class LightingManager : Singleton<LightingManager>
         if (nextTimeOfDay != currentTimeOfDay)
         {
             currentTimeOfDay = nextTimeOfDay;
-
-            switch (currentTimeOfDay)
-            {
-                case TimeOfDay.Morning:
-                    Debug.Log("Good Morning!");
-                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Morning).lightValue;
-                    break;
-                case TimeOfDay.Afternoon:
-                    Debug.Log("Good Afternoon!");
-                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Afternoon).lightValue;
-                    break;
-                case TimeOfDay.Evening:
-                    Debug.Log("Good Evening!");
-                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Evening).lightValue;
-                    break;
-                case TimeOfDay.Night:
-                    Debug.Log("Good Night!");
-                    currentLightValue = timeLightValues.Find(x => x.timeOfDay == TimeOfDay.Night).lightValue;
-                    break;
-            }
+            currentLightValue = timeLightValues.Find(x => x.timeOfDay == currentTimeOfDay).lightValue;
 
             Debug.Log("Time of Day changed to: " + currentTimeOfDay);
             GameEventManager.Instance.OnTimeOfDayChanged(currentTimeOfDay);
@@ -121,7 +102,7 @@ public class LightingManager : Singleton<LightingManager>
         return Mathf.Repeat(current + delta * t, 1f);
     }
 
-    private TimeOfDay GetTimeOfDay(float timePercent)
+    public TimeOfDay GetTimeOfDay(float timePercent)
     {
         for (int i = 0; i < timeSettings.Count; i++)
         {
@@ -135,6 +116,14 @@ public class LightingManager : Singleton<LightingManager>
         }
 
         return timeSettings[0].timeOfDay; // Default to the first time of day if not found
+    }
+
+    public float GetLightValue(float timePercent)
+    {
+        timePercent = Mathf.Repeat(timePercent, 1f);
+
+        TimeOfDay timeOfDay = GetTimeOfDay(timePercent);
+        return timeLightValues.Find(x => x.timeOfDay == timeOfDay).lightValue;
     }
 }
 

@@ -24,6 +24,11 @@ public class WorldTimeManager : Singleton<WorldTimeManager>
         return ((inGameHours * timeConfig.timeOfDay) / 24) * 3600;
     }
 
+    public float RT_Second_to_IG_Hour(float realTimeSeconds)
+    {
+        return ((realTimeSeconds / 3600) * timeConfig.hoursInDay) / timeConfig.timeOfDay;
+    }
+
     public float CalculateInGameTimeFromRealTime(DateTime realTime)
     {
         Debug.Log($"Real Time: {realTime.Hour}:{realTime.Minute}:{realTime.Second}");
