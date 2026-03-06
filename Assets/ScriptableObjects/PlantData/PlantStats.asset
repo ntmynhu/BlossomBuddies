@@ -15,10 +15,9 @@ MonoBehaviour:
   minMainStatValue: 0
   maxMainStatValue: 100
   mainStatTick: 0.1
-  weedTickTime: 0.1
-  weedSpawnChance: 0.05
-  weedGrowthSpeed: 0.005
-  weedPenaltySpeed: 0.25
+  weedSpawnChance: 0.005
+  weedGrowthSpeed: 0.001
+  weedPenaltySpeed: 15
   waterMultiplier: 3
   maxWeed: 6
   waterExistingTime: 3

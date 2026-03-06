@@ -52,6 +52,11 @@ public class Plant : MonoBehaviour
 
     private void Start()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         // Calculate the current state time 
         currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
         currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
@@ -59,6 +64,11 @@ public class Plant : MonoBehaviour
 
     private void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (isWatered)
         {
             HandleWaterLevel();
@@ -76,11 +86,6 @@ public class Plant : MonoBehaviour
         HandleMainStats();
         HandleGrassGrowth(Time.deltaTime);
 
-        if (isDead)
-        {
-            return;
-        }
-
         // Handle Plant Growth
         CalculateGrowthTime();
 
@@ -89,6 +94,11 @@ public class Plant : MonoBehaviour
             AdvanceToNextState();
         }
         //
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            DebugMainStats();
+        }
     }
 
     public void InitDefautlMainStats()
@@ -219,7 +229,7 @@ public class Plant : MonoBehaviour
 
     private void AdvanceToNextState()
     {
-        if (currentStateIndex == plantData.plantStates.Count - 2)
+        if (currentStateIndex == stateGameObjects.Count - 2)
         {
             isFullyGrown = true;
             growthTime = currentStateGrowthTime; // Cap the growth time at the max for fully grown state
@@ -258,7 +268,7 @@ public class Plant : MonoBehaviour
         isDead = true;
         Debug.Log("Plant has died.");
 
-        currentStateIndex = plantData.plantStates.Count - 1; // Set to dead state index
+        currentStateIndex = stateGameObjects.Count - 1; // Set to dead state index
         UpdatePlantStateVisual();
     }
     #endregion
@@ -584,6 +594,12 @@ public class Plant : MonoBehaviour
         isWatered = data.isWatered;
         mainTickTimer = data.mainTickTimer;
 
+        if (deadTime >= currentStateDeadTime)
+        {
+            UpdateDeadState();
+            return;
+        }
+
         currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
         currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
 
@@ -622,8 +638,13 @@ public class Plant : MonoBehaviour
                 CalculateMainStatsAtTime(beforeMainTickTime, timePercentLoaded, out lightValue, out waterValue, out nutrientValue);
 
                 currentMainStats[PlantMainStatsType.Light] += lightValue;
+                currentMainStats[PlantMainStatsType.Light] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Light], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
+
                 currentMainStats[PlantMainStatsType.Water] += waterValue;
+                currentMainStats[PlantMainStatsType.Water] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Water], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
+
                 currentMainStats[PlantMainStatsType.Nutrient] += nutrientValue;
+                currentMainStats[PlantMainStatsType.Nutrient] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Nutrient], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
                 // Calculate growth for the time after main stat tick with the new main stat values
                 Debug.Log($"Processing {afterMainTickTime} seconds after main stat tick with new main stat values. Main tick timer: {mainTickTimer}");
@@ -633,15 +654,6 @@ public class Plant : MonoBehaviour
                 mainTickTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.MAIN_STAT_TICK);
             }
 
-            // Calculate main stats - LIGHT
-            timePercentLoaded += WorldTimeManager.Instance.RT_Second_to_IG_Hour(timeToProcess) / WorldTimeManager.Instance.WorldTimeConfig.hoursInDay; // Convert seconds to hours
-            float processedLightValue = LightingManager.Instance.GetLightValue(timePercentLoaded);
-
-            currentMainStats[PlantMainStatsType.Light] += processedLightValue;
-
-            //growthTime += timeToProcess;
-
-            // Calculate Growth Time for 1 Tick with water
             if (isWatered)
             {
                 // If the waterTimer is less than WEED_TICK_TIME, means it will run out of water (1 state) in this tick

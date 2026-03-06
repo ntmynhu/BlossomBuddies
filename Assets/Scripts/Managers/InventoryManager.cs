@@ -7,6 +7,7 @@ public class InventoryManager : Singleton<InventoryManager>
 {
     [SerializeField] private GameObject furnitureInventoryPanel;
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject inventoryContent;
     [SerializeField] private InventorySlotUI uiSlotPrefab;
     [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
@@ -41,7 +42,7 @@ public class InventoryManager : Singleton<InventoryManager>
 
     private void UpdateInventoryUI()
     {
-        foreach (Transform child in inventoryPanel.transform)
+        foreach (Transform child in inventoryContent.transform)
         {
             Destroy(child.gameObject);
         }
@@ -50,7 +51,7 @@ public class InventoryManager : Singleton<InventoryManager>
         {
             if (item.Value > 0)
             {
-                InventorySlotUI slot = Instantiate(uiSlotPrefab, inventoryPanel.transform);
+                InventorySlotUI slot = Instantiate(uiSlotPrefab, inventoryContent.transform);
                 slot.SetData(item.Key);
             }
         }

@@ -41,8 +41,7 @@ public class PlacementFertilizingState : PlacementBaseState
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
     {
-        return placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition) &&
-                !placementSystem.GridDataDictionary[placementSystem.CurrentSelectedGridData.GridType].ContainsPosition(gridPosition);
+        return placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition);
     }
 
     protected void HandleIndicator(PlacementSystem placementSystem)

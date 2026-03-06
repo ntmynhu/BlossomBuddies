@@ -126,12 +126,12 @@ TextureImporter:
       name: PetSoap_Icon_0
       rect:
         serializedVersion: 2
-        x: 163
-        y: 111
-        width: 183
-        height: 277
+        x: 0
+        y: 0
+        width: 512
+        height: 512
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

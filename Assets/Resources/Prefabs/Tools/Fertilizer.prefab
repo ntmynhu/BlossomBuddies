@@ -233,7 +233,6 @@ MonoBehaviour:
   initialRot: {x: 0, y: 0, z: 0, w: 0}
   spawnObject: {fileID: 11400000, guid: 0e2fbd72690a6114b96e86f562f85f1f, type: 2}
   waterFX: {fileID: 0}
-  fertilizingTime: 0.5
 --- !u!4 &3679028308450915994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,
@@ -329,6 +328,11 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: f5e1440a5087448488a1b54294e6ba69, type: 2}
+    - target: {fileID: -4683669308469848369, guid: a3604ff6129e06140a52836a036830d2,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e3e28fe9b373b641b0d38a5579e0d99, type: 2}
     - target: {fileID: -3977847283100388706, guid: a3604ff6129e06140a52836a036830d2,
         type: 3}
       propertyPath: m_IsActive
