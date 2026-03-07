@@ -1,0 +1,30 @@
+using System.Collections;
+using UnityEngine;
+
+public class Gloves : Tool
+{
+    [SerializeField] private PlantData plantData;
+
+    public override void UseTool()
+    {
+        StartCoroutine(PlayAnimationAndFX(playerAnim, playerMovement));
+    }
+
+    public override void OnToolSelected(GameObject player)
+    {
+        base.OnToolSelected(player);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.ScissorsState, plantData);
+    }
+
+    private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)
+    {
+        playerMovement.SetMovementEnable(false);
+        playerAnim.PlayAnimation(playerAnim.USE_TOOL);
+        yield return new WaitForSeconds(0.5f);
+
+        PlacementSystem.Instance.TriggerAction();
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.scissorsSoundClip);
+
+        playerMovement.SetMovementEnable(true);
+    }
+}
