@@ -172,8 +172,14 @@ public class Plant : MonoBehaviour
 
         if (isGrowing)
         {
-            growthTime += Time.deltaTime;
             deadTime = 0;
+
+            if (isFullyGrown)
+            {
+                return;
+            }
+
+            growthTime += Time.deltaTime;
 
             //// Apply Water Bonus
             //if (isWatered)
@@ -229,19 +235,25 @@ public class Plant : MonoBehaviour
 
     private void AdvanceToNextState()
     {
-        if (currentStateIndex == stateGameObjects.Count - 2)
+        if (isFullyGrown)
         {
-            isFullyGrown = true;
-            growthTime = currentStateGrowthTime; // Cap the growth time at the max for fully grown state
             return;
         }
 
         growthTime = 0;
         currentStateIndex++;
-
-        currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
-        currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
         UpdatePlantStateVisual();
+
+        if (currentStateIndex == stateGameObjects.Count - 2)
+        {
+            isFullyGrown = true;
+            growthTime = currentStateGrowthTime; // Cap the growth time at the max for fully grown state
+        }
+        else
+        {
+            currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
+            currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
+        }
     }
 
     private void UpdatePlantStateVisual()
@@ -525,8 +537,14 @@ public class Plant : MonoBehaviour
 
         if (isGrowing)
         {
-            growthTime += timeToProcess;
             deadTime = 0;
+
+            if (isFullyGrown)
+            {
+                return;
+            }
+
+            growthTime += timeToProcess;
         }
         else
         {
@@ -594,10 +612,14 @@ public class Plant : MonoBehaviour
         isWatered = data.isWatered;
         mainTickTimer = data.mainTickTimer;
 
-        if (deadTime >= currentStateDeadTime)
+        if (currentStateIndex >= stateGameObjects.Count - 1) // If already in dead state, no need to calculate, just update the visual
         {
             UpdateDeadState();
             return;
+        }
+        else if (currentStateIndex >= stateGameObjects.Count - 2)
+        {
+            isFullyGrown = true;
         }
 
         currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
@@ -714,7 +736,7 @@ public class Plant : MonoBehaviour
                 AdvanceToNextState();
             }
 
-            if (currentStateIndex >= plantData.plantStates.Count - 1 || deadTime >= currentStateDeadTime)
+            if (currentStateIndex >= stateGameObjects.Count - 1 || deadTime >= currentStateDeadTime)
             {
                 UpdateDeadState();
             }
