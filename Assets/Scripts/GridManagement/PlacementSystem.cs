@@ -91,7 +91,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         cellIndicator.UpdateIndicator(newObject.prefab, newObject.Size);
 
-        currentSelectedIndex = newObject.ID;
+        currentSelectedIndex = newObject.Id;
         currentSelectedObjectData = newObject;
         currentSelectedGridData = gridDataDictionary[newObject.gridType];
     }
@@ -108,17 +108,17 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void AddObjectToGridData(Vector3Int gridPosition)
     {
-        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, mainGridPlacedObjects.Count - 1);
+        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public void AddObjectToGridData(ObjectData objectData, GridType gridType, Vector3Int gridPosition)
     {
-        GridDataDictionary[gridType].AddObject(gridPosition, objectData.Size, objectData.ID, mainGridPlacedObjects.Count - 1);
+        GridDataDictionary[gridType].AddObject(gridPosition, objectData.Size, objectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public void AddObjectToDualGrid(Vector3Int gridPosition, GridType gridType, ObjectData objectData)
     {
-        dualGridDataDictionary[gridType].AddObject(gridPosition, Vector2Int.one, objectData.ID, mainGridPlacedObjects.Count - 1);
+        dualGridDataDictionary[gridType].AddObject(gridPosition, Vector2Int.one, objectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public GameObject PlaceObject(Vector3Int gridPosition, ObjectData objectData, Grid grid, bool keepIndicatorHeight = true)
@@ -195,7 +195,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public ObjectData SelectedObject(int ID)
     {
-        var ob = databaseSO.objectDatas.Find(data => data.ID == ID);
+        var ob = databaseSO.objectDatas.Find(data => data.Id == ID);
 
         if (ob == null)
         {
@@ -288,7 +288,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
                 if (plant != null)
                 {
-                    PlantProgressData progressData = plantProgressDatas.FirstOrDefault(p => p.plantDataId == objectData.ID && p.mainPosition == placedObject.mainPosition);
+                    PlantProgressData progressData = plantProgressDatas.FirstOrDefault(p => p.plantDataId == objectData.Id && p.mainPosition == placedObject.mainPosition);
                     plant.LoadExistingData(progressData);
                 }
             }

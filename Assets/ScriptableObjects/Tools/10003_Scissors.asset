@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
-  m_Name: FertilizerBag
+  m_Name: 10003_Scissors
   m_EditorClassIdentifier: 
-  Name: Fertilizer Bag
-  icon: {fileID: 21300000, guid: ac37001c9aef05a49a9ed4c398df3051, type: 3}
-  prefab: {fileID: 3267164534628851248, guid: 8cb351eacee8d924a9309a26941231e4, type: 3}
-  ID: 
+  Id: 10003
+  Name: Scissors
+  icon: {fileID: 21300000, guid: 945facdd882249c4abc7f73dd69d3f99, type: 3}
+  prefab: {fileID: 5324143058523400035, guid: ca97832f27d642f41b03d81ab183711b, type: 3}

@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
         //    Debug.Log("Object ID in tile: " + id);
         //}
 
-        int mainObjectCount = objectIds.FindAll(id => id == tileData.mainObject.ID).Count;
+        int mainObjectCount = objectIds.FindAll(id => id == tileData.mainObject.Id).Count;
 
         GameObject chosenVisualTile = null;
         switch (mainObjectCount)
@@ -37,13 +37,13 @@ public class Tile : MonoBehaviour
             case 1:
             {
                 chosenVisualTile = tileData.tile_quarter_1;
-                yRotation = oneQuarterRotation - 90 * objectIds.IndexOf(tileData.mainObject.ID);
+                yRotation = oneQuarterRotation - 90 * objectIds.IndexOf(tileData.mainObject.Id);
                 break;
             }
             case 2:
             {
-                int firstIndex = objectIds.IndexOf(tileData.mainObject.ID);
-                int lastIndex = objectIds.LastIndexOf(tileData.mainObject.ID);
+                int firstIndex = objectIds.IndexOf(tileData.mainObject.Id);
+                int lastIndex = objectIds.LastIndexOf(tileData.mainObject.Id);
 
                 if (Mathf.Abs(firstIndex - lastIndex) == 2)
                 {
@@ -69,7 +69,7 @@ public class Tile : MonoBehaviour
             case 3:
             {
                 chosenVisualTile = tileData.tile_quarter_1_2_3;
-                int otherIndex = objectIds.FindIndex(id => id != tileData.mainObject.ID);
+                int otherIndex = objectIds.FindIndex(id => id != tileData.mainObject.Id);
                 yRotation = threeQuarterRotation + (-90 * otherIndex);
                 break;
             }

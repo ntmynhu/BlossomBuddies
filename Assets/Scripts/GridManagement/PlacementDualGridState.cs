@@ -28,7 +28,7 @@ public class PlacementDualGridState : PlacementBaseState
             var placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(gridPosition);
             if (placementData != null)
             {
-                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.ID)
+                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.Id)
                 {
                     placementSystem.CurrentSelectedGridData.RemoveObject(gridPosition);
                     ProcessDualGridVisual(placementSystem);

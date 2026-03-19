@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
-  m_Name: PetSoap
+  m_Name: 10103_LavenderSeedBag
   m_EditorClassIdentifier: 
-  Name: PetSoap
-  icon: {fileID: -1728007662, guid: 2fcf78f4e93662946858af6b6b141b04, type: 3}
-  prefab: {fileID: 5324143058523400035, guid: 7e76874da39e50d489726c010da72878, type: 3}
-  ID: 
+  Id: 10103
+  Name: Lavender Seed Bag
+  icon: {fileID: 21300000, guid: d249bc2c94472594ab0660d3a6822818, type: 3}
+  prefab: {fileID: 3267164534628851248, guid: ca582b99fb7f21e4cbc6e35126b413a7, type: 3}

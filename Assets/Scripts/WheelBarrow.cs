@@ -11,7 +11,7 @@ public class WheelBarrow : PlayerDetect
     {
         player = GameManager.Instance.Player;
         toolHandler = player.GetComponent<ToolHandler>();
-        StartCoroutine(ToolManager.Instance.InitializeTools(spawnPos));
+        //StartCoroutine(ToolManager.Instance.InitializeTools(spawnPos));
     }
 
     private void Update()

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
-  m_Name: Scissors
+  m_Name: 10007_CatToy
   m_EditorClassIdentifier: 
-  Name: Scissors
-  icon: {fileID: 21300000, guid: 945facdd882249c4abc7f73dd69d3f99, type: 3}
-  prefab: {fileID: 5324143058523400035, guid: ca97832f27d642f41b03d81ab183711b, type: 3}
-  ID: 
+  Id: 10007
+  Name: CatToy
+  icon: {fileID: 21300000, guid: 55074ab3fbb47af46bdcb926027621d2, type: 3}
+  prefab: {fileID: 3267164534628851248, guid: e7e9c36d1ab4673438bb5743c11c80d9, type: 3}

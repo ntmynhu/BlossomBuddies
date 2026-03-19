@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f73ca054027bfc4b844c6825c0b7792, type: 3}
-  m_Name: Sunflower
+  m_Name: 101_Sunflower
   m_EditorClassIdentifier: 
+  Id: 101
   Name: Plant
   icon: {fileID: 21300000, guid: 75c4cf57d355cb3499772ab18e0d3674, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
-  ID: 102
   Size: {x: 1, y: 1}
   gridType: 2
   isInventoryItem: 1

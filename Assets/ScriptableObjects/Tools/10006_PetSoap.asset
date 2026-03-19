@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e466ff01431ca2843a9103107febb4ae, type: 3}
-  m_Name: WateringCan
+  m_Name: 10006_PetSoap
   m_EditorClassIdentifier: 
-  Name: Watering Can
-  icon: {fileID: 21300000, guid: 39a5edc5bee8c884c87183d54c1fa15f, type: 3}
-  prefab: {fileID: 5324143058523400035, guid: da375d2eb0fba65448b5787cf0b0d4fe, type: 3}
-  ID: 
+  Id: 10006
+  Name: PetSoap
+  icon: {fileID: -1728007662, guid: 2fcf78f4e93662946858af6b6b141b04, type: 3}
+  prefab: {fileID: 5324143058523400035, guid: 7e76874da39e50d489726c010da72878, type: 3}

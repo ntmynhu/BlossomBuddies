@@ -825,7 +825,7 @@ public class Plant : MonoBehaviour
 
         PlantProgressData data = new PlantProgressData
         {
-            plantDataId = plantData.ID,
+            plantDataId = plantData.Id,
             mainPosition = mainPosition,
             currentStateIndex = currentStateIndex,
             currentGrowthTime = growthTime,

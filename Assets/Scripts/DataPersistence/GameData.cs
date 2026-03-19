@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,13 @@ public class GrassData
     public Vector3 localScale;
 }
 
+[Serializable]
+public class InventoryData
+{
+    public int objectId;
+    public int quantity;
+}
+
 [System.Serializable]
 public class GameData
 {
@@ -34,6 +42,7 @@ public class GameData
     public List<GridData> gridDataList;
     public List<GridData> dualGridDataList;
     public List<PlantProgressData> plantProgressDataList;
+    public List<InventoryData> inventoryDataList;
 
     public GameData()
     {
@@ -41,5 +50,6 @@ public class GameData
         gridDataList = new List<GridData>();
         dualGridDataList = new List<GridData>();
         plantProgressDataList = new List<PlantProgressData>();
+        inventoryDataList = new List<InventoryData>();
     }
 }
