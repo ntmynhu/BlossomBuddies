@@ -40,6 +40,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementShovelState ShovelState = new PlacementShovelState();
     public PlacementScissorsState ScissorsState = new PlacementScissorsState();
     public PlacementFertilizingState FertilizingState = new PlacementFertilizingState();
+    public PlacementHarvestState HarvestState = new PlacementHarvestState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> MainGridPlacedObjects => mainGridPlacedObjects;

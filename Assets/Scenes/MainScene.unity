@@ -8576,6 +8576,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ef1dfbaef114ec04188b39e9860fcc19, type: 2}
   - {fileID: 11400000, guid: 6e530a71b13c45a4fb38fc8ff7ac046e, type: 2}
   - {fileID: 11400000, guid: 554cca3526d7eda459bd82b8df99566d, type: 2}
+  plantDatabase:
+  - {fileID: 11400000, guid: cdae899ff5696f24daabc0f0e90b8a36, type: 2}
+  - {fileID: 11400000, guid: f7a6a008fa1ac10448a323f35a1e2756, type: 2}
+  - {fileID: 11400000, guid: f7c8dd80fc3a0d3408da847b55d2af58, type: 2}
+  - {fileID: 11400000, guid: c79715af0b4ae2f48918ca453ffbccb3, type: 2}
   furnitureDatabase:
   - {fileID: 11400000, guid: 85c771186d0820740ab45de06370847f, type: 2}
   - {fileID: 11400000, guid: 12e511f88cd186c4aa6f0d757cc279c4, type: 2}

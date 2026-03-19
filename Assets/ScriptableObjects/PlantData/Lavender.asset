@@ -13,15 +13,30 @@ MonoBehaviour:
   m_Name: Lavender
   m_EditorClassIdentifier: 
   Name: Plant
+  icon: {fileID: 21300000, guid: d3fcb4805d1e7ab4eb44260f22b9a2ee, type: 3}
+  prefab: {fileID: 8935979759752783158, guid: 46eacc924c3794948b84d9ed921d5cb3, type: 3}
   ID: 103
   Size: {x: 1, y: 1}
-  prefab: {fileID: 8935979759752783158, guid: 46eacc924c3794948b84d9ed921d5cb3, type: 3}
   gridType: 2
+  isInventoryItem: 1
   plantName: Demo
+  defaultMainStats: []
   plantStates:
-  - time: 6
-  - time: 12
-  - time: 24
-  - time: 12
-  - time: 72
-  - time: 0
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []

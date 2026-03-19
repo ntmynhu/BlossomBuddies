@@ -13,15 +13,30 @@ MonoBehaviour:
   m_Name: Lily
   m_EditorClassIdentifier: 
   Name: Plant
+  icon: {fileID: 21300000, guid: b4c9aba73332bb94abd04964b881f7e7, type: 3}
+  prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
   ID: 104
   Size: {x: 1, y: 1}
-  prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
   gridType: 2
+  isInventoryItem: 1
   plantName: Demo
+  defaultMainStats: []
   plantStates:
-  - time: 6
-  - time: 12
-  - time: 24
-  - time: 12
-  - time: 72
-  - time: 0
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []
+  - growthTime: 0
+    deadTime: 0
+    conditions: []

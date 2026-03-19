@@ -13,7 +13,7 @@ public class Gloves : Tool
     public override void OnToolSelected(GameObject player)
     {
         base.OnToolSelected(player);
-        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.ScissorsState, plantData);
+        PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.HarvestState, plantData);
     }
 
     private IEnumerator PlayAnimationAndFX(PlayerAnimation playerAnim, PlayerMovement playerMovement)

@@ -1,9 +1,6 @@
-using NUnit.Framework;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
-public class PlacementScissorsState : PlacementBaseState
+public class PlacementHarvestState : PlacementBaseState
 {
     private Plant targetPlant;
 
@@ -40,14 +37,11 @@ public class PlacementScissorsState : PlacementBaseState
     {
         if (targetPlant != null)
         {
-            if (targetPlant.IsDead)
+            if (targetPlant.IsFullyGrown)
             {
                 targetPlant.ClearWateredSoil();
+                targetPlant.HarvestPlant();
                 placementSystem.RemoveObject(gridPosition);
-            }
-            else if (targetPlant.IsWeeded)
-            {
-                targetPlant.CutWeed();
             }
         }
     }
@@ -61,7 +55,7 @@ public class PlacementScissorsState : PlacementBaseState
             GameObject targetObject = placementSystem.GetMainGridPlacedObject(GridType.PlantGrid, gridPosition);
             targetPlant = targetObject != null ? targetObject.GetComponent<Plant>() : null;
 
-            if (targetPlant != null && (targetPlant.IsWeeded || targetPlant.IsDead))
+            if (targetPlant != null && (targetPlant.IsFullyGrown))
             {
                 return true;
             }

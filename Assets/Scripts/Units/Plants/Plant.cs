@@ -46,7 +46,7 @@ public class Plant : MonoBehaviour
     public ObjectData WateredSoilData => wateredSoilData;
     public ObjectData WateredFadeOutSoilData => wateredFadeOutSoilData;
     public bool IsDead => isDead;
-    public bool IsFullyGrown => currentStateIndex == plantData.plantStates.Count - 2; // Last index is dead state
+    public bool IsFullyGrown => isFullyGrown;
     public bool IsWeeded => grassList.Exists(g => g.activeInHierarchy);
     #endregion
 
@@ -203,6 +203,11 @@ public class Plant : MonoBehaviour
 
     private bool CheckGrowCondition()
     {
+        if (isDead)
+        {
+            return false;
+        }
+
         bool isGrowing = false;
 
         foreach (var condition in plantData.plantStates[currentStateIndex].conditions)
@@ -279,6 +284,8 @@ public class Plant : MonoBehaviour
 
         isDead = true;
         Debug.Log("Plant has died.");
+
+        StopWater();
 
         currentStateIndex = stateGameObjects.Count - 1; // Set to dead state index
         UpdatePlantStateVisual();
@@ -421,6 +428,15 @@ public class Plant : MonoBehaviour
         GameManager.Instance.AddHeart(1);
     }
 
+    public void StopWater()
+    {
+        ClearWateredSoil();
+
+        isWatered = false;
+        waterTimer = 0;
+        waterState = 0;
+    }
+
     public void StartFertilizer()
     {
         currentMainStats[PlantMainStatsType.Nutrient] += plantStats.FERTILIZE_ADDED_VALUE;
@@ -484,11 +500,10 @@ public class Plant : MonoBehaviour
     }
     #endregion
 
-
-
     public void HarvestPlant()
     {
-
+        Debug.Log("Harvested plant: " + gameObject.name);
+        InventoryManager.Instance.AddToInventory(plantData);
     }
 
     #region Save Load Plant Data
@@ -535,6 +550,11 @@ public class Plant : MonoBehaviour
 
     private void CalculateGrowthTimeFromLoadedMainStat(float timeToProcess)
     {
+        if (isDead)
+        {
+            return;
+        }
+        
         bool isGrowing = CheckGrowCondition();
 
         if (isGrowing)

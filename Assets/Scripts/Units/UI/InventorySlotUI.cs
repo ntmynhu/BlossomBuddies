@@ -1,16 +1,16 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour
 {
     [SerializeField] private Image image;
+    [SerializeField] private TextMeshProUGUI quantityText;
 
-    private ToolInfo data;
-    public ToolInfo Data { get { return data; } set { data = value; } }
-
+    private PreviewData data;
     private Button button;
 
-    public void SetData(ToolInfo newData)
+    public void SetData(PreviewData newData, int quantity)
     {
         data = newData;
 
@@ -21,6 +21,15 @@ public class InventorySlotUI : MonoBehaviour
             {
                 image.sprite = previewData.icon;
             }
+        }
+
+        if (quantity > 1)
+        {
+            quantityText.text = quantity.ToString();
+        }
+        else
+        {
+            quantityText.gameObject.SetActive(false);
         }
     }
 

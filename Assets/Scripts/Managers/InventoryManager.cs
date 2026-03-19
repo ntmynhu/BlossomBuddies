@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventoryManager : Singleton<InventoryManager>
+public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 {
     [SerializeField] private GameObject furnitureInventoryPanel;
     [SerializeField] private GameObject inventoryPanel;
@@ -12,16 +12,19 @@ public class InventoryManager : Singleton<InventoryManager>
     [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
     [SerializeField] private List<ToolInfo> gardenToolDatabase;
+    [SerializeField] private List<PlantData> plantDatabase;
     [SerializeField] private List<ScriptableObject> furnitureDatabase;
 
-    private Dictionary<ToolInfo, int> inventoryDictionary;
+    private Dictionary<ToolInfo, int> toolInventoryDictionary;
+    private Dictionary<PlantData, int> plantInventoryDictionary;
 
-    public bool IsInitialized => inventoryDictionary != null;
+    public bool IsInitialized => toolInventoryDictionary != null;
     public bool IsInventoryOpen => inventoryPanel.activeSelf;
 
     private void Start()
     {
-        InitIventory();
+        InitToolIventory();
+        InitPlantInventory();
     }
 
     private void Update()
@@ -30,13 +33,23 @@ public class InventoryManager : Singleton<InventoryManager>
         HandleGardenToolInventory();
     }
 
-    private void InitIventory()
+    private void InitToolIventory()
     {
-        inventoryDictionary = new Dictionary<ToolInfo, int>();
+        toolInventoryDictionary = new Dictionary<ToolInfo, int>();
 
         foreach (var obj in gardenToolDatabase)
         {
-            inventoryDictionary[obj] = 0;
+            toolInventoryDictionary[obj] = 0;
+        }
+    }
+
+    private void InitPlantInventory()
+    {
+        plantInventoryDictionary = new Dictionary<PlantData, int>();
+
+        foreach (var obj in plantDatabase)
+        {
+            plantInventoryDictionary[obj] = 0;
         }
     }
 
@@ -47,34 +60,65 @@ public class InventoryManager : Singleton<InventoryManager>
             Destroy(child.gameObject);
         }
 
-        foreach (var item in inventoryDictionary)
+        foreach (var item in toolInventoryDictionary)
         {
             if (item.Value > 0)
             {
                 InventorySlotUI slot = Instantiate(uiSlotPrefab, inventoryContent.transform);
-                slot.SetData(item.Key);
+                slot.SetData(item.Key, toolInventoryDictionary[item.Key]);
+            }
+        }
+
+        foreach (var item in plantInventoryDictionary)
+        {
+            if (item.Value > 0)
+            {
+                InventorySlotUI slot = Instantiate(uiSlotPrefab, inventoryContent.transform);
+                slot.SetData(item.Key, plantInventoryDictionary[item.Key]);
             }
         }
     }
 
-    public void OnItemSelected(ToolInfo item)
+    public void OnItemSelected(PreviewData item)
     {
         Debug.Log($"Item selected: {item.name}");
-        GameManager.Instance.ToolHandler.SelectTool(item);
+
+        if (item is ToolInfo toolInfo)
+        {
+            GameManager.Instance.ToolHandler.SelectTool(toolInfo);
+        }
     }
 
-    public void AddToInventory(ToolInfo objectData)
+    public void AddToInventory(PreviewData objectData)
     {
-        if (inventoryDictionary.ContainsKey(objectData))
+        switch (objectData)
         {
-            inventoryDictionary[objectData]++;
-            Debug.Log($"Added {objectData.name} to inventory. New quantity: {inventoryDictionary[objectData]}");
+            case ToolInfo tool:
+                AddItemToDictionary(toolInventoryDictionary, tool);
+                break;
+
+            case PlantData plant:
+                AddItemToDictionary(plantInventoryDictionary, plant);
+                break;
+
+            default:
+                Debug.LogWarning($"Unsupported object type: {objectData.GetType().Name}");
+                break;
+        }
+    }
+
+    private void AddItemToDictionary<T>(Dictionary<T, int> dict, T key) where T : ScriptableObject
+    {
+        if (dict.ContainsKey(key))
+        {
+            dict[key]++;
+            Debug.Log($"Added {key.name} to inventory. New quantity: {dict[key]}");
 
             UpdateInventoryUI();
         }
         else
         {
-            Debug.LogWarning($"ObjectData {objectData.name} not found in inventory dictionary.");
+            Debug.LogWarning($"ObjectData {key.name} not found in inventory dictionary.");
         }
     }
 
@@ -140,6 +184,16 @@ public class InventoryManager : Singleton<InventoryManager>
                 PlacementSystem.Instance.TriggerAction();
             }
         }
+    }
+
+    public void LoadData(GameData data)
+    {
+        
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        
     }
 }
 
