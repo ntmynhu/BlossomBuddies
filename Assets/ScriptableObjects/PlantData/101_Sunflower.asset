@@ -477,3 +477,11 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
+  normalAppearances:
+  - alenType: 01000000
+    sprite: {fileID: 0}
+    plantPrefab: {fileID: 0}
+  - alenType: 03000000
+    sprite: {fileID: 0}
+    plantPrefab: {fileID: 0}
+  hybridAppearances: []

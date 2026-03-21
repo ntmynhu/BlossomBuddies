@@ -9,6 +9,10 @@ public class PlantData : ObjectData
     public string plantName;
     public List<PlantMainStat> defaultMainStats;
     public List<PlantState> plantStates;
+
+    [Header("Plant Appearance")]
+    public List<PlantAppearance> normalAppearances;
+    public List<PlantAppearance> hybridAppearances;
 }
 
 [System.Serializable]
@@ -40,4 +44,18 @@ public enum PlantMainStatsType
     Light,
     Water,
     Nutrient
+}
+
+[Serializable] 
+public class PlantAppearance
+{
+    public AlenType[] alenType;
+    public Sprite sprite;
+    public GameObject plantPrefab;
+}
+
+[Serializable]
+public enum AlenType
+{
+    R, Y, B, W
 }

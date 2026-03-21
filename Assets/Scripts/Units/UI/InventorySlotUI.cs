@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class InventorySlotUI : MonoBehaviour
 {
     [SerializeField] private Image image;
+    [SerializeField] private Image numberPanel;
     [SerializeField] private TextMeshProUGUI quantityText;
 
     private PreviewData data;
@@ -26,6 +27,7 @@ public class InventorySlotUI : MonoBehaviour
         if (quantity > 1)
         {
             quantityText.text = quantity.ToString();
+            
         }
         else
         {
