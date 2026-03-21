@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f73ca054027bfc4b844c6825c0b7792, type: 3}
-  m_Name: 101_Sunflower
+  m_Name: 101_YW_Sunflower
   m_EditorClassIdentifier: 
   Id: 101
   Name: Plant
   icon: {fileID: 21300000, guid: 75c4cf57d355cb3499772ab18e0d3674, type: 3}
-  prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
+  prefab: {fileID: 8935979759752783158, guid: e150b89a9abf5244394d5cb8c2510aa2, type: 3}
   Size: {x: 1, y: 1}
   gridType: 2
   isInventoryItem: 1
-  plantName: Demo
+  alenType: 0100000003000000
   defaultMainStats:
   - type: 0
     value: 50
@@ -28,7 +28,7 @@ MonoBehaviour:
   - type: 2
     value: 0
   plantStates:
-  - growthTime: 2
+  - growthTime: 0.025
     deadTime: 24
     conditions:
     - type: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  - growthTime: 4
+  - growthTime: 0.025
     deadTime: 12
     conditions:
     - type: 0
@@ -189,7 +189,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  - growthTime: 6
+  - growthTime: 0.025
     deadTime: 12
     conditions:
     - type: 0
@@ -285,7 +285,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  - growthTime: 12
+  - growthTime: 0.025
     deadTime: 12
     conditions:
     - type: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  - growthTime: 12
+  - growthTime: 0.025
     deadTime: 12
     conditions:
     - type: 0
@@ -477,11 +477,3 @@ MonoBehaviour:
         m_ColorSpace: -1
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
-  normalAppearances:
-  - alenType: 01000000
-    sprite: {fileID: 0}
-    plantPrefab: {fileID: 0}
-  - alenType: 03000000
-    sprite: {fileID: 0}
-    plantPrefab: {fileID: 0}
-  hybridAppearances: []

@@ -93,6 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 2659164857670533678}
+  numberPanel: {fileID: 3016610397566662191}
   quantityText: {fileID: 8566597386796713133}
 --- !u!114 &6154349633026834737
 MonoBehaviour:

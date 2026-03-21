@@ -27,11 +27,11 @@ public class InventorySlotUI : MonoBehaviour
         if (quantity > 1)
         {
             quantityText.text = quantity.ToString();
-            
+            numberPanel.gameObject.SetActive(true);
         }
         else
         {
-            quantityText.gameObject.SetActive(false);
+            numberPanel.gameObject.SetActive(false);
         }
     }
 
