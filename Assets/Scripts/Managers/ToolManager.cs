@@ -32,7 +32,6 @@ public class ToolManager : Singleton<ToolManager>
             tool.ToolInfo = toolInfo;
 
             toolList.Add(tool);
-            InventoryManager.Instance.AddToInventory(toolInfo);
 
             toolObject.SetActive(false);
 

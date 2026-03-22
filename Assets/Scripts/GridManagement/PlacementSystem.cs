@@ -14,7 +14,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     [SerializeField] private List<GridType> dualGridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
 
-    private int currentSelectedIndex;
+    private string currentSelectedIndex;
     private ObjectData currentSelectedObjectData;
     private GridData currentSelectedGridData;
 
@@ -50,9 +50,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public Grid MainGrid => mainGrid;
     public Grid DualGrid => dualGrid;
 
-    public int CurrentSelectedIndex => currentSelectedIndex;
+    public string CurrentSelectedIndex => currentSelectedIndex;
     public ObjectData CurrentSelectedObjectData => currentSelectedObjectData;
     public GridData CurrentSelectedGridData => currentSelectedGridData;
+    public PlacementBaseState CurrentState => currentState;
     #endregion
 
     #region Methods
@@ -193,7 +194,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
     }
 
-    public ObjectData SelectedObject(int ID)
+    public ObjectData SelectedObject(string ID)
     {
         var ob = databaseSO.objectDatas.Find(data => data.Id == ID);
 
@@ -322,11 +323,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 // For each dual pos, get 4 main position to calculate tile's visual
                 List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetMainPosFromDualPos(placedObject.mainPosition);
 
-                List<int> objectIdsToUpdateVisual = new List<int>();
+                List<string> objectIdsToUpdateVisual = new List<string>();
                 foreach (var position in mainPositionsToProcessTile)
                 {
                     PlacementData placementData = mainGridData.GetPlacementData(position);
-                    int objectId = (placementData != null) ? placementData.placedObjectId : -1;
+                    string objectId = (placementData != null) ? placementData.placedObjectId : "-1";
                     objectIdsToUpdateVisual.Add(objectId);
                 }
 

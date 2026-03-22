@@ -1411,7 +1411,7 @@ PrefabInstance:
         type: 3}
       propertyPath: plantData
       value: 
-      objectReference: {fileID: 11400000, guid: cdae899ff5696f24daabc0f0e90b8a36,
+      objectReference: {fileID: 11400000, guid: c354c1c2cbee5ce4b969f4e84c7c2434,
         type: 2}
     - target: {fileID: 5686190738634284124, guid: 9c09e4b7f0c404e478e32b830a38d6bb,
         type: 3}

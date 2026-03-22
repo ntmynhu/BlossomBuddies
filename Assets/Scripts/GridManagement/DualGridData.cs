@@ -13,7 +13,7 @@ public class DualGridData : MonoBehaviour
         placedObjects = placementDatas ?? new List<PlacementData>();
     }
 
-    public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
+    public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, string Id, int placedObjectIndex)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
 

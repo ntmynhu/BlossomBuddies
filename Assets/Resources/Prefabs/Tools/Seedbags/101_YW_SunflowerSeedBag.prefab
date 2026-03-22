@@ -409,7 +409,7 @@ MonoBehaviour:
   toolInfo: {fileID: 0}
   initialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0, w: 0}
-  spawnObject: {fileID: 11400000, guid: 617f76e9811677540950c01fce1d0e98, type: 2}
+  spawnObject: {fileID: 11400000, guid: c354c1c2cbee5ce4b969f4e84c7c2434, type: 2}
 --- !u!4 &3679028308450915994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,
@@ -534,6 +534,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931121744436998264, guid: a3604ff6129e06140a52836a036830d2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0009
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931121744436998264, guid: a3604ff6129e06140a52836a036830d2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8931121744436998264, guid: a3604ff6129e06140a52836a036830d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0254
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

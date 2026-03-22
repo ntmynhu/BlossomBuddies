@@ -5,7 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlantProgressData
 {
-    public int plantDataId;
+    public string plantDataId;
+    public List<AlenType> alenTypes;
     public Vector3Int mainPosition;
     public int currentStateIndex;
     public float currentGrowthTime;
@@ -30,7 +31,7 @@ public class GrassData
 [Serializable]
 public class InventoryData
 {
-    public int objectId;
+    public string objectId;
     public int quantity;
 }
 

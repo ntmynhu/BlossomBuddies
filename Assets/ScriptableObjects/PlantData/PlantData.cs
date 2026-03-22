@@ -5,8 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/PlantData")]
 public class PlantData : ObjectData
 {
-    [Header("Plant Appearance")]
-    public AlenType[] alenType;
+    [Header("Color")]
+    public List<AlenType> alenTypes;
 
     [Header("Plant Data")]
     public List<PlantMainStat> defaultMainStats;

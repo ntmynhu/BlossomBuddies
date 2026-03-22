@@ -14,7 +14,7 @@ public class Tile : MonoBehaviour
     private int diagonalRoation = 0;
     private int threeQuarterRotation = 90;
 
-    public void CalculateTileVisual(List<int> objectIds)
+    public void CalculateTileVisual(List<string> objectIds)
     {
         //Debug.Log(gameObject.name);
 

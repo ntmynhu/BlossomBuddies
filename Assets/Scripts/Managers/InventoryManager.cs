@@ -49,6 +49,8 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             Destroy(child.gameObject);
         }
 
+        Debug.Log("Updating inventory UI with " + inventoryDictionary.Count + " items.");
+
         foreach (var item in inventoryDictionary)
         {
             if (item.Value > 0)
@@ -205,6 +207,8 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
         List<ToolInfo> toolList = GetInventoryObjectsByType<ToolInfo>();
         StartCoroutine(ToolManager.Instance.InitializeTools(toolList));
+
+        UpdateInventoryUI();
     }
 
     public void SaveData(ref GameData data)

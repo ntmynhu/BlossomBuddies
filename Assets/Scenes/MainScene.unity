@@ -8554,9 +8554,8 @@ MonoBehaviour:
   thirdPersonCameraController: {fileID: 843797480}
   defaultObjectDatabase:
   - {fileID: 11400000, guid: f98fae0159aa57645bbd91d11a6d02d2, type: 2}
-  - {fileID: 11400000, guid: 7a33e108b011814479c78c5ed367a51c, type: 2}
-  - {fileID: 11400000, guid: ef1dfbaef114ec04188b39e9860fcc19, type: 2}
-  - {fileID: 11400000, guid: ef1dfbaef114ec04188b39e9860fcc19, type: 2}
+  - {fileID: 11400000, guid: 46e77bdb49d20d24bb60f7db2bcf0965, type: 2}
+  - {fileID: 11400000, guid: 49d9122a17b018441a259da8679ce6ae, type: 2}
   - {fileID: 11400000, guid: af806acea2a38414b8d11266f5abd6f2, type: 2}
   - {fileID: 11400000, guid: 17d85d0e62be9bb4bbd1e9342b66762a, type: 2}
   - {fileID: 11400000, guid: 6b96f501083f3c74b8197a2c34c34a3b, type: 2}
@@ -15462,7 +15461,7 @@ PrefabInstance:
     - target: {fileID: 9036183160311119553, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
       propertyPath: deceleration
-      value: 1500
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9036183160311119553, guid: fa304f39e7c292b45bf14b92e8ff6998,
         type: 3}
