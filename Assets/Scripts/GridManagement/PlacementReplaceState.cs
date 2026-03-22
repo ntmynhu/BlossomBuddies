@@ -26,7 +26,7 @@ public class PlacementReplaceState : PlacementBaseState
             var placementData = placementSystem.CurrentSelectedGridData.GetPlacementData(gridPosition);
             if (placementData != null)
             {
-                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.ID)
+                if (placementData.placedObjectId == placementSystem.CurrentSelectedObjectData.Id)
                 {
                     Debug.Log("Same Object Existing! Do Nothing");
                     return;

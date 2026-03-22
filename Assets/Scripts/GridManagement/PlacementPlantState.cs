@@ -38,6 +38,7 @@ public class PlacementPlantState : PlacementBaseState
         if (plant != null)
         {
             plant.MainPosition = gridPosition;
+            plant.InitDefautlMainStats();
         }
     }
 

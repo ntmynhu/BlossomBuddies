@@ -1,19 +1,24 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
 public class PlantProgressData
 {
-    public int plantDataId;
+    public string plantDataId;
+    public List<AlenType> alenTypes;
     public Vector3Int mainPosition;
     public int currentStateIndex;
     public float currentGrowthTime;
+    public float currentDeadTime;
     public float yPosition;
     public float waterTimer;
     public int waterState;
     public bool isWatered;
-    public float tickTimer;
+    public float weedTickTimer;
     public List<GrassData> grassDataList;
+    public float mainTickTimer;
+    public List<PlantMainStat> plantMainStatList;
 }
 
 [System.Serializable]
@@ -21,6 +26,13 @@ public class GrassData
 {
     public bool isActive;
     public Vector3 localScale;
+}
+
+[Serializable]
+public class InventoryData
+{
+    public string objectId;
+    public int quantity;
 }
 
 [System.Serializable]
@@ -31,6 +43,7 @@ public class GameData
     public List<GridData> gridDataList;
     public List<GridData> dualGridDataList;
     public List<PlantProgressData> plantProgressDataList;
+    public List<InventoryData> inventoryDataList;
 
     public GameData()
     {
@@ -38,5 +51,6 @@ public class GameData
         gridDataList = new List<GridData>();
         dualGridDataList = new List<GridData>();
         plantProgressDataList = new List<PlantProgressData>();
+        inventoryDataList = new List<InventoryData>();
     }
 }

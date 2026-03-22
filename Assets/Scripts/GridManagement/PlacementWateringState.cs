@@ -66,11 +66,11 @@ public class PlacementWateringState : PlacementBaseState
                 // For each dual pos, get 4 main position to calculate tile's visual
                 List<Vector3Int> mainPositionsToProcessTile = GetMainGridFromDualGrid(pos);
 
-                List<int> objectIdsToUpdateVisual = new List<int>();
+                List<string> objectIdsToUpdateVisual = new List<string>();
                 foreach (var position in mainPositionsToProcessTile)
                 {
                     PlacementData placementData = placementSystem.GridDataDictionary[gridType].GetPlacementData(position);
-                    int objectId = (placementData != null) ? placementData.placedObjectId : -1;
+                    string objectId = (placementData != null) ? placementData.placedObjectId : "-1";
                     objectIdsToUpdateVisual.Add(objectId);
                 }
 

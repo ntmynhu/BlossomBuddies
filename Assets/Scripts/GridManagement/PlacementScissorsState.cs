@@ -49,10 +49,6 @@ public class PlacementScissorsState : PlacementBaseState
             {
                 targetPlant.CutWeed();
             }
-            else if (targetPlant.IsFullyGrown)
-            {
-                targetPlant.HarvestPlant();
-            }
         }
     }
 
@@ -65,7 +61,7 @@ public class PlacementScissorsState : PlacementBaseState
             GameObject targetObject = placementSystem.GetMainGridPlacedObject(GridType.PlantGrid, gridPosition);
             targetPlant = targetObject != null ? targetObject.GetComponent<Plant>() : null;
 
-            if (targetPlant != null && (targetPlant.IsFullyGrown || targetPlant.IsWeeded || targetPlant.IsDead))
+            if (targetPlant != null && (targetPlant.IsWeeded || targetPlant.IsDead))
             {
                 return true;
             }

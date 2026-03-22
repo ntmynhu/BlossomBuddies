@@ -34,4 +34,10 @@ public class LandableAutoRegister : MonoBehaviour
         if (LandableRegistry.Instance != null)
             LandableRegistry.Instance.Unregister(this);
     }
+
+    private void OnDestroy()
+    {
+        if (LandableRegistry.Instance != null)
+            LandableRegistry.Instance.Unregister(this);
+    }
 }

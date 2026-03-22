@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ToolManager : Singleton<ToolManager>
 {
-    [SerializeField] private ToolInfo[] toolInfos;
     [SerializeField] private Transform spawnTransform;
 
     private Tool currentTool;
@@ -15,12 +14,13 @@ public class ToolManager : Singleton<ToolManager>
 
     private void Start()
     {
-        StartCoroutine(InitializeTools(spawnTransform));
     }
 
-    public IEnumerator InitializeTools(Transform spawnTransform)
+    public IEnumerator InitializeTools(List<ToolInfo> toolInfos)
     {
         yield return new WaitUntil(() => InventoryManager.Instance != null && InventoryManager.Instance.IsInitialized);
+
+        Debug.Log("InventoryManager initialized, now initializing tools...");
 
         initialTransform = spawnTransform;
 
@@ -32,7 +32,6 @@ public class ToolManager : Singleton<ToolManager>
             tool.ToolInfo = toolInfo;
 
             toolList.Add(tool);
-            InventoryManager.Instance.AddToInventory(toolInfo);
 
             toolObject.SetActive(false);
 

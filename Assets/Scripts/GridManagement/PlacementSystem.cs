@@ -14,7 +14,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     [SerializeField] private List<GridType> dualGridTypeList;
     [SerializeField] private ObjectsDatabaseSO databaseSO;
 
-    private int currentSelectedIndex;
+    private string currentSelectedIndex;
     private ObjectData currentSelectedObjectData;
     private GridData currentSelectedGridData;
 
@@ -39,6 +39,8 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementWateringState WateringState = new PlacementWateringState();
     public PlacementShovelState ShovelState = new PlacementShovelState();
     public PlacementScissorsState ScissorsState = new PlacementScissorsState();
+    public PlacementFertilizingState FertilizingState = new PlacementFertilizingState();
+    public PlacementHarvestState HarvestState = new PlacementHarvestState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> MainGridPlacedObjects => mainGridPlacedObjects;
@@ -48,9 +50,10 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public Grid MainGrid => mainGrid;
     public Grid DualGrid => dualGrid;
 
-    public int CurrentSelectedIndex => currentSelectedIndex;
+    public string CurrentSelectedIndex => currentSelectedIndex;
     public ObjectData CurrentSelectedObjectData => currentSelectedObjectData;
     public GridData CurrentSelectedGridData => currentSelectedGridData;
+    public PlacementBaseState CurrentState => currentState;
     #endregion
 
     #region Methods
@@ -89,7 +92,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         cellIndicator.UpdateIndicator(newObject.prefab, newObject.Size);
 
-        currentSelectedIndex = newObject.ID;
+        currentSelectedIndex = newObject.Id;
         currentSelectedObjectData = newObject;
         currentSelectedGridData = gridDataDictionary[newObject.gridType];
     }
@@ -106,17 +109,17 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public void AddObjectToGridData(Vector3Int gridPosition)
     {
-        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.ID, mainGridPlacedObjects.Count - 1);
+        currentSelectedGridData.AddObject(gridPosition, currentSelectedObjectData.Size, currentSelectedObjectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public void AddObjectToGridData(ObjectData objectData, GridType gridType, Vector3Int gridPosition)
     {
-        GridDataDictionary[gridType].AddObject(gridPosition, objectData.Size, objectData.ID, mainGridPlacedObjects.Count - 1);
+        GridDataDictionary[gridType].AddObject(gridPosition, objectData.Size, objectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public void AddObjectToDualGrid(Vector3Int gridPosition, GridType gridType, ObjectData objectData)
     {
-        dualGridDataDictionary[gridType].AddObject(gridPosition, Vector2Int.one, objectData.ID, mainGridPlacedObjects.Count - 1);
+        dualGridDataDictionary[gridType].AddObject(gridPosition, Vector2Int.one, objectData.Id, mainGridPlacedObjects.Count - 1);
     }
 
     public GameObject PlaceObject(Vector3Int gridPosition, ObjectData objectData, Grid grid, bool keepIndicatorHeight = true)
@@ -191,13 +194,13 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         }
     }
 
-    public ObjectData SelectedObject(int ID)
+    public ObjectData SelectedObject(string ID)
     {
-        var ob = databaseSO.objectDatas.Find(data => data.ID == ID);
+        var ob = databaseSO.objectDatas.Find(data => data.Id == ID);
 
         if (ob == null)
         {
-            Debug.LogError($"Object with ID {ID} not found in database.");
+            Debug.LogError($"Object with ID {ID} not found in database.");  
             return null;
         }
 
@@ -286,7 +289,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
                 if (plant != null)
                 {
-                    PlantProgressData progressData = plantProgressDatas.FirstOrDefault(p => p.plantDataId == objectData.ID && p.mainPosition == placedObject.mainPosition);
+                    PlantProgressData progressData = plantProgressDatas.FirstOrDefault(p => p.plantDataId == objectData.Id && p.mainPosition == placedObject.mainPosition);
                     plant.LoadExistingData(progressData);
                 }
             }
@@ -320,11 +323,11 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
                 // For each dual pos, get 4 main position to calculate tile's visual
                 List<Vector3Int> mainPositionsToProcessTile = DualGridState.GetMainPosFromDualPos(placedObject.mainPosition);
 
-                List<int> objectIdsToUpdateVisual = new List<int>();
+                List<string> objectIdsToUpdateVisual = new List<string>();
                 foreach (var position in mainPositionsToProcessTile)
                 {
                     PlacementData placementData = mainGridData.GetPlacementData(position);
-                    int objectId = (placementData != null) ? placementData.placedObjectId : -1;
+                    string objectId = (placementData != null) ? placementData.placedObjectId : "-1";
                     objectIdsToUpdateVisual.Add(objectId);
                 }
 

@@ -2,81 +2,107 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightingManager : MonoBehaviour
+public class LightingManager : Singleton<LightingManager>
 {
     [SerializeField] private Light directionalLight;
     [SerializeField] private LightingPreset lightingPreset;
-    [SerializeField, Range(0, 24)] private float timeOfDay;
     [SerializeField] private List<TimeSetting> timeSettings;
-    [SerializeField] private bool useRealTime = true; // Toggle to use real time or manual time of day
+    [SerializeField] private List<TimeLightValue> timeLightValues;
 
-    private float updateLightingInterval = 30f; // Update every 60 seconds
+    [Header("Smoothing")]
+    [Tooltip("How quickly the lighting catches up to the target time (higher = faster).")]
+    [SerializeField] private float timeSmoothSpeed = 2.5f;
+
+    [Tooltip("Optional: smooth light rotation separately.")]
+    [SerializeField] private float rotationSmoothSpeed = 6f;
+
     private float updateLightingTimer = 0f;
 
-    private DateTime currentTime;
+    private float currentTimePercentage;
+    private float targetTimePercentage;
+
+    private WorldTimeConfig timeConfig;
     private TimeOfDay currentTimeOfDay = TimeOfDay.None;
+
+    private float currentLightValue = 0f;
+
+    public float CurrentLightValue => currentLightValue;
+    public TimeOfDay CurrentTimeOfDay => currentTimeOfDay;
 
     private void Start()
     {
-        currentTime = DateTime.Now;
-        timeOfDay = currentTime.Hour + currentTime.Minute / 60f + currentTime.Second / 3600f;
-        UpdateLighting(timeOfDay / 24);
+        timeConfig = WorldTimeManager.Instance.WorldTimeConfig;
 
-        updateLightingTimer = 0f; // Reset the timer after updating
+        currentTimePercentage = WorldTimeManager.Instance.CalculateInGameTimeFromRealTime(DateTime.Now) / WorldTimeManager.Instance.WorldTimeConfig.hoursInDay;
+        targetTimePercentage = Mathf.Repeat(currentTimePercentage, 1f);
+
+        ApplyLighting(currentTimePercentage, instantRotation: true);
+        updateLightingTimer = 0f;
     }
 
     private void Update()
     {
-        //updateLightingTimer += Time.deltaTime;
+        updateLightingTimer += Time.deltaTime;
 
-        //if (updateLightingTimer >= updateLightingInterval)
-        //{
-        //    currentTime = DateTime.Now;
-        //    timeOfDay = currentTime.Hour + currentTime.Minute / 60f + currentTime.Second / 3600f;
-        //    UpdateLighting(timeOfDay / 24);
+        if (updateLightingTimer >= timeConfig.updateLigtingTime)
+        {
+            float addTimePercent = (((timeConfig.updateLigtingTime / 3600f) * timeConfig.hoursInDay) / timeConfig.timeOfDay) / timeConfig.hoursInDay;
 
-        //    Debug.Log(timeOfDay);
-        //    updateLightingTimer = 0f; // Reset the timer after updating
-        //}
+            Debug.Log(addTimePercent);
 
-        UpdateLighting(timeOfDay / 24);
+            currentTimePercentage += addTimePercent;
+            targetTimePercentage = Mathf.Repeat(currentTimePercentage, 1f);
+
+            updateLightingTimer = 0f;
+        }
+
+        currentTimePercentage = MoveTowardWrapped01(currentTimePercentage, targetTimePercentage, timeSmoothSpeed, Time.deltaTime);
+        ApplyLighting(currentTimePercentage, instantRotation: false);
     }
 
-    private void UpdateLighting(float timePercent)
+    private void ApplyLighting(float timePercent, bool instantRotation)
     {
         RenderSettings.ambientLight = lightingPreset.AmbientColor.Evaluate(timePercent);
         RenderSettings.fogColor = lightingPreset.FogColor.Evaluate(timePercent);
 
         directionalLight.color = lightingPreset.DirectionalColor.Evaluate(timePercent);
-        directionalLight.transform.localRotation = Quaternion.Euler(new Vector3(timePercent * 360f - 90f, 170f, 0));
+
+        // Light rotation
+        Quaternion targetRot = Quaternion.Euler(timePercent * 360f - 90f, 170f, 0f);
+
+        if (instantRotation)
+        {
+            directionalLight.transform.localRotation = targetRot;
+        }
+        else
+        {
+            directionalLight.transform.localRotation =
+                Quaternion.Slerp(directionalLight.transform.localRotation, targetRot, 1f - Mathf.Exp(-rotationSmoothSpeed * Time.deltaTime));
+        }
 
         var nextTimeOfDay = GetTimeOfDay(timePercent);
         if (nextTimeOfDay != currentTimeOfDay)
         {
             currentTimeOfDay = nextTimeOfDay;
-
-            switch (currentTimeOfDay)
-            {
-                case TimeOfDay.Morning:
-                    Debug.Log("Good Morning!");
-                    break;
-                case TimeOfDay.Afternoon:
-                    Debug.Log("Good Afternoon!");
-                    break;
-                case TimeOfDay.Evening:
-                    Debug.Log("Good Evening!");
-                    break;
-                case TimeOfDay.Night:
-                    Debug.Log("Good Night!");
-                    break;
-            }
+            currentLightValue = timeLightValues.Find(x => x.timeOfDay == currentTimeOfDay).lightValue;
 
             Debug.Log("Time of Day changed to: " + currentTimeOfDay);
             GameEventManager.Instance.OnTimeOfDayChanged(currentTimeOfDay);
         }
     }
 
-    private TimeOfDay GetTimeOfDay(float timePercent)
+    // Smoothly approaches target on a circular [0..1) range, choosing the shortest path (important at midnight).
+    private static float MoveTowardWrapped01(float current, float target, float speed, float dt)
+    {
+        // shortest signed distance in [-0.5, 0.5)
+        float delta = Mathf.DeltaAngle(current * 360f, target * 360f) / 360f;
+
+        // exponential smoothing (frame-rate independent)
+        float t = 1f - Mathf.Exp(-speed * dt);
+        return Mathf.Repeat(current + delta * t, 1f);
+    }
+
+    public TimeOfDay GetTimeOfDay(float timePercent)
     {
         for (int i = 0; i < timeSettings.Count; i++)
         {
@@ -91,6 +117,14 @@ public class LightingManager : MonoBehaviour
 
         return timeSettings[0].timeOfDay; // Default to the first time of day if not found
     }
+
+    public float GetLightValue(float timePercent)
+    {
+        timePercent = Mathf.Repeat(timePercent, 1f);
+
+        TimeOfDay timeOfDay = GetTimeOfDay(timePercent);
+        return timeLightValues.Find(x => x.timeOfDay == timeOfDay).lightValue;
+    }
 }
 
 [Serializable]
@@ -98,6 +132,20 @@ public class TimeSetting
 {
     public TimeOfDay timeOfDay;
     public float timePercent;
+}
+
+[Serializable]
+public class TimeLightValue
+{
+    public TimeOfDay timeOfDay;
+    public float lightValue;
+}
+
+[Serializable]
+public class TimeWaterValue
+{
+    public TimeOfDay timeOfDay;
+    public float waterValue;
 }
 
 [Serializable]

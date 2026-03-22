@@ -16,7 +16,7 @@ public class GridData
         placedObjects = placementDatas ?? new List<PlacementData>();
     }
 
-    public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, int Id, int placedObjectIndex)
+    public void AddObject(Vector3Int gridPosition, Vector2Int objectSize, string Id, int placedObjectIndex)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
 
@@ -108,10 +108,10 @@ public class PlacementData
 {
     public Vector3Int mainPosition;
     public List<Vector3Int> occupiedPositions;
-    public int placedObjectId;
+    public string placedObjectId;
     public int placedObjectIndex;
 
-    public PlacementData(Vector3Int mainPosition, List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)
+    public PlacementData(Vector3Int mainPosition, List<Vector3Int> occupiedPositions, string iD, int placedObjectIndex)
     {
         this.mainPosition = mainPosition;
         this.occupiedPositions = occupiedPositions;
