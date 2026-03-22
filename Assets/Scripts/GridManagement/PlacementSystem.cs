@@ -200,7 +200,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         if (ob == null)
         {
-            Debug.LogError($"Object with ID {ID} not found in database.");
+            Debug.LogError($"Object with ID {ID} not found in database.");  
             return null;
         }
 

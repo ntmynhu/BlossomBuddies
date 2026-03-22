@@ -94,7 +94,7 @@ MonoBehaviour:
         m_NumColorKeys: 3
         m_NumAlphaKeys: 2
   - growthTime: 0.025
-    deadTime: 12
+    deadTime: 0.1
     conditions:
     - type: 0
       conditionRange:

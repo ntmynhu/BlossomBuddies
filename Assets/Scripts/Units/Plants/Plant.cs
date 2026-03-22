@@ -574,7 +574,16 @@ public class Plant : MonoBehaviour
 
             if (deadTime >= currentStateDeadTime)
             {
-                UpdateDeadState();
+                isDead = true;
+                Debug.Log("Plant has died.");
+
+                currentStateIndex = stateGameObjects.Count - 1; // Set to dead state index
+                UpdatePlantStateVisual();
+
+                isWatered = false;
+                StartCoroutine(ProcessWaterVisual(waterState, 0));
+
+                return;
             }
         }
     }
@@ -636,7 +645,15 @@ public class Plant : MonoBehaviour
 
         if (currentStateIndex >= stateGameObjects.Count - 1) // If already in dead state, no need to calculate, just update the visual
         {
-            UpdateDeadState();
+            isDead = true;
+            Debug.Log("Plant has died.");
+
+            currentStateIndex = stateGameObjects.Count - 1; // Set to dead state index
+            UpdatePlantStateVisual();
+
+            isWatered = false;
+            StartCoroutine(ProcessWaterVisual(waterState, 0));
+
             return;
         }
         else if (currentStateIndex >= stateGameObjects.Count - 2)
@@ -696,6 +713,11 @@ public class Plant : MonoBehaviour
 
                 // Add time to mainTickTimer for the next tick
                 mainTickTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.MAIN_STAT_TICK);
+            }
+
+            if (isDead)
+            {
+                break;
             }
 
             if (isWatered)
@@ -768,34 +790,37 @@ public class Plant : MonoBehaviour
 
         UpdatePlantStateVisual();
 
-        // Load Watered Soil Displayed
-        waterTimer = data.waterTimer - secondsFromNow;
-        waterState = data.waterState;
-        isWatered = data.isWatered;
-
-        int loadedWaterState = waterState;
-
-        if (isWatered)
+        if (!isDead)
         {
-            while (waterTimer < 0 && waterState < plantStats.TOTAL_WATER_LEVELS)
+            // Load Watered Soil Displayed
+            waterTimer = data.waterTimer - secondsFromNow;
+            waterState = data.waterState;
+            isWatered = data.isWatered;
+
+            int loadedWaterState = waterState;
+
+            if (isWatered)
             {
-                waterTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
-                waterState++;
+                while (waterTimer < 0 && waterState < plantStats.TOTAL_WATER_LEVELS)
+                {
+                    waterTimer += WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantStats.WATER_EXISTING_TIME) / plantStats.TOTAL_WATER_LEVELS;
+                    waterState++;
+                }
+
+                // Done watering
+                if (waterState >= plantStats.TOTAL_WATER_LEVELS)
+                {
+                    isWatered = false;
+                }
+                else
+                {
+                    isWatered = true;
+                }
             }
 
-            // Done watering
-            if (waterState >= plantStats.TOTAL_WATER_LEVELS)
-            {
-                isWatered = false;
-            }
-            else
-            {
-                isWatered = true;
-            }
+            Debug.Log($"IsWatered: {isWatered}; WaterTimer: {waterTimer}; WaterState: {waterState}");
+            StartCoroutine(ProcessWaterVisual(loadedWaterState, waterState));
         }
-
-        Debug.Log($"IsWatered: {isWatered}; WaterTimer: {waterTimer}; WaterState: {waterState}");
-        StartCoroutine(ProcessWaterVisual(loadedWaterState, waterState));
     }
 
 
