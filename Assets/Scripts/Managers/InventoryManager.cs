@@ -9,7 +9,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private InventorySlotUI uiSlotPrefab;
-    [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
     [SerializeField] private List<PreviewData> defaultObjectDatabase;
     [SerializeField] private List<PreviewData> objectDatabase;
@@ -98,9 +97,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
-            thirdPersonCameraController.SetCameraFrozen(inventoryPanel.activeSelf);
-            GameManager.Instance.PlayerMovement.SetMovementEnable(!inventoryPanel.activeSelf);
+            GameManager.Instance.SetCameraFrozen(inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -111,9 +108,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                     return;
 
                 inventoryPanel.SetActive(false);
-                thirdPersonCameraController.SetMobileController(false);
-                thirdPersonCameraController.SetCameraFrozen(false);
-                GameManager.Instance.PlayerMovement.SetMovementEnable(true);
+                GameManager.Instance.SetCameraFrozen(false);
             }
         }
     }
@@ -124,8 +119,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             Debug.Log("Inventory opened");
             furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
-            thirdPersonCameraController.SetMobileController(furnitureInventoryPanel.activeSelf);
-            GameManager.Instance.Player.SetActive(!furnitureInventoryPanel.activeSelf);
+            GameManager.Instance.SetCameraFrozen(furnitureInventoryPanel.activeSelf);
 
             if (furnitureInventoryPanel.activeSelf)
             {   
@@ -169,6 +163,15 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
 
         return result;
+    }
+
+    public int GetItemQuantity(PreviewData objectData)
+    {
+        if (inventoryDictionary.TryGetValue(objectData, out int quantity))
+        {
+            return quantity;
+        }
+        return 0;
     }
 
     public void LoadData(GameData data)
