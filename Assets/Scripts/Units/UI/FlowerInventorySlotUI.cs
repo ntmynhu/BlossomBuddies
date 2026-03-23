@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BreedingSlotUI : MonoBehaviour
+public class FlowerInventorySlotUI : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private Image numberPanel;

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
   m_Name: Chair
   m_EditorClassIdentifier: 
+  Id: 1001
   Name: Chair
   icon: {fileID: 21300000, guid: 293455dab8ab96e4cbe12d856ba8a390, type: 3}
   prefab: {fileID: 1967463717879569282, guid: 20d8fb4e1251447478dfa542b6dcbb4f, type: 3}
-  ID: 1001
   Size: {x: 1, y: 1}
   gridType: 3
   isInventoryItem: 1

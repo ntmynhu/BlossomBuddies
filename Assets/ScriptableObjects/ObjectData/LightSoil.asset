@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
   m_Name: LightSoil
   m_EditorClassIdentifier: 
+  Id: 0
   Name: Soil
-  ID: 0
-  Size: {x: 1, y: 1}
+  icon: {fileID: 0}
   prefab: {fileID: 1967463717879569282, guid: 8e963fb95dc2e414494c0b8a13670cf3, type: 3}
+  Size: {x: 1, y: 1}
+  gridType: 0
+  isInventoryItem: 1

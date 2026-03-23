@@ -73,6 +73,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     public void AddToInventory(PreviewData objectData)
     {
         AddItemToDictionary(inventoryDictionary, objectData);
+        UpdateInventoryUI();
     }
 
     private void AddItemToDictionary<T>(Dictionary<T, int> dict, T key) where T : ScriptableObject
@@ -81,8 +82,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             dict[key]++;
             Debug.Log($"Added {key.name} to inventory. New quantity: {dict[key]}");
-
-            UpdateInventoryUI();
         }
         else
         {
