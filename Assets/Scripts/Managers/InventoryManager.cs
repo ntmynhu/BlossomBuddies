@@ -10,11 +10,10 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private InventorySlotUI uiSlotPrefab;
 
-    [SerializeField] private List<PreviewData> defaultObjectDatabase;
+    [SerializeField] private List<BaseData> defaultObjectDatabase;
     [SerializeField] private List<ObjectsDatabaseSO> objectDatabases;
-    [SerializeField] private ToolDatabaseSO toolDatabase;
 
-    private Dictionary<PreviewData, int> inventoryDictionary;
+    private Dictionary<BaseData, int> inventoryDictionary;
 
     public bool IsInitialized => inventoryDictionary != null;
     public bool IsInventoryOpen => inventoryPanel.activeSelf;
@@ -31,7 +30,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private void InitIventory()
     {
-        inventoryDictionary = new Dictionary<PreviewData, int>();
+        inventoryDictionary = new Dictionary<BaseData, int>();
 
         foreach (var obj in defaultObjectDatabase)
         {
@@ -60,7 +59,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
-    public void OnItemSelected(PreviewData item)
+    public void OnItemSelected(BaseData item)
     {
         Debug.Log($"Item selected: {item.name}");
 
@@ -70,7 +69,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
-    public void AddToInventory(PreviewData objectData)
+    public void AddItem(BaseData objectData)
     {
         AddItemToDictionary(inventoryDictionary, objectData);
         UpdateInventoryUI();
@@ -164,7 +163,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return result;
     }
 
-    public int GetItemQuantity(PreviewData objectData)
+    public int GetItemQuantity(BaseData objectData)
     {
         if (inventoryDictionary.TryGetValue(objectData, out int quantity))
         {
@@ -173,7 +172,12 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return 0;
     }
 
-    public PreviewData GetPreviewDataById(string id)
+    public bool HasItem(BaseData objectData)
+    {
+        return GetItemQuantity(objectData) > 0;
+    }
+
+    public BaseData GetPreviewDataById(string id)
     {
         foreach (var obj in defaultObjectDatabase)
         {
@@ -190,12 +194,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             }
         }
 
-        foreach (var tool in toolDatabase.toolDatas)
-        {
-            if (tool.Id == id)
-                return tool;
-        }
-
         Debug.LogWarning($"PreviewData with ID {id} not found in any database.");
         return null;
     }
@@ -206,11 +204,11 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             List<InventoryData> loadedItems = data.inventoryDataList;
 
-            inventoryDictionary = new Dictionary<PreviewData, int>();
+            inventoryDictionary = new Dictionary<BaseData, int>();
 
             foreach (var item in loadedItems)
             {
-                PreviewData objectData = GetPreviewDataById(item.objectId);
+                BaseData objectData = GetPreviewDataById(item.objectId);
 
                 if (objectData != null)
                 {

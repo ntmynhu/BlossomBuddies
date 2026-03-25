@@ -188,7 +188,7 @@ public class BreedingManager : Singleton<BreedingManager>
         resultCloseButton.onClick.RemoveAllListeners();
         resultCloseButton.onClick.AddListener(() =>
         {
-            InventoryManager.Instance.AddToInventory(offspringPlant.seedData);
+            InventoryManager.Instance.AddItem(offspringPlant.seedData);
             breedingResultPanel.SetActive(false);
         });
     }

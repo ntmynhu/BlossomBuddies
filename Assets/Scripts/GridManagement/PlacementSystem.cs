@@ -200,7 +200,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
         foreach (var database in databaseSO)
         {
-            objectData = database.objectDatas.Find(data => data.Id == ID);
+            objectData = database.objectDatas.Find(data => data.Id == ID) as ObjectData;
             if (objectData != null)
             {
                 break;

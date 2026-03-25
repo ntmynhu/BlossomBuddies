@@ -10028,6 +10028,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2109443176}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1067394730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1067394731}
+  - component: {fileID: 1067394732}
+  m_Layer: 0
+  m_Name: ShopManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1067394731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067394730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1263072279}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1067394732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067394730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac9cc3d46326594eb4153896dad385b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopManager
+  shopPanel: {fileID: 1507150308}
+  contentPanel: {fileID: 51415007}
+  itemPrefab: {fileID: 484486543871488158, guid: 5bb26459ec2d28248a5a722655123d94,
+    type: 3}
+  objectsDatabase:
+  - {fileID: 11400000, guid: 028316e4dcf752e42a36e82a1d495c17, type: 2}
+  - {fileID: 11400000, guid: 6f3c86ec57d0c1648b99e85719d0e0c2, type: 2}
+  - {fileID: 11400000, guid: 02c6ed98a895c4a43adbe9e4485261f2, type: 2}
+  - {fileID: 11400000, guid: 56f548e47b683164cbad2cc453a06bef, type: 2}
 --- !u!4 &1076032116 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3813435223432559493, guid: 123f63e9f6dd89b449a876269109f09c,
@@ -11612,6 +11665,7 @@ Transform:
   - {fileID: 118166893}
   - {fileID: 1661144076}
   - {fileID: 823323114}
+  - {fileID: 1067394731}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1266333489 stripped
@@ -11873,7 +11927,7 @@ MonoBehaviour:
   objectDatabases:
   - {fileID: 11400000, guid: 028316e4dcf752e42a36e82a1d495c17, type: 2}
   - {fileID: 11400000, guid: 6f3c86ec57d0c1648b99e85719d0e0c2, type: 2}
-  toolDatabase: {fileID: 11400000, guid: 02c6ed98a895c4a43adbe9e4485261f2, type: 2}
+  - {fileID: 11400000, guid: 02c6ed98a895c4a43adbe9e4485261f2, type: 2}
 --- !u!1001 &1307000549
 PrefabInstance:
   m_ObjectHideFlags: 0

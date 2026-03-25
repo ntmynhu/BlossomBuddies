@@ -8,14 +8,14 @@ public class InventorySlotUI : MonoBehaviour
     [SerializeField] private Image numberPanel;
     [SerializeField] private TextMeshProUGUI quantityText;
 
-    private PreviewData data;
+    private BaseData data;
     private Button button;
 
-    public void SetData(PreviewData newData, int quantity)
+    public void SetData(BaseData newData, int quantity)
     {
         data = newData;
 
-        PreviewData previewData = data as PreviewData;
+        BaseData previewData = data as BaseData;
         if (previewData != null && previewData.icon != null)
         {
             if (image != null)

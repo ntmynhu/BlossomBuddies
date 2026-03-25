@@ -16,3 +16,6 @@ MonoBehaviour:
   Name: Sunflower Seed Bag
   icon: {fileID: 21300000, guid: 45620cc0765de234b8e44659fa5d9cc8, type: 3}
   prefab: {fileID: 3267164534628851248, guid: b728dafa1e2c4214a85525585b3c527d, type: 3}
+  isSellable: 1
+  buyPrice: 10
+  isUnique: 0

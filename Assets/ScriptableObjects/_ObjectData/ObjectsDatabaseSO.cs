@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ObjectsDatabaseSO", menuName = "Scriptable Objects/ObjectsDatabaseSO")]
 public class ObjectsDatabaseSO : ScriptableObject
 {
-    public List<ObjectData> objectDatas;
+    public List<BaseData> objectDatas;
 }

@@ -1,8 +1,9 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/ObjectData")]
-public class ObjectData : PreviewData
+public class ObjectData : BaseData
 {
+    [Header("Object Settings")]
     public Vector2Int Size = Vector2Int.one;
     public GridType gridType;
     public bool isInventoryItem = true;

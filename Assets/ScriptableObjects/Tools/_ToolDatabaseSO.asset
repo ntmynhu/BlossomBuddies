@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70e3846d065011944b2370b0a2764f40, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eea0ee37b0eac547a48f52041e2f6ef, type: 3}
   m_Name: _ToolDatabaseSO
-  m_EditorClassIdentifier: Assembly-CSharp::ToolDatabaseSO
-  toolDatas:
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectsDatabaseSO
+  objectDatas:
   - {fileID: 11400000, guid: 4dc2503c8f7d6504c8d321e863790477, type: 2}
   - {fileID: 11400000, guid: f8af8cd3e2171424590e950bac9b5c77, type: 2}
   - {fileID: 11400000, guid: 1cd17950a0274a54c8b90fe17cc4a00c, type: 2}

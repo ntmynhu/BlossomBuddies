@@ -499,7 +499,7 @@ public class Plant : MonoBehaviour
     public void HarvestPlant()
     {
         Debug.Log("Harvested plant: " + gameObject.name);
-        InventoryManager.Instance.AddToInventory(plantData);
+        InventoryManager.Instance.AddItem(plantData);
     }
 
     #region Save Load Plant Data

@@ -16,3 +16,6 @@ MonoBehaviour:
   Name: Fertilizer Bag
   icon: {fileID: 21300000, guid: ac37001c9aef05a49a9ed4c398df3051, type: 3}
   prefab: {fileID: 3267164534628851248, guid: 8cb351eacee8d924a9309a26941231e4, type: 3}
+  isSellable: 1
+  buyPrice: 1
+  isUnique: 0
