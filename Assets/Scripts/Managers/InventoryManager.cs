@@ -11,8 +11,8 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     [SerializeField] private InventorySlotUI uiSlotPrefab;
 
     [SerializeField] private List<PreviewData> defaultObjectDatabase;
-    [SerializeField] private List<PreviewData> objectDatabase;
-    [SerializeField] private List<ScriptableObject> furnitureDatabase;
+    [SerializeField] private List<ObjectsDatabaseSO> objectDatabases;
+    [SerializeField] private ToolDatabaseSO toolDatabase;
 
     private Dictionary<PreviewData, int> inventoryDictionary;
 
@@ -25,7 +25,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private void Update()
     {
-        HandleFurnitureInventory();
+        //HandleFurnitureInventory();
         HandleGardenToolInventory();
     }
 
@@ -112,42 +112,42 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
-    private void HandleFurnitureInventory()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("Inventory opened");
-            furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
-            GameManager.Instance.SetCameraFrozen(furnitureInventoryPanel.activeSelf);
+    //private void HandleFurnitureInventory()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.O))
+    //    {
+    //        Debug.Log("Inventory opened");
+    //        furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
+    //        GameManager.Instance.SetCameraFrozen(furnitureInventoryPanel.activeSelf);
 
-            if (furnitureInventoryPanel.activeSelf)
-            {   
-                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureDatabase[0] as ObjectData);
-            }
-            else
-            {
-                if (ToolManager.Instance.GetCurrentTool() == null)
-                {
-                    PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
-                }
-                else
-                {
-                    GameManager.Instance.ToolHandler.SelectTool(ToolManager.Instance.GetCurrentTool().ToolInfo);
-                }
-            }
-        }
+    //        if (furnitureInventoryPanel.activeSelf)
+    //        {   
+    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureDatabase[0] as ObjectData);
+    //        }
+    //        else
+    //        {
+    //            if (ToolManager.Instance.GetCurrentTool() == null)
+    //            {
+    //                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+    //            }
+    //            else
+    //            {
+    //                GameManager.Instance.ToolHandler.SelectTool(ToolManager.Instance.GetCurrentTool().ToolInfo);
+    //            }
+    //        }
+    //    }
 
-        if (furnitureInventoryPanel.activeSelf)
-        {
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
+    //    if (furnitureInventoryPanel.activeSelf)
+    //    {
+    //        if (Input.GetMouseButtonUp(0))
+    //        {
+    //            if (EventSystem.current.IsPointerOverGameObject())
+    //                return;
 
-                PlacementSystem.Instance.TriggerAction();
-            }
-        }
-    }
+    //            PlacementSystem.Instance.TriggerAction();
+    //        }
+    //    }
+    //}
 
     public List<T> GetInventoryObjectsByType<T>() where T : ScriptableObject
     {
@@ -173,6 +173,33 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return 0;
     }
 
+    public PreviewData GetPreviewDataById(string id)
+    {
+        foreach (var obj in defaultObjectDatabase)
+        {
+            if (obj.Id == id)
+                return obj;
+        }
+
+        foreach (var db in objectDatabases)
+        {
+            foreach (var obj in db.objectDatas)
+            {
+                if (obj.Id == id)
+                    return obj;
+            }
+        }
+
+        foreach (var tool in toolDatabase.toolDatas)
+        {
+            if (tool.Id == id)
+                return tool;
+        }
+
+        Debug.LogWarning($"PreviewData with ID {id} not found in any database.");
+        return null;
+    }
+
     public void LoadData(GameData data)
     {
         if (data.inventoryDataList != null && data.inventoryDataList.Count > 0)
@@ -183,12 +210,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
             foreach (var item in loadedItems)
             {
-                PreviewData objectData = defaultObjectDatabase.Find(obj => obj.Id == item.objectId);
-
-                if (objectData == null)
-                {
-                    objectData = objectDatabase.Find(obj => obj.Id == item.objectId);
-                }
+                PreviewData objectData = GetPreviewDataById(item.objectId);
 
                 if (objectData != null)
                 {

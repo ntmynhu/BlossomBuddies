@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/ObjectData")]
 public class ObjectData : PreviewData
 {
     public Vector2Int Size = Vector2Int.one;

@@ -12,7 +12,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     [SerializeField] private Grid dualGrid;
     [SerializeField] private List<GridType> mainGridTypeList;
     [SerializeField] private List<GridType> dualGridTypeList;
-    [SerializeField] private ObjectsDatabaseSO databaseSO;
+    [SerializeField] private List<ObjectsDatabaseSO> databaseSO;
 
     private string currentSelectedIndex;
     private ObjectData currentSelectedObjectData;
@@ -196,15 +196,24 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
 
     public ObjectData SelectedObject(string ID)
     {
-        var ob = databaseSO.objectDatas.Find(data => data.Id == ID);
+        ObjectData objectData = null;
 
-        if (ob == null)
+        foreach (var database in databaseSO)
+        {
+            objectData = database.objectDatas.Find(data => data.Id == ID);
+            if (objectData != null)
+            {
+                break;
+            }
+        }
+
+        if (objectData == null)
         {
             Debug.LogError($"Object with ID {ID} not found in database.");  
             return null;
         }
 
-        return ob;
+        return objectData;
     } 
 
     public GameObject GetMainGridPlacedObject(GridType gridType, Vector3Int gridPosition)
