@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
-  m_Name: Object
+  m_Name: Table
   m_EditorClassIdentifier: 
-  Name: Object
+  Id: 1002
+  Name: Table
   icon: {fileID: -1157046627, guid: 9f2e4492d7b8f254ba80acd262c68b76, type: 3}
-  prefab: {fileID: 1967463717879569282, guid: 670e3f8c15850484cab9ba4b4da59747, type: 3}
-  ID: 3
-  Size: {x: 1, y: 1}
-  gridType: 0
+  prefab: {fileID: 1967463717879569282, guid: 83ec2d2ca3ea8c84c8098d72099c00cc, type: 3}
+  isSellable: 0
+  buyPrice: 0
+  isUnique: 0
+  Size: {x: 2, y: 2}
+  gridType: 3
   isInventoryItem: 1

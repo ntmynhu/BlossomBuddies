@@ -9,13 +9,11 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject inventoryContent;
     [SerializeField] private InventorySlotUI uiSlotPrefab;
-    [SerializeField] private ThirdPersonCameraController thirdPersonCameraController;
 
-    [SerializeField] private List<PreviewData> defaultObjectDatabase;
-    [SerializeField] private List<PreviewData> objectDatabase;
-    [SerializeField] private List<ScriptableObject> furnitureDatabase;
+    [SerializeField] private List<BaseData> defaultObjectDatabase;
+    [SerializeField] private List<ObjectsDatabaseSO> objectDatabases;
 
-    private Dictionary<PreviewData, int> inventoryDictionary;
+    private Dictionary<BaseData, int> inventoryDictionary;
 
     public bool IsInitialized => inventoryDictionary != null;
     public bool IsInventoryOpen => inventoryPanel.activeSelf;
@@ -26,13 +24,13 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
     private void Update()
     {
-        HandleFurnitureInventory();
+        //HandleFurnitureInventory();
         HandleGardenToolInventory();
     }
 
     private void InitIventory()
     {
-        inventoryDictionary = new Dictionary<PreviewData, int>();
+        inventoryDictionary = new Dictionary<BaseData, int>();
 
         foreach (var obj in defaultObjectDatabase)
         {
@@ -61,7 +59,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
-    public void OnItemSelected(PreviewData item)
+    public void OnItemSelected(BaseData item)
     {
         Debug.Log($"Item selected: {item.name}");
 
@@ -71,9 +69,10 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
-    public void AddToInventory(PreviewData objectData)
+    public void AddItem(BaseData objectData)
     {
         AddItemToDictionary(inventoryDictionary, objectData);
+        UpdateInventoryUI();
     }
 
     private void AddItemToDictionary<T>(Dictionary<T, int> dict, T key) where T : ScriptableObject
@@ -82,8 +81,6 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             dict[key]++;
             Debug.Log($"Added {key.name} to inventory. New quantity: {dict[key]}");
-
-            UpdateInventoryUI();
         }
         else
         {
@@ -98,9 +95,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            thirdPersonCameraController.SetMobileController(inventoryPanel.activeSelf);
-            thirdPersonCameraController.SetCameraFrozen(inventoryPanel.activeSelf);
-            GameManager.Instance.PlayerMovement.SetMovementEnable(!inventoryPanel.activeSelf);
+            GameManager.Instance.SetCameraFrozen(inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -111,50 +106,47 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                     return;
 
                 inventoryPanel.SetActive(false);
-                thirdPersonCameraController.SetMobileController(false);
-                thirdPersonCameraController.SetCameraFrozen(false);
-                GameManager.Instance.PlayerMovement.SetMovementEnable(true);
+                GameManager.Instance.SetCameraFrozen(false);
             }
         }
     }
 
-    private void HandleFurnitureInventory()
-    {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("Inventory opened");
-            furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
-            thirdPersonCameraController.SetMobileController(furnitureInventoryPanel.activeSelf);
-            GameManager.Instance.Player.SetActive(!furnitureInventoryPanel.activeSelf);
+    //private void HandleFurnitureInventory()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.O))
+    //    {
+    //        Debug.Log("Inventory opened");
+    //        furnitureInventoryPanel.SetActive(!furnitureInventoryPanel.activeSelf);
+    //        GameManager.Instance.SetCameraFrozen(furnitureInventoryPanel.activeSelf);
 
-            if (furnitureInventoryPanel.activeSelf)
-            {   
-                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureDatabase[0] as ObjectData);
-            }
-            else
-            {
-                if (ToolManager.Instance.GetCurrentTool() == null)
-                {
-                    PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
-                }
-                else
-                {
-                    GameManager.Instance.ToolHandler.SelectTool(ToolManager.Instance.GetCurrentTool().ToolInfo);
-                }
-            }
-        }
+    //        if (furnitureInventoryPanel.activeSelf)
+    //        {   
+    //            PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.FurnitureState, furnitureDatabase[0] as ObjectData);
+    //        }
+    //        else
+    //        {
+    //            if (ToolManager.Instance.GetCurrentTool() == null)
+    //            {
+    //                PlacementSystem.Instance.SwitchState(PlacementSystem.Instance.NormalState, null);
+    //            }
+    //            else
+    //            {
+    //                GameManager.Instance.ToolHandler.SelectTool(ToolManager.Instance.GetCurrentTool().ToolInfo);
+    //            }
+    //        }
+    //    }
 
-        if (furnitureInventoryPanel.activeSelf)
-        {
-            if (Input.GetMouseButtonUp(0))
-            {
-                if (EventSystem.current.IsPointerOverGameObject())
-                    return;
+    //    if (furnitureInventoryPanel.activeSelf)
+    //    {
+    //        if (Input.GetMouseButtonUp(0))
+    //        {
+    //            if (EventSystem.current.IsPointerOverGameObject())
+    //                return;
 
-                PlacementSystem.Instance.TriggerAction();
-            }
-        }
-    }
+    //            PlacementSystem.Instance.TriggerAction();
+    //        }
+    //    }
+    //}
 
     public List<T> GetInventoryObjectsByType<T>() where T : ScriptableObject
     {
@@ -171,22 +163,52 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return result;
     }
 
+    public int GetItemQuantity(BaseData objectData)
+    {
+        if (inventoryDictionary.TryGetValue(objectData, out int quantity))
+        {
+            return quantity;
+        }
+        return 0;
+    }
+
+    public bool HasItem(BaseData objectData)
+    {
+        return GetItemQuantity(objectData) > 0;
+    }
+
+    public BaseData GetPreviewDataById(string id)
+    {
+        foreach (var obj in defaultObjectDatabase)
+        {
+            if (obj.Id == id)
+                return obj;
+        }
+
+        foreach (var db in objectDatabases)
+        {
+            foreach (var obj in db.objectDatas)
+            {
+                if (obj.Id == id)
+                    return obj;
+            }
+        }
+
+        Debug.LogWarning($"PreviewData with ID {id} not found in any database.");
+        return null;
+    }
+
     public void LoadData(GameData data)
     {
         if (data.inventoryDataList != null && data.inventoryDataList.Count > 0)
         {
             List<InventoryData> loadedItems = data.inventoryDataList;
 
-            inventoryDictionary = new Dictionary<PreviewData, int>();
+            inventoryDictionary = new Dictionary<BaseData, int>();
 
             foreach (var item in loadedItems)
             {
-                PreviewData objectData = defaultObjectDatabase.Find(obj => obj.Id == item.objectId);
-
-                if (objectData == null)
-                {
-                    objectData = objectDatabase.Find(obj => obj.Id == item.objectId);
-                }
+                BaseData objectData = GetPreviewDataById(item.objectId);
 
                 if (objectData != null)
                 {

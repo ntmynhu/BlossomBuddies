@@ -10,10 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94e93a520c36ec842be237a56443f23f, type: 3}
-  m_Name: DarkSoil_Mid
+  m_Name: Wardrobe
   m_EditorClassIdentifier: 
-  Name: DarkSoil
-  ID: 2
+  Id: 1003
+  Name: Wardrobe
+  icon: {fileID: -424978415, guid: 4db82ee7395439f49907ac851dd48cbc, type: 3}
+  prefab: {fileID: 1967463717879569282, guid: a80c9a9852800864c807d06e98f78f48, type: 3}
+  isSellable: 0
+  buyPrice: 0
+  isUnique: 0
   Size: {x: 1, y: 1}
-  prefab: {fileID: 1967463717879569282, guid: 57efe1b75d4f15e438f1eaef06b59ec4, type: 3}
-  gridType: 5
+  gridType: 3
+  isInventoryItem: 1

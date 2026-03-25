@@ -16,3 +16,6 @@ MonoBehaviour:
   Name: PetSoap
   icon: {fileID: -1728007662, guid: 2fcf78f4e93662946858af6b6b141b04, type: 3}
   prefab: {fileID: 5324143058523400035, guid: 7e76874da39e50d489726c010da72878, type: 3}
+  isSellable: 1
+  buyPrice: 10
+  isUnique: 1

@@ -20,10 +20,10 @@ public class IconThumbnailEditor : EditorWindow
     }
 
     private ListView m_list;
-    private List<PreviewData> m_objects;
+    private List<BaseData> m_objects;
 
     [SerializeField]
-    private PreviewData m_selectedObject;
+    private BaseData m_selectedObject;
 
     [SerializeField]
     private Texture2D m_previewTexture;
@@ -51,13 +51,13 @@ public class IconThumbnailEditor : EditorWindow
         root.Add(labelFromUXML);
 
         m_list = rootVisualElement.Q<ListView>("List");
-        m_objects = new List<PreviewData>();
+        m_objects = new List<BaseData>();
 
         string[] guids = AssetDatabase.FindAssets("t:PreviewData");
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);
-            PreviewData obj = AssetDatabase.LoadAssetAtPath<PreviewData>(path);
+            BaseData obj = AssetDatabase.LoadAssetAtPath<BaseData>(path);
             m_objects.Add(obj);
         }
 

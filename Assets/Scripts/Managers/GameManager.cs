@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
     [SerializeField] private Animator heartAnim;
 
     private PlayerMovement playerMovement;
+    private ThirdPersonCameraController thirdPersonCameraController;
     private ToolHandler toolHandler;
     private int currentHeart;
 
@@ -30,6 +31,7 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMusicClip);
 
         playerMovement = player.GetComponent<PlayerMovement>();
+        thirdPersonCameraController = player.GetComponent<ThirdPersonCameraController>();
         toolHandler = player.GetComponent<ToolHandler>();
         Time.timeScale = timeScale;
     }
@@ -42,6 +44,13 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         heartAnim.Play("Heart");
 
         AudioManager.Instance.PlaySFX(AudioManager.Instance.heartSoundClip);
+    }
+
+    public void SetCameraFrozen(bool value)
+    {
+        thirdPersonCameraController.SetMobileController(value);
+        thirdPersonCameraController.SetCameraFrozen(value);
+        playerMovement.SetMovementEnable(!value);
     }
 
     public void LoadData(GameData data)

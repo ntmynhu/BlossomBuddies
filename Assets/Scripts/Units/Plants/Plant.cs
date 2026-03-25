@@ -181,14 +181,10 @@ public class Plant : MonoBehaviour
 
             growthTime += Time.deltaTime;
 
-            //// Apply Water Bonus
-            //if (isWatered)
-            //{
-            //    growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * Time.deltaTime;
-            //}
-
             // Apply Weed Penalty
             growthTime -= CalculateWeedPenalty(Time.deltaTime);
+
+            growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
         }
         else
         {
@@ -503,7 +499,7 @@ public class Plant : MonoBehaviour
     public void HarvestPlant()
     {
         Debug.Log("Harvested plant: " + gameObject.name);
-        InventoryManager.Instance.AddToInventory(plantData);
+        InventoryManager.Instance.AddItem(plantData);
     }
 
     #region Save Load Plant Data
@@ -728,6 +724,8 @@ public class Plant : MonoBehaviour
                     //// Calculate Growth for the remaining water time
                     //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * waterTimer;
                     if (CheckGrowCondition()) growthTime -= CalculateWeedPenalty(waterTimer);
+                    growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
+
                     HandleGrassGrowth(waterTimer);
 
                     // Remove 1 water state
@@ -742,6 +740,8 @@ public class Plant : MonoBehaviour
                         //// Calculate Growth for the remaining tick time if still watered
                         //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * remainingTickTime;
                         if (CheckGrowCondition()) growthTime -= CalculateWeedPenalty(remainingTickTime);
+                        growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
+
                         HandleGrassGrowth(remainingTickTime);
                     }
                     else
@@ -750,6 +750,8 @@ public class Plant : MonoBehaviour
                         isWatered = false;
                         waterTimer = 0;
                         if (CheckGrowCondition()) growthTime -= CalculateWeedPenalty(remainingTickTime);
+                        growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
+
                         HandleGrassGrowth(remainingTickTime);
                     }
                 }
@@ -758,12 +760,16 @@ public class Plant : MonoBehaviour
                     // Still has water for this tick
                     //growthTime += plantStats.WATER_BONUS_GROWTH_SPEED * (plantStats.TOTAL_WATER_LEVELS - waterState) * timeToProcess;
                     if (CheckGrowCondition()) growthTime -= CalculateWeedPenalty(timeToProcess);
+                    growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
+
                     HandleGrassGrowth(timeToProcess);
                 }
             }
             else
             {
                 if (CheckGrowCondition()) growthTime -= CalculateWeedPenalty(timeToProcess);
+                growthTime = Mathf.Max(growthTime, 0); // Ensure growth time does not go negative
+
                 HandleGrassGrowth(timeToProcess);
             }
 
