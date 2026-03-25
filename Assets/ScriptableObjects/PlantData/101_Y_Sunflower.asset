@@ -19,6 +19,7 @@ MonoBehaviour:
   Size: {x: 1, y: 1}
   gridType: 2
   isInventoryItem: 1
+  seedData: {fileID: 11400000, guid: f98fae0159aa57645bbd91d11a6d02d2, type: 2}
   alenTypes: 0100000001000000
   defaultMainStats:
   - type: 0

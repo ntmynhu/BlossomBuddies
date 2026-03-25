@@ -17,7 +17,6 @@ public class BreedingManager : Singleton<BreedingManager>
     [Header("Breeding Result")]
     [SerializeField] private GameObject breedingResultPanel;
     [SerializeField] private Image resultFlowerImage;
-    [SerializeField] private Image[] resultAlenColorImages;
     [SerializeField] private Button resultCloseButton;
 
     [Header("Breeding Data")]
@@ -184,17 +183,12 @@ public class BreedingManager : Singleton<BreedingManager>
 
         // Display breeding result
         breedingResultPanel.SetActive(true);
-        resultFlowerImage.sprite = offspringPlant.icon;
-        for (int i = 0; i < resultAlenColorImages.Length; i++)
-        {
-            Color color = GetAlenColor(offspringPlant.alenTypes[i]);
-            resultAlenColorImages[i].color = color;
-        }
+        resultFlowerImage.sprite = offspringPlant.seedData.icon;
 
         resultCloseButton.onClick.RemoveAllListeners();
         resultCloseButton.onClick.AddListener(() =>
         {
-            InventoryManager.Instance.AddToInventory(offspringPlant);
+            InventoryManager.Instance.AddToInventory(offspringPlant.seedData);
             breedingResultPanel.SetActive(false);
         });
     }
