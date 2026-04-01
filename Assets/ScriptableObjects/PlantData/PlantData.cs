@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/PlantData")]
+[CreateAssetMenu(fileName = "PlantData", menuName = "ScriptableObjects/PlantData")]
 public class PlantData : ObjectData
 {
     [Header("Plant Seed")]

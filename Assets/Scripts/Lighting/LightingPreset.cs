@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LightingPreset", menuName = "Scriptable Objects/LightingPreset")]
+[CreateAssetMenu(fileName = "LightingPreset", menuName = "ScriptableObjects/LightingPreset")]
 public class LightingPreset : ScriptableObject
 {
     public Gradient AmbientColor;

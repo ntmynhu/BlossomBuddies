@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlantData", menuName = "Scriptable Objects/ObjectData")]
+[CreateAssetMenu(fileName = "PlantData", menuName = "ScriptableObjects/ObjectData")]
 public class ObjectData : BaseData
 {
     [Header("Object Settings")]

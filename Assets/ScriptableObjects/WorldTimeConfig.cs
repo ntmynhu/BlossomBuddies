@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WorldTimeConfig", menuName = "Scriptable Objects/WorldTimeConfig")]
+[CreateAssetMenu(fileName = "WorldTimeConfig", menuName = "ScriptableObjects/WorldTimeConfig")]
 public class WorldTimeConfig : ScriptableObject
 {
     [Tooltip("Total realtime hours of a day in game")]

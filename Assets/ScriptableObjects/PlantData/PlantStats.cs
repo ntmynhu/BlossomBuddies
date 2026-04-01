@@ -2,7 +2,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PlantStats", menuName = "Scriptable Objects/PlantStats")]
+[CreateAssetMenu(fileName = "PlantStats", menuName = "ScriptableObjects/PlantStats")]
 public class PlantStats : ScriptableObject
 {
     [Tooltip("Minimum and maximum values for the main stats of the plant, such as light, water, and nutrient levels.")]

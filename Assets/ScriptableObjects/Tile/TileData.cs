@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TileData", menuName = "Scriptable Objects/TileData")]
+[CreateAssetMenu(fileName = "TileData", menuName = "ScriptableObjects/TileData")]
 public class TileData : ScriptableObject
 {
     public ObjectData mainObject;
