@@ -13,6 +13,7 @@ public class TileRule
 {
     public NeighborCondition[] neighbors = new NeighborCondition[8];
     public GameObject prefab;
+    public GameObject edgePrefab;
 }
 
 [Serializable]

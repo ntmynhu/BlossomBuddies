@@ -27,10 +27,12 @@ public class RuleTile3DEditor : Editor
             }
 
             var prefab = rule.FindPropertyRelative("prefab");
+            var edgePrefab = rule.FindPropertyRelative("edgePrefab");
 
             EditorGUILayout.BeginVertical("box");
 
             EditorGUILayout.PropertyField(prefab);
+            EditorGUILayout.PropertyField(edgePrefab);
 
             DrawGrid(neighbors);
 

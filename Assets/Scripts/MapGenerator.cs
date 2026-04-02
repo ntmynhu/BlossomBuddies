@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Data;
+using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
@@ -13,73 +14,71 @@ public class MapGenerator : MonoBehaviour
 
     private TileMapData[,] tiles;
 
-    //[ContextMenu("Generate Map")]
-    //public void GenerateMap()
-    //{
-    //    ClearOld();
+    [ContextMenu("Generate Map")]
+    public void GenerateMap()
+    {
+        ClearOld();
 
-    //    int width = heightMap.width;
-    //    int height = heightMap.height;
+        int width = heightMap.width;
+        int height = heightMap.height;
 
-    //    tiles = new TileMapData[width, height];
+        tiles = new TileMapData[width, height];
 
-    //    Debug.Log(heightMap.GetPixel(0, 0).grayscale);
-    //    Debug.Log(heightMap.GetPixel(64, 64).grayscale);
+        for (int x = 0; x < width; x++)
+        {
+            for (int z = 0; z < height; z++)
+            {
+                float alpha = heightMap.GetPixel(x, z).a;
+                if (alpha < 0.1f) continue; // skip transparent pixel
 
-    //    for (int x = 0; x < width; x++)
-    //    {
-    //        for (int z = 0; z < height; z++)
-    //        {
-    //            float alpha = heightMap.GetPixel(x, z).a;
-    //            if (alpha < 0.1f) continue; // skip transparent pixel
+                float h = heightMap.GetPixel(x, z).grayscale;
+                Debug.Log($"Pixel ({x},{z}) height: {h}");
 
-    //            float h = heightMap.GetPixel(x, z).grayscale;
+                // sample thêm pixel xung quanh
+                float h1 = heightMap.GetPixel(x - 1, z).grayscale;
+                float h2 = heightMap.GetPixel(x, z - 1).grayscale;
+                float h3 = heightMap.GetPixel(x + 1, z).grayscale;
+                float h4 = heightMap.GetPixel(x, z + 1).grayscale;
 
-    //            // sample thêm pixel xung quanh
-    //            float h1 = heightMap.GetPixel(x - 1, z).grayscale;
-    //            float h2 = heightMap.GetPixel(x, z - 1).grayscale;
-    //            float h3 = heightMap.GetPixel(x + 1, z).grayscale;
-    //            float h4 = heightMap.GetPixel(x, z + 1).grayscale;
+                float hmin = Mathf.Min(h, h1, h2, h3, h4);
 
-    //            float hmin = Mathf.Min(h, h1, h2, h3, h4);
+                if ((h - hmin) > 0.01f)
+                {
+                    float offset = (h - hmin) / greyScaleOffset;
+                    int count = Mathf.RoundToInt(offset);
 
-    //            if ((h - hmin) > 0.01f)
-    //            {
-    //                float offset = (h - hmin) / greyScaleOffset;
-    //                int count = Mathf.RoundToInt(offset);
+                    for (int i = 0; i <= count; i++)
+                    {
+                        int heightLevel = Mathf.RoundToInt((hmin + greyScaleOffset * i) * heightMultiplier);
+                        Debug.Log(heightLevel);
+                        Vector3 worldPos = new Vector3(x, heightLevel, z);
 
-    //                for (int i = 0; i <= count; i++)
-    //                {
-    //                    int heightLevel = Mathf.RoundToInt((hmin + greyScaleOffset * i) * heightMultiplier);
-    //                    Debug.Log(heightLevel);
-    //                    Vector3 worldPos = new Vector3(x, heightLevel, z);
+                        GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
 
-    //                    GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
+                        tiles[x, z] = new TileMapData
+                        {
+                            worldPosition = worldPos,
+                            isOccupied = false,
+                            tileObject = tile
+                        };
+                    }
+                }
+                else
+                {
+                    Vector3 worldPos = new Vector3(x, Mathf.RoundToInt(h * heightMultiplier), z);
 
-    //                    tiles[x, z] = new TileMapData
-    //                    {
-    //                        worldPosition = worldPos,
-    //                        isOccupied = false,
-    //                        tileObject = tile
-    //                    };
-    //                }
-    //            }
-    //            else
-    //            {
-    //                Vector3 worldPos = new Vector3(x, Mathf.RoundToInt(h * heightMultiplier), z);
+                    GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
 
-    //                GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
-
-    //                tiles[x, z] = new TileMapData
-    //                {
-    //                    worldPosition = worldPos,
-    //                    isOccupied = false,
-    //                    tileObject = tile
-    //                };
-    //            }
-    //        }
-    //    }
-    //}
+                    tiles[x, z] = new TileMapData
+                    {
+                        worldPosition = worldPos,
+                        isOccupied = false,
+                        tileObject = tile
+                    };
+                }
+            }
+        }
+    }
 
     [ContextMenu("Generate Ruled Map")]
     public void GenerateRuledMap()
@@ -99,6 +98,29 @@ public class MapGenerator : MonoBehaviour
                 if (alpha < 0.1f) continue; // skip transparent pixel
 
                 float h = heightMap.GetPixel(x, z).grayscale;
+
+                Vector2Int[] offsets = new Vector2Int[]
+                {
+                    new(-1,1), new(0,1), new(1,1),
+                    new(-1,0),           new(1,0),
+                    new(-1,-1), new(0,-1), new(1,-1)
+                };
+
+                float hmin = h;
+                int heightOffset = 0;
+                for (int i = 0; i < 8; i++)
+                {
+                    float target_h = heightMap.GetPixel(x + offsets[i].x, z + offsets[i].y).grayscale;
+                    if (target_h < hmin)
+                        hmin = target_h;
+                }
+                
+                if ((h - hmin) > 0.01f)
+                {
+                    float offset = (h - hmin) / greyScaleOffset;
+                    heightOffset = Mathf.RoundToInt(offset);
+                }
+
                 int heightLevel = Mathf.RoundToInt(h * heightMultiplier);
 
                 Vector3 worldPos = new Vector3(x, heightLevel, z);
@@ -106,7 +128,7 @@ public class MapGenerator : MonoBehaviour
                 tiles[x, z] = new TileMapData
                 {
                     worldPosition = worldPos,
-                    height = heightLevel,
+                    heightOffset = heightOffset,
                     isOccupied = false,
                     tileObject = null
                 };
@@ -128,22 +150,36 @@ public class MapGenerator : MonoBehaviour
                 var tile = tiles[x, z];
                 if (tile == null) continue;
 
-                GameObject prefab = GetTilePrefab(x, z);
+                GameObject prefab = GetTilePrefab(x, z, out TileRule tileRule);
 
                 GameObject obj = Instantiate(prefab, tile.worldPosition, Quaternion.identity, transform);
                 tile.tileObject = obj;
+
+                GameObject edgePrefab = (tileRule != null && tileRule.edgePrefab != null) ? tileRule.edgePrefab : defaultTile;
+                for (int i = 0; i <= tile.heightOffset; i++)
+                {
+                    Vector3 offsetPos = new Vector3(tile.worldPosition.x,
+                        tile.worldPosition.y - i * (greyScaleOffset * heightMultiplier),
+                        tile.worldPosition.z);
+                    GameObject offsetTile = Instantiate(edgePrefab, offsetPos, Quaternion.identity, transform);
+                }
             }
         }
     }
 
-    private GameObject GetTilePrefab(int x, int z)
+    private GameObject GetTilePrefab(int x, int z, out TileRule tileRule)
     {
+        tileRule = null;
+
         foreach (var rule in ruleTile.rules)
         {
             if (rule.prefab == null) continue;
 
             if (MatchRule(rule, x, z))
+            {
+                tileRule = rule;
                 return rule.prefab;
+            }
         }
 
         return defaultTile;
@@ -169,7 +205,6 @@ public class MapGenerator : MonoBehaviour
 
     private bool Check(NeighborCondition cond, int x1, int z1, int x2, int z2)
     {
-        Debug.Log($"Checking condition {cond} for ({x1},{z1}) and ({x2},{z2})");
         if (cond == NeighborCondition.Any) return true;
 
         bool same = IsSameHeight(x1, z1, x2, z2);
@@ -184,7 +219,7 @@ public class MapGenerator : MonoBehaviour
         if (tiles[x1, z1] == null || tiles[x2, z2] == null)
             return false;
 
-        return tiles[x1, z1].height == tiles[x2, z2].height;
+        return tiles[x1, z1].worldPosition.y == tiles[x2, z2].worldPosition.y;
     }
 
     private void ClearOld()
@@ -199,7 +234,7 @@ public class MapGenerator : MonoBehaviour
 public class TileMapData
 {
     public Vector3 worldPosition;
-    public int height;
+    public int heightOffset;
     public bool isOccupied;
     public GameObject tileObject;
 }
