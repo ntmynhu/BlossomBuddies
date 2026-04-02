@@ -149442,13 +149442,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   heightMap: {fileID: 2800000, guid: 5c6b93b514187f24eaf9c88801b35a61, type: 3}
-  tilePrefab: {fileID: 1437242426805090903, guid: 2e1ecf6b062fbd248a32028e6ef85fcd,
-    type: 3}
   grid: {fileID: 666253492}
   greyScaleOffset: 0.1
   heightMultiplier: 10
   ruleTile: {fileID: 11400000, guid: 3d0be64a57df78b4f9a79b3611da66cf, type: 2}
-  defaultTile: {fileID: 0}
+  defaultTile: {fileID: 3593968925366497268, guid: 6b1d93629fa452d49983b46a81a68289,
+    type: 3}
 --- !u!1 &666677230
 GameObject:
   m_ObjectHideFlags: 0

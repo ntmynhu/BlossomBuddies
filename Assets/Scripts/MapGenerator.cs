@@ -3,7 +3,6 @@
 public class MapGenerator : MonoBehaviour
 {
     [SerializeField] private Texture2D heightMap;
-    [SerializeField] private GameObject tilePrefab;
     [SerializeField] private Grid grid;
 
     [SerializeField] private float greyScaleOffset = 0.1f;
@@ -14,73 +13,73 @@ public class MapGenerator : MonoBehaviour
 
     private TileMapData[,] tiles;
 
-    [ContextMenu("Generate Map")]
-    public void GenerateMap()
-    {
-        ClearOld();
+    //[ContextMenu("Generate Map")]
+    //public void GenerateMap()
+    //{
+    //    ClearOld();
 
-        int width = heightMap.width;
-        int height = heightMap.height;
+    //    int width = heightMap.width;
+    //    int height = heightMap.height;
 
-        tiles = new TileMapData[width, height];
+    //    tiles = new TileMapData[width, height];
 
-        Debug.Log(heightMap.GetPixel(0, 0).grayscale);
-        Debug.Log(heightMap.GetPixel(64, 64).grayscale);
+    //    Debug.Log(heightMap.GetPixel(0, 0).grayscale);
+    //    Debug.Log(heightMap.GetPixel(64, 64).grayscale);
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int z = 0; z < height; z++)
-            {
-                float alpha = heightMap.GetPixel(x, z).a;
-                if (alpha < 0.1f) continue; // skip transparent pixel
+    //    for (int x = 0; x < width; x++)
+    //    {
+    //        for (int z = 0; z < height; z++)
+    //        {
+    //            float alpha = heightMap.GetPixel(x, z).a;
+    //            if (alpha < 0.1f) continue; // skip transparent pixel
 
-                float h = heightMap.GetPixel(x, z).grayscale;
+    //            float h = heightMap.GetPixel(x, z).grayscale;
 
-                // sample thêm pixel xung quanh
-                float h1 = heightMap.GetPixel(x - 1, z).grayscale;
-                float h2 = heightMap.GetPixel(x, z - 1).grayscale;
-                float h3 = heightMap.GetPixel(x + 1, z).grayscale;
-                float h4 = heightMap.GetPixel(x, z + 1).grayscale;
+    //            // sample thêm pixel xung quanh
+    //            float h1 = heightMap.GetPixel(x - 1, z).grayscale;
+    //            float h2 = heightMap.GetPixel(x, z - 1).grayscale;
+    //            float h3 = heightMap.GetPixel(x + 1, z).grayscale;
+    //            float h4 = heightMap.GetPixel(x, z + 1).grayscale;
 
-                float hmin = Mathf.Min(h, h1, h2, h3, h4);
+    //            float hmin = Mathf.Min(h, h1, h2, h3, h4);
 
-                if ((h - hmin) > 0.01f)
-                {
-                    float offset = (h - hmin) / greyScaleOffset;
-                    int count = Mathf.RoundToInt(offset);
+    //            if ((h - hmin) > 0.01f)
+    //            {
+    //                float offset = (h - hmin) / greyScaleOffset;
+    //                int count = Mathf.RoundToInt(offset);
 
-                    for (int i = 0; i <= count; i++)
-                    {
-                        int heightLevel = Mathf.RoundToInt((hmin + greyScaleOffset * i) * heightMultiplier);
-                        Debug.Log(heightLevel);
-                        Vector3 worldPos = new Vector3(x, heightLevel, z);
+    //                for (int i = 0; i <= count; i++)
+    //                {
+    //                    int heightLevel = Mathf.RoundToInt((hmin + greyScaleOffset * i) * heightMultiplier);
+    //                    Debug.Log(heightLevel);
+    //                    Vector3 worldPos = new Vector3(x, heightLevel, z);
 
-                        GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, transform);
+    //                    GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
 
-                        tiles[x, z] = new TileMapData
-                        {
-                            worldPosition = worldPos,
-                            isOccupied = false,
-                            tileObject = tile
-                        };
-                    }
-                }
-                else
-                {
-                    Vector3 worldPos = new Vector3(x, Mathf.RoundToInt(h * heightMultiplier), z);
+    //                    tiles[x, z] = new TileMapData
+    //                    {
+    //                        worldPosition = worldPos,
+    //                        isOccupied = false,
+    //                        tileObject = tile
+    //                    };
+    //                }
+    //            }
+    //            else
+    //            {
+    //                Vector3 worldPos = new Vector3(x, Mathf.RoundToInt(h * heightMultiplier), z);
 
-                    GameObject tile = Instantiate(tilePrefab, worldPos, Quaternion.identity, transform);
+    //                GameObject tile = Instantiate(defaultTile, worldPos, Quaternion.identity, transform);
 
-                    tiles[x, z] = new TileMapData
-                    {
-                        worldPosition = worldPos,
-                        isOccupied = false,
-                        tileObject = tile
-                    };
-                }
-            }
-        }
-    }
+    //                tiles[x, z] = new TileMapData
+    //                {
+    //                    worldPosition = worldPos,
+    //                    isOccupied = false,
+    //                    tileObject = tile
+    //                };
+    //            }
+    //        }
+    //    }
+    //}
 
     [ContextMenu("Generate Ruled Map")]
     public void GenerateRuledMap()
@@ -170,10 +169,10 @@ public class MapGenerator : MonoBehaviour
 
     private bool Check(NeighborCondition cond, int x1, int z1, int x2, int z2)
     {
+        Debug.Log($"Checking condition {cond} for ({x1},{z1}) and ({x2},{z2})");
         if (cond == NeighborCondition.Any) return true;
 
         bool same = IsSameHeight(x1, z1, x2, z2);
-
         return cond == NeighborCondition.Same ? same : !same;
     }
 
@@ -182,7 +181,10 @@ public class MapGenerator : MonoBehaviour
         if (x2 < 0 || z2 < 0 || x2 >= tiles.GetLength(0) || z2 >= tiles.GetLength(1))
             return false;
 
-        return Mathf.Abs(tiles[x1, z1].height - tiles[x2, z2].height) <= 1;
+        if (tiles[x1, z1] == null || tiles[x2, z2] == null)
+            return false;
+
+        return tiles[x1, z1].height == tiles[x2, z2].height;
     }
 
     private void ClearOld()
