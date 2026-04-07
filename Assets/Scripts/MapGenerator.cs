@@ -1,4 +1,8 @@
 ﻿using System.Data;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -136,8 +140,12 @@ public class MapGenerator : MonoBehaviour
         }
 
         ApplyRuleTiles();
+
+#if UNITY_EDITOR
+        EditorSceneManager.MarkSceneDirty(gameObject.scene);
+#endif
     }
-    
+
     private void ApplyRuleTiles()
     {
         int width = tiles.GetLength(0);
@@ -156,12 +164,14 @@ public class MapGenerator : MonoBehaviour
                 tile.tileObject = obj;
 
                 GameObject edgePrefab = (tileRule != null && tileRule.edgePrefab != null) ? tileRule.edgePrefab : defaultTile;
-                for (int i = 0; i <= tile.heightOffset; i++)
+                for (int i = 1; i <= tile.heightOffset; i++)
                 {
+                    GameObject target = i == tile.heightOffset ? defaultTile : edgePrefab;
+
                     Vector3 offsetPos = new Vector3(tile.worldPosition.x,
                         tile.worldPosition.y - i * (greyScaleOffset * heightMultiplier),
                         tile.worldPosition.z);
-                    GameObject offsetTile = Instantiate(edgePrefab, offsetPos, Quaternion.identity, transform);
+                    GameObject offsetTile = Instantiate(target, offsetPos, Quaternion.identity, transform);
                 }
             }
         }
@@ -219,9 +229,10 @@ public class MapGenerator : MonoBehaviour
         if (tiles[x1, z1] == null || tiles[x2, z2] == null)
             return false;
 
-        return tiles[x1, z1].worldPosition.y == tiles[x2, z2].worldPosition.y;
+        return (tiles[x1, z1].worldPosition.y <= tiles[x2, z2].worldPosition.y);
     }
 
+    [ContextMenu("Clear")]
     private void ClearOld()
     {
         for (int i = transform.childCount - 1; i >= 0; i--)
