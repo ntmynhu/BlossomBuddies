@@ -33,7 +33,12 @@ public class InputManager : Singleton<InputManager>
 
     public Vector3 GetPlayerSelectedMapPosition()
     {
+        Debug.Log("Player Position: " + player.transform.position);
+
         Vector3 playerPos = player.transform.position + player.transform.forward * forwardOffset + Vector3.up * 1f;
+
+        Debug.Log("Origin Pos: " + playerPos);
+
         if (Physics.Raycast(playerPos, Vector3.down, out RaycastHit hit, 100, placementLayermask))
         {
             lastPosition = hit.point;

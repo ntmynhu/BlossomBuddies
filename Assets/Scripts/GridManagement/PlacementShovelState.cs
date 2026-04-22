@@ -55,6 +55,10 @@ public class PlacementShovelState : PlacementBaseState
                 placementSystem.RemoveObjectInDualGrid(pos, placementSystem.CurrentSelectedGridData.GridType);
             }
 
+
+            Debug.Log("Grid position: " + gridPosition);
+            Debug.Log("Grid position: " + pos);
+
             Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, GridType.SoilGrid, placementSystem.CurrentSelectedObjectData, false).GetComponent<Tile>();
             if (tile != null)
             {
@@ -120,8 +124,12 @@ public class PlacementShovelState : PlacementBaseState
     private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
+
         gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
         targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
+
+        Debug.Log("Player Position: " + playerPosition);
+        Debug.Log("Grid Position: " + gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
