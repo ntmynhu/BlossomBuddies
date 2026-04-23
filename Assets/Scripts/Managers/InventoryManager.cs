@@ -95,7 +95,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            GameManager.Instance.SetCameraFrozen(inventoryPanel.activeSelf);
+            //GameManager.Instance.SetCameraFrozen(inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -106,7 +106,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                     return;
 
                 inventoryPanel.SetActive(false);
-                GameManager.Instance.SetCameraFrozen(false);
+                //GameManager.Instance.SetCameraFrozen(false);
             }
         }
     }

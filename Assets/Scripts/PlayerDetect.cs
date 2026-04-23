@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class PlayerDetect : MonoBehaviour
 {
+    [Tooltip("If true, the current interaction is store ")]
     [SerializeField] protected bool isInteractionActive = false;
 
     protected GameObject player;
@@ -12,11 +14,15 @@ public class PlayerDetect : MonoBehaviour
     public bool IsPlayerInRange => isPlayerInRange;
     public GameObject Player => player;
 
+    public Action onPlayerEnter;
+    public Action onPlayerExit; 
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = true;
+            onPlayerEnter.Invoke();
 
             if (player == null)
             {
@@ -41,6 +47,7 @@ public class PlayerDetect : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            onPlayerExit.Invoke();
 
             if (isInteractionActive)
             {

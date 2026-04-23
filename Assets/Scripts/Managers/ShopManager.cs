@@ -49,7 +49,7 @@ public class ShopManager : Singleton<ShopManager>
     public void ToggleShop()
     {
         shopPanel.SetActive(!shopPanel.activeSelf);
-        GameManager.Instance.SetCameraFrozen(shopPanel.activeSelf);
+        //GameManager.Instance.SetCameraFrozen(shopPanel.activeSelf);
 
         if (shopPanel.activeSelf)
         {

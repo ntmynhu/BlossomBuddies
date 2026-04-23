@@ -254,6 +254,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6390426481678325398}
+  - component: {fileID: 4437857367264220546}
+  - component: {fileID: 4654714480082338459}
+  - component: {fileID: 7044648524137007255}
   m_Layer: 0
   m_Name: BasicHouse
   m_TagString: Untagged
@@ -277,6 +280,63 @@ Transform:
   - {fileID: 2559416591509218718}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &4437857367264220546
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045110163862441004}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 71873a47e7655424aaff985406098b7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4654714480082338459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045110163862441004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561af49caeaf7524c800468a83c763e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HouseController
+  isInteractionActive: 0
+  animator: {fileID: 4437857367264220546}
+--- !u!65 &7044648524137007255
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045110163862441004}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.29, y: 3, z: 5}
+  m_Center: {x: 3, y: 1.51, z: 0.5}
 --- !u!1001 &3759803373668319280
 PrefabInstance:
   m_ObjectHideFlags: 0
