@@ -1,19 +1,21 @@
 using UnityEngine;
 
-public class Portal : MonoBehaviour
+public class Portal : PlayerDetect
 {
-    [SerializeField] private Portal portalOut;
-    [SerializeField] private Transform outPosition;
+    [SerializeField] private string sceneToLoad;
 
-    public Transform OutPosition => outPosition;
-
-    private void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
-        Transform targetTransform = portalOut.OutPosition;
+        onPlayerEnter += LoadScene;
+    }
 
-        if (other.CompareTag("Player"))
-        {
-            GameManager.Instance.PlayerMovement.SetPosition(targetTransform);
-        }
+    private void OnDisable()
+    {
+        onPlayerEnter -= LoadScene;
+    }
+
+    private void LoadScene()
+    {
+        LoadingManager.Instance.LoadScene(sceneToLoad);
     }
 }
