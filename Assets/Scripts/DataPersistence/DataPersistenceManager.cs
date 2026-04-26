@@ -102,7 +102,12 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
             // save the data in all other scripts that need to save data
             foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
             {
-                dataPersistenceObj.SaveData(ref gameData);
+                MonoBehaviour mono = dataPersistenceObj as MonoBehaviour;
+
+                if (mono.gameObject.scene.name == GameManager.Instance.CurrentScene.ToString())
+                {
+                    dataPersistenceObj.SaveData(ref gameData);
+                }
             }
 
             // save the data to a file using data handler

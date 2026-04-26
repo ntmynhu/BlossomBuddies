@@ -8,6 +8,7 @@ public class HeartNumber : MonoBehaviour
     private void OnEnable()
     {
         GameEventManager.Instance.OnHeartNumberChange += UpdateHeartNumber;
+        UpdateHeartNumber();
     }
 
     private void OnDisable()

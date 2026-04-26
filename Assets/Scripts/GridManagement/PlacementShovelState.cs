@@ -55,10 +55,6 @@ public class PlacementShovelState : PlacementBaseState
                 placementSystem.RemoveObjectInDualGrid(pos, placementSystem.CurrentSelectedGridData.GridType);
             }
 
-
-            Debug.Log("Grid position: " + gridPosition);
-            Debug.Log("Grid position: " + pos);
-
             Tile tile = placementSystem.PlaceAndAddObjectInDualGrid(pos, GridType.SoilGrid, placementSystem.CurrentSelectedObjectData, false).GetComponent<Tile>();
             if (tile != null)
             {

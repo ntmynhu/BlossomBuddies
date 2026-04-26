@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Portal : PlayerDetect
 {
-    [SerializeField] private string sceneToLoad;
+    [SerializeField] private SceneName sceneToLoad;
 
     private void OnEnable()
     {

@@ -1,14 +1,17 @@
+using System;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>, IDataPersistence
 {
     [SerializeField] private int timeScale = 1;
-    [SerializeField] private GameObject player;
-    [SerializeField] private Animator heartAnim;
 
+    private GameObject player;
     private PlayerMovement playerMovement;
+    private PlayerAnimation playerAnimation;
     private ToolHandler toolHandler;
     private int currentHeart;
+
+    private SceneName currentScene;
 
     #region Properties
     public GameObject Player => player;
@@ -23,25 +26,29 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
             GameEventManager.Instance.TriggerHeartNumberChange();
         }
     }
+    public SceneName CurrentScene => currentScene;
     #endregion
 
     private void Start()
     {
         AudioManager.Instance.PlayMusic(AudioManager.Instance.mainMusicClip);
+        Time.timeScale = timeScale;
+    }
+
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
 
         playerMovement = player.GetComponent<PlayerMovement>();
-        //thirdPersonCameraController = player.GetComponent<ThirdPersonCameraController>();
+        playerAnimation = player.GetComponent<PlayerAnimation>();
         toolHandler = player.GetComponent<ToolHandler>();
-        Time.timeScale = timeScale;
     }
 
     public void AddHeart(int value)
     {
         this.CurrentHeart += value;
 
-        heartAnim.transform.LookAt(Camera.main.transform);
-        heartAnim.Play("Heart");
-
+        playerAnimation.PlayHeartAnimation();
         AudioManager.Instance.PlaySFX(AudioManager.Instance.heartSoundClip);
     }
 
@@ -52,13 +59,25 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         //playerMovement.SetMovementEnable(!value);
     }
 
+    public void SetCurrentScene(SceneName scene)
+    {
+        currentScene = scene;
+    }
+
     public void LoadData(GameData data)
     {
-        this.CurrentHeart = data.currentHeart;
+        this.currentHeart = data.currentHeart;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.currentHeart = this.CurrentHeart;
+        data.currentHeart = this.currentHeart;
     }
+}
+
+[Serializable]
+public enum SceneName
+{
+    MainScene,
+    HouseInterior,
 }
