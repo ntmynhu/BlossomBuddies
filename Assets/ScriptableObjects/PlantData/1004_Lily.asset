@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f73ca054027bfc4b844c6825c0b7792, type: 3}
-  m_Name: 104_Lily
+  m_Name: 1004_Lily
   m_EditorClassIdentifier: 
-  Id: 104
+  Id: 1004
   Name: Plant
   icon: {fileID: 21300000, guid: b4c9aba73332bb94abd04964b881f7e7, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
+  isSellable: 0
+  buyPrice: 0
+  isUnique: 0
   Size: {x: 1, y: 1}
   gridType: 2
   isInventoryItem: 1
-  plantName: Demo
+  seedData: {fileID: 0}
+  alenTypes: 
   defaultMainStats: []
   plantStates:
   - growthTime: 0

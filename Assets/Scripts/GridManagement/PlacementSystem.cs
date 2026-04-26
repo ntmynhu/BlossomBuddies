@@ -12,6 +12,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     [SerializeField] private Grid dualGrid;
     [SerializeField] private List<GridType> mainGridTypeList;
     [SerializeField] private List<GridType> dualGridTypeList;
+    [SerializeField] private GameDataSO initialGameDataSO;
     [SerializeField] private List<ObjectsDatabaseSO> databaseSO;
 
     private string currentSelectedIndex;
@@ -230,6 +231,12 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         foreach (var gridType in mainGridTypeList)
         {
             GridData storedGridData = data.gridDataList.FirstOrDefault(g => g.GridType == gridType);
+            GridData initialGridData = initialGameDataSO.gridDataList.FirstOrDefault(g => g.GridType == gridType);
+
+            if (storedGridData == null && initialGridData != null)
+            {
+                storedGridData = initialGridData;
+            }
 
             if (storedGridData != null)
             {

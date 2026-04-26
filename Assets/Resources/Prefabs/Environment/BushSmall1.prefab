@@ -152,6 +152,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grass3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 296d579313bbc6e4fa667103592643ba,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -181,10 +186,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4001749164740138571, guid: 2630b74fac3ab974d974a99b6b4db904,
+        type: 3}
+      propertyPath: objectData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c7dbdee7cde06341a47f322b09ea1f4,
+        type: 2}
     - target: {fileID: 5597964429569867329, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_Name
-      value: GrassStem2
+      value: BushSmall1
       objectReference: {fileID: 0}
     - target: {fileID: 7242721220306004499, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
@@ -252,6 +263,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1931957214527205684}
+    - targetCorrespondingSourceObject: {fileID: 2404017111673009727, guid: 2630b74fac3ab974d974a99b6b4db904,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5493596885223431465}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2630b74fac3ab974d974a99b6b4db904, type: 3}
 --- !u!4 &7297408487539113959 stripped
@@ -259,4 +274,78 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2404017111673009727, guid: 2630b74fac3ab974d974a99b6b4db904,
     type: 3}
   m_PrefabInstance: {fileID: 4907044014668810712}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5455992475046001346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7297408487539113959}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+        type: 3}
+      propertyPath: m_Name
+      value: Bush_Small_1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 05990f3d8b4298a4e9c767c6d1809a62, type: 3}
+--- !u!4 &5493596885223431465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 05990f3d8b4298a4e9c767c6d1809a62,
+    type: 3}
+  m_PrefabInstance: {fileID: 5455992475046001346}
   m_PrefabAsset: {fileID: 0}

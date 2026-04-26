@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d6d7e8980313d4b92011d2d675c9a3, type: 3}
+  m_Name: InitialGameData
+  m_EditorClassIdentifier: Assembly-CSharp::GameDataSO
+  gridDataList:
+  - gridType: 6
+    placedObjects:
+    - mainPosition: {x: -15, y: 4, z: 0}
+      occupiedPositions:
+      - {x: -15, y: 4, z: 0}
+      - {x: -15, y: 5, z: 0}
+      - {x: -14, y: 4, z: 0}
+      - {x: -14, y: 5, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 0
+    - mainPosition: {x: 17, y: -1, z: 0}
+      occupiedPositions:
+      - {x: 17, y: -1, z: 0}
+      - {x: 17, y: 0, z: 0}
+      - {x: 18, y: -1, z: 0}
+      - {x: 18, y: 0, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 1
+    - mainPosition: {x: -5, y: 11, z: 0}
+      occupiedPositions:
+      - {x: -5, y: 11, z: 0}
+      - {x: -5, y: 12, z: 0}
+      - {x: -4, y: 11, z: 0}
+      - {x: -4, y: 12, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 2
+    - mainPosition: {x: -8, y: 4, z: 0}
+      occupiedPositions:
+      - {x: -8, y: 4, z: 0}
+      - {x: -8, y: 5, z: 0}
+      - {x: -7, y: 4, z: 0}
+      - {x: -7, y: 5, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 3
+    - mainPosition: {x: 8, y: 15, z: 0}
+      occupiedPositions:
+      - {x: 8, y: 15, z: 0}
+      - {x: 8, y: 16, z: 0}
+      - {x: 9, y: 15, z: 0}
+      - {x: 9, y: 16, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 4
+    - mainPosition: {x: 22, y: -26, z: 0}
+      occupiedPositions:
+      - {x: 22, y: -26, z: 0}
+      - {x: 22, y: -25, z: 0}
+      - {x: 23, y: -26, z: 0}
+      - {x: 23, y: -25, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 5
+    - mainPosition: {x: -21, y: -24, z: 0}
+      occupiedPositions:
+      - {x: -21, y: -24, z: 0}
+      - {x: -21, y: -23, z: 0}
+      - {x: -20, y: -24, z: 0}
+      - {x: -20, y: -23, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 6
+    - mainPosition: {x: -23, y: -32, z: 0}
+      occupiedPositions:
+      - {x: -23, y: -32, z: 0}
+      - {x: -23, y: -31, z: 0}
+      - {x: -22, y: -32, z: 0}
+      - {x: -22, y: -31, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 7
+    - mainPosition: {x: -16, y: -34, z: 0}
+      occupiedPositions:
+      - {x: -16, y: -34, z: 0}
+      - {x: -16, y: -33, z: 0}
+      - {x: -15, y: -34, z: 0}
+      - {x: -15, y: -33, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 8
+    - mainPosition: {x: 19, y: -36, z: 0}
+      occupiedPositions:
+      - {x: 19, y: -36, z: 0}
+      - {x: 19, y: -35, z: 0}
+      - {x: 20, y: -36, z: 0}
+      - {x: 20, y: -35, z: 0}
+      placedObjectId: 110
+      placedObjectIndex: 9
