@@ -4557,6 +4557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b51e656a45bcd34ea75becde3ab2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridDataBaker
+  gridType: 0
 --- !u!156049354 &128210888
 Grid:
   m_ObjectHideFlags: 0
@@ -6635,6 +6636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b51e656a45bcd34ea75becde3ab2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridDataBaker
+  gridType: 0
 --- !u!156049354 &216497620
 Grid:
   m_ObjectHideFlags: 0
@@ -9932,7 +9934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &350840995
 Transform:
   m_ObjectHideFlags: 0
@@ -10052,6 +10054,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b51e656a45bcd34ea75becde3ab2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridDataBaker
+  gridType: 7
 --- !u!156049354 &350840997
 Grid:
   m_ObjectHideFlags: 0
@@ -21056,13 +21059,35 @@ PrefabInstance:
     - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
         type: 3}
       propertyPath: mainGridTypeList.Array.size
-      value: 7
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: initialGridDataSO.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
         type: 3}
       propertyPath: 'mainGridTypeList.Array.data[6]'
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: 'mainGridTypeList.Array.data[7]'
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: 'initialGridDataSO.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 952a98e226e0dea408f8906e9d891900,
+        type: 2}
+    - target: {fileID: 7064727019371879482, guid: 600523f8b07c67245baf51b65e468250,
+        type: 3}
+      propertyPath: 'initialGridDataSO.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d73d0ff2504c88a48ae96b90c76dad80,
+        type: 2}
     - target: {fileID: 7189002232048532523, guid: 600523f8b07c67245baf51b65e468250,
         type: 3}
       propertyPath: sceneCamera
@@ -42157,6 +42182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b51e656a45bcd34ea75becde3ab2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridDataBaker
+  gridType: 0
 --- !u!156049354 &1674272301
 Grid:
   m_ObjectHideFlags: 0
@@ -46985,6 +47011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b51e656a45bcd34ea75becde3ab2899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridDataBaker
+  gridType: 6
 --- !u!1001 &1883461217
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,17 +5,17 @@ using UnityEngine;
 [RequireComponent(typeof(Grid))]
 public class GridDataBaker : MonoBehaviour
 {
+    [SerializeField] private GridType gridType;
+
     [ContextMenu("Bake To ScriptableObject")]
     public void Bake()
     {
         Grid grid = GetComponent<Grid>();
-        GameDataSO data = ScriptableObject.CreateInstance<GameDataSO>();
-
-        data.gridDataList = new List<GridData>();
+        GridDataSO data = ScriptableObject.CreateInstance<GridDataSO>();
 
         var allPlacements = this.transform.GetComponentsInChildren<PlacementObject>();
 
-        GridData gridData = new GridData(GridType.EnvironmentGrid);
+        GridData gridData = new GridData(gridType);
 
         for (int i = 0; i < allPlacements.Length; i++)
         {
@@ -30,9 +30,9 @@ public class GridDataBaker : MonoBehaviour
             gridData.AddObject(gridPosition, obj.ObjectData.Size, obj.ObjectData.Id, i);
         }
 
-        data.gridDataList.Add(gridData);
+        data.gridData = gridData;
 
-        AssetDatabase.CreateAsset(data, "Assets/InitialGameData.asset");
+        AssetDatabase.CreateAsset(data, $"Assets/{gridType}Data.asset");
         AssetDatabase.SaveAssets();
 
         Debug.Log("Bake xong!");

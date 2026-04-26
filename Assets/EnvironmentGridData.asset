@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1d6d7e8980313d4b92011d2d675c9a3, type: 3}
-  m_Name: InitialGameData
-  m_EditorClassIdentifier: Assembly-CSharp::GameDataSO
-  gridDataList:
-  - gridType: 6
+  m_Script: {fileID: 11500000, guid: 2b7631a2bc12b89479fde201dfd0f83f, type: 3}
+  m_Name: EnvironmentGridData
+  m_EditorClassIdentifier: Assembly-CSharp::GridDataSO
+  gridData:
+    gridType: 6
     placedObjects:
     - mainPosition: {x: -2, y: 25, z: 0}
       occupiedPositions:

@@ -403,6 +403,12 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4001749164740138571, guid: 2630b74fac3ab974d974a99b6b4db904,
+        type: 3}
+      propertyPath: objectData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1ec6b8db0d097d9489285e0282c0563c,
+        type: 2}
     - target: {fileID: 5597964429569867329, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_Name
@@ -436,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
@@ -446,27 +452,27 @@ PrefabInstance:
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 7.472781e-20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8139510487233753693, guid: 2630b74fac3ab974d974a99b6b4db904,
         type: 3}
