@@ -391,126 +391,96 @@ MonoBehaviour:
       - {x: 14, y: 18, z: 0}
       placedObjectId: 104
       placedObjectIndex: 46
-    - mainPosition: {x: -9, y: 18, z: 0}
-      occupiedPositions:
-      - {x: -9, y: 18, z: 0}
-      placedObjectId: 103
-      placedObjectIndex: 47
     - mainPosition: {x: 16, y: 9, z: 0}
       occupiedPositions:
       - {x: 16, y: 9, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 48
+      placedObjectIndex: 47
     - mainPosition: {x: 15, y: -9, z: 0}
       occupiedPositions:
       - {x: 15, y: -9, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 49
+      placedObjectIndex: 48
     - mainPosition: {x: -4, y: -7, z: 0}
       occupiedPositions:
       - {x: -4, y: -7, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 50
+      placedObjectIndex: 49
     - mainPosition: {x: 5, y: -7, z: 0}
       occupiedPositions:
       - {x: 5, y: -7, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 51
+      placedObjectIndex: 50
     - mainPosition: {x: 7, y: 17, z: 0}
       occupiedPositions:
       - {x: 7, y: 17, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 52
+      placedObjectIndex: 51
     - mainPosition: {x: -3, y: 17, z: 0}
       occupiedPositions:
       - {x: -3, y: 17, z: 0}
       placedObjectId: 103
-      placedObjectIndex: 53
-    - mainPosition: {x: 17, y: -5, z: 0}
-      occupiedPositions:
-      - {x: 17, y: -5, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 54
+      placedObjectIndex: 52
     - mainPosition: {x: 22, y: 5, z: 0}
       occupiedPositions:
       - {x: 22, y: 5, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 55
+      placedObjectIndex: 53
     - mainPosition: {x: 10, y: 17, z: 0}
       occupiedPositions:
       - {x: 10, y: 17, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 56
+      placedObjectIndex: 54
     - mainPosition: {x: 4, y: 20, z: 0}
       occupiedPositions:
       - {x: 4, y: 20, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 57
+      placedObjectIndex: 55
     - mainPosition: {x: -7, y: 17, z: 0}
       occupiedPositions:
       - {x: -7, y: 17, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 58
+      placedObjectIndex: 56
     - mainPosition: {x: -17, y: 0, z: 0}
       occupiedPositions:
       - {x: -17, y: 0, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 59
-    - mainPosition: {x: 1, y: 20, z: 0}
-      occupiedPositions:
-      - {x: 1, y: 20, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 60
+      placedObjectIndex: 57
     - mainPosition: {x: 19, y: -3, z: 0}
       occupiedPositions:
       - {x: 19, y: -3, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 61
+      placedObjectIndex: 58
     - mainPosition: {x: 16, y: -1, z: 0}
       occupiedPositions:
       - {x: 16, y: -1, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 62
+      placedObjectIndex: 59
     - mainPosition: {x: 3, y: -8, z: 0}
       occupiedPositions:
       - {x: 3, y: -8, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 63
+      placedObjectIndex: 60
     - mainPosition: {x: -5, y: -9, z: 0}
       occupiedPositions:
       - {x: -5, y: -9, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 64
+      placedObjectIndex: 61
     - mainPosition: {x: -13, y: -2, z: 0}
       occupiedPositions:
       - {x: -13, y: -2, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 65
-    - mainPosition: {x: -12, y: -6, z: 0}
-      occupiedPositions:
-      - {x: -12, y: -6, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 66
-    - mainPosition: {x: -13, y: 6, z: 0}
-      occupiedPositions:
-      - {x: -13, y: 6, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 67
-    - mainPosition: {x: -13, y: -1, z: 0}
-      occupiedPositions:
-      - {x: -13, y: -1, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 68
+      placedObjectIndex: 62
     - mainPosition: {x: -5, y: 18, z: 0}
       occupiedPositions:
       - {x: -5, y: 18, z: 0}
       placedObjectId: 101
-      placedObjectIndex: 69
+      placedObjectIndex: 63
     - mainPosition: {x: 12, y: 18, z: 0}
       occupiedPositions:
       - {x: 12, y: 18, z: 0}
       placedObjectId: 101
-      placedObjectIndex: 70
+      placedObjectIndex: 64
     - mainPosition: {x: -12, y: -8, z: 0}
       occupiedPositions:
       - {x: -12, y: -8, z: 0}
@@ -518,7 +488,7 @@ MonoBehaviour:
       - {x: -11, y: -8, z: 0}
       - {x: -11, y: -7, z: 0}
       placedObjectId: 109
-      placedObjectIndex: 75
+      placedObjectIndex: 65
     - mainPosition: {x: -2, y: -8, z: 0}
       occupiedPositions:
       - {x: -2, y: -8, z: 0}
@@ -526,7 +496,7 @@ MonoBehaviour:
       - {x: -1, y: -8, z: 0}
       - {x: -1, y: -7, z: 0}
       placedObjectId: 109
-      placedObjectIndex: 77
+      placedObjectIndex: 66
     - mainPosition: {x: 3, y: -10, z: 0}
       occupiedPositions:
       - {x: 3, y: -10, z: 0}
@@ -534,226 +504,142 @@ MonoBehaviour:
       - {x: 4, y: -10, z: 0}
       - {x: 4, y: -9, z: 0}
       placedObjectId: 109
-      placedObjectIndex: 78
-    - mainPosition: {x: 2, y: -7, z: 0}
+      placedObjectIndex: 67
+    - mainPosition: {x: 3, y: -7, z: 0}
       occupiedPositions:
-      - {x: 2, y: -7, z: 0}
-      - {x: 2, y: -6, z: 0}
       - {x: 3, y: -7, z: 0}
-      - {x: 3, y: -6, z: 0}
-      placedObjectId: 108
-      placedObjectIndex: 79
+      placedObjectId: 106
+      placedObjectIndex: 69
     - mainPosition: {x: 6, y: -8, z: 0}
       occupiedPositions:
       - {x: 6, y: -8, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 82
-    - mainPosition: {x: 4, y: -7, z: 0}
-      occupiedPositions:
-      - {x: 4, y: -7, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 83
-    - mainPosition: {x: -5, y: -6, z: 0}
-      occupiedPositions:
-      - {x: -5, y: -6, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 85
-    - mainPosition: {x: 1, y: -6, z: 0}
-      occupiedPositions:
-      - {x: 1, y: -6, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 87
+      placedObjectIndex: 70
     - mainPosition: {x: -9, y: -7, z: 0}
       occupiedPositions:
       - {x: -9, y: -7, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 88
+      placedObjectIndex: 71
     - mainPosition: {x: -14, y: -2, z: 0}
       occupiedPositions:
       - {x: -14, y: -2, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 89
+      placedObjectIndex: 72
     - mainPosition: {x: -14, y: 3, z: 0}
       occupiedPositions:
       - {x: -14, y: 3, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 90
+      placedObjectIndex: 73
     - mainPosition: {x: -13, y: 9, z: 0}
       occupiedPositions:
       - {x: -13, y: 9, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 91
+      placedObjectIndex: 74
     - mainPosition: {x: -13, y: 16, z: 0}
       occupiedPositions:
       - {x: -13, y: 16, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 92
+      placedObjectIndex: 75
     - mainPosition: {x: -9, y: 17, z: 0}
       occupiedPositions:
       - {x: -9, y: 17, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 93
+      placedObjectIndex: 76
     - mainPosition: {x: 0, y: 17, z: 0}
       occupiedPositions:
       - {x: 0, y: 17, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 94
-    - mainPosition: {x: 3, y: 20, z: 0}
-      occupiedPositions:
-      - {x: 3, y: 20, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 95
-    - mainPosition: {x: 6, y: 18, z: 0}
-      occupiedPositions:
-      - {x: 6, y: 18, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 96
+      placedObjectIndex: 77
     - mainPosition: {x: 3, y: 17, z: 0}
       occupiedPositions:
       - {x: 3, y: 17, z: 0}
       placedObjectId: 105
-      placedObjectIndex: 97
-    - mainPosition: {x: -7, y: -6, z: 0}
-      occupiedPositions:
-      - {x: -7, y: -6, z: 0}
-      - {x: -7, y: -5, z: 0}
-      - {x: -6, y: -6, z: 0}
-      - {x: -6, y: -5, z: 0}
-      placedObjectId: 107
-      placedObjectIndex: 100
-    - mainPosition: {x: 14, y: -6, z: 0}
-      occupiedPositions:
-      - {x: 14, y: -6, z: 0}
-      - {x: 14, y: -5, z: 0}
-      - {x: 15, y: -6, z: 0}
-      - {x: 15, y: -5, z: 0}
-      placedObjectId: 107
-      placedObjectIndex: 101
+      placedObjectIndex: 78
     - mainPosition: {x: 18, y: 12, z: 0}
       occupiedPositions:
       - {x: 18, y: 12, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 102
+      placedObjectIndex: 79
     - mainPosition: {x: 17, y: 17, z: 0}
       occupiedPositions:
       - {x: 17, y: 17, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 103
-    - mainPosition: {x: 17, y: 13, z: 0}
-      occupiedPositions:
-      - {x: 17, y: 13, z: 0}
-      placedObjectId: 101
-      placedObjectIndex: 104
+      placedObjectIndex: 80
     - mainPosition: {x: 16, y: 19, z: 0}
       occupiedPositions:
       - {x: 16, y: 19, z: 0}
       placedObjectId: 101
-      placedObjectIndex: 105
+      placedObjectIndex: 81
     - mainPosition: {x: 20, y: 3, z: 0}
       occupiedPositions:
       - {x: 20, y: 3, z: 0}
       placedObjectId: 101
-      placedObjectIndex: 106
+      placedObjectIndex: 82
     - mainPosition: {x: 17, y: 4, z: 0}
       occupiedPositions:
       - {x: 17, y: 4, z: 0}
       placedObjectId: 101
-      placedObjectIndex: 107
+      placedObjectIndex: 83
     - mainPosition: {x: 18, y: 5, z: 0}
       occupiedPositions:
       - {x: 18, y: 5, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 108
+      placedObjectIndex: 84
     - mainPosition: {x: 20, y: 6, z: 0}
       occupiedPositions:
       - {x: 20, y: 6, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 109
+      placedObjectIndex: 85
     - mainPosition: {x: 20, y: 8, z: 0}
       occupiedPositions:
       - {x: 20, y: 8, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 110
+      placedObjectIndex: 86
     - mainPosition: {x: -13, y: 11, z: 0}
       occupiedPositions:
       - {x: -13, y: 11, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 111
+      placedObjectIndex: 87
     - mainPosition: {x: -16, y: 12, z: 0}
       occupiedPositions:
       - {x: -16, y: 12, z: 0}
       placedObjectId: 105
-      placedObjectIndex: 112
+      placedObjectIndex: 88
     - mainPosition: {x: -14, y: 5, z: 0}
       occupiedPositions:
       - {x: -14, y: 5, z: 0}
       placedObjectId: 105
-      placedObjectIndex: 113
-    - mainPosition: {x: -12, y: 5, z: 0}
-      occupiedPositions:
-      - {x: -12, y: 5, z: 0}
-      placedObjectId: 105
-      placedObjectIndex: 114
-    - mainPosition: {x: -13, y: 0, z: 0}
-      occupiedPositions:
-      - {x: -13, y: 0, z: 0}
-      placedObjectId: 105
-      placedObjectIndex: 116
+      placedObjectIndex: 89
     - mainPosition: {x: -13, y: 2, z: 0}
       occupiedPositions:
       - {x: -13, y: 2, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 117
-    - mainPosition: {x: -12, y: 3, z: 0}
-      occupiedPositions:
-      - {x: -12, y: 3, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 118
-    - mainPosition: {x: -12, y: 10, z: 0}
-      occupiedPositions:
-      - {x: -12, y: 10, z: 0}
-      placedObjectId: 100
-      placedObjectIndex: 119
+      placedObjectIndex: 91
     - mainPosition: {x: 17, y: -7, z: 0}
       occupiedPositions:
       - {x: 17, y: -7, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 120
+      placedObjectIndex: 92
     - mainPosition: {x: 15, y: -7, z: 0}
       occupiedPositions:
       - {x: 15, y: -7, z: 0}
       placedObjectId: 102
-      placedObjectIndex: 121
-    - mainPosition: {x: 18, y: -6, z: 0}
-      occupiedPositions:
-      - {x: 18, y: -6, z: 0}
-      placedObjectId: 102
-      placedObjectIndex: 122
-    - mainPosition: {x: 16, y: -6, z: 0}
-      occupiedPositions:
-      - {x: 16, y: -6, z: 0}
-      placedObjectId: 106
-      placedObjectIndex: 123
-    - mainPosition: {x: 19, y: -5, z: 0}
-      occupiedPositions:
-      - {x: 19, y: -5, z: 0}
-      placedObjectId: 106
-      placedObjectIndex: 124
+      placedObjectIndex: 93
     - mainPosition: {x: 16, y: 18, z: 0}
       occupiedPositions:
       - {x: 16, y: 18, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 128
+      placedObjectIndex: 94
     - mainPosition: {x: 10, y: 20, z: 0}
       occupiedPositions:
       - {x: 10, y: 20, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 130
+      placedObjectIndex: 95
     - mainPosition: {x: 9, y: 18, z: 0}
       occupiedPositions:
       - {x: 9, y: 18, z: 0}
       placedObjectId: 106
-      placedObjectIndex: 131
+      placedObjectIndex: 96
     - mainPosition: {x: 6, y: 20, z: 0}
       occupiedPositions:
       - {x: 6, y: 20, z: 0}
@@ -761,19 +647,170 @@ MonoBehaviour:
       - {x: 7, y: 20, z: 0}
       - {x: 7, y: 21, z: 0}
       placedObjectId: 104
-      placedObjectIndex: 132
-    - mainPosition: {x: 2, y: 18, z: 0}
-      occupiedPositions:
-      - {x: 2, y: 18, z: 0}
-      placedObjectId: 106
-      placedObjectIndex: 133
+      placedObjectIndex: 97
     - mainPosition: {x: 5, y: 17, z: 0}
       occupiedPositions:
       - {x: 5, y: 17, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 134
+      placedObjectIndex: 98
     - mainPosition: {x: 3, y: 18, z: 0}
       occupiedPositions:
       - {x: 3, y: 18, z: 0}
       placedObjectId: 100
-      placedObjectIndex: 135
+      placedObjectIndex: 99
+    - mainPosition: {x: -12, y: 17, z: 0}
+      occupiedPositions:
+      - {x: -12, y: 17, z: 0}
+      - {x: -12, y: 18, z: 0}
+      - {x: -11, y: 17, z: 0}
+      - {x: -11, y: 18, z: 0}
+      placedObjectId: 107
+      placedObjectIndex: 100
+    - mainPosition: {x: 0, y: 18, z: 0}
+      occupiedPositions:
+      - {x: 0, y: 18, z: 0}
+      - {x: 0, y: 19, z: 0}
+      - {x: 1, y: 18, z: 0}
+      - {x: 1, y: 19, z: 0}
+      placedObjectId: 107
+      placedObjectIndex: 101
+    - mainPosition: {x: 11, y: 16, z: 0}
+      occupiedPositions:
+      - {x: 11, y: 16, z: 0}
+      - {x: 11, y: 17, z: 0}
+      - {x: 12, y: 16, z: 0}
+      - {x: 12, y: 17, z: 0}
+      placedObjectId: 107
+      placedObjectIndex: 102
+    - mainPosition: {x: 16, y: 12, z: 0}
+      occupiedPositions:
+      - {x: 16, y: 12, z: 0}
+      - {x: 16, y: 13, z: 0}
+      - {x: 17, y: 12, z: 0}
+      - {x: 17, y: 13, z: 0}
+      placedObjectId: 107
+      placedObjectIndex: 103
+    - mainPosition: {x: 16, y: -4, z: 0}
+      occupiedPositions:
+      - {x: 16, y: -4, z: 0}
+      - {x: 16, y: -3, z: 0}
+      - {x: 17, y: -4, z: 0}
+      - {x: 17, y: -3, z: 0}
+      placedObjectId: 109
+      placedObjectIndex: 104
+    - mainPosition: {x: -17, y: -4, z: 0}
+      occupiedPositions:
+      - {x: -17, y: -4, z: 0}
+      - {x: -17, y: -3, z: 0}
+      - {x: -16, y: -4, z: 0}
+      - {x: -16, y: -3, z: 0}
+      placedObjectId: 109
+      placedObjectIndex: 105
+    - mainPosition: {x: -19, y: 4, z: 0}
+      occupiedPositions:
+      - {x: -19, y: 4, z: 0}
+      - {x: -19, y: 5, z: 0}
+      - {x: -18, y: 4, z: 0}
+      - {x: -18, y: 5, z: 0}
+      placedObjectId: 109
+      placedObjectIndex: 106
+    - mainPosition: {x: 1, y: -9, z: 0}
+      occupiedPositions:
+      - {x: 1, y: -9, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 107
+    - mainPosition: {x: 6, y: -12, z: 0}
+      occupiedPositions:
+      - {x: 6, y: -12, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 108
+    - mainPosition: {x: 18, y: -4, z: 0}
+      occupiedPositions:
+      - {x: 18, y: -4, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 109
+    - mainPosition: {x: 16, y: 3, z: 0}
+      occupiedPositions:
+      - {x: 16, y: 3, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 110
+    - mainPosition: {x: 17, y: 7, z: 0}
+      occupiedPositions:
+      - {x: 17, y: 7, z: 0}
+      placedObjectId: 101
+      placedObjectIndex: 111
+    - mainPosition: {x: 15, y: 16, z: 0}
+      occupiedPositions:
+      - {x: 15, y: 16, z: 0}
+      placedObjectId: 101
+      placedObjectIndex: 112
+    - mainPosition: {x: 2, y: 16, z: 0}
+      occupiedPositions:
+      - {x: 2, y: 16, z: 0}
+      placedObjectId: 101
+      placedObjectIndex: 113
+    - mainPosition: {x: -5, y: 17, z: 0}
+      occupiedPositions:
+      - {x: -5, y: 17, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 114
+    - mainPosition: {x: -7, y: 19, z: 0}
+      occupiedPositions:
+      - {x: -7, y: 19, z: 0}
+      placedObjectId: 106
+      placedObjectIndex: 115
+    - mainPosition: {x: -6, y: 17, z: 0}
+      occupiedPositions:
+      - {x: -6, y: 17, z: 0}
+      placedObjectId: 101
+      placedObjectIndex: 116
+    - mainPosition: {x: -13, y: -5, z: 0}
+      occupiedPositions:
+      - {x: -13, y: -5, z: 0}
+      placedObjectId: 101
+      placedObjectIndex: 117
+    - mainPosition: {x: -14, y: -4, z: 0}
+      occupiedPositions:
+      - {x: -14, y: -4, z: 0}
+      placedObjectId: 103
+      placedObjectIndex: 118
+    - mainPosition: {x: -6, y: -7, z: 0}
+      occupiedPositions:
+      - {x: -6, y: -7, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 119
+    - mainPosition: {x: 0, y: -9, z: 0}
+      occupiedPositions:
+      - {x: 0, y: -9, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 120
+    - mainPosition: {x: -3, y: -10, z: 0}
+      occupiedPositions:
+      - {x: -3, y: -10, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 121
+    - mainPosition: {x: 1, y: -7, z: 0}
+      occupiedPositions:
+      - {x: 1, y: -7, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 122
+    - mainPosition: {x: 12, y: -8, z: 0}
+      occupiedPositions:
+      - {x: 12, y: -8, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 123
+    - mainPosition: {x: 17, y: 6, z: 0}
+      occupiedPositions:
+      - {x: 17, y: 6, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 124
+    - mainPosition: {x: 19, y: 8, z: 0}
+      occupiedPositions:
+      - {x: 19, y: 8, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 125
+    - mainPosition: {x: 19, y: -2, z: 0}
+      occupiedPositions:
+      - {x: 19, y: -2, z: 0}
+      placedObjectId: 100
+      placedObjectIndex: 126

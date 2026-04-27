@@ -257,6 +257,7 @@ GameObject:
   - component: {fileID: 4437857367264220546}
   - component: {fileID: 4654714480082338459}
   - component: {fileID: 7044648524137007255}
+  - component: {fileID: 1790219072496456777}
   m_Layer: 0
   m_Name: BasicHouse
   m_TagString: Untagged
@@ -336,8 +337,21 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.29, y: 3, z: 5}
+  m_Size: {x: 1.81, y: 3, z: 4.77}
   m_Center: {x: 3, y: 1.51, z: 0.5}
+--- !u!114 &1790219072496456777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045110163862441004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0701b4cfb16494443adbfa60f86dcf12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlacementObject
+  objectData: {fileID: 11400000, guid: b1ec5d685e3b7b140843e3686924b4e9, type: 2}
 --- !u!1 &6832107395335048658
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +382,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 1.2735, z: 0.58}
-  m_LocalScale: {x: 1.64, y: 2.6206977, z: 0.37}
+  m_LocalScale: {x: 1.64, y: 2.6206977, z: 0.81}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6390426481678325398}
@@ -463,7 +477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   isInteractionActive: 0
-  sceneToLoad: HouseInterior
+  sceneToLoad: 1
 --- !u!1001 &3759803373668319280
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -22,7 +22,7 @@ public class PlayerDetect : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = true;
-            onPlayerEnter.Invoke();
+            onPlayerEnter?.Invoke();
 
             if (player == null)
             {
@@ -47,7 +47,7 @@ public class PlayerDetect : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isPlayerInRange = false;
-            onPlayerExit.Invoke();
+            onPlayerExit?.Invoke();
 
             if (isInteractionActive)
             {
