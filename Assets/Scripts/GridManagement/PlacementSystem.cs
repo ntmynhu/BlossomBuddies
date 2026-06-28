@@ -42,6 +42,7 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public PlacementScissorsState ScissorsState = new PlacementScissorsState();
     public PlacementFertilizingState FertilizingState = new PlacementFertilizingState();
     public PlacementHarvestState HarvestState = new PlacementHarvestState();
+    public PlacementExplosiveState ExplosiveState = new PlacementExplosiveState();
 
     public Dictionary<GridType, GridData> GridDataDictionary => gridDataDictionary;
     public Dictionary<GridType, List<GameObject>> MainGridPlacedObjects => mainGridPlacedObjects;
@@ -76,6 +77,14 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
         SetCurrentObjectData(selectedObjectData);
 
         currentState = newState;
+        currentState.EnterState(this);
+    }
+
+    public void SwitchToExplosiveState(List<string> targetIds)
+    {
+        currentState.ExitState(this);
+        ExplosiveState.SetTargetIds(targetIds);
+        currentState = ExplosiveState;
         currentState.EnterState(this);
     }
 
@@ -220,6 +229,23 @@ public class PlacementSystem : Singleton<PlacementSystem>, IDataPersistence
     public GameObject GetMainGridPlacedObject(GridType gridType, Vector3Int gridPosition)
     {
         return mainGridPlacedObjects[gridType].FirstOrDefault(obj => mainGrid.WorldToCell(obj.transform.position) == gridPosition);
+    }
+
+    public void RemoveObjectFromGrid(Vector3Int gridPosition, GridType gridType)
+    {
+        List<GameObject> placedObjectsList = mainGridPlacedObjects[gridType];
+        GameObject objectToRemove = placedObjectsList.FirstOrDefault(obj => mainGrid.WorldToCell(obj.transform.position) == gridPosition);
+
+        if (objectToRemove != null)
+        {
+            placedObjectsList.Remove(objectToRemove);
+            Destroy(objectToRemove);
+            gridDataDictionary[gridType].RemoveObject(gridPosition);
+        }
+        else
+        {
+            Debug.Log($"No object found at position {gridPosition} in grid {gridType}.");
+        }
     }
     #endregion
 
