@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ToolInfo
   Id: 10008
   Name: Dynamite
-  icon: {fileID: 21300000, guid: 8484e6d56b28c9644865456d4181d043, type: 3}
+  icon: {fileID: 21300000, guid: d4a88c732fc092f49b8c7910fa4c9749, type: 3}
   prefab: {fileID: 5324143058523400035, guid: 97d6efdcdc198444084b54bfcb98bfdf, type: 3}
   isSellable: 0
   buyPrice: 0
