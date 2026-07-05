@@ -49,7 +49,7 @@ public class BreedingManager : Singleton<BreedingManager>
     private void ToggleBreedingPanel()
     {
         breedingPanel.SetActive(!breedingPanel.activeSelf);
-        GameManager.Instance.SetCameraFrozen(breedingPanel.activeSelf);
+        GameManager.Instance.SetMovementFrozen(breedingPanel.activeSelf);
 
         if (breedingPanel.activeSelf)
         {

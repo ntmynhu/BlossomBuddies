@@ -35,6 +35,7 @@ public class SeedBag : Tool
         AudioManager.Instance.PlaySFX(AudioManager.Instance.scissorsSoundClip);
 
         PlacementSystem.Instance.TriggerAction();
+        InventoryManager.Instance.RemoveItem(ToolInfo);
         playerMovement.SetMovementEnable(true);
     }
 }

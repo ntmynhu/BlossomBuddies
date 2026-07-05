@@ -53,7 +53,7 @@ public class IconThumbnailEditor : EditorWindow
         m_list = rootVisualElement.Q<ListView>("List");
         m_objects = new List<BaseData>();
 
-        string[] guids = AssetDatabase.FindAssets("t:PreviewData");
+        string[] guids = AssetDatabase.FindAssets("t:BaseData");
         foreach (string guid in guids)
         {
             string path = AssetDatabase.GUIDToAssetPath(guid);

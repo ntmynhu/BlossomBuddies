@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class LoadingManager : Singleton<LoadingManager>
 {
-    [SerializeField] private string initialSceneName = "MainScene";
+    [SerializeField] private SceneName initialSceneName = SceneName.MainScene;
 
     [Header("UI")]
     [SerializeField] private GameObject loadingCanvas;
@@ -50,7 +50,7 @@ public class LoadingManager : Singleton<LoadingManager>
         }
     }
 
-    private IEnumerator InitialLoadWithSlider(string sceneName)
+    private IEnumerator InitialLoadWithSlider(SceneName sceneName)
     {
         const float MIN_SLIDER_TIME = 2f;
 
@@ -60,7 +60,7 @@ public class LoadingManager : Singleton<LoadingManager>
 
         DataPersistenceManager.Instance.InitAndLoadGame();
 
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName.ToString());
         op.allowSceneActivation = false;
 
         float elapsed = 0f;
@@ -90,6 +90,8 @@ public class LoadingManager : Singleton<LoadingManager>
         op.allowSceneActivation = true;
         while (!op.isDone) yield return null;
 
+        GameManager.Instance.SetCurrentScene(sceneName);
+
         yield return Fade(0f, 1f, fadeInTime);
         yield return new WaitForSeconds(0.5f);
 
@@ -99,21 +101,26 @@ public class LoadingManager : Singleton<LoadingManager>
         yield return Fade(1f, 0f, fadeOutTime);
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(SceneName sceneName)
     {
+        DataPersistenceManager.Instance.SaveGame();
+
         StopAllCoroutines();
         StartCoroutine(FadeOnlyLoad(sceneName));
     }
 
-    private IEnumerator FadeOnlyLoad(string sceneName)
+    private IEnumerator FadeOnlyLoad(SceneName sceneName)
     {
         loadingCanvas.SetActive(true);
         loadingBarObject.SetActive(false);
 
         yield return Fade(0f, 1f, fadeOutTime);
 
-        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation op = SceneManager.LoadSceneAsync(sceneName.ToString());
         while (!op.isDone) yield return null;
+
+        GameManager.Instance.SetCurrentScene(sceneName);
+        DataPersistenceManager.Instance.LoadGame();
 
         yield return Fade(1f, 0f, fadeInTime);
 
@@ -152,8 +159,6 @@ public class LoadingManager : Singleton<LoadingManager>
     private void InitAllScene()
     {
         DataPersistenceManager.Instance.PushLoadedDataToObject();
-
-
 
         DataPersistenceManager.Instance.SetLoadedDataDone();
     }

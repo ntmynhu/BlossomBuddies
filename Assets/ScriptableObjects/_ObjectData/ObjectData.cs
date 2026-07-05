@@ -4,7 +4,8 @@ using UnityEngine;
 public class ObjectData : BaseData
 {
     [Header("Object Settings")]
-    public Vector2Int Size = Vector2Int.one;
+    [Tooltip("The size of the object in grid units (x - z)")]
+    public Vector2Int Size = Vector2Int.one; 
     public GridType gridType;
     public bool isInventoryItem = true;
 }

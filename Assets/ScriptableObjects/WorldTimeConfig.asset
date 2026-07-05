@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d6e6ee4305c6f74db25cb2d7d69d94e, type: 3}
   m_Name: WorldTimeConfig
   m_EditorClassIdentifier: Assembly-CSharp::WorldTimeConfig
-  timeOfDay: 4
+  timeOfDay: 24
   hoursInDay: 24
-  updateLigtingTime: 10
+  updateLigtingTime: 30

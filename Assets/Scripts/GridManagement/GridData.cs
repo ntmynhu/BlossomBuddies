@@ -129,4 +129,6 @@ public enum GridType
     FloorGrid,
     Furniture,
     WateringGrid_Mid, // For water when fade out
+    EnvironmentGrid,
+    DefaultGrid,
 }

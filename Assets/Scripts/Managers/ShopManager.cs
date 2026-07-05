@@ -49,7 +49,7 @@ public class ShopManager : Singleton<ShopManager>
     public void ToggleShop()
     {
         shopPanel.SetActive(!shopPanel.activeSelf);
-        GameManager.Instance.SetCameraFrozen(shopPanel.activeSelf);
+        GameManager.Instance.SetMovementFrozen(shopPanel.activeSelf);
 
         if (shopPanel.activeSelf)
         {
@@ -65,10 +65,16 @@ public class ShopManager : Singleton<ShopManager>
             return;
         }
 
+        if (GameManager.Instance.CurrentHeart < itemData.buyPrice)
+        {
+            Debug.Log("Not enough hearts to buy: " + itemData.name);
+            return;
+        }
+
+        GameManager.Instance.CurrentHeart -= itemData.buyPrice;
         InventoryManager.Instance.AddItem(itemData);
         Debug.Log("Bought item: " + itemData.name);
 
-        // If the item is unique, refresh the shop to update availability
         if (itemData.isUnique)
         {
             PopulateShop();

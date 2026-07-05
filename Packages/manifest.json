@@ -1,9 +1,11 @@
 {
   "dependencies": {
     "com.clrain.customshadergraph": "https://github.com/jinhyeonseo01/Unity-CustomShaderGraph-Unlit-With-Shadow.git?path=/Assets/CustomShaderGraph",
+    "com.coplaydev.unity-mcp": "file:D:/unity-mcp-beta/unity-mcp-beta/MCPForUnity",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.2d.tilemap.extras": "5.0.1",
+    "com.unity.ai.assistant": "2.12.0-pre.2",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.cinemachine": "3.1.4",
     "com.unity.collab-proxy": "2.10.2",

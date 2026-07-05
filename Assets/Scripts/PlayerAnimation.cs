@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator playerAnim;
+    [SerializeField] private Animator heartAnim;
 
     public readonly string USE_TOOL = "UseTool";
     public readonly string INTERACT = "Interact";
@@ -12,5 +13,11 @@ public class PlayerAnimation : MonoBehaviour
     public void PlayAnimation(string animationName)
     {
         playerAnim.Play(animationName);
+    }
+
+    public void PlayHeartAnimation()
+    {
+        heartAnim.transform.LookAt(Camera.main.transform);
+        heartAnim.Play("Heart");
     }
 }

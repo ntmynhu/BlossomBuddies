@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed = 12f;
     [SerializeField] private float acceleration = 10f;
     [SerializeField] private float deceleration = 10f;
+    [SerializeField] private float smoothRotationTime = 0.12f;
 
     [SerializeField] private float gravity = -9.81f * 2;
     [SerializeField] private float jumpHeight = 3f;
@@ -21,14 +22,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
 
-    [SerializeField] private Transform cameraTransform;
-
     private float verticalVelocity;
     private Vector3 inputDirection = Vector3.zero;
 
     private float currentRotationVel;
-    private float smoothRotationTime = 0.12f;
-
+   
     private bool isGrounded;
     private bool isRunning;
     private bool isJumping;
@@ -88,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         // Handle rotation
         if (inputDirection.magnitude > 0.01f)
         {
-            float rotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cameraTransform.eulerAngles.y;
+            float rotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg; // + cameraTransform.eulerAngles.y;
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, rotation, ref currentRotationVel, smoothRotationTime);
         }
 

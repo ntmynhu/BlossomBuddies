@@ -112,16 +112,23 @@ public class PlacementShovelState : PlacementBaseState
 
     public override bool CanTriggerAction(PlacementSystem placementSystem)
     {
-        return !placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition) ||
+        // Can only shovel when there is no placement object and no plant object
+        return !placementSystem.GridDataDictionary[GridType.EnvironmentGrid].ContainsPosition(gridPosition) &&
+            !placementSystem.GridDataDictionary[GridType.DefaultGrid].ContainsPosition(gridPosition) &&
+            (!placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition) ||
             (placementSystem.CurrentSelectedGridData.ContainsPosition(gridPosition) &&
-            !placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition));
+            !placementSystem.GridDataDictionary[GridType.PlantGrid].ContainsPosition(gridPosition)));
     }
 
     private void HandleIndicator(PlacementSystem placementSystem)
     {
         playerPosition = InputManager.Instance.GetPlayerSelectedMapPosition();
+
         gridPosition = placementSystem.MainGrid.WorldToCell(playerPosition);
         targetIndicatorPosition = placementSystem.MainGrid.CellToWorld(gridPosition);
+
+        Debug.Log("Player Position: " + playerPosition);
+        Debug.Log("Grid Position: " + gridPosition);
 
         targetIndicatorPosition.y = playerPosition.y;
         placementSystem.CellIndicator.transform.position = targetIndicatorPosition;
