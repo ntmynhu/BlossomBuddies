@@ -30,6 +30,7 @@ public class ExplosiveTool : Tool
         yield return new WaitForSeconds(0.5f);
 
         PlacementSystem.Instance.TriggerAction();
+        InventoryManager.Instance.RemoveItem(ToolInfo);
 
         playerMovement.SetMovementEnable(true);
     }

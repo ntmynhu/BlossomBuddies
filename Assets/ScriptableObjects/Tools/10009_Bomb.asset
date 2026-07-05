@@ -16,6 +16,6 @@ MonoBehaviour:
   Name: Bomb
   icon: {fileID: 21300000, guid: a77fc5e5799470d4b846106c29a9a2d3, type: 3}
   prefab: {fileID: 5324143058523400035, guid: c0be05ed400c5b54294e0d13c425642d, type: 3}
-  isSellable: 0
-  buyPrice: 0
+  isSellable: 1
+  buyPrice: 10
   isUnique: 0

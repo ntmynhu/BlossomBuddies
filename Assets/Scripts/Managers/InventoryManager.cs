@@ -72,6 +72,33 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     public void AddItem(BaseData objectData)
     {
         AddItemToDictionary(inventoryDictionary, objectData);
+
+        if (objectData is ToolInfo toolInfo && ToolManager.Instance.GetToolByInfo(toolInfo) == null)
+        {
+            StartCoroutine(ToolManager.Instance.InitializeTools(new List<ToolInfo> { toolInfo }));
+        }
+
+        UpdateInventoryUI();
+    }
+
+    public void RemoveItem(BaseData objectData)
+    {
+        if (!inventoryDictionary.ContainsKey(objectData)) return;
+
+        inventoryDictionary[objectData]--;
+
+        if (inventoryDictionary[objectData] <= 0)
+        {
+            inventoryDictionary.Remove(objectData);
+
+            if (objectData is ToolInfo toolInfo)
+            {
+                Tool current = ToolManager.Instance.GetCurrentTool();
+                if (current != null && current.ToolInfo == toolInfo)
+                    GameManager.Instance.ToolHandler.UnSelectTool();
+            }
+        }
+
         UpdateInventoryUI();
     }
 
@@ -95,7 +122,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         {
             Debug.Log("Inventory opened");
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            //GameManager.Instance.SetCameraFrozen(inventoryPanel.activeSelf);
+            GameManager.Instance.SetMovementFrozen(inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -106,7 +133,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                     return;
 
                 inventoryPanel.SetActive(false);
-                //GameManager.Instance.SetCameraFrozen(false);
+                GameManager.Instance.SetMovementFrozen(false);
             }
         }
     }

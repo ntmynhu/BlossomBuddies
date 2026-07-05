@@ -52,11 +52,10 @@ public class GameManager : Singleton<GameManager>, IDataPersistence
         AudioManager.Instance.PlaySFX(AudioManager.Instance.heartSoundClip);
     }
 
-    public void SetCameraFrozen(bool value)
+    public void SetMovementFrozen(bool frozen)
     {
-        //thirdPersonCameraController.SetMobileController(value);
-        //thirdPersonCameraController.SetCameraFrozen(value);
-        //playerMovement.SetMovementEnable(!value);
+        if (playerMovement != null)
+            playerMovement.SetMovementEnable(!frozen);
     }
 
     public void SetCurrentScene(SceneName scene)
