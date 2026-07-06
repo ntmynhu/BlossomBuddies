@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1003_BW
   Name: Cam Tu Cau
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 855d5e69069af32418adf3f1642f4999, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 4a1d637c47f5036469b60e00f9ba5798, type: 3}
   isSellable: 0
   buyPrice: 0

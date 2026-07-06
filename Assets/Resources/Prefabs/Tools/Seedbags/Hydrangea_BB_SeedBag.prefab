@@ -187,7 +187,7 @@ PrefabInstance:
     - target: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
         type: 3}
       propertyPath: m_Name
-      value: LavenderSeedbag
+      value: Hydrangea_BB_SeedBag
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4071833452636940995, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1002_RR
   Name: Tulip
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: eb62beb2bd1d7c441bb663d9a85ff8c2, type: 3}
   prefab: {fileID: 8935979759752783158, guid: f87aa794530ca4744abaebd6fd0e7b81, type: 3}
   isSellable: 0
   buyPrice: 0

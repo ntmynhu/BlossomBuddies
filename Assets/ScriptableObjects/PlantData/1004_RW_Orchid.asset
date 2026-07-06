@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1004_RW
   Name: Lan Rung
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 0f87125f8ec1bdb4b801afeda6ec5c8c, type: 3}
   prefab: {fileID: 8935979759752783158, guid: a1dc942abfe12984a8cc68d956b87631, type: 3}
   isSellable: 0
   buyPrice: 0
