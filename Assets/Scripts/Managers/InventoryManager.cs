@@ -225,6 +225,45 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return null;
     }
 
+    // Replaces the local inventory with a snapshot from the server (id -> quantity).
+    // Used by the hybrid sync: server is the source of truth for owned items.
+    public void SetInventoryFromServer(IEnumerable<KeyValuePair<string, int>> items)
+    {
+        inventoryDictionary = new Dictionary<BaseData, int>();
+
+        foreach (var entry in items)
+        {
+            if (entry.Value <= 0) continue;
+
+            BaseData objectData = GetPreviewDataById(entry.Key);
+            if (objectData != null)
+                inventoryDictionary[objectData] = entry.Value;
+            else
+                Debug.LogWarning($"[Sync] ItemDefId {entry.Key} not found in any object database.");
+        }
+
+        List<ToolInfo> toolList = GetInventoryObjectsByType<ToolInfo>();
+        StartCoroutine(ToolManager.Instance.InitializeTools(toolList));
+
+        UpdateInventoryUI();
+    }
+
+    // Exports the current inventory as (id, quantity) pairs for pushing to the server.
+    public List<KeyValuePair<string, int>> ExportInventory()
+    {
+        var result = new List<KeyValuePair<string, int>>();
+
+        if (inventoryDictionary == null) return result;
+
+        foreach (var item in inventoryDictionary)
+        {
+            if (item.Value > 0)
+                result.Add(new KeyValuePair<string, int>(item.Key.Id, item.Value));
+        }
+
+        return result;
+    }
+
     public void LoadData(GameData data)
     {
         if (data.inventoryDataList != null && data.inventoryDataList.Count > 0)
