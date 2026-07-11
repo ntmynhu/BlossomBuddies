@@ -16,6 +16,8 @@ public class PlantFeedbackParticles : MonoBehaviour
         var go = new GameObject("FeedbackFX");
         go.transform.SetParent(plant.transform, false);
 
+        go.transform.position += new Vector3(0.5f, 0f, 0.5f); // offset to center
+
         var fx = go.AddComponent<PlantFeedbackParticles>();
         fx._plant = plant;
         fx._sparkle = fx.BuildSparkle(go.transform);
