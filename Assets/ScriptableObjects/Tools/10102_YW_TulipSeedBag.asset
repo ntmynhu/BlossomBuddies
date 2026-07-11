@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 10102_YW
   Name: Tulip Seed Bag
-  icon: {fileID: 21300000, guid: 79e0b6ecfe5071d41af8362b24f162bd, type: 3}
+  icon: {fileID: 21300000, guid: d62e1615ff643114ebebbac7afdf2cfb, type: 3}
   prefab: {fileID: 3267164534628851248, guid: 52407706e728378489bf8f0150843e9e, type: 3}
   isSellable: 1
   buyPrice: 50

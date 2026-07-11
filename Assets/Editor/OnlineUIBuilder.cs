@@ -27,10 +27,10 @@ namespace BlossomBuddies.EditorTools
             Debug.Log("[OnlineUIBuilder] Cleared saved login. Next play will show the login screen.");
         }
 
-        [MenuItem("Tools/Online/Build Login + Market UI")]
-        public static void BuildAll()
+        // Run this in the LoadingScene: builds the login gate (persists into the game).
+        [MenuItem("Tools/Online/Build Login Gate (run in LoadingScene)")]
+        public static void BuildLoginGate()
         {
-            // Make re-running safe: remove any previously built canvas.
             var existing = GameObject.Find("OnlineCanvas");
             if (existing != null) Object.DestroyImmediate(existing);
 
@@ -38,19 +38,36 @@ namespace BlossomBuddies.EditorTools
             UIFactory.EnsureEventSystem();
 
             var loginPanel = canvas.gameObject.AddComponent<LoginPanel>();
-            var marketPanel = canvas.gameObject.AddComponent<MarketPanel>();
-            var sessionUI = canvas.gameObject.AddComponent<SessionUI>();
-
             BuildLogin(canvas.transform, loginPanel);
-            var rowPrefab = BuildRowPrefab();
-            BuildMarket(canvas.transform, marketPanel, rowPrefab);
-            BuildLogout(canvas.transform, sessionUI);
 
-            WireBootstrap(canvas);
+            WireBootstrap(canvas); // network singletons + keep the login canvas across scenes
 
             EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
             Selection.activeGameObject = canvas.gameObject;
-            Debug.Log("[OnlineUIBuilder] Built OnlineCanvas with Login + Market. Save the scene to keep it.");
+            Debug.Log("[OnlineUIBuilder] Built login gate (OnlineCanvas) in LoadingScene.");
+        }
+
+        // Run this in the MainScene: builds the in-game HUD (market/shop/inventory + logout).
+        [MenuItem("Tools/Online/Build Game HUD (run in MainScene)")]
+        public static void BuildGameHud()
+        {
+            var existing = GameObject.Find("GameHudCanvas");
+            if (existing != null) Object.DestroyImmediate(existing);
+
+            var canvas = UIFactory.CreateOverlayCanvas("GameHudCanvas");
+            UIFactory.EnsureEventSystem();
+
+            var marketPanel = canvas.gameObject.AddComponent<MarketPanel>();
+            var sessionUI = canvas.gameObject.AddComponent<SessionUI>();
+
+            var rowPrefab = BuildRowPrefab();
+            BuildMarket(canvas.transform, marketPanel, rowPrefab);
+            BuildLogout(canvas.transform, sessionUI);
+            BuildHud(canvas.transform, sessionUI);
+
+            EditorSceneManager.MarkSceneDirty(canvas.gameObject.scene);
+            Selection.activeGameObject = canvas.gameObject;
+            Debug.Log("[OnlineUIBuilder] Built Game HUD (GameHudCanvas) in the current scene.");
         }
 
         // ---------- Login ----------
@@ -164,6 +181,47 @@ namespace BlossomBuddies.EditorTools
             so.FindProperty("logoutRoot").objectReferenceValue = root;
             so.FindProperty("logoutButton").objectReferenceValue = logoutBtn;
             so.FindProperty("usernameLabel").objectReferenceValue = nameLabel;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static void BuildHud(Transform canvas, SessionUI hud)
+        {
+            var root = new GameObject("GameHud", typeof(RectTransform));
+            root.transform.SetParent(canvas, false);
+            UIFactory.FullScreen(root); // transparent, no raycast blocker
+
+            // Bottom-left: Marketplace + Shop.
+            var left = new GameObject("BottomLeft", typeof(RectTransform));
+            left.transform.SetParent(root.transform, false);
+            var lrt = left.GetComponent<RectTransform>();
+            lrt.anchorMin = lrt.anchorMax = new Vector2(0f, 0f);
+            lrt.pivot = new Vector2(0f, 0f);
+            lrt.anchoredPosition = new Vector2(20f, 20f);
+            UIFactory.Horizontal(left, 12, 0);
+            var lfit = left.AddComponent<ContentSizeFitter>();
+            lfit.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+            lfit.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            var marketBtn = UIFactory.Button(left.transform, "Marketplace", null, new Color(0.55f, 0.78f, 0.55f));
+            UIFactory.SetWidth(marketBtn.gameObject, 190);
+            UIFactory.SetHeight(marketBtn.gameObject, 58);
+            var shopBtn = UIFactory.Button(left.transform, "Shop", null, new Color(0.9f, 0.75f, 0.4f));
+            UIFactory.SetWidth(shopBtn.gameObject, 150);
+            UIFactory.SetHeight(shopBtn.gameObject, 58);
+
+            // Bottom-right: Inventory.
+            var invBtn = UIFactory.Button(root.transform, "Inventory", null, new Color(0.55f, 0.7f, 0.9f));
+            var irt = invBtn.GetComponent<RectTransform>();
+            irt.anchorMin = irt.anchorMax = new Vector2(1f, 0f);
+            irt.pivot = new Vector2(1f, 0f);
+            irt.anchoredPosition = new Vector2(-20f, 20f);
+            irt.sizeDelta = new Vector2(190f, 58f);
+
+            var so = new SerializedObject(hud);
+            so.FindProperty("hudRoot").objectReferenceValue = root;
+            so.FindProperty("marketButton").objectReferenceValue = marketBtn;
+            so.FindProperty("shopButton").objectReferenceValue = shopBtn;
+            so.FindProperty("inventoryButton").objectReferenceValue = invBtn;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 

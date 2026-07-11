@@ -65,7 +65,16 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
         if (item is ToolInfo toolInfo)
         {
-            GameManager.Instance.ToolHandler.SelectTool(toolInfo);
+            // Clicking the already-equipped tool again deselects it (toggle).
+            Tool current = ToolManager.Instance.GetCurrentTool();
+            if (current != null && current.ToolInfo == toolInfo)
+            {
+                GameManager.Instance.ToolHandler.UnSelectTool();
+            }
+            else
+            {
+                GameManager.Instance.ToolHandler.SelectTool(toolInfo);
+            }
         }
     }
 
@@ -114,6 +123,13 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
             Debug.Log($"Key {key.name} not found in inventory dictionary. Adding it with quantity 1.");
             dict[key] = 1;
         }
+    }
+
+    // Opens/closes the inventory panel (same as pressing E). Wired to the HUD inventory button.
+    public void ToggleInventory()
+    {
+        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
+        GameManager.Instance.SetMovementFrozen(inventoryPanel.activeSelf);
     }
 
     private void HandleGardenToolInventory()
