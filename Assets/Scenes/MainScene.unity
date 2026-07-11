@@ -43058,9 +43058,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 554cca3526d7eda459bd82b8df99566d, type: 2}
   - {fileID: 11400000, guid: 3fb1ea73a3b35da46a2a3e545da1ad68, type: 2}
   - {fileID: 11400000, guid: ef1dfbaef114ec04188b39e9860fcc19, type: 2}
-  - {fileID: 11400000, guid: a8218db29bed5b341983316473253072, type: 2}
-  - {fileID: 11400000, guid: 2a4fd7f874e7b1844887d5142573ec39, type: 2}
-  - {fileID: 11400000, guid: eb50778ea6cb1fc47a370e2223a2dc5e, type: 2}
   objectDatabases:
   - {fileID: 11400000, guid: 028316e4dcf752e42a36e82a1d495c17, type: 2}
   - {fileID: 11400000, guid: 6f3c86ec57d0c1648b99e85719d0e0c2, type: 2}
@@ -48203,7 +48200,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -64518,7 +64515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 10, y: -10}
+  m_AnchoredPosition: {x: 380, y: -20}
   m_SizeDelta: {x: 170, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1961991877

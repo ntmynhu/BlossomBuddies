@@ -19,6 +19,10 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     public bool isLoadedDataDone = false;
 
+    // True when the logged-in account had no cloud save yet (brand-new account). Used to seed
+    // default inventory (gardening tools) into the server instead of pulling an empty one.
+    public bool IsNewAccount { get; private set; }
+
     //Test
     public float hoursSinceLastLogin = 0f;
 
@@ -52,6 +56,7 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         if (!loggedIn)
         {
             // Offline / not signed in: use local cache or defaults.
+            IsNewAccount = false;
             ApplyLoaded(this.dataHandler.Load(), cacheLocally: false);
             onComplete?.Invoke();
             return;
@@ -61,18 +66,21 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
             payload =>
             {
                 GameData data = null;
-                if (payload != null && !string.IsNullOrEmpty(payload.Json))
+                bool hasCloud = payload != null && !string.IsNullOrEmpty(payload.Json);
+                if (hasCloud)
                 {
                     try { data = JsonUtility.FromJson<GameData>(payload.Json); }
                     catch (Exception e) { Debug.LogError("[Save] Failed to parse cloud save: " + e); }
                 }
-                // New account (no cloud save) -> defaults.
+                // No cloud save yet == brand-new account -> defaults (and seed default inventory).
+                IsNewAccount = !hasCloud;
                 ApplyLoaded(data, cacheLocally: true);
                 onComplete?.Invoke();
             },
             err =>
             {
                 Debug.LogWarning("[Save] Cloud load failed, using local cache/defaults: " + err);
+                IsNewAccount = false;
                 ApplyLoaded(this.dataHandler.Load(), cacheLocally: false);
                 onComplete?.Invoke();
             });

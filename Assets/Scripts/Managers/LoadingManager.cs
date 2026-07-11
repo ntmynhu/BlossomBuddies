@@ -25,6 +25,21 @@ public class LoadingManager : Singleton<LoadingManager>
 
     private static bool hasShownInitialLoading = false;
 
+    // Re-runs the login gate + load flow (used on logout). LoadingManager is persistent, so
+    // its Start() only runs once; this restarts the flow so a new account loads properly.
+    public void RestartLoadFlow()
+    {
+        hasShownInitialLoading = false;
+        StopAllCoroutines();
+
+        // Immediately cover the old scene with the (opaque) loading screen so the game isn't
+        // visible behind the login overlay while we wait for the next sign-in.
+        if (loadingCanvas != null) loadingCanvas.SetActive(true);
+        if (loadingBarObject != null) loadingBarObject.SetActive(false);
+
+        StartCoroutine(BootFlow());
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -37,6 +52,11 @@ public class LoadingManager : Singleton<LoadingManager>
     }
 
     private IEnumerator Start()
+    {
+        yield return BootFlow();
+    }
+
+    private IEnumerator BootFlow()
     {
         AudioManager.Instance.PlayMusic(AudioManager.Instance.loadingMusicClip);
 
@@ -106,9 +126,15 @@ public class LoadingManager : Singleton<LoadingManager>
         InitAllScene();
 
         // Inventory + coins are authoritative in their own server tables (so the marketplace
-        // can read them). Pull them now to override whatever the cloud-save blob contained.
+        // can read them). For a brand-new account the table is empty, so push the local defaults
+        // (e.g. the default gardening tools) up to seed it; otherwise pull the saved inventory.
         if (ServerSyncManager.Instance != null)
-            ServerSyncManager.Instance.PullFromServer();
+        {
+            if (DataPersistenceManager.Instance != null && DataPersistenceManager.Instance.IsNewAccount)
+                ServerSyncManager.Instance.PushToServer();
+            else
+                ServerSyncManager.Instance.PullFromServer();
+        }
 
         loadingCanvas.SetActive(false);
 

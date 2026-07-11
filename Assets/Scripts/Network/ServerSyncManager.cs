@@ -23,17 +23,9 @@ namespace BlossomBuddies.Network
             Instance = this;
         }
 
-        private void OnEnable()
-        {
-            if (SessionManager.Instance != null)
-                SessionManager.Instance.OnLoggedIn += PullFromServer;
-        }
-
-        private void OnDisable()
-        {
-            if (SessionManager.Instance != null)
-                SessionManager.Instance.OnLoggedIn -= PullFromServer;
-        }
+        // Note: pull/push are driven explicitly by LoadingManager once the game scene is ready
+        // (and by the market after trades), so we intentionally do NOT auto-pull on OnLoggedIn —
+        // that would race with new-account seeding and run before the managers exist.
 
         /// <summary>Loads coins + inventory from the server into the running game.</summary>
         public void PullFromServer()

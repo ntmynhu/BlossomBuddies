@@ -144,21 +144,26 @@ namespace BlossomBuddies.EditorTools
 
         private static void BuildLogout(Transform canvas, SessionUI session)
         {
-            // Small top-right container, shown only while logged in.
-            var root = UIFactory.Panel(canvas, "LogoutRoot", new Color(0f, 0f, 0f, 0f));
+            // Top-right bar: [username] [Logout], shown only while logged in.
+            var root = UIFactory.Panel(canvas, "LogoutRoot", new Color(0f, 0f, 0f, 0.45f));
             var rt = root.GetComponent<RectTransform>();
             rt.anchorMin = rt.anchorMax = new Vector2(1, 1);
             rt.pivot = new Vector2(1, 1);
             rt.anchoredPosition = new Vector2(-20, -20);
-            rt.sizeDelta = new Vector2(150, 48);
-            UIFactory.Horizontal(root, 0, 0);
+            rt.sizeDelta = new Vector2(340, 48);
+            UIFactory.Horizontal(root, 8, 8);
+
+            var nameLabel = UIFactory.Text(root.transform, "", 22, TextAlignmentOptions.Right);
+            nameLabel.color = Color.white;
+            nameLabel.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
 
             var logoutBtn = UIFactory.Button(root.transform, "Logout", null, new Color(0.85f, 0.5f, 0.5f));
-            UIFactory.SetWidth(logoutBtn.gameObject, 150);
+            UIFactory.SetWidth(logoutBtn.gameObject, 140);
 
             var so = new SerializedObject(session);
             so.FindProperty("logoutRoot").objectReferenceValue = root;
             so.FindProperty("logoutButton").objectReferenceValue = logoutBtn;
+            so.FindProperty("usernameLabel").objectReferenceValue = nameLabel;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
