@@ -80,5 +80,16 @@ namespace BlossomBuddies.Network
                 Action<string> onSuccess, Action<ApiError> onError)
                 => Client.Delete($"api/market/{listingId}", onSuccess, onError);
         }
+
+        // Per-account cloud save of the whole GameData JSON blob (garden, plants, grid…).
+        public static class Save
+        {
+            // payload.Json is null/empty for a brand-new account.
+            public static void Get(Action<SavePayload> onSuccess, Action<ApiError> onError)
+                => Client.Get("api/save", onSuccess, onError);
+
+            public static void Push(string json, Action<string> onSuccess, Action<ApiError> onError)
+                => Client.Post("api/save", new SavePayload { Json = json }, onSuccess, onError);
+        }
     }
 }

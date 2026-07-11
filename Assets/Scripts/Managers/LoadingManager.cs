@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BlossomBuddies.Network;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -39,6 +40,10 @@ public class LoadingManager : Singleton<LoadingManager>
     {
         AudioManager.Instance.PlayMusic(AudioManager.Instance.loadingMusicClip);
 
+        // Login gate: don't enter the game until authenticated. The LoginPanel overlay
+        // (on the persistent OnlineCanvas) handles sign-in; a restored session passes instantly.
+        yield return new WaitUntil(() => SessionManager.Instance != null && SessionManager.Instance.IsLoggedIn);
+
         if (!hasShownInitialLoading)
         {
             yield return InitialLoadWithSlider(initialSceneName);
@@ -58,7 +63,10 @@ public class LoadingManager : Singleton<LoadingManager>
         loadingBarObject.SetActive(true);
         loadingBar.value = 0f;
 
-        DataPersistenceManager.Instance.InitAndLoadGame();
+        // Load this account's progress from the server cloud save (defaults for new accounts).
+        bool saveReady = false;
+        DataPersistenceManager.Instance.LoadFromServer(() => saveReady = true);
+        yield return new WaitUntil(() => saveReady);
 
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName.ToString());
         op.allowSceneActivation = false;
@@ -96,6 +104,12 @@ public class LoadingManager : Singleton<LoadingManager>
         yield return new WaitForSeconds(0.5f);
 
         InitAllScene();
+
+        // Inventory + coins are authoritative in their own server tables (so the marketplace
+        // can read them). Pull them now to override whatever the cloud-save blob contained.
+        if (ServerSyncManager.Instance != null)
+            ServerSyncManager.Instance.PullFromServer();
+
         loadingCanvas.SetActive(false);
 
         yield return Fade(1f, 0f, fadeOutTime);

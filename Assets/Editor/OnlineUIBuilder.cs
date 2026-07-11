@@ -17,18 +17,34 @@ namespace BlossomBuddies.EditorTools
     {
         private const string RowPrefabPath = "Assets/Prefabs/UI/MarketRow.prefab";
 
+        // Clears the saved JWT so the next launch shows the login screen (test multiple accounts).
+        [MenuItem("Tools/Online/Clear Saved Login")]
+        public static void ClearSavedLogin()
+        {
+            PlayerPrefs.DeleteKey("bb_auth_token");
+            PlayerPrefs.DeleteKey("bb_auth_username");
+            PlayerPrefs.Save();
+            Debug.Log("[OnlineUIBuilder] Cleared saved login. Next play will show the login screen.");
+        }
+
         [MenuItem("Tools/Online/Build Login + Market UI")]
         public static void BuildAll()
         {
+            // Make re-running safe: remove any previously built canvas.
+            var existing = GameObject.Find("OnlineCanvas");
+            if (existing != null) Object.DestroyImmediate(existing);
+
             var canvas = UIFactory.CreateOverlayCanvas("OnlineCanvas");
             UIFactory.EnsureEventSystem();
 
             var loginPanel = canvas.gameObject.AddComponent<LoginPanel>();
             var marketPanel = canvas.gameObject.AddComponent<MarketPanel>();
+            var sessionUI = canvas.gameObject.AddComponent<SessionUI>();
 
             BuildLogin(canvas.transform, loginPanel);
             var rowPrefab = BuildRowPrefab();
             BuildMarket(canvas.transform, marketPanel, rowPrefab);
+            BuildLogout(canvas.transform, sessionUI);
 
             WireBootstrap(canvas);
 
@@ -126,6 +142,26 @@ namespace BlossomBuddies.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
+        private static void BuildLogout(Transform canvas, SessionUI session)
+        {
+            // Small top-right container, shown only while logged in.
+            var root = UIFactory.Panel(canvas, "LogoutRoot", new Color(0f, 0f, 0f, 0f));
+            var rt = root.GetComponent<RectTransform>();
+            rt.anchorMin = rt.anchorMax = new Vector2(1, 1);
+            rt.pivot = new Vector2(1, 1);
+            rt.anchoredPosition = new Vector2(-20, -20);
+            rt.sizeDelta = new Vector2(150, 48);
+            UIFactory.Horizontal(root, 0, 0);
+
+            var logoutBtn = UIFactory.Button(root.transform, "Logout", null, new Color(0.85f, 0.5f, 0.5f));
+            UIFactory.SetWidth(logoutBtn.gameObject, 150);
+
+            var so = new SerializedObject(session);
+            so.FindProperty("logoutRoot").objectReferenceValue = root;
+            so.FindProperty("logoutButton").objectReferenceValue = logoutBtn;
+            so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         private static MarketRowUI BuildRowPrefab()
         {
             var go = UIFactory.Panel(null, "MarketRow", new Color(1f, 1f, 1f, 0.9f));
@@ -211,8 +247,9 @@ namespace BlossomBuddies.EditorTools
             {
                 var go = new GameObject("_Online");
                 boot = go.AddComponent<NetworkBootstrap>();
+                // LoadingManager drives the transition into the game, so leave this empty.
                 var bso = new SerializedObject(boot);
-                bso.FindProperty("sceneToLoadAfterLogin").stringValue = "LoadingScene";
+                bso.FindProperty("sceneToLoadAfterLogin").stringValue = "";
                 bso.ApplyModifiedPropertiesWithoutUndo();
             }
             if (boot.GetComponent<ApiClient>() == null) boot.gameObject.AddComponent<ApiClient>();

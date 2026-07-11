@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BlossomBuddies.Network;
 using UnityEngine;
 
 public class DataPersistenceManager : Singleton<DataPersistenceManager>
@@ -23,7 +24,10 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
 
     private void OnEnable()
     {
-        InitAndLoadGame();
+        // Only prepare the local (offline cache) handler here. The real load happens after
+        // login via LoadFromServer, so we never show one account's garden to another.
+        if (this.dataHandler == null)
+            this.dataHandler = new PlayerPrefsDataHandler(dataKey, useEncryption);
     }
 
     public void InitAndLoadGame() //void Start
@@ -32,6 +36,63 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
         //is loading -> has not have scene -> cannot call
         //this.dataPersistenceObjects = FindAllDataPersistenceObjects();
         LoadGame();
+    }
+
+    /// <summary>
+    /// Loads the player's progress from the server cloud save (per account). A brand-new
+    /// account has no save yet, so it starts from defaults. Falls back to the local cache
+    /// when offline. Calls <paramref name="onComplete"/> once gameData is ready.
+    /// </summary>
+    public void LoadFromServer(Action onComplete)
+    {
+        if (this.dataHandler == null)
+            this.dataHandler = new PlayerPrefsDataHandler(dataKey, useEncryption);
+
+        bool loggedIn = SessionManager.Instance != null && SessionManager.Instance.IsLoggedIn;
+        if (!loggedIn)
+        {
+            // Offline / not signed in: use local cache or defaults.
+            ApplyLoaded(this.dataHandler.Load(), cacheLocally: false);
+            onComplete?.Invoke();
+            return;
+        }
+
+        GameApi.Save.Get(
+            payload =>
+            {
+                GameData data = null;
+                if (payload != null && !string.IsNullOrEmpty(payload.Json))
+                {
+                    try { data = JsonUtility.FromJson<GameData>(payload.Json); }
+                    catch (Exception e) { Debug.LogError("[Save] Failed to parse cloud save: " + e); }
+                }
+                // New account (no cloud save) -> defaults.
+                ApplyLoaded(data, cacheLocally: true);
+                onComplete?.Invoke();
+            },
+            err =>
+            {
+                Debug.LogWarning("[Save] Cloud load failed, using local cache/defaults: " + err);
+                ApplyLoaded(this.dataHandler.Load(), cacheLocally: false);
+                onComplete?.Invoke();
+            });
+    }
+
+    private void ApplyLoaded(GameData data, bool cacheLocally)
+    {
+        this.gameData = data ?? new GameData();
+
+        if (hoursSinceLastLogin > 0)
+            this.gameData.lastLoginTime -= (long)(hoursSinceLastLogin * 3600f * 10000000f);
+
+        lastLoginTime = this.gameData.lastLoginTime;
+
+        // Keep the local cache in sync with the account we just loaded (prevents another
+        // account's stale cache from leaking into scene transitions before the first save).
+        if (cacheLocally)
+            this.dataHandler.Save(this.gameData);
+
+        PushLoadedDataToObject();
     }
 
     const float SAVE_INTERVAL = 30f;
@@ -110,8 +171,16 @@ public class DataPersistenceManager : Singleton<DataPersistenceManager>
                 }
             }
 
-            // save the data to a file using data handler
+            // save the data to a local file (offline cache)
             dataHandler.Save(gameData);
+
+            // and push to the server cloud save for this account
+            if (SessionManager.Instance != null && SessionManager.Instance.IsLoggedIn)
+            {
+                GameApi.Save.Push(JsonUtility.ToJson(gameData),
+                    _ => { },
+                    err => Debug.LogWarning("[Save] Cloud push failed: " + err));
+            }
         }
     }
 

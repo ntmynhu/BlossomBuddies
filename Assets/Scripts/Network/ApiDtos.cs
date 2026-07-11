@@ -61,6 +61,13 @@ namespace BlossomBuddies.Network
         public List<InventoryItemDto> Items = new();
     }
 
+    // ----- Cloud save (whole GameData JSON blob) -----
+    [Serializable]
+    public class SavePayload
+    {
+        public string Json;
+    }
+
     // ----- Market -----
     [Serializable]
     public class CreateListingRequest
