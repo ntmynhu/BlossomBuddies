@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1001_W_Sunflower
   m_EditorClassIdentifier: 
   Id: 1001_W
-  Name: Plant
+  Name: Sunflower
   icon: {fileID: 21300000, guid: 66235788932e6d0499cc2f950e77a7d7, type: 3}
   prefab: {fileID: 8935979759752783158, guid: aa1b5390f409694449085f03d359e98a, type: 3}
   isSellable: 0
@@ -28,9 +28,9 @@ MonoBehaviour:
   - type: 0
     value: 50
   - type: 1
-    value: 20
+    value: 50
   - type: 2
-    value: 0
+    value: 50
   plantStates:
   - growthTime: 0.025
     deadTime: 24

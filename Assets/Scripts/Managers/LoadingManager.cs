@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BlossomBuddies.Network;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,36 @@ public class LoadingManager : Singleton<LoadingManager>
 
     private static bool hasShownInitialLoading = false;
 
+    // Re-runs the login gate + load flow (used on logout). LoadingManager is persistent, so
+    // its Start() only runs once; this restarts the flow so a new account loads properly.
+    public void RestartLoadFlow()
+    {
+        hasShownInitialLoading = false;
+        StopAllCoroutines();
+
+        // Hide the gameplay scene behind the login screen: turn off the world + HUD, but keep
+        // the camera and EventSystem alive so the (persistent) login canvas still renders and
+        // stays clickable. The next sign-in reloads MainScene fresh.
+        var active = SceneManager.GetActiveScene();
+        if (active.IsValid() && active.name == initialSceneName.ToString())
+        {
+            foreach (var go in active.GetRootGameObjects())
+            {
+                // Keep anything that carries a Camera or an EventSystem (needed for UI input).
+                if (go.GetComponentInChildren<Camera>(true) != null) continue;
+                if (go.GetComponentInChildren<UnityEngine.EventSystems.EventSystem>(true) != null) continue;
+
+                go.SetActive(false);
+            }
+        }
+
+        // Also cover with the (opaque) loading screen while we wait for the next sign-in.
+        if (loadingCanvas != null) loadingCanvas.SetActive(true);
+        if (loadingBarObject != null) loadingBarObject.SetActive(false);
+
+        StartCoroutine(BootFlow());
+    }
+
     protected override void Awake()
     {
         base.Awake();
@@ -37,7 +68,16 @@ public class LoadingManager : Singleton<LoadingManager>
 
     private IEnumerator Start()
     {
+        yield return BootFlow();
+    }
+
+    private IEnumerator BootFlow()
+    {
         AudioManager.Instance.PlayMusic(AudioManager.Instance.loadingMusicClip);
+
+        // Login gate: don't enter the game until authenticated. The LoginPanel overlay
+        // (on the persistent OnlineCanvas) handles sign-in; a restored session passes instantly.
+        yield return new WaitUntil(() => SessionManager.Instance != null && SessionManager.Instance.IsLoggedIn);
 
         if (!hasShownInitialLoading)
         {
@@ -58,7 +98,10 @@ public class LoadingManager : Singleton<LoadingManager>
         loadingBarObject.SetActive(true);
         loadingBar.value = 0f;
 
-        DataPersistenceManager.Instance.InitAndLoadGame();
+        // Load this account's progress from the server cloud save (defaults for new accounts).
+        bool saveReady = false;
+        DataPersistenceManager.Instance.LoadFromServer(() => saveReady = true);
+        yield return new WaitUntil(() => saveReady);
 
         AsyncOperation op = SceneManager.LoadSceneAsync(sceneName.ToString());
         op.allowSceneActivation = false;
@@ -96,6 +139,18 @@ public class LoadingManager : Singleton<LoadingManager>
         yield return new WaitForSeconds(0.5f);
 
         InitAllScene();
+
+        // Inventory + coins are authoritative in their own server tables (so the marketplace
+        // can read them). For a brand-new account the table is empty, so push the local defaults
+        // (e.g. the default gardening tools) up to seed it; otherwise pull the saved inventory.
+        if (ServerSyncManager.Instance != null)
+        {
+            if (DataPersistenceManager.Instance != null && DataPersistenceManager.Instance.IsNewAccount)
+                ServerSyncManager.Instance.PushToServer();
+            else
+                ServerSyncManager.Instance.PullFromServer();
+        }
+
         loadingCanvas.SetActive(false);
 
         yield return Fade(1f, 0f, fadeOutTime);

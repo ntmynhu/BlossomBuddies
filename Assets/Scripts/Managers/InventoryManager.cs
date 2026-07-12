@@ -65,7 +65,16 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
         if (item is ToolInfo toolInfo)
         {
-            GameManager.Instance.ToolHandler.SelectTool(toolInfo);
+            // Clicking the already-equipped tool again deselects it (toggle).
+            Tool current = ToolManager.Instance.GetCurrentTool();
+            if (current != null && current.ToolInfo == toolInfo)
+            {
+                GameManager.Instance.ToolHandler.UnSelectTool();
+            }
+            else
+            {
+                GameManager.Instance.ToolHandler.SelectTool(toolInfo);
+            }
         }
     }
 
@@ -116,13 +125,29 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         }
     }
 
+    // Opens/closes the inventory panel (same as pressing E). Wired to the HUD inventory button.
+    public void ToggleInventory()
+    {
+        SetInventoryOpen(!inventoryPanel.activeSelf);
+    }
+
+    // Central open/close so panel state stays consistent. Refuses to open while another
+    // exclusive panel (shop/marketplace) is up.
+    private void SetInventoryOpen(bool open)
+    {
+        if (open && GameUIState.AnyOtherOpen(UIPanel.Inventory)) return;
+
+        inventoryPanel.SetActive(open);
+        GameUIState.InventoryOpen = open;
+        GameManager.Instance.SetMovementFrozen(open);
+    }
+
     private void HandleGardenToolInventory()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Inventory opened");
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            GameManager.Instance.SetMovementFrozen(inventoryPanel.activeSelf);
+            SetInventoryOpen(!inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -132,8 +157,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                inventoryPanel.SetActive(false);
-                GameManager.Instance.SetMovementFrozen(false);
+                SetInventoryOpen(false);
             }
         }
     }
@@ -190,6 +214,24 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return result;
     }
 
+    // Items the player is allowed to list on the marketplace: everything owned
+    // except tools (shovel, watering can, scissors, gloves are ToolInfo assets).
+    public List<KeyValuePair<BaseData, int>> GetSellableInventory()
+    {
+        var result = new List<KeyValuePair<BaseData, int>>();
+
+        if (inventoryDictionary == null) return result;
+
+        foreach (var item in inventoryDictionary)
+        {
+            if (item.Value <= 0) continue;
+            if (item.Key is ToolInfo) continue; // tools are not sellable on the market
+            result.Add(new KeyValuePair<BaseData, int>(item.Key, item.Value));
+        }
+
+        return result;
+    }
+
     public int GetItemQuantity(BaseData objectData)
     {
         if (inventoryDictionary.TryGetValue(objectData, out int quantity))
@@ -223,6 +265,45 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
 
         Debug.LogWarning($"PreviewData with ID {id} not found in any database.");
         return null;
+    }
+
+    // Replaces the local inventory with a snapshot from the server (id -> quantity).
+    // Used by the hybrid sync: server is the source of truth for owned items.
+    public void SetInventoryFromServer(IEnumerable<KeyValuePair<string, int>> items)
+    {
+        inventoryDictionary = new Dictionary<BaseData, int>();
+
+        foreach (var entry in items)
+        {
+            if (entry.Value <= 0) continue;
+
+            BaseData objectData = GetPreviewDataById(entry.Key);
+            if (objectData != null)
+                inventoryDictionary[objectData] = entry.Value;
+            else
+                Debug.LogWarning($"[Sync] ItemDefId {entry.Key} not found in any object database.");
+        }
+
+        List<ToolInfo> toolList = GetInventoryObjectsByType<ToolInfo>();
+        StartCoroutine(ToolManager.Instance.InitializeTools(toolList));
+
+        UpdateInventoryUI();
+    }
+
+    // Exports the current inventory as (id, quantity) pairs for pushing to the server.
+    public List<KeyValuePair<string, int>> ExportInventory()
+    {
+        var result = new List<KeyValuePair<string, int>>();
+
+        if (inventoryDictionary == null) return result;
+
+        foreach (var item in inventoryDictionary)
+        {
+            if (item.Value > 0)
+                result.Add(new KeyValuePair<string, int>(item.Key.Id, item.Value));
+        }
+
+        return result;
     }
 
     public void LoadData(GameData data)

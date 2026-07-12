@@ -1,5 +1,6 @@
 using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ToolHandler : MonoBehaviour
 {
@@ -63,12 +64,36 @@ public class ToolHandler : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            // Don't use tools while a UI panel is open or when clicking on UI.
+            if (GameUIState.IsAnyPanelOpen) return;
+
+            var es = EventSystem.current;
+            if (es != null && es.IsPointerOverGameObject()) return;
+
             Tool tool = ToolManager.Instance.GetCurrentTool();
-            if (tool != null && !InventoryManager.Instance.IsInventoryOpen)
+            if (tool != null)
             {
                 tool.UseTool();
+
+                // While holding a tool, clicking a plant also reveals its condition icons.
+                ShowPlantConditionAtCursor();
             }
         }
+    }
+
+    // Reveals the condition indicators of the plant under the cursor, if any.
+    private void ShowPlantConditionAtCursor()
+    {
+        if (PlacementSystem.Instance == null || InputManager.Instance == null) return;
+
+        Vector3 worldPos = InputManager.Instance.GetSelectedMapPosition();
+        Vector3Int gridPos = PlacementSystem.Instance.MainGrid.WorldToCell(worldPos);
+
+        GameObject obj = PlacementSystem.Instance.GetMainGridPlacedObject(GridType.PlantGrid, gridPos);
+        if (obj == null) return;
+
+        Plant plant = obj.GetComponent<Plant>();
+        if (plant != null) plant.ShowConditionUI();
     }
 
     public void OnPickupPet(PetStateHandler pet)

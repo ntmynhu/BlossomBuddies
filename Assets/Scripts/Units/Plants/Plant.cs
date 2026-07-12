@@ -31,6 +31,12 @@ public class Plant : MonoBehaviour
     private Dictionary<PlantMainStatsType, float> currentMainStats = new Dictionary<PlantMainStatsType, float>();
     private float mainTickTimer = 0;
 
+    private PlantConditionUI conditionUI;
+    private bool isGrowingCached;
+
+    // True while conditions are met and the plant is progressing (used for feedback FX).
+    public bool IsGrowing => isGrowingCached;
+
     #region Watering Variables
     private float waterTimer;
     private int waterState;
@@ -57,9 +63,13 @@ public class Plant : MonoBehaviour
             return;
         }
 
-        // Calculate the current state time 
+        // Calculate the current state time
         currentStateGrowthTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].growthTime);
         currentStateDeadTime = WorldTimeManager.Instance.IG_Hour_to_RT_Second(plantData.plantStates[currentStateIndex].deadTime);
+
+        // Placeholder feedback FX: sparkle while thriving + shared bounce animation.
+        PlantFeedbackParticles.Create(this);
+        PlantBounce.Attach(this);
     }
 
     private void Update()
@@ -169,6 +179,7 @@ public class Plant : MonoBehaviour
     private void CalculateGrowthTime()
     {
         bool isGrowing = CheckGrowCondition();
+        isGrowingCached = isGrowing;
 
         if (isGrowing)
         {
@@ -232,6 +243,107 @@ public class Plant : MonoBehaviour
         }
 
         return isGrowing;
+    }
+
+    // ---------- Condition UI support ----------
+
+    public struct ConditionInfo
+    {
+        public float fill;        // 0..1 percentage of this stat
+        public bool sufficient;   // condition currently met (green/blue zone)
+        public bool increasing;   // trending upward (e.g. daytime for light, watered for water)
+    }
+
+    public bool AreStatsReady => currentMainStats != null && currentMainStats.ContainsKey(PlantMainStatsType.Light);
+
+    // Toggles the little condition indicators above the plant (created lazily on first click).
+    public void ToggleConditionUI()
+    {
+        if (isDead) return;
+
+        if (conditionUI == null)
+            conditionUI = PlantConditionUI.Create(this);
+        else
+            conditionUI.ToggleVisible();
+    }
+
+    // Forces the condition indicators visible (used after watering/fertilizing or when a plant
+    // is clicked while holding a tool, so the player can read the stats right away).
+    public void ShowConditionUI()
+    {
+        if (isDead) return;
+
+        if (conditionUI == null)
+            conditionUI = PlantConditionUI.Create(this);
+        else if (!conditionUI.gameObject.activeSelf)
+            conditionUI.gameObject.SetActive(true);
+    }
+
+    // Custom sprite for a stat's indicator, or null to use the default circle.
+    public Sprite GetConditionIcon(PlantMainStatsType type)
+    {
+        if (plantStats == null) return null;
+
+        switch (type)
+        {
+            case PlantMainStatsType.Light: return plantStats.LIGHT_ICON;
+            case PlantMainStatsType.Water: return plantStats.WATER_ICON;
+            case PlantMainStatsType.Nutrient: return plantStats.NUTRIENT_ICON;
+            default: return null;
+        }
+    }
+
+    // Optional gray background sprite for a stat's indicator, or null.
+    public Sprite GetConditionBgIcon(PlantMainStatsType type)
+    {
+        if (plantStats == null) return null;
+
+        switch (type)
+        {
+            case PlantMainStatsType.Light: return plantStats.LIGHT_BG_ICON;
+            case PlantMainStatsType.Water: return plantStats.WATER_BG_ICON;
+            case PlantMainStatsType.Nutrient: return plantStats.NUTRIENT_BG_ICON;
+            default: return null;
+        }
+    }
+
+    public ConditionInfo GetConditionInfo(PlantMainStatsType type)
+    {
+        var info = new ConditionInfo { fill = 0f, sufficient = true, increasing = false };
+
+        if (currentMainStats == null || !currentMainStats.TryGetValue(type, out float value))
+            return info;
+
+        float max = plantStats != null ? plantStats.MAX_MAIN_STAT_VALUE : 1f;
+        info.fill = max > 0f ? Mathf.Clamp01(value / max) : 0f;
+        info.sufficient = IsConditionSufficient(type, info.fill);
+        info.increasing = IsStatIncreasing(type);
+        return info;
+    }
+
+    private bool IsConditionSufficient(PlantMainStatsType type, float pct)
+    {
+        if (plantData == null || currentStateIndex < 0 || currentStateIndex >= plantData.plantStates.Count)
+            return true;
+
+        var cond = plantData.plantStates[currentStateIndex].conditions.Find(c => c.type == type);
+        if (cond == null) return true; // no requirement for this stat in this state
+
+        Color c = cond.conditionRange.Evaluate(pct);
+        return c == Color.green || c == Color.blue; // valid or optimal zone
+    }
+
+    private bool IsStatIncreasing(PlantMainStatsType type)
+    {
+        switch (type)
+        {
+            case PlantMainStatsType.Light:
+                return LightingManager.Instance != null && LightingManager.Instance.CurrentLightValue > 0f;
+            case PlantMainStatsType.Water:
+                return isWatered;
+            default:
+                return false; // nutrient decays over time; only rises on discrete fertilize events
+        }
     }
 
     private void AdvanceToNextState()
@@ -422,6 +534,8 @@ public class Plant : MonoBehaviour
         isWatered = true;
 
         GameManager.Instance.AddHeart(1);
+
+        ShowConditionUI();
     }
 
     public void StopWater()
@@ -439,6 +553,8 @@ public class Plant : MonoBehaviour
         currentMainStats[PlantMainStatsType.Nutrient] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Nutrient], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
         DebugMainStats();
+
+        ShowConditionUI();
     }
 
     private void HandleWaterLevel()

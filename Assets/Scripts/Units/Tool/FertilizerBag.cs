@@ -33,6 +33,9 @@ public class FertilizerBag : Tool
         PlacementSystem.Instance.TriggerAction();
         AudioManager.Instance.PlaySFX(AudioManager.Instance.shovelSoundClip);
 
+        // Fertilizer is a consumable: remove one from the inventory after applying it.
+        InventoryManager.Instance.RemoveItem(ToolInfo);
+
         playerMovement.SetMovementEnable(true);
     }
 }
