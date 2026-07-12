@@ -28,7 +28,7 @@ public class BreedingManager : Singleton<BreedingManager>
     {
         foreach (var slot in parentSlots)
         {
-            DeselectPlant(slot);
+            ClearSlot(slot);
         }
 
         breedButton.onClick.AddListener(CheckBreeding);
@@ -49,12 +49,19 @@ public class BreedingManager : Singleton<BreedingManager>
 
     private void ToggleBreedingPanel()
     {
-        breedingPanel.SetActive(!breedingPanel.activeSelf);
-        GameManager.Instance.SetMovementFrozen(breedingPanel.activeSelf);
+        bool open = !breedingPanel.activeSelf;
+        breedingPanel.SetActive(open);
+        GameManager.Instance.SetMovementFrozen(open);
 
-        if (breedingPanel.activeSelf)
+        if (open)
         {
             RefreshFlowerList();
+        }
+        else
+        {
+            // Closing without breeding: give any reserved parent flowers back to the inventory.
+            foreach (var slot in parentSlots)
+                ReturnParentToInventory(slot);
         }
     }
 
@@ -78,37 +85,49 @@ public class BreedingManager : Singleton<BreedingManager>
 
     public void OnPlantSelected(PlantData selectedPlant)
     {
-        // Handle plant selection for breeding
         Debug.Log($"Selected plant for breeding: {selectedPlant.name}");
 
-        // Check for empty parent slot and assign the selected plant
-        foreach (var slot in parentSlots)
+        // Find an empty parent slot.
+        ParentSlot slot = parentSlots.FirstOrDefault(s => s.plantData == null);
+        if (slot == null) return; // both slots already filled
+
+        // The player must still own one; taking it out of the inventory reserves it in the slot.
+        if (InventoryManager.Instance.GetItemQuantity(selectedPlant) <= 0) return;
+        InventoryManager.Instance.RemoveItem(selectedPlant);
+
+        slot.plantData = selectedPlant;
+        slot.flowerImage.sprite = selectedPlant.icon;
+        slot.flowerImage.gameObject.SetActive(true);
+        slot.deselectButton.interactable = true;
+
+        slot.alenPanel.SetActive(true);
+        for (int i = 0; i < slot.alenColorImages.Count(); i++)
         {
-            if (slot.plantData == null)
-            {
-                slot.plantData = selectedPlant;
-                slot.flowerImage.sprite = selectedPlant.icon;
-                slot.flowerImage.gameObject.SetActive(true);
-                slot.deselectButton.interactable = true;
+            AlenType type = slot.plantData.alenTypes[i];
+            Color color = GetAlenColor(type);
 
-                slot.alenPanel.SetActive(true);
-                for (int i = 0; i < slot.alenColorImages.Count(); i++)
-                {
-                    AlenType type = slot.plantData.alenTypes[i];
-                    Color color = GetAlenColor(type);
-
-                    slot.alenColorImages[i].color = color;
-                }
-
-                slot.deselectButton.onClick.RemoveAllListeners();
-                slot.deselectButton.onClick.AddListener(() => DeselectPlant(slot));
-
-                break;
-            }
+            slot.alenColorImages[i].color = color;
         }
+
+        slot.deselectButton.onClick.RemoveAllListeners();
+        slot.deselectButton.onClick.AddListener(() => ReturnParentToInventory(slot));
+
+        RefreshFlowerList();
     }
 
-    private void DeselectPlant(ParentSlot slot)
+    // Player removed a flower from a parent slot: give it back to the inventory.
+    private void ReturnParentToInventory(ParentSlot slot)
+    {
+        if (slot.plantData != null)
+            InventoryManager.Instance.AddItem(slot.plantData);
+
+        ClearSlot(slot);
+        RefreshFlowerList();
+    }
+
+    // Resets a parent slot's visuals without touching the inventory (used on init and after a
+    // successful breed, where the reserved flowers are consumed rather than returned).
+    private void ClearSlot(ParentSlot slot)
     {
         slot.plantData = null;
         slot.flowerImage.sprite = null;
@@ -127,28 +146,13 @@ public class BreedingManager : Singleton<BreedingManager>
             return;
         }
 
-        var plant1 = parentSlots[0].plantData;
-        var plant2 = parentSlots[1].plantData;
-
-        // Make sure the player actually owns the selected parents (needs 2 if both are the
-        // same plant type) before consuming them.
-        int need1 = plant1 == plant2 ? 2 : 1;
-        if (InventoryManager.Instance.GetItemQuantity(plant1) < need1)
-        {
-            Debug.Log("Not enough flowers to breed.");
-            return;
-        }
-
-        StartBreeding(plant1, plant2);
+        // Parents were already reserved (removed from inventory) when placed in the slots.
+        StartBreeding(parentSlots[0].plantData, parentSlots[1].plantData);
     }
 
     public void StartBreeding(PlantData plant1, PlantData plant2)
     {
         Debug.Log($"Breeding {plant1.name} with {plant2.name}");
-
-        // Consume the two parent flowers.
-        InventoryManager.Instance.RemoveItem(plant1);
-        InventoryManager.Instance.RemoveItem(plant2);
 
         List<AlenType> combinedAlenTypes = plant1.alenTypes.Concat(plant2.alenTypes).ToList();
 
@@ -202,9 +206,9 @@ public class BreedingManager : Singleton<BreedingManager>
             offspringPlant = UnityEngine.Random.value < 0.5f ? plant1 : plant2;
         }
 
-        // Parents are used up: clear their slots and refresh the flower list quantities.
+        // Parents were already removed from the inventory when reserved; just clear the slots.
         foreach (var slot in parentSlots)
-            DeselectPlant(slot);
+            ClearSlot(slot);
         RefreshFlowerList();
 
         // Breeding yields a random 1-3 seeds.
