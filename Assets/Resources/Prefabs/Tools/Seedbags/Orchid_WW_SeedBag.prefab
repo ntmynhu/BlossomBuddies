@@ -192,7 +192,7 @@ PrefabInstance:
     - target: {fileID: 7315409051211820813, guid: 3b83edef5feb4324c8d726386d93662d,
         type: 3}
       propertyPath: m_Name
-      value: LilySeedBag
+      value: Orchid_WW_SeedBag
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4071833452636940995, guid: 3b83edef5feb4324c8d726386d93662d, type: 3}
@@ -236,7 +236,7 @@ MonoBehaviour:
   toolInfo: {fileID: 0}
   initialPos: {x: 0, y: 0, z: 0}
   initialRot: {x: 0, y: 0, z: 0, w: 0}
-  spawnObject: {fileID: 11400000, guid: f7a6a008fa1ac10448a323f35a1e2756, type: 2}
+  spawnObject: {fileID: 11400000, guid: 55e4e08e29d87b74f9eccbead42c50b4, type: 2}
 --- !u!4 &3679028308450915994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8925089725328672679, guid: 3b83edef5feb4324c8d726386d93662d,

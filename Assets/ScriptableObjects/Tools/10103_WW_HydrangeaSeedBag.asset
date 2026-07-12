@@ -16,6 +16,6 @@ MonoBehaviour:
   Name: Hydrangea Seed Bag
   icon: {fileID: 21300000, guid: b32c96520e144f146a387cbf7d53154f, type: 3}
   prefab: {fileID: 3267164534628851248, guid: bbfa6a8894a90e247bd28b852e8e616a, type: 3}
-  isSellable: 1
+  isSellable: 0
   buyPrice: 50
   isUnique: 0
