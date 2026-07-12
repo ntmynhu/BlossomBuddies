@@ -279,6 +279,34 @@ public class Plant : MonoBehaviour
             conditionUI.gameObject.SetActive(true);
     }
 
+    // Custom sprite for a stat's indicator, or null to use the default circle.
+    public Sprite GetConditionIcon(PlantMainStatsType type)
+    {
+        if (plantStats == null) return null;
+
+        switch (type)
+        {
+            case PlantMainStatsType.Light: return plantStats.LIGHT_ICON;
+            case PlantMainStatsType.Water: return plantStats.WATER_ICON;
+            case PlantMainStatsType.Nutrient: return plantStats.NUTRIENT_ICON;
+            default: return null;
+        }
+    }
+
+    // Optional gray background sprite for a stat's indicator, or null.
+    public Sprite GetConditionBgIcon(PlantMainStatsType type)
+    {
+        if (plantStats == null) return null;
+
+        switch (type)
+        {
+            case PlantMainStatsType.Light: return plantStats.LIGHT_BG_ICON;
+            case PlantMainStatsType.Water: return plantStats.WATER_BG_ICON;
+            case PlantMainStatsType.Nutrient: return plantStats.NUTRIENT_BG_ICON;
+            default: return null;
+        }
+    }
+
     public ConditionInfo GetConditionInfo(PlantMainStatsType type)
     {
         var info = new ConditionInfo { fill = 0f, sufficient = true, increasing = false };

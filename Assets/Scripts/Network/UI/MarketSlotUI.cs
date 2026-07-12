@@ -19,7 +19,7 @@ namespace BlossomBuddies.Network.UI
         private TMP_Text _footerLabel;   // "BUY" prompt or "Sold to <buyer>"
         private Button _button;
 
-        private static readonly Color ForSaleColor = new Color(0.62f, 0.47f, 0.32f, 1f);
+        private static readonly Color ForSaleColor = new Color(0.5098f, 0.4510f, 0.3922f, 1f);
         private static readonly Color SoldColor = new Color(0.45f, 0.55f, 0.55f, 1f);
 
         public void Init()

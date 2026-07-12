@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1001_Y_Sunflower
   m_EditorClassIdentifier: 
   Id: 1001_Y
-  Name: Plant
+  Name: Sunflower
   icon: {fileID: 21300000, guid: 4c5e839f08df0464e801fb2e257bee5a, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 8819833f26bc25f49a7c8a85686cf5b2, type: 3}
   isSellable: 0

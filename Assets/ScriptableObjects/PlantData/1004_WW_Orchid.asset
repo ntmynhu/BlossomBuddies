@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1004_WW_Orchid
   m_EditorClassIdentifier: 
   Id: 1004_WW
-  Name: Lan Rung
+  Name: Lily
   icon: {fileID: 21300000, guid: 2df5bab199e3a3c4189849198f3d7392, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 1e992ba56cc9c7d49adc0d906ad0a32a, type: 3}
   isSellable: 0

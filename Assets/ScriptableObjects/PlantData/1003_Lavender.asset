@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1003_Lavender
   m_EditorClassIdentifier: 
   Id: 1003
-  Name: Plant
+  Name: Lavender
   icon: {fileID: 21300000, guid: d3fcb4805d1e7ab4eb44260f22b9a2ee, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 46eacc924c3794948b84d9ed921d5cb3, type: 3}
   isSellable: 0

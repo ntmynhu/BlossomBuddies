@@ -44,6 +44,17 @@ public class PlantStats : ScriptableObject
     [SerializeField] private float fertilizeAddedValue; // The value added to the fertilize stat when fertilized.
     [SerializeField] private float fertilizeDecreaseValue; // The value decreased from the fertilize stat every tick.
 
+    [Header("Condition Icons")]
+    [Tooltip("Colored fill sprites for the 3 stat indicators shown above the plant. Leave empty to use the default circle.")]
+    [SerializeField] private Sprite lightIcon;
+    [SerializeField] private Sprite waterIcon;
+    [SerializeField] private Sprite nutrientIcon;
+
+    [Tooltip("Optional gray background sprite for each indicator (the empty part). Leave empty to dim the fill sprite instead.")]
+    [SerializeField] private Sprite lightBgIcon;
+    [SerializeField] private Sprite waterBgIcon;
+    [SerializeField] private Sprite nutrientBgIcon;
+
     #region Properties
     public float MIN_MAIN_STAT_VALUE => minMainStatValue;
     public float MAX_MAIN_STAT_VALUE => maxMainStatValue;
@@ -68,5 +79,13 @@ public class PlantStats : ScriptableObject
 
     public float FERTILIZE_ADDED_VALUE => fertilizeAddedValue;
     public float FERTILIZE_DECREASE_VALUE => fertilizeDecreaseValue;
+
+    public Sprite LIGHT_ICON => lightIcon;
+    public Sprite WATER_ICON => waterIcon;
+    public Sprite NUTRIENT_ICON => nutrientIcon;
+
+    public Sprite LIGHT_BG_ICON => lightBgIcon;
+    public Sprite WATER_BG_ICON => waterBgIcon;
+    public Sprite NUTRIENT_BG_ICON => nutrientBgIcon;
     #endregion
 }

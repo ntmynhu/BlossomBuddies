@@ -21,7 +21,7 @@ namespace BlossomBuddies.Network.UI
         private Button _button;
 
         private static readonly Color EmptyColor = new Color(0.80f, 0.72f, 0.55f, 1f);
-        private static readonly Color ActiveColor = new Color(0.62f, 0.47f, 0.32f, 1f);
+        private static readonly Color ActiveColor = new Color(0.5098f, 0.4510f, 0.3922f, 1f);
         private static readonly Color SoldColor = new Color(0.45f, 0.70f, 0.40f, 1f);
 
         public void Init()

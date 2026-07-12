@@ -32,13 +32,15 @@ public class PlantConditionUI : MonoBehaviour
 
     private Plant _plant;
     private Image[] _fills;
+    private bool[] _hasCustomSprite;
     private Camera _cam;
 
     public static PlantConditionUI Create(Plant plant)
     {
         var go = new GameObject("ConditionUI");
         go.transform.SetParent(plant.transform, false);
-        go.transform.localPosition = Vector3.up * HeightOffset;
+        // Offset to the grid-cell center (plant sits at the cell corner) and lift above it.
+        go.transform.localPosition = new Vector3(0.5f, HeightOffset, 0.5f);
 
         var ui = go.AddComponent<PlantConditionUI>();
         ui._plant = plant;
@@ -66,35 +68,51 @@ public class PlantConditionUI : MonoBehaviour
         row.childForceExpandHeight = false;
 
         _fills = new Image[Types.Length];
+        _hasCustomSprite = new bool[Types.Length];
         for (int i = 0; i < Types.Length; i++)
-            _fills[i] = BuildIcon(transform, BaseColors[i]);
+        {
+            Sprite custom = _plant != null ? _plant.GetConditionIcon(Types[i]) : null;
+            Sprite customBg = _plant != null ? _plant.GetConditionBgIcon(Types[i]) : null;
+            _hasCustomSprite[i] = custom != null;
+            _fills[i] = BuildIcon(transform, BaseColors[i], custom, customBg);
+        }
 
         _cam = Camera.main != null ? Camera.main : FindObjectOfType<Camera>();
     }
 
-    private Image BuildIcon(Transform parent, Color baseColor)
+    private Image BuildIcon(Transform parent, Color baseColor, Sprite customSprite, Sprite customBg)
     {
         var icon = new GameObject("Icon", typeof(RectTransform));
         icon.transform.SetParent(parent, false);
+        // ~25% smaller than the original 90.
+        const float IconSize = 67.5f;
         var le = icon.AddComponent<LayoutElement>();
-        le.preferredWidth = le.preferredHeight = 90;
-        le.minWidth = le.minHeight = 90;
+        le.preferredWidth = le.preferredHeight = IconSize;
+        le.minWidth = le.minHeight = IconSize;
 
-        // Faint background circle so the empty part still shows the dot shape.
-        var bg = NewImage(icon.transform, "Bg");
-        bg.color = new Color(baseColor.r * 0.25f, baseColor.g * 0.25f, baseColor.b * 0.25f, 0.55f);
+        Sprite shape = customSprite != null ? customSprite : GetCircleSprite();
+
+        // Background (the empty part). Prefer a dedicated gray sprite; otherwise dim the shape.
+        var bg = NewImage(icon.transform, "Bg", customBg != null ? customBg : shape);
+        if (customBg != null)
+            bg.color = Color.white;                 // use the gray sprite's own colors
+        else if (customSprite != null)
+            bg.color = new Color(1f, 1f, 1f, 0.25f);
+        else
+            bg.color = new Color(baseColor.r * 0.25f, baseColor.g * 0.25f, baseColor.b * 0.25f, 0.55f);
 
         // Foreground fill that rises from the bottom.
-        var fill = NewImage(icon.transform, "Fill");
+        var fill = NewImage(icon.transform, "Fill", shape);
         fill.type = Image.Type.Filled;
         fill.fillMethod = Image.FillMethod.Vertical;
         fill.fillOrigin = (int)Image.OriginVertical.Bottom;
         fill.fillAmount = 0f;
-        fill.color = baseColor;
+        // Custom sprites keep their own colors (white tint); the default circle is tinted per stat.
+        fill.color = customSprite != null ? Color.white : baseColor;
         return fill;
     }
 
-    private static Image NewImage(Transform parent, string name)
+    private static Image NewImage(Transform parent, string name, Sprite sprite)
     {
         var go = new GameObject(name, typeof(RectTransform));
         go.transform.SetParent(parent, false);
@@ -105,7 +123,8 @@ public class PlantConditionUI : MonoBehaviour
         stretch.offsetMax = Vector2.zero;
 
         var img = go.AddComponent<Image>();
-        img.sprite = GetCircleSprite();
+        img.sprite = sprite;
+        img.preserveAspect = true;   // keep sprite proportions, no stretching
         img.raycastTarget = false;
         return img;
     }
@@ -132,7 +151,9 @@ public class PlantConditionUI : MonoBehaviour
             else
                 brightness = DimBrightness;
 
-            var c = BaseColors[i] * brightness;
+            // Custom sprites use their own colors (white tint); the default circle is tinted per stat.
+            var tint = _hasCustomSprite[i] ? Color.white : BaseColors[i];
+            var c = tint * brightness;
             c.a = 1f;
             _fills[i].color = c;
         }

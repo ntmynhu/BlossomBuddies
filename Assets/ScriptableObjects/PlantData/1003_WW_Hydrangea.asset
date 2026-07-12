@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1003_WW_Hydrangea
   m_EditorClassIdentifier: 
   Id: 1003_WW
-  Name: Cam Tu Cau
+  Name: Lavender
   icon: {fileID: 21300000, guid: acfa4f30d0bc0e147991f5baee84ea7d, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 83255bca787a2204e87fcb067679d3cb, type: 3}
   isSellable: 0

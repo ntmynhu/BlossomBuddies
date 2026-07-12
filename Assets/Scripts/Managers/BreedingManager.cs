@@ -17,6 +17,7 @@ public class BreedingManager : Singleton<BreedingManager>
     [Header("Breeding Result")]
     [SerializeField] private GameObject breedingResultPanel;
     [SerializeField] private Image resultFlowerImage;
+    [SerializeField] private TMPro.TMP_Text resultSeedCountText;
     [SerializeField] private Button resultCloseButton;
 
     [Header("Breeding Data")]
@@ -53,20 +54,25 @@ public class BreedingManager : Singleton<BreedingManager>
 
         if (breedingPanel.activeSelf)
         {
-            foreach (Transform child in flowerPanelContent.transform)
-            {
-                Destroy(child.gameObject);
-            }
+            RefreshFlowerList();
+        }
+    }
 
-            // Populate breeding panel with player's plants
-            var plantList = InventoryManager.Instance.GetInventoryObjectsByType<PlantData>();
-            foreach (var plant in plantList)
-            {
-                FlowerInventorySlotUI slot = Instantiate(breedingSlotUI, flowerPanelContent.transform);
-                
-                int quantity = InventoryManager.Instance.GetItemQuantity(plant);
-                slot.SetData(plant, quantity);
-            }
+    // Rebuilds the list of the player's plants with their current quantities.
+    private void RefreshFlowerList()
+    {
+        foreach (Transform child in flowerPanelContent.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        var plantList = InventoryManager.Instance.GetInventoryObjectsByType<PlantData>();
+        foreach (var plant in plantList)
+        {
+            FlowerInventorySlotUI slot = Instantiate(breedingSlotUI, flowerPanelContent.transform);
+
+            int quantity = InventoryManager.Instance.GetItemQuantity(plant);
+            slot.SetData(plant, quantity);
         }
     }
 
@@ -115,19 +121,34 @@ public class BreedingManager : Singleton<BreedingManager>
     private void CheckBreeding()
     { 
         bool canBreed = parentSlots.All(slot => slot.plantData != null);
-        if (canBreed)
-        {
-            StartBreeding(parentSlots[0].plantData, parentSlots[1].plantData);
-        }
-        else
+        if (!canBreed)
         {
             Debug.Log("Please select two plants to breed.");
+            return;
         }
+
+        var plant1 = parentSlots[0].plantData;
+        var plant2 = parentSlots[1].plantData;
+
+        // Make sure the player actually owns the selected parents (needs 2 if both are the
+        // same plant type) before consuming them.
+        int need1 = plant1 == plant2 ? 2 : 1;
+        if (InventoryManager.Instance.GetItemQuantity(plant1) < need1)
+        {
+            Debug.Log("Not enough flowers to breed.");
+            return;
+        }
+
+        StartBreeding(plant1, plant2);
     }
 
     public void StartBreeding(PlantData plant1, PlantData plant2)
     {
         Debug.Log($"Breeding {plant1.name} with {plant2.name}");
+
+        // Consume the two parent flowers.
+        InventoryManager.Instance.RemoveItem(plant1);
+        InventoryManager.Instance.RemoveItem(plant2);
 
         List<AlenType> combinedAlenTypes = plant1.alenTypes.Concat(plant2.alenTypes).ToList();
 
@@ -181,14 +202,26 @@ public class BreedingManager : Singleton<BreedingManager>
             offspringPlant = UnityEngine.Random.value < 0.5f ? plant1 : plant2;
         }
 
+        // Parents are used up: clear their slots and refresh the flower list quantities.
+        foreach (var slot in parentSlots)
+            DeselectPlant(slot);
+        RefreshFlowerList();
+
+        // Breeding yields a random 1-3 seeds.
+        int seedCount = UnityEngine.Random.Range(1, 4);
+
         // Display breeding result
         breedingResultPanel.SetActive(true);
         resultFlowerImage.sprite = offspringPlant.seedData.icon;
+        if (resultSeedCountText != null) resultSeedCountText.text = $"x{seedCount}";
 
         resultCloseButton.onClick.RemoveAllListeners();
         resultCloseButton.onClick.AddListener(() =>
         {
-            InventoryManager.Instance.AddItem(offspringPlant.seedData);
+            for (int i = 0; i < seedCount; i++)
+                InventoryManager.Instance.AddItem(offspringPlant.seedData);
+
+            RefreshFlowerList();
             breedingResultPanel.SetActive(false);
         });
     }

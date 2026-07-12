@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 1004_Lily
   m_EditorClassIdentifier: 
   Id: 1004
-  Name: Plant
+  Name: Lily
   icon: {fileID: 21300000, guid: b4c9aba73332bb94abd04964b881f7e7, type: 3}
   prefab: {fileID: 8935979759752783158, guid: 8b763e06faa418e41a7d3a9aa9836205, type: 3}
   isSellable: 0

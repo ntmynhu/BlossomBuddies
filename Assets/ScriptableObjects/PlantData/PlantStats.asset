@@ -36,3 +36,9 @@ MonoBehaviour:
     waterValue: -0.1
   fertilizeAddedValue: 25
   fertilizeDecreaseValue: -0.5
+  lightIcon: {fileID: 21300000, guid: fe87189d8a8ece9468464f50bff4cd91, type: 3}
+  waterIcon: {fileID: 21300000, guid: c21cc4584a68c4a4e971ecfbc9d97e4f, type: 3}
+  nutrientIcon: {fileID: 21300000, guid: 7a1d79e4f2b2ead428e20eef2304e26d, type: 3}
+  lightBgIcon: {fileID: 21300000, guid: ec446e23870a36445809466cfea03e5e, type: 3}
+  waterBgIcon: {fileID: 21300000, guid: bf9c6ef584e21dd438370eb36185e07a, type: 3}
+  nutrientBgIcon: {fileID: 21300000, guid: 4233a44f587480e4f8968e5b393ca026, type: 3}
