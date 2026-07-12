@@ -87,6 +87,13 @@ namespace BlossomBuddies.Network
         public int UnitPrice;
         public string Status;
         public DateTime CreatedAt;
+
+        // Display fields. The server should populate SellerName on every listing, and
+        // BuyerId/BuyerName once a listing is sold, so the common market can show who is
+        // selling and (for sold items) who bought it. Safe to leave null/0 if unset.
+        public string SellerName;
+        public int BuyerId;
+        public string BuyerName;
     }
 
     [Serializable]

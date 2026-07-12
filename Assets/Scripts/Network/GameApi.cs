@@ -79,6 +79,16 @@ namespace BlossomBuddies.Network
             public static void Cancel(int listingId,
                 Action<string> onSuccess, Action<ApiError> onError)
                 => Client.Delete($"api/market/{listingId}", onSuccess, onError);
+
+            // Collects the proceeds of a sold listing (escrow release). The server should:
+            //   - verify the caller owns listing {listingId} and its Status == "Sold"
+            //   - credit the sale proceeds to the seller's coins now (NOT at buy time)
+            //   - mark the listing "Collected" (or delete it) so it no longer appears in GetMine
+            //   - return the updated coin balance
+            // Endpoint contract (to be implemented server-side): POST api/market/{listingId}/collect
+            public static void Collect(int listingId,
+                Action<CoinsResponse> onSuccess, Action<ApiError> onError)
+                => Client.Post<CoinsResponse>($"api/market/{listingId}/collect", null, onSuccess, onError);
         }
 
         // Per-account cloud save of the whole GameData JSON blob (garden, plants, grid…).

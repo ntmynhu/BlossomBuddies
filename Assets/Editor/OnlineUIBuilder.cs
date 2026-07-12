@@ -60,8 +60,7 @@ namespace BlossomBuddies.EditorTools
             var marketPanel = canvas.gameObject.AddComponent<MarketPanel>();
             var sessionUI = canvas.gameObject.AddComponent<SessionUI>();
 
-            var rowPrefab = BuildRowPrefab();
-            BuildMarket(canvas.transform, marketPanel, rowPrefab);
+            BuildMarket(canvas.transform, marketPanel);
             BuildLogout(canvas.transform, sessionUI);
             BuildHud(canvas.transform, sessionUI);
 
@@ -103,7 +102,7 @@ namespace BlossomBuddies.EditorTools
 
         // ---------- Market ----------
 
-        private static void BuildMarket(Transform canvas, MarketPanel panel, MarketRowUI rowPrefab)
+        private static void BuildMarket(Transform canvas, MarketPanel panel)
         {
             var root = UIFactory.Panel(canvas, "MarketRoot", new Color(0f, 0f, 0f, 0.55f));
             UIFactory.FullScreen(root);
@@ -116,43 +115,77 @@ namespace BlossomBuddies.EditorTools
             var header = Row(box.transform, "Header", 48);
             var title = UIFactory.Text(header.transform, "Marketplace", 34, TextAlignmentOptions.Left, FontStyles.Bold);
             title.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+            var refreshBtn = UIFactory.Button(header.transform, "Refresh", null, new Color(0.7f, 0.7f, 0.7f));
+            UIFactory.SetWidth(refreshBtn.gameObject, 130);
             var closeBtn = UIFactory.Button(header.transform, "Close", null, new Color(0.85f, 0.5f, 0.5f));
             UIFactory.SetWidth(closeBtn.gameObject, 120);
 
             // Tabs
-            var tabs = Row(box.transform, "Tabs", 44);
-            var allBtn = UIFactory.Button(tabs.transform, "All listings", null);
-            var myBtn = UIFactory.Button(tabs.transform, "My listings", null, new Color(0.55f, 0.7f, 0.9f));
-            var refreshBtn = UIFactory.Button(tabs.transform, "Refresh", null, new Color(0.7f, 0.7f, 0.7f));
+            var tabs = Row(box.transform, "Tabs", 46);
+            var marketTabBtn = UIFactory.Button(tabs.transform, "Market", null, new Color(0.55f, 0.78f, 0.55f));
+            var storeTabBtn = UIFactory.Button(tabs.transform, "My Store", null, new Color(0.55f, 0.7f, 0.9f));
 
-            // Form
-            var form = Row(box.transform, "Form", 48);
-            var itemInput = UIFactory.Input(form.transform, "Item id (e.g. 1003_BB)");
-            itemInput.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
-            var qtyInput = UIFactory.Input(form.transform, "Qty", TMP_InputField.ContentType.IntegerNumber);
-            UIFactory.SetWidth(qtyInput.gameObject, 90);
-            var priceInput = UIFactory.Input(form.transform, "Price", TMP_InputField.ContentType.IntegerNumber);
-            UIFactory.SetWidth(priceInput.gameObject, 90);
-            var sellBtn = UIFactory.Button(form.transform, "Sell", null, new Color(0.55f, 0.78f, 0.55f));
-            UIFactory.SetWidth(sellBtn.gameObject, 120);
+            // Market tab content: a scrollable grid of everyone's listings.
+            var marketTabRoot = new GameObject("MarketTab", typeof(RectTransform));
+            marketTabRoot.transform.SetParent(box.transform, false);
+            UIFactory.Vertical(marketTabRoot, 8, 0);
+            marketTabRoot.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var marketGridContent = CreateGridScrollView(marketTabRoot.transform,
+                new Vector2(200, 230), new Vector2(16, 16), 4);
 
-            // Scroll list
-            var content = CreateScrollView(box.transform);
+            // My Store tab content: a grid of 8 slots (4 columns x 2 rows).
+            var storeTabRoot = new GameObject("StoreTab", typeof(RectTransform));
+            storeTabRoot.transform.SetParent(box.transform, false);
+            storeTabRoot.AddComponent<LayoutElement>().flexibleHeight = 1;
+            var grid = UIFactory.Panel(storeTabRoot.transform, "StoreGrid", new Color(0f, 0f, 0f, 0f));
+            UIFactory.FullScreen(grid);
+            UIFactory.Grid(grid, new Vector2(200, 230), new Vector2(16, 16), 4, 10);
 
             // Status
             var status = UIFactory.Text(box.transform, "", 18, TextAlignmentOptions.Left);
             UIFactory.SetHeight(status.gameObject, 26);
 
+            // Sell picker overlay (child of root so it sits on top of the box).
+            var picker = UIFactory.Panel(root.transform, "SellPicker", new Color(0f, 0f, 0f, 0.6f));
+            UIFactory.FullScreen(picker);
+            var pickerBox = UIFactory.CenterBox(picker.transform, "PickerBox", new Vector2(560, 620),
+                new Color(0.98f, 0.96f, 0.9f, 1f));
+            UIFactory.Vertical(pickerBox, 10, 20);
+            var pickerTitle = UIFactory.Text(pickerBox.transform, "Create New Trade", 28,
+                TextAlignmentOptions.Center, FontStyles.Bold);
+            UIFactory.SetHeight(pickerTitle.gameObject, 40);
+            var pickerSelected = UIFactory.Text(pickerBox.transform, "Pick an item to sell", 20,
+                TextAlignmentOptions.Center);
+            UIFactory.SetHeight(pickerSelected.gameObject, 30);
+            var pickerListContent = CreateScrollView(pickerBox.transform);
+            var pickerForm = Row(pickerBox.transform, "PickerForm", 48);
+            var pickerQty = UIFactory.Input(pickerForm.transform, "Qty", TMP_InputField.ContentType.IntegerNumber);
+            pickerQty.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+            var pickerPrice = UIFactory.Input(pickerForm.transform, "Price", TMP_InputField.ContentType.IntegerNumber);
+            pickerPrice.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+            var pickerButtons = Row(pickerBox.transform, "PickerButtons", 48);
+            var pickerConfirm = UIFactory.Button(pickerButtons.transform, "List for sale", null,
+                new Color(0.55f, 0.78f, 0.55f));
+            pickerConfirm.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+            var pickerCancel = UIFactory.Button(pickerButtons.transform, "Cancel", null,
+                new Color(0.85f, 0.5f, 0.5f));
+            pickerCancel.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1;
+
             var so = new SerializedObject(panel);
             so.FindProperty("overlayRoot").objectReferenceValue = root;
-            so.FindProperty("listContent").objectReferenceValue = content;
-            so.FindProperty("rowPrefab").objectReferenceValue = rowPrefab;
-            so.FindProperty("itemInput").objectReferenceValue = itemInput;
-            so.FindProperty("qtyInput").objectReferenceValue = qtyInput;
-            so.FindProperty("priceInput").objectReferenceValue = priceInput;
-            so.FindProperty("sellButton").objectReferenceValue = sellBtn;
-            so.FindProperty("allTabButton").objectReferenceValue = allBtn;
-            so.FindProperty("myTabButton").objectReferenceValue = myBtn;
+            so.FindProperty("marketTabButton").objectReferenceValue = marketTabBtn;
+            so.FindProperty("storeTabButton").objectReferenceValue = storeTabBtn;
+            so.FindProperty("marketTabRoot").objectReferenceValue = marketTabRoot;
+            so.FindProperty("storeTabRoot").objectReferenceValue = storeTabRoot;
+            so.FindProperty("marketGridContent").objectReferenceValue = marketGridContent;
+            so.FindProperty("storeGridContent").objectReferenceValue = grid.transform;
+            so.FindProperty("pickerRoot").objectReferenceValue = picker;
+            so.FindProperty("pickerListContent").objectReferenceValue = pickerListContent;
+            so.FindProperty("pickerSelectedLabel").objectReferenceValue = pickerSelected;
+            so.FindProperty("pickerQtyInput").objectReferenceValue = pickerQty;
+            so.FindProperty("pickerPriceInput").objectReferenceValue = pickerPrice;
+            so.FindProperty("pickerConfirmButton").objectReferenceValue = pickerConfirm;
+            so.FindProperty("pickerCancelButton").objectReferenceValue = pickerCancel;
             so.FindProperty("refreshButton").objectReferenceValue = refreshBtn;
             so.FindProperty("closeButton").objectReferenceValue = closeBtn;
             so.FindProperty("status").objectReferenceValue = status;
@@ -301,6 +334,24 @@ namespace BlossomBuddies.EditorTools
             sr.viewport = vrt;
             sr.content = crt;
             return crt;
+        }
+
+        // A scroll view whose content lays items out in a fixed-column grid that grows
+        // vertically. Returns the grid content transform to parent slots under.
+        private static RectTransform CreateGridScrollView(Transform parent, Vector2 cell, Vector2 spacing, int columns)
+        {
+            var content = CreateScrollView(parent);
+            var vlg = content.GetComponent<VerticalLayoutGroup>();
+            if (vlg != null) Object.DestroyImmediate(vlg);
+
+            var grid = content.gameObject.AddComponent<GridLayoutGroup>();
+            grid.cellSize = cell;
+            grid.spacing = spacing;
+            grid.padding = new RectOffset(8, 8, 8, 8);
+            grid.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            grid.constraintCount = columns;
+            grid.childAlignment = TextAnchor.UpperCenter;
+            return content;
         }
 
         private static void WireBootstrap(Canvas canvas)

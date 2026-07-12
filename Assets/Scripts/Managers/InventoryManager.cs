@@ -206,6 +206,24 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         return result;
     }
 
+    // Items the player is allowed to list on the marketplace: everything owned
+    // except tools (shovel, watering can, scissors, gloves are ToolInfo assets).
+    public List<KeyValuePair<BaseData, int>> GetSellableInventory()
+    {
+        var result = new List<KeyValuePair<BaseData, int>>();
+
+        if (inventoryDictionary == null) return result;
+
+        foreach (var item in inventoryDictionary)
+        {
+            if (item.Value <= 0) continue;
+            if (item.Key is ToolInfo) continue; // tools are not sellable on the market
+            result.Add(new KeyValuePair<BaseData, int>(item.Key, item.Value));
+        }
+
+        return result;
+    }
+
     public int GetItemQuantity(BaseData objectData)
     {
         if (inventoryDictionary.TryGetValue(objectData, out int quantity))

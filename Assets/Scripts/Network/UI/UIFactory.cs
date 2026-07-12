@@ -109,6 +109,19 @@ namespace BlossomBuddies.Network.UI
             return input;
         }
 
+        public static TMP_Dropdown Dropdown(Transform parent)
+        {
+            var go = TMP_DefaultControls.CreateDropdown(Res);
+            go.transform.SetParent(parent, false);
+            var dd = go.GetComponent<TMP_Dropdown>();
+            dd.ClearOptions();
+            go.GetComponent<Image>().color = Color.white;
+            if (dd.captionText != null) dd.captionText.color = Color.black;
+            if (dd.itemText != null) dd.itemText.color = Color.black;
+            SetHeight(go, 44);
+            return dd;
+        }
+
         public static Button Button(Transform parent, string label, UnityAction onClick, Color? color = null)
         {
             var go = TMP_DefaultControls.CreateButton(Res);
@@ -120,6 +133,27 @@ namespace BlossomBuddies.Network.UI
             if (txt != null) { txt.text = label; txt.color = Color.white; txt.fontSize = 24; }
             SetHeight(go, 44);
             return btn;
+        }
+
+        public static Image Image(Transform parent, string name, Color color)
+        {
+            var go = new GameObject(name, typeof(RectTransform), typeof(Image));
+            go.transform.SetParent(parent, false);
+            var img = go.GetComponent<Image>();
+            img.color = color;
+            return img;
+        }
+
+        public static GridLayoutGroup Grid(GameObject go, Vector2 cell, Vector2 spacing, int columns, int pad = 0)
+        {
+            var g = go.AddComponent<GridLayoutGroup>();
+            g.cellSize = cell;
+            g.spacing = spacing;
+            g.padding = new RectOffset(pad, pad, pad, pad);
+            g.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            g.constraintCount = columns;
+            g.childAlignment = TextAnchor.UpperCenter;
+            return g;
         }
 
         public static void SetHeight(GameObject go, float height)
