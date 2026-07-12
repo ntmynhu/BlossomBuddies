@@ -128,8 +128,18 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
     // Opens/closes the inventory panel (same as pressing E). Wired to the HUD inventory button.
     public void ToggleInventory()
     {
-        inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-        GameManager.Instance.SetMovementFrozen(inventoryPanel.activeSelf);
+        SetInventoryOpen(!inventoryPanel.activeSelf);
+    }
+
+    // Central open/close so panel state stays consistent. Refuses to open while another
+    // exclusive panel (shop/marketplace) is up.
+    private void SetInventoryOpen(bool open)
+    {
+        if (open && GameUIState.AnyOtherOpen(UIPanel.Inventory)) return;
+
+        inventoryPanel.SetActive(open);
+        GameUIState.InventoryOpen = open;
+        GameManager.Instance.SetMovementFrozen(open);
     }
 
     private void HandleGardenToolInventory()
@@ -137,8 +147,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Inventory opened");
-            inventoryPanel.SetActive(!inventoryPanel.activeSelf);
-            GameManager.Instance.SetMovementFrozen(inventoryPanel.activeSelf);
+            SetInventoryOpen(!inventoryPanel.activeSelf);
         }
 
         if (inventoryPanel.activeSelf)
@@ -148,8 +157,7 @@ public class InventoryManager : Singleton<InventoryManager>, IDataPersistence
                 if (EventSystem.current.IsPointerOverGameObject())
                     return;
 
-                inventoryPanel.SetActive(false);
-                GameManager.Instance.SetMovementFrozen(false);
+                SetInventoryOpen(false);
             }
         }
     }

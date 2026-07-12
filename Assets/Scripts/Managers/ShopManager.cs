@@ -48,10 +48,16 @@ public class ShopManager : Singleton<ShopManager>
 
     public void ToggleShop()
     {
-        shopPanel.SetActive(!shopPanel.activeSelf);
-        GameManager.Instance.SetMovementFrozen(shopPanel.activeSelf);
+        bool willOpen = !shopPanel.activeSelf;
 
-        if (shopPanel.activeSelf)
+        // Only one panel at a time: ignore the open request if another panel is up.
+        if (willOpen && GameUIState.AnyOtherOpen(UIPanel.Shop)) return;
+
+        shopPanel.SetActive(willOpen);
+        GameUIState.ShopOpen = willOpen;
+        GameManager.Instance.SetMovementFrozen(willOpen);
+
+        if (willOpen)
         {
             PopulateShop();
         }

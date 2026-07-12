@@ -267,6 +267,18 @@ public class Plant : MonoBehaviour
             conditionUI.ToggleVisible();
     }
 
+    // Forces the condition indicators visible (used after watering/fertilizing or when a plant
+    // is clicked while holding a tool, so the player can read the stats right away).
+    public void ShowConditionUI()
+    {
+        if (isDead) return;
+
+        if (conditionUI == null)
+            conditionUI = PlantConditionUI.Create(this);
+        else if (!conditionUI.gameObject.activeSelf)
+            conditionUI.gameObject.SetActive(true);
+    }
+
     public ConditionInfo GetConditionInfo(PlantMainStatsType type)
     {
         var info = new ConditionInfo { fill = 0f, sufficient = true, increasing = false };
@@ -494,6 +506,8 @@ public class Plant : MonoBehaviour
         isWatered = true;
 
         GameManager.Instance.AddHeart(1);
+
+        ShowConditionUI();
     }
 
     public void StopWater()
@@ -511,6 +525,8 @@ public class Plant : MonoBehaviour
         currentMainStats[PlantMainStatsType.Nutrient] = Mathf.Clamp(currentMainStats[PlantMainStatsType.Nutrient], plantStats.MIN_MAIN_STAT_VALUE, plantStats.MAX_MAIN_STAT_VALUE);
 
         DebugMainStats();
+
+        ShowConditionUI();
     }
 
     private void HandleWaterLevel()

@@ -32,8 +32,23 @@ public class LoadingManager : Singleton<LoadingManager>
         hasShownInitialLoading = false;
         StopAllCoroutines();
 
-        // Immediately cover the old scene with the (opaque) loading screen so the game isn't
-        // visible behind the login overlay while we wait for the next sign-in.
+        // Hide the gameplay scene behind the login screen: turn off the world + HUD, but keep
+        // the camera and EventSystem alive so the (persistent) login canvas still renders and
+        // stays clickable. The next sign-in reloads MainScene fresh.
+        var active = SceneManager.GetActiveScene();
+        if (active.IsValid() && active.name == initialSceneName.ToString())
+        {
+            foreach (var go in active.GetRootGameObjects())
+            {
+                // Keep anything that carries a Camera or an EventSystem (needed for UI input).
+                if (go.GetComponentInChildren<Camera>(true) != null) continue;
+                if (go.GetComponentInChildren<UnityEngine.EventSystems.EventSystem>(true) != null) continue;
+
+                go.SetActive(false);
+            }
+        }
+
+        // Also cover with the (opaque) loading screen while we wait for the next sign-in.
         if (loadingCanvas != null) loadingCanvas.SetActive(true);
         if (loadingBarObject != null) loadingBarObject.SetActive(false);
 

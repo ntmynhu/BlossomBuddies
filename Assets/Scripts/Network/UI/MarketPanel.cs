@@ -86,7 +86,14 @@ namespace BlossomBuddies.Network.UI
             if (overlayRoot == null) return;
 
             bool open = !overlayRoot.activeSelf;
+
+            // Only one panel at a time: ignore the open request if another panel is up.
+            if (open && GameUIState.AnyOtherOpen(UIPanel.Market)) return;
+
             overlayRoot.SetActive(open);
+            GameUIState.MarketOpen = open;
+            if (GameManager.Instance != null) GameManager.Instance.SetMovementFrozen(open);
+
             if (open)
             {
                 // Push local hearts/coins to the server first so the server-side balance
@@ -102,6 +109,8 @@ namespace BlossomBuddies.Network.UI
         {
             ClosePicker();
             if (overlayRoot != null) overlayRoot.SetActive(false);
+            GameUIState.MarketOpen = false;
+            if (GameManager.Instance != null) GameManager.Instance.SetMovementFrozen(false);
         }
 
         // ---------- Tabs ----------
